@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=EpdoFinanciacion
+comment0.text=\r\n\ Clase\ que\ implementa\ las\ funciones\ de\ los\ empleados\ de\ financiacion.\r\n\ \r\n\ tendr\u00E1\ m\u00E9todos\ para\ dar\ de\ alta\ a\ clientes\ en\ el\ sistema\ con\ sus\ datos\ \r\n\ personales\ y\ actualizar\ los\ datos\ de\ clientes\ del\ sistema.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=EpdoFinanciacion(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=usuarios\ cliente
+comment2.target=void\ darAlta(Usuarios,\ Cliente)
+comment3.params=usuarios\ nombreCliente\ nuevoNombre
+comment3.target=void\ actualizarNombreCliente(Usuarios,\ java.lang.String,\ java.lang.String)
+comment4.params=usuarios\ emailCliente\ nuevoEmail
+comment4.target=void\ actualizarEmailCliente(Usuarios,\ java.lang.String,\ java.lang.String)
+numComments=5

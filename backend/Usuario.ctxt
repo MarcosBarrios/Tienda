@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Usuario
+comment0.text=\r\n\ Define\ la\ base\ de\ los\ m\u00E9todos\ y\ variables\ que\ todos\ los\ usuarios\ \r\n\ necesitaran.\ \r\n\ \r\n\ Entre\ otras\ cosas\ dispone\ de\ datos\ personales\ como\ nombre,\ apellidos.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=nombreUsuario\ emailUsuario
+comment1.target=Usuario(java.lang.String,\ java.lang.String)
+comment2.params=nombreUsuario
+comment2.target=void\ asignarNombreUsuario(java.lang.String)
+comment2.text=\r\n\ Asigna\ el\ nombre\ de\ usuario.\r\n\ \r\n\ @param\ nombreUsuario\ El\ nombre\ del\ usuario\r\n
+comment3.params=
+comment3.target=java.lang.String\ obtenerNombreUsuario()
+comment3.text=\r\n\ Devuelve\ el\ nombre\ del\ usuario\ asignado.\r\n\ \r\n\ @return\ nombreUsuario\ nombre\ del\ usuario\ asignado\r\n
+comment4.params=emailUsuario
+comment4.target=void\ asignarEmailUsuario(java.lang.String)
+comment4.text=\r\n\ Asigna\ el\ email\ del\ usuario.\r\n\ \r\n\ @param\ emailUsuario\ El\ email\ del\ usuario\r\n
+comment5.params=
+comment5.target=java.lang.String\ obtenerEmailUsuario()
+comment5.text=\r\n\ Devuelve\ el\ email\ del\ usuario\ asignado.\r\n\ \r\n\ @return\ emailUsuario\ email\ del\ usuario\ asignado\r\n
+numComments=6

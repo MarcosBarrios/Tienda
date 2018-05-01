@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=UIMenuEpdoCajero
+comment0.text=\r\n\ Clase\ encargada\ de\ implementar\ las\ opciones\ que\ los\ empleados\ cajeros\r\n\ de\ la\ tienda\ pueden\ llevar\ a\ cabo\ con\ el\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuarios\ productos\ usuario
+comment1.target=UIMenuEpdoCajero(backend.Usuarios,\ productos.Productos,\ UIEpdoCajero)
+comment2.params=
+comment2.target=UIEpdoCajero\ obtenerCajero()
+comment2.text=\r\n\ Devuelve\ el\ cajero\ usando\ el\ programa\r\n
+comment3.params=
+comment3.target=void\ volverMenu()
+comment3.text=\r\n\ Vuelve\ a\ imprimir\ el\ menu\ y\ activa\ de\ nuevo\ las\ entradas\ para\ elegir\r\n\ una\ opcion\r\n
+comment4.params=
+comment4.target=void\ a\u00F1adirOpciones()
+comment4.text=\r\n\ A\u00F1ade\ las\ opciones\ con\ las\ que\ el\ usuario\ del\ programa\ interactuara\r\n\ \r\n\ (0)\ A\u00F1adir\ un\ producto\r\n\ (1)\ Lista\ de\ productos\r\n\ (2)\ Salir\ del\ programa\r\n\ \r\n
+comment5.params=
+comment5.target=void\ activarInteraccion()
+comment5.text=\r\n\ Implementa\ el\ funcionamiento\ del\ menu\r\n
+comment6.params=
+comment6.target=void\ opcionListaProductos()
+comment6.text=\r\n\ Obtiene\ la\ lista\ de\ productos\ de\ la\ tienda\ (base\ de\ datos\ de\r\n\ productos)\ e\ imprime\ una\ lista.\r\n
+numComments=7

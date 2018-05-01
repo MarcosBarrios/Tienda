@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Cliente
+comment0.text=\r\n\ Define\ el\ cliente\ que\ entra\ a\ la\ tienda\ a\ comprar\ o\ a\ vender.\r\n\ Tiene\ capacidad\ para\ enviar\ reportes\ sobre\ el\ estado\ de\ un\ objeto\r\n\ al\ igual\ que\ el\ EpdoTecnico\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=nombreUsuario\ emailUsuario
+comment1.target=Cliente(java.lang.String,\ java.lang.String)
+comment2.params=fichaCliente
+comment2.target=void\ asignarFichaCliente(FichaCliente)
+comment2.text=\r\n\ Asigna\ una\ ficha\ de\ cliente\r\n\ \r\n\ @param\ fichaCliente\ La\ ficha\ a\ asignar\r\n
+comment3.params=
+comment3.target=FichaCliente\ obtenerFichaCliente()
+comment3.text=\r\n\ Devuelve\ la\ ficha\ asignada\ al\ cliente\r\n\ \r\n\ @return\ fichaCliente\ Ficha\ asignada\ al\ cliente\r\n
+numComments=4

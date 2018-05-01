@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=FichaCliente
+comment0.text=\r\n\ Cada\ cliente\ va\ a\ tener\ asignada\ una\ ficha\ cliente\ tal\ que\ puedan\r\n\ almacenar\ informacion\ como\ los\ productos\ comprados,\ las\ facturas,\r\n\ los\ manuales,\ adem\u00E1s\ de\ las\ promociones.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=FichaCliente()
+comment2.params=producto
+comment2.target=void\ a\u00F1adirProductoComprado(productos.Producto)
+comment2.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
+comment3.params=id\ usarNumeroProducto
+comment3.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
+comment3.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Es\ necesario\ el\ uso\ de\ un\ metodo\ de\ busqueda\ para\ encontrar\ el\r\n\ identificador\ adecuado\ en\ caso\ de\ usarNumeroProducto\ \=\ false.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+numComments=4

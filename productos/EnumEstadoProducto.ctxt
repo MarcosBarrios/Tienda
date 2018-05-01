@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=EnumEstadoProducto
+comment0.text=\r\n\ Contiene\ los\ estados\ en\ los\ que\ se\ puede\ encontrar\ un\ producto.\r\n\ \r\n\ Para\ facilitar\ el\ a\u00F1adido\ de\ nuevos\ estados\ se\ emplea\ un\ sistema\r\n\ que\ permite\ a\u00F1adir\ los\ nuevos\ estados\ aqui\ dejando\ que\ el\ resto\ del\r\n\ programa\ se\ adapte.\r\n\ \r\n\ La\ desventaja\ es\ que\ a\ la\ hora\ de\ traducir\ se\ tienen\ que\ traducir\ tambien\r\n\ los\ enums.\r\n\ \r\n\ Referencia\:\r\n\ https\://stackoverflow.com/questions/32089114/how-to-store-value-of-enum-in-arraylist\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=estado
+comment1.target=EnumEstadoProducto(java.lang.String)
+comment2.params=
+comment2.target=java.util.ArrayList\ obtenerEstados()
+comment2.text=\r\n\ Devuelve\ la\ lista\ con\ los\ posibles\ estados\ de\ un\ producto\r\n\ \r\n\ @return\ listaEstados\ lista\ con\ los\ estados\ en\ el\ enum\r\n
+comment3.params=
+comment3.target=java.lang.String\ estadoProductoIntacto()
+comment4.params=
+comment4.target=java.lang.String\ estadoProductoRoto()
+comment5.params=
+comment5.target=java.lang.String\ estadoProductoDevuelto()
+numComments=6

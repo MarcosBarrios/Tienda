@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=Empleado
+comment0.text=\r\n\ Clase\ encargada\ de\ definir\ los\ metodos\ comunes\ a\ todos\ los\ empleados\r\n\ que\ utilizan\ el\ sistema.\ \r\n\ \r\n\ @author\:\ Marcos\ Barrios\r\n\ @version\:\ 1.0\r\n
+comment1.params=nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=Empleado(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=java.lang.String\ obtenerContrase\u00F1a()
+comment2.text=\r\n\ Devuelve\ la\ contrase\u00F1a\ asignada\ al\ empleado.\r\n\ \r\n\ @return\ contrase\u00F1a\ Contrase\u00F1a\ para\ iniciar\ sesion\r\n
+comment3.params=contrase\u00F1a
+comment3.target=void\ asignarContrase\u00F1a(java.lang.String)
+comment3.text=\r\n\ Asigna\ la\ contrase\u00F1a\ que\ va\ a\ utilizar\ el\ empleado\r\n\ para\ poder\ iniciar\ sesion\ en\ el\ programa.\r\n\ \r\n\ @param\ contrase\u00F1a\ Contrase\u00F1a\ para\ iniciar\ sesion\r\n
+comment4.params=
+comment4.target=java.lang.String\ obtenerUsuario()
+comment4.text=\r\n\ Devuelve\ el\ usuario\ asignado\ al\ empleado.\r\n\ \r\n\ @return\ usuario\ Usuario\ para\ iniciar\ sesion\r\n
+comment5.params=usuario
+comment5.target=void\ asignarUsuario(java.lang.String)
+comment5.text=\r\n\ Asigna\ el\ usuario\ que\ va\ a\ utilizar\ el\ empleado\r\n\ para\ poder\ iniciar\ sesion\ en\ el\ programa.\r\n\ \r\n\ @param\ usuario\ Usuario\ para\ iniciar\ sesion\r\n
+numComments=6

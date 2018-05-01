@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=UIEntradas
+comment0.text=\r\n\ Clase\ encargada\ de\ gestionar\ las\ entradas\ de\ texto.\r\n\ \r\n\ Permite\ al\ usuario\ interactuar\ con\ el\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=min\ max
+comment1.target=int\ obtenerEntero(int,\ int)
+comment1.text=\r\n\ Permite\ al\ programa\ obtener\ un\ entero\ como\ entrada\r\n\ del\ usuario.\r\n\ \r\n\ \r\n\ @param\ min\ -\ Valor\ minimo\ que\ puede\ tomar\ el\ entero\r\n\ @param\ max\ -\ Valor\ maximo\ que\ puede\ tomar\ el\ entero\r\n\ @return\ aux\ -\ Valor\ obtenido\ como\ entrada\ del\ usuario\r\n
+comment2.params=min\ max
+comment2.target=float\ obtenerDecimal(float,\ float)
+comment2.text=\r\n\ Permite\ al\ programa\ obtener\ un\ numero\ decimal\ como\ entrada\r\n\ del\ usuario.\r\n\ \r\n\ \r\n\ @param\ min\ -\ Valor\ minimo\ que\ puede\ tomar\ el\ numero\r\n\ @param\ max\ -\ Valor\ maximo\ que\ puede\ tomar\ el\ numero\r\n\ @return\ aux\ -\ Valor\ obtenido\ como\ entrada\ del\ usuario\r\n
+comment3.params=
+comment3.target=boolean\ obtenerBooleana()
+comment3.text=\r\n\ Permite\ al\ programa\ obtener\ el\ valor\ de\ una\ variable\r\n\ booleana\ como\ entrada\ del\ usuario.\r\n\ \r\n\ El\ metodo\ pregunta\ por\ una\ cadena\ de\ caracter\ que\ tiene\r\n\ que\ ser\ "true"\ o\ "false"\ para\ ser\ valida.\r\n\ \r\n\ String\ entrada\ \ \ Cadena\ de\ caracteres\ obtenida\ como\ entrada\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ de\ usuario\ al\ invocar\ obtenerBooleana()\r\n\ \r\n\ @return\ true\ si\ entrada.equals("true")\r\n
+comment4.params=listaValidas\ lineaCompleta
+comment4.target=java.lang.String\ obtenerCadenaLimitada(java.util.ArrayList,\ boolean)
+comment4.text=\r\n\ Devuelve\ una\ cadena\ de\ caracteres\ que\ este\ contenida\r\n\ en\ una\ lista\ de\ cadena\ de\ caracteres.\r\n\ \r\n\ @param\ listaValidas\ Lista\ con\ cadenas\ de\ caracteres\ validas\r\n\ \r\n\ @return\ aux\ Una\ de\ las\ cadenas\ de\ caracteres\ que\ este\ en\ listaValidas.\r\n
+comment5.params=lineaCompleta
+comment5.target=java.lang.String\ obtenerCadena(boolean)
+comment5.text=\r\n\ Permite\ al\ programa\ obtener\ una\ cadena\ de\ caracteres\r\n\ como\ entrada\ del\ usuario.\r\n\ \r\n\ @param\ lineaCompleta\ true\:\ leer\ una\ linea\ completa\r\n\ \ \ \ \ \ \ \ \ \ \ \ \ \ \r\n\ @return\ aux\ Cadena\ de\ caracteres\ obtenida\ del\ usuario\r\n
+numComments=6

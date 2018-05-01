@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=UIMenuAccionable
+comment0.text=\r\n\ Base\ para\ todas\ las\ clases\ de\ menu\ que\ van\ a\ implementar\ las\ funciones\r\n\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuarios\ productos\ usuario
+comment1.target=UIMenuAccionable(backend.Usuarios,\ productos.Productos,\ UIUsuario)
+comment2.params=
+comment2.target=UIMenu\ obtenerMenu()
+comment2.text=\r\n\ Devuelve\ el\ menu\ con\ la\ lista\ de\ opciones\r\n\ \r\n\ @return\ menu\ Contenedor\ de\ las\ opciones\r\n
+comment3.params=
+comment3.target=UIUsuario\ obtenerUsuario()
+comment3.text=\r\n\ Devuelve\ el\ usuario\ que\ esta\ usando\ el\ menu\r\n\ \r\n\ @return\ usuario\ Usuario\ en\ el\ menu\r\n
+comment4.params=
+comment4.target=backend.Usuarios\ obtenerUsuarios()
+comment4.text=\r\n\ Devuelve\ la\ base\ de\ datos\ de\ usuarios\r\n\ \r\n\ @return\ Usuarios\ base\ de\ datos\ de\ usuarios\r\n
+comment5.params=
+comment5.target=productos.Productos\ obtenerProductos()
+comment5.text=\r\n\ Devuelve\ la\ base\ de\ datos\ de\ productos\r\n\ \r\n\ @return\ Productos\ base\ de\ datos\ de\ productos\r\n
+numComments=6

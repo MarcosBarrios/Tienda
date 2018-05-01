@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=UIEpdoFinanciacion
+comment0.text=\r\n\ Dispone\ de\ metodos\ para\ dar\ de\ alta\ a\ clientes\ en\ el\ sistema\ con\ sus\ \r\n\ datos\ personales\ y\ actualizar\ los\ datos\ de\ clientes\ del\ sistema.\r\n\ \r\n\ Los\ metodos\ estan\ orientados\ a\ la\ parte\ textual\ de\ la\ interfaz\ de\r\n\ usuario\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIEpdoFinanciacion(backend.EpdoFinanciacion)
+comment2.params=usuarios
+comment2.target=void\ actualizarDatosCliente(backend.Usuarios)
+comment2.text=\r\n\ Actualiza\ los\ datos\ de\ un\ cliente\ mediante\ interrogacion\r\n\ de\ datos\ en\ forma\ de\ interfaz\ textual.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\r\n
+comment3.params=usuarios
+comment3.target=void\ darAlta(backend.Usuarios)
+comment3.text=\r\n\ Registra\ un\ cliente\ nuevo\ en\ la\ base\ de\ datos\ del\ programa\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ del\ programa\r\n
+comment4.params=usuarios
+comment4.target=void\ imprimirDatosCliente(backend.Usuarios)
+numComments=5

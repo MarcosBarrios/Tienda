@@ -1,0 +1,36 @@
+#BlueJ class context
+comment0.target=UIMenu
+comment0.text=\r\n\ Genera\ un\ menu\ con\ varias\ opciones\ de\ navegacion\r\n\ \r\n\ La\ idea\ es\ que\ se\ puedan\ ir\ a\u00F1adiendo\ opciones\ externamente.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=UIMenu()
+comment10.params=opcion
+comment10.target=int\ obtenerNumeroOpcion(java.lang.String)
+comment10.text=\r\n\ Devuelve\ el\ n\u00BA\ asignado\ en\ el\ menu\ de\ la\ opcion\ con\ el\ texto\r\n\ especificado.\r\n\ \r\n\ @param\ opcion\ -\ El\ texto\ de\ la\ opcion\r\n\ @return\ aux\ -\ Numero\ asignado\ a\ la\ opcion\ buscada\r\n
+comment11.params=
+comment11.target=int\ obtenerNumeroOpciones()
+comment11.text=\r\n\ Devuelve\ el\ n\u00BA\ de\ opciones\ del\ menu\r\n\ @return\ obtenerListaOpciones.size()\ -\ Numero\ de\ opciones\ que\ tiene\ el\ menu\r\n
+comment2.params=
+comment2.target=java.util.ArrayList\ obtenerListaOpciones()
+comment2.text=\r\n\ Devuelve\ la\ lista\ de\ opciones\ de\ la\ clase\r\n
+comment3.params=
+comment3.target=int\ obtenerOpcion()
+comment3.text=\r\n\ Utiliza\ el\ gestionador\ de\ entradas\ del\ programa\ para\r\n\ exigir\ al\ usuario\ que\ elija\ una\ opcion.\r\n
+comment4.params=
+comment4.target=void\ imprimirOpciones()
+comment4.text=\r\n\ Imprime\ el\ menu\r\n
+comment5.params=listaOpciones
+comment5.target=void\ asignarListaOpciones(java.util.ArrayList)
+comment5.text=\r\n\ Reasigna\ la\ lista\ de\ opciones\ interna\r\n
+comment6.params=opcion
+comment6.target=void\ a\u00F1adirOpcion(java.lang.String)
+comment6.text=\r\n\ A\u00F1ade\ una\ opcion\ en\ la\ ultima\ posicion\ del\ menu\r\n\ \r\n\ @param\ opcion\ -\ Texto\ de\ la\ opcion\r\n
+comment7.params=opcion\ pos
+comment7.target=void\ a\u00F1adirOpcion(java.lang.String,\ int)
+comment7.text=\r\n\ A\u00F1ade\ una\ opcion\ en\ la\ posicion\ indicada\ siempre\ que\ sea\ valida\r\n\ \r\n\ @Precondicion\:\ pos\ \=>\ 0\ &&\ pos\ <\=\ listaOpciones.size()\r\n\ @param\ opcion\ -\ Texto\ de\ la\ opcion\r\n\ @param\ pos\ -\ Posicion\ de\ la\ opcion\ en\ el\ menu\r\n
+comment8.params=opcion
+comment8.target=void\ eliminarOpcion(java.lang.String)
+comment8.text=\r\n\ Elimina\ una\ opcion\ del\ menu\ utilizando\ unicamente\ el\ texto\r\n\ \r\n\ @param\ opcion\ -\ El\ texto\ exacto\ de\ la\ opcion\ a\ borrar\r\n
+comment9.params=pos
+comment9.target=void\ eliminarOpcion(int)
+comment9.text=\r\n\ Elimina\ una\ opcion\ del\ menu\ utilizando\ su\ posicion\r\n\ \r\n\ @Precondicion\:\ pos\ \=>\ 0\ &&\ pos\ <\=\ listaOpciones.size()\r\n\ @param\ pos\ -\ Posicion\ de\ la\ opcion\ en\ el\ menu\r\n
+numComments=12

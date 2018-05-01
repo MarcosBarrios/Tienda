@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=UIUsuario
+comment0.text=\r\n\ Clase\ especifica\ para\ la\ parte\ textual\ del\ programa\ que\ implementa\r\n\ metodos\ que\ los\ usuarios\ del\ programa\ necesitan.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIUsuario(backend.Usuario)
+comment2.params=
+comment2.target=void\ imprimirDatos()
+comment2.text=\r\n\ Imprime\ los\ datos\ del\ usuario\ (nombre\ y\ email)\r\n\ \r\n\ Ejemplo\ formato\:\ \r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n\ \ Nombre\:\ Marcos\ Barrios\r\n\ \ Email\:\ marcosloscardones@gmail.com\r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n
+comment3.params=usuarios
+comment3.target=void\ imprimirListaUsuarios(backend.Usuarios)
+comment3.text=\r\n\ Imprime\ en\ forma\ de\ lista\ los\ nombres\ y\ emails\ de\ los\ usuarios\r\n\ que\ se\ encuentran\ en\ la\ base\ de\ datos\ del\ programa.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
+numComments=4

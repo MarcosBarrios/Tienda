@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=UIEpdoCajero
+comment0.text=\r\n\ Implementacion\ de\ la\ representacion\ de\ la\ clase\ EpdoCajero\ en\ la\r\n\ interfaz\ textual\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIEpdoCajero(backend.EpdoCajero)
+comment2.params=
+comment2.target=productos.Producto\ crearProducto()
+comment2.text=\r\n\ El\ cajero\ ingresa\ en\ la\ base\ de\ datos\ de\ productos\ un\ producto\ que\r\n\ la\ tienda\ acaba\ de\ recibir.\r\n\ \r\n\ Interrogatorio\ textual\ sobre\ las\ caracteristicas\ del\ producto.\r\n\r\n\ @param\ productos\ Base\ de\ datos\ de\ productos\ de\ la\ tienda\r\n
+comment3.params=productos\ numProducto
+comment3.target=void\ actualizarProducto(productos.Productos,\ int)
+comment3.text=\r\n\ Actualiza\ los\ datos\ de\ un\ producto.\ Para\ ello\ pregunta\ en\ primer\ lugar\r\n\ por\ el\ numero\ del\ producto,\ posteriormente\ ense\u00F1a\ una\ lista\ con\ los\ datos\r\n\ del\ producto\ y\ pregunta\ que\ opcion\ quiere\ modificar.\r\n\ \r\n\ Por\ ultimo\ pregunta\ por\ el\ nuevo\ valor\ al\ que\ se\ quiere\ modificar.\r\n\ \r\n\ Adicionalmente\ habra\ una\ opcion\ para\ a\u00F1adir\ una\ caracteristica\ adicional.\r\n\ \r\n\ @param\ productos\ Base\ de\ datos\ de\ productos\ de\ la\ tienda\r\n\ @param\ numProducto\ Numero\ del\ producto\ que\ se\ quiere\ modificar\r\n
+comment4.params=producto
+comment4.target=void\ menuModificacionOpciones(productos.Producto)
+comment4.text=\r\n\ Metodo\ auxiliar\ de\ actualizarProducto(...)\r\n\ \r\n\ Crea\ un\ menu\ para\ elegir\ la\ opcion\ a\ modificar\r\n\ \r\n
+comment5.params=producto
+comment5.target=void\ imprimirCaracteristicasProducto(productos.Producto)
+comment5.text=\r\n\ Metodo\ auxiliar\ de\ actualizarProducto(...)\ \r\n\ \r\n\ Imprime\ las\ caracteristicas\ del\ producto\ pasado\ como\ argumento\r\n\ \r\n\ @param\ producto\ Producto\ con\ las\ caracteristicas\ a\ imprimir\r\n
+comment6.params=productos
+comment6.target=void\ imprimirDatosProducto(productos.Productos)
+comment6.text=\r\n\ Imprime\ los\ datos\ de\ un\ producto\r\n\ \r\n\ @param\ productos\ Base\ de\ datos\ de\ productos\ del\ programa\r\n
+numComments=7

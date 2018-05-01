@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Caracteristica
+comment0.text=\r\n\ Contiene\ un\ titulo\ y\ una\ descripcion\ de\ una\ caracteristica.\r\n\ \r\n\ Sirve\ para\ a\u00F1adir\ dinamicamente\ nuevas\ caracteristicas\ a\ productos\r\n\ no\ ya\ definidas\ como\ variables\ en\ las\ clases.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=Caracteristica()
+comment2.params=titulo
+comment2.target=Caracteristica(java.lang.String)
+comment3.params=titulo\ descripcion
+comment3.target=Caracteristica(java.lang.String,\ java.lang.String)
+comment4.params=titulo
+comment4.target=void\ asignarTitulo(java.lang.String)
+comment4.text=\r\n\ Asigna/Cambia\ el\ titulo\ de\ la\ caracteristica\r\n\ \r\n\ @param\ titulo\ Titulo\ de\ la\ caracteristica\r\n
+comment5.params=
+comment5.target=java.lang.String\ obtenerTitulo()
+comment5.text=\r\n\ Devuelve\ el\ titulo\ de\ la\ caracteristica\r\n
+comment6.params=descripcion
+comment6.target=void\ asignarDescripcion(java.lang.String)
+comment6.text=\r\n\ Asigna/Cambia\ la\ descripcion\ de\ la\ caracteristica\r\n\ \r\n\ @param\ descripcion\ Descripcion\ de\ la\ caracteristica\r\n
+comment7.params=
+comment7.target=java.lang.String\ obtenerDescripcion()
+comment7.text=\r\n\ Devuelve\ la\ descripcion\ de\ la\ caracteristica\r\n
+numComments=8

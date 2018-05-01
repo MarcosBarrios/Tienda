@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=Productos
+comment0.text=\r\n\ Contiene\ la\ base\ de\ datos\ de\ productos\ de\ la\ tienda.\r\n\ \r\n\ @author\ Marcos\ Barrios\ \r\n\ @version\ 1.0\r\n
+comment1.params=
+comment1.target=Productos()
+comment2.params=
+comment2.target=java.util.ArrayList\ obtenerListaProductos()
+comment2.text=\r\n\ Devuelve\ la\ base\ de\ datos\ de\ productos\ del\ programa\r\n\ \r\n\ @return\ listaProductos\ Base\ de\ datos\ de\ productos\ del\ programa\r\n
+comment3.params=producto
+comment3.target=void\ a\u00F1adirProducto(Producto)
+comment3.text=\r\n\ A\u00F1ade\ un\ producto\ a\ la\ coleccion.\r\n\ \r\n\ Aumenta\ en\ 1\ el\ contador\ de\ productos\ cada\ ves\ que\ se\r\n\ a\u00F1ade\ un\ producto.\r\n\ \r\n\ @param\ producto\ Producto\ a\ a\u00F1adir\r\n
+comment4.params=id
+comment4.target=void\ eliminarElemento(int)
+comment4.text=\r\n\ Nota\ (10/03/2018)\:\ Puede\ que\ no\ sea\ necesario\ el\ uso\ de\ este\ metodo\r\n\ \r\n\ Elimina\ un\ producto\ de\ la\ coleccion.\r\n\ \r\n\ Es\ necesario\ el\ uso\ de\ un\ metodo\ de\ busqueda\ para\ encontrar\ el\ \r\n\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Identificador\ (entero)\ del\ producto\ a\ eliminar\r\n
+comment5.params=id\ usarNumeroProducto
+comment5.target=Producto\ obtenerProducto(int,\ boolean)
+comment5.text=\r\n\ Obtiene\ un\ producto\ de\ la\ colecci\u00F3n.\r\n\ \r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment6.params=
+comment6.target=int\ obtenerTama\u00F1o()
+comment6.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ que\ hay\ en\ la\ base\ de\ datos\r\n\ de\ la\ tienda.\r\n\ \r\n\ @return\ listaProductos.size()\ Tama\u00F1o\ de\ la\ base\ de\ datos\ de\ productos\r\n
+numComments=7
