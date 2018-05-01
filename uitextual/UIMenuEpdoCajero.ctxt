@@ -17,5 +17,5 @@ comment5.target=void\ activarInteraccion()
 comment5.text=\r\n\ Implementa\ el\ funcionamiento\ del\ menu\r\n
 comment6.params=
 comment6.target=void\ opcionListaProductos()
-comment6.text=\r\n\ Obtiene\ la\ lista\ de\ productos\ de\ la\ tienda\ (base\ de\ datos\ de\r\n\ productos)\ e\ imprime\ una\ lista.\r\n
+comment6.text=\r\n\ Obtiene\ la\ lista\ de\ productos\ de\ la\ tienda\ (base\ de\ datos\ de\r\n\ productos)\ e\ imprime\ una\ lista.\r\n\ \r\n\ Numero\ de\ producto,\ Cantidad,\ Precio,\ Peso,\ Estado,\ Descripcion\r\n\ \r\n
 numComments=7

@@ -118,6 +118,9 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
     /**
      * Obtiene la lista de productos de la tienda (base de datos de
      * productos) e imprime una lista.
+     * 
+     * Numero de producto, Cantidad, Precio, Peso, Estado, Descripcion
+     * 
      */
     private void opcionListaProductos(){
         System.out.println(UIMensajes.menuEncabezado());
@@ -130,9 +133,11 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             Producto temp = obtenerProductos().obtenerProducto(i, false);
             System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosNumeroProducto()
                 + ": " + temp.obtenerNumeroProducto() + " ");
+            System.out.print("|" + UIMensajes.opcionCrearProductoCantidad()
+                + ": " + temp.obtenerCantidad() + " ");
             System.out.print("|" + UIMensajes.opcionCrearProductoPrecio() 
                 + ": " + temp.obtenerPrecio() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoPrecio()
+            System.out.print("|" + UIMensajes.opcionCrearProductoPeso()
                 + ": " + temp.obtenerPeso() + " ");
             System.out.print("|" + UIMensajes.menuCajeroOpcionListaProductosEstado()
                 + ": " + temp.obtenerEstadoProducto() + " ");

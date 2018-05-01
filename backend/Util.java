@@ -15,6 +15,21 @@ import uitextual.UIEntradas;
  */
 public class Util{
     
+    //Precio maximo que un producto puede tener
+    public static final float MAXIMOPRECIO = 999999f;
+    
+    //Peso maximo que un producto puede tener
+    public static final float MAXIMOPESO = 999999f;
+    
+    //Maxima cantidad de productos
+    public static final int MAXIMACANTIDAD = 999999;
+    
+    //Maximas fechas
+    public static final int MAXIMOAÑO = 2050;
+    public static final int MAXIMODIA = 31;
+    public static final int MAXIMOMES = 12;
+    
+    
     /**
      * Actualiza la informacion de un producto almacenada en cadena de caracteres.
      *

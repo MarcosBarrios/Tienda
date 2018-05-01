@@ -156,6 +156,10 @@ public class UIMensajes{
         return "Peso (en kg) ";
     }
     
+    public static String opcionCrearProductoCantidad(){
+        return "Cantidad";
+    }
+    
     public static String opcionCrearProductoFechaCompra(){
         return "Introducir a continuacion la fecha de compra";
     }

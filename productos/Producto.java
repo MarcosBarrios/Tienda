@@ -10,7 +10,10 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public abstract class Producto{
-
+    
+    //Cantidad de productos que hay en la tienda
+    private int cantidad;
+    
     //Precio del producto a la hora de venderlo/comprarlo (en euros)
     private float precio;
 
@@ -52,6 +55,24 @@ public abstract class Producto{
         estadoProducto = EnumEstadoProducto.INTACTO; //Intacto y no vendido
 
         listaCaracteristicas = new ArrayList<Caracteristica>();
+    }
+    
+    /**
+     * Asigna la cantidad de productos que hay
+     * 
+     * @param cantidad Nueva cantidad de productos
+     */
+    public void asignarCantidad(int cantidad){
+        this.cantidad = cantidad;
+    }
+    
+    /**
+     * Devuelve la cantidad de productos
+     * 
+     * @return cantidad Cantidad de productos
+     */
+    public int obtenerCantidad(){
+        return cantidad;
     }
     
     /**

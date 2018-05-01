@@ -64,7 +64,6 @@ public class UIEpdoCajero extends UIUsuario{
                 System.out.print(UIMensajes.opcionCrearProductoCategoriaIncorrecta());
             }
         }while(!valido);
-        
         System.out.println(UIMensajes.opcionCrearProductoCategoriaCorrecta());
         
         //Creamos la clase del producto segun la categoria que sea
@@ -92,12 +91,17 @@ public class UIEpdoCajero extends UIUsuario{
         
         //Precio
         System.out.print(UIMensajes.opcionCrearProductoPrecio() + ": ");
-        float precio = UIEntradas.obtenerDecimal(0, 999999);
+        float precio = UIEntradas.obtenerDecimal(0, Util.MAXIMOPRECIO);
         producto.asignarPrecio(precio);
+        
+        //Cantidad
+        System.out.print(UIMensajes.opcionCrearProductoCantidad() + ": ");
+        int cantidad = UIEntradas.obtenerEntero(0, Util.MAXIMACANTIDAD);
+        producto.asignarCantidad(cantidad);
         
         //Peso
         System.out.print(UIMensajes.opcionCrearProductoPeso() + ": ");
-        float peso = UIEntradas.obtenerDecimal(0, 999999);
+        float peso = UIEntradas.obtenerDecimal(0, Util.MAXIMOPESO);
         producto.asignarPeso(peso);
         
         //Fecha de compra (dia/mes/año)
@@ -105,17 +109,17 @@ public class UIEpdoCajero extends UIUsuario{
         
         //Dia
         System.out.print(UIMensajes.opcionCrearProductoDiaCompra() + ": ");
-        int diaCompra = UIEntradas.obtenerEntero(0, 999999);
+        int diaCompra = UIEntradas.obtenerEntero(0, Util.MAXIMODIA);
         producto.asignarDiaCompra(diaCompra);
         
         //Mes
         System.out.print(UIMensajes.opcionCrearProductoMesCompra() + ": ");
-        int mesCompra = UIEntradas.obtenerEntero(0, 999999);
+        int mesCompra = UIEntradas.obtenerEntero(0, Util.MAXIMOMES);
         producto.asignarMesCompra(mesCompra);
         
         //Año
         System.out.print(UIMensajes.opcionCrearProductoAñoCompra() + ": ");
-        int añoCompra = UIEntradas.obtenerEntero(0, 999999);
+        int añoCompra = UIEntradas.obtenerEntero(0, Util.MAXIMOAÑO);
         producto.asignarAñoCompra(añoCompra);
         
         return producto;
@@ -170,6 +174,9 @@ public class UIEpdoCajero extends UIUsuario{
         //Precio
         menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoPrecio());
         
+        //Cantidad
+        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoCantidad());
+        
         //Descripcion
         menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoDescripcion());
         
@@ -210,24 +217,29 @@ public class UIEpdoCajero extends UIUsuario{
                 break;*/
             case 0: //Precio
                 String precio = UIMensajes.opcionCrearProductoPrecio();
-                float nuevoPrecio = Util.UIactualizarNumeroProducto(precio, 0, 99999);
+                float nuevoPrecio = Util.UIactualizarNumeroProducto(precio, 0, Util.MAXIMOPRECIO);
                 producto.asignarPrecio(nuevoPrecio);
                 break;
-            case 1: //Descripcion
+            case 1: //Cantidad
+                String cantidad = UIMensajes.opcionCrearProductoCantidad();
+                int nuevaCantidad = (int) Util.UIactualizarNumeroProducto(cantidad, 0, Util.MAXIMACANTIDAD);
+                producto.asignarCantidad(nuevaCantidad);
+                break;
+            case 2: //Descripcion
                 String descripcion = UIMensajes.opcionCrearProductoDescripcion();
                 String nuevaDescripcion = Util.UIactualizarStringProducto(descripcion, true);
                 producto.asignarDescripcion(nuevaDescripcion);
                 break;
-            case 2: //Peso
+            case 3: //Peso
                 String peso = UIMensajes.opcionCrearProductoPeso();
-                float nuevoPeso = Util.UIactualizarNumeroProducto(peso, 0, 99999);
+                float nuevoPeso = Util.UIactualizarNumeroProducto(peso, 0, Util.MAXIMOPESO);
                 producto.asignarPrecio(nuevoPeso);
                 break;
-            case 3: //Devuelve el estado de la financiacion del producto
+            case 4: //Devuelve el estado de la financiacion del producto
                 String financiado = UIMensajes.menuCajeroOpcionActualizarProductoFinanciado();
                 boolean financiacion = Util.UIactualizarEstadoProducto(financiado);
                 break;
-            case 4: //Estado del producto (INTACTO, ROTO, DEVUELTO (29/04))
+            case 5: //Estado del producto (INTACTO, ROTO, DEVUELTO (29/04))
                 String estadoProducto = UIMensajes.menuCajeroOpcionListaProductosEstado();
                 ArrayList<String> listaEstados = EnumEstadoProducto.obtenerEstados();
                 System.out.println();
@@ -253,26 +265,26 @@ public class UIEpdoCajero extends UIUsuario{
                     producto.cambiarEstado(EnumEstadoProducto.DEVUELTO);
                 }
                 break;
-            case 5: //Año de compra
+            case 6: //Año de compra
                 String año = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoAño = (int) Util.UIactualizarNumeroProducto(año, 2018, 2999);
+                int nuevoAño = (int) Util.UIactualizarNumeroProducto(año, 2018, Util.MAXIMOAÑO);
                 producto.asignarDiaCompra(nuevoAño);
                 break;
-            case 6: //Mes de compra
+            case 7: //Mes de compra
                 String mes = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoMes = (int) Util.UIactualizarNumeroProducto(mes, 1, 12);
+                int nuevoMes = (int) Util.UIactualizarNumeroProducto(mes, 1, Util.MAXIMOMES);
                 producto.asignarDiaCompra(nuevoMes);
                 break;
-            case 7: //Dia de compra
+            case 8: //Dia de compra
                 String dia = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoDia = (int) Util.UIactualizarNumeroProducto(dia, 1, 31);
+                int nuevoDia = (int) Util.UIactualizarNumeroProducto(dia, 1, Util.MAXIMODIA);
                 producto.asignarDiaCompra(nuevoDia);
                 break;
-            case 8: //Tiempo de garantia
+            case 9: //Tiempo de garantia
                 String tiempoGarantia = UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia();
                 int nuevoTiempoGarantia = (int) Util.UIactualizarNumeroProducto(tiempoGarantia, 0, 60);
                 break;
-            case 9: //Añadir una caracteristica
+            case 10: //Añadir una caracteristica
                 System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoNuevaCaracteristica() 
                     + ": ");
                 String titulo = UIMensajes.menuCajeroOpcionActualizarProductoTituloCaracteristica();
@@ -300,6 +312,11 @@ public class UIEpdoCajero extends UIUsuario{
         System.out.println("\t");
         System.out.print("\t" + UIMensajes.opcionCrearProductoPrecio());
         System.out.print(": " + producto.obtenerPrecio());
+        
+        //Cantidad
+        System.out.println("\t");
+        System.out.print("\t" + UIMensajes.opcionCrearProductoCantidad());
+        System.out.print(": " + producto.obtenerCantidad());
         
         //Descripcion
         System.out.println("\t");
