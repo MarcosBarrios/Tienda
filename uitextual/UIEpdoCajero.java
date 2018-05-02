@@ -304,44 +304,39 @@ public class UIEpdoCajero extends UIUsuario{
      */
     private void imprimirCaracteristicasProducto(Producto producto){
         //Numero de producto
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosNumeroProducto());
-        System.out.print(": " + producto.obtenerNumeroProducto());
+        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosNumeroProducto(), 
+            true, true);
+        System.out.print(producto.obtenerNumeroProducto());
         
         //Precio
-        System.out.println("\t");
-        System.out.print("\t" + UIMensajes.opcionCrearProductoPrecio());
-        System.out.print(": " + producto.obtenerPrecio());
+        formatearCadena(UIMensajes.opcionCrearProductoPrecio(), true, true);
+        System.out.print(producto.obtenerPrecio());
         
         //Cantidad
-        System.out.println("\t");
-        System.out.print("\t" + UIMensajes.opcionCrearProductoCantidad());
-        System.out.print(": " + producto.obtenerCantidad());
+        formatearCadena(UIMensajes.opcionCrearProductoCantidad(), true, true);
+        System.out.print(producto.obtenerCantidad());
         
         //Descripcion
-        System.out.println("\t");
-        System.out.print("\t" + UIMensajes.opcionCrearProductoDescripcion());
-        System.out.print(": " + producto.obtenerDescripcion());
+        formatearCadena(UIMensajes.opcionCrearProductoDescripcion(), true, true);
+        System.out.print(producto.obtenerDescripcion());
         
         //Peso
-        System.out.println("\t");
-        System.out.print("\t" + UIMensajes.opcionCrearProductoPrecio());
-        System.out.print(": " + producto.obtenerPeso());
+        formatearCadena(UIMensajes.opcionCrearProductoPrecio(), true, true);
+        System.out.print(producto.obtenerPeso());
         
         //Devuelve el estado de la financiacion del producto
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuCajeroOpcionActualizarProductoFinanciado());
-        System.out.print(": " + producto.obtenerEstadoFinanciado());
+        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoFinanciado(), 
+            true, true);
+        System.out.print(producto.obtenerEstadoFinanciado());
         
         //Estado
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosEstado());
-        System.out.print(": " + producto.obtenerEstadoProducto());
+        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosEstado(), true, true);
+        System.out.print(producto.obtenerEstadoProducto());
         
         //Fecha de compra
-        System.out.println();
-        System.out.print("\t"+ UIMensajes.menuCajeroOpcionActualizarProductoFechaCompra());
-        System.out.print(":  " + producto.obtenerDiaCompra() + "/");
+        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoFechaCompra(), 
+            true, true);
+        System.out.print(producto.obtenerDiaCompra() + "/");
         System.out.print(producto.obtenerMesCompra() + "/");
         System.out.print(producto.obtenerAñoCompra());
         System.out.print(" " + UIMensajes.opcionCrearProductoDiaCompra());
@@ -349,15 +344,14 @@ public class UIEpdoCajero extends UIUsuario{
         System.out.print("/" + UIMensajes.opcionCrearProductoAñoCompra());
         
         //Tiempo de garantia
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia());
-        System.out.print(": " + producto.obtenerTiempoGarantia());
+        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia(), 
+            true, true);
+        System.out.print(producto.obtenerTiempoGarantia());
         
         //Caracteristicas extra
         for(int i = 0; i < producto.obtenerNumCaracteristicas(); i++){
             Caracteristica temp = producto.obtenerCaracteristica(i);
-            System.out.println();
-            System.out.print("\t" + temp.obtenerTitulo() + ": ");
+            formatearCadena(temp.obtenerTitulo(), true, true);
             System.out.print(temp.obtenerDescripcion());
         }
     }
@@ -368,9 +362,9 @@ public class UIEpdoCajero extends UIUsuario{
      * @param productos Base de datos de productos del programa
      */
     public void imprimirDatosProducto(Productos productos){
-        System.out.println(UIMensajes.menuCajeroOpcionDatosProducto() + ": ");
-        System.out.println("\t" + 
-            UIMensajes.menuCajeroOpcionListaProductosNumeroProducto() + ": ");
+        formatearCadena(UIMensajes.menuCajeroOpcionDatosProducto(), false, true);
+        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosNumeroProducto(),
+            true, true);
         //Pregunta por el numero de producto hasta obtener un numero valido
         int nProducto = UIEntradas.obtenerEntero(0, productos.obtenerTamaño());
         Producto producto = productos.obtenerProducto(nProducto, true);
@@ -378,6 +372,39 @@ public class UIEpdoCajero extends UIUsuario{
             imprimirCaracteristicasProducto(producto);
         }else{ //Si NO encuentra el producto
             System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoNoEncontrado());
+        }
+    }
+    
+    /**
+     * Obtiene la lista de productos de la tienda (base de datos de
+     * productos) e imprime una lista.
+     * 
+     * Numero de producto, Cantidad, Precio, Peso, Estado, Descripcion
+     * 
+     */
+    public void imprimirListaProductos(Productos productos){
+        System.out.println(UIMensajes.menuEncabezado());
+        System.out.println(UIMensajes.menuCajeroOpcionListaProductos());
+        System.out.println();
+        for(int i = 0; i < productos.obtenerTamaño(); i++){
+            //Obtiene el producto mediante su id dentro del arraylist
+            //si el segundo argumento fuese true entonces usaria el
+            //numero de producto en vez de la id en arraylist
+            Producto temp = productos.obtenerProducto(i, false);
+            System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosNumeroProducto()
+                + ": " + temp.obtenerNumeroProducto() + " ");
+            System.out.print("|" + UIMensajes.opcionCrearProductoCantidad()
+                + ": " + temp.obtenerCantidad() + " ");
+            System.out.print("|" + UIMensajes.opcionCrearProductoPrecio() 
+                + ": " + temp.obtenerPrecio() + " ");
+            System.out.print("|" + UIMensajes.opcionCrearProductoPeso()
+                + ": " + temp.obtenerPeso() + " ");
+            System.out.print("|" + UIMensajes.menuCajeroOpcionListaProductosEstado()
+                + ": " + temp.obtenerEstadoProducto() + " ");
+            System.out.println("|" + 
+                UIMensajes.menuCajeroOpcionListaProductosDescripcion()
+                + ": " + temp.obtenerDescripcion() + " ");
+            System.out.println();
         }
     }
     

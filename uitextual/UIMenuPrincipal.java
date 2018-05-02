@@ -19,7 +19,6 @@ import productos.Productos;
  */
 public class UIMenuPrincipal extends UIMenuAccionable{
 
-    
     //Metodo constructor
     public UIMenuPrincipal(Usuarios usuarios, Productos productos, 
     UIUsuario usuario){
@@ -90,10 +89,10 @@ public class UIMenuPrincipal extends UIMenuAccionable{
     private void login(){
         System.out.println(UIMensajes.menuEncabezado());
         System.out.println(UIMensajes.loginInformacion());
-        System.out.print("\t" + UIMensajes.loginUsuario() + ": ");
+        obtenerUsuario().formatearCadena(UIMensajes.loginUsuario(), true, true);
         //Obtenemos el usuario
         String nombreUsuario = UIEntradas.obtenerCadena(false);
-        System.out.print("\t" + UIMensajes.loginContraseña() + ": ");
+        obtenerUsuario().formatearCadena(UIMensajes.loginContraseña(), true, true);
         //Obtenemos la contraseña
         String contraseña = UIEntradas.obtenerCadena(false);
         

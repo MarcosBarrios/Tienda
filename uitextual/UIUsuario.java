@@ -1,6 +1,5 @@
 package uitextual;
 
-
 import backend.Usuario;
 import backend.Usuarios;
 import java.util.Iterator;
@@ -20,6 +19,58 @@ public abstract class UIUsuario{
     //Metodo constructor
     public UIUsuario(Usuario usuario){
         this.usuario = usuario;
+    }
+    
+    /**
+     * Pide una entrada para cada cadena de caracteres en nombresEntradas.
+     * 
+     * Las entradas obtenidas son lineas completas (UIEntradas.obtenerCadena(true))
+     * 
+     * @param nombresEntradas Array con los nombres para las diferentes entradas
+     * @return salidas Array con entradas obtenidas del usuario
+     */
+    public String[] formulario(String[] nombresEntradas){
+        int numeroEntradas = nombresEntradas.length;
+        String [] salidas = new String[numeroEntradas];
+        for(int i = 0; i < numeroEntradas; i++){
+            formatearCadena(nombresEntradas[i], true, true);
+            String entrada = UIEntradas.obtenerCadena(true);
+            salidas[i] = entrada;
+        }
+        
+        return salidas;
+    }
+    
+    /**
+     * Da formato a una cadena. 
+     * 
+     * @param nombreEntrada Nombre de la entrada
+     * @param tabular Si tabular=true pone "\t" antes de nombreEntrada
+     * @param puntoComa Si puntoComa=true pone ": " despues de nombreEntrada
+     */
+    public void formatearCadena(String nombreEntrada, boolean tabular, boolean puntoComa){
+        System.out.println();
+        tabularCadena(true);
+        System.out.print(nombreEntrada);
+        añadirPuntoComa(true);
+    }
+    
+    /**
+     * Tabula una cadena de caracteres si tabular=true
+     */
+    private void tabularCadena(boolean tabular){
+        if(tabular){
+            System.out.print("\t");
+        }
+    }
+    
+    /**
+     * Imprime punto y coma si ponerPuntoComa=true
+     */
+    private void añadirPuntoComa(boolean ponerPuntoComa){
+        if(ponerPuntoComa){
+            System.out.print(": ");
+        }
     }
     
     /**

@@ -11,4 +11,5 @@ comment3.target=void\ darAlta(backend.Usuarios)
 comment3.text=\r\n\ Registra\ un\ cliente\ nuevo\ en\ la\ base\ de\ datos\ del\ programa\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ del\ programa\r\n
 comment4.params=usuarios
 comment4.target=void\ imprimirDatosCliente(backend.Usuarios)
+comment4.text=\r\n\ Imprime\ los\ datos\ de\ un\ cliente\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
 numComments=5

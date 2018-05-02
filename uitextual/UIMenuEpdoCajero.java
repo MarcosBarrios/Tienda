@@ -6,7 +6,6 @@ import backend.Util;
 import productos.Productos;
 import productos.Producto;
 
-
 /**
  * Clase encargada de implementar las opciones que los empleados cajeros
  * de la tienda pueden llevar a cabo con el programa.
@@ -87,7 +86,8 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
                 String aux = UIMensajes.menuCajeroOpcionListaProductosNumeroProducto();
                 
                 //Obtenemos el numero de producto del producto a modificar
-                int numeroProducto = (int) Util.UIactualizarNumeroProducto(aux, 0, 999999);
+                int numeroProducto = (int) Util.UIactualizarNumeroProducto(aux, 0,
+                    Util.MAXIMACANTIDAD);
                 
                 //Invocamos el metodo para modificarlo
                 obtenerCajero().actualizarProducto(obtenerProductos(), numeroProducto);
@@ -102,7 +102,7 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
                 break;
             case 3:
                 //Lista de productos
-                opcionListaProductos();
+                obtenerCajero().imprimirListaProductos(obtenerProductos());
                 
                 //Vuelve a imprimir el menu
                 volverMenu();
@@ -112,39 +112,6 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             //Cierra del programa
             System.exit(0);
             break;
-        }
-    }
-    
-    /**
-     * Obtiene la lista de productos de la tienda (base de datos de
-     * productos) e imprime una lista.
-     * 
-     * Numero de producto, Cantidad, Precio, Peso, Estado, Descripcion
-     * 
-     */
-    private void opcionListaProductos(){
-        System.out.println(UIMensajes.menuEncabezado());
-        System.out.println(UIMensajes.menuCajeroOpcionListaProductos());
-        System.out.println();
-        for(int i = 0; i < obtenerProductos().obtenerTamaño(); i++){
-            //Obtiene el producto mediante su id dentro del arraylist
-            //si el segundo argumento fuese true entonces usaria el
-            //numero de producto en vez de la id en arraylist
-            Producto temp = obtenerProductos().obtenerProducto(i, false);
-            System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosNumeroProducto()
-                + ": " + temp.obtenerNumeroProducto() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoCantidad()
-                + ": " + temp.obtenerCantidad() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoPrecio() 
-                + ": " + temp.obtenerPrecio() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoPeso()
-                + ": " + temp.obtenerPeso() + " ");
-            System.out.print("|" + UIMensajes.menuCajeroOpcionListaProductosEstado()
-                + ": " + temp.obtenerEstadoProducto() + " ");
-            System.out.println("|" + 
-                UIMensajes.menuCajeroOpcionListaProductosDescripcion()
-                + ": " + temp.obtenerDescripcion() + " ");
-            System.out.println();
         }
     }
     

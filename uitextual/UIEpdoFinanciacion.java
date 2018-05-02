@@ -29,19 +29,19 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * @param usuarios Base de datos de usuarios
      */
     public void actualizarDatosCliente(Usuarios usuarios){
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuFinanciacionActualizarDatos() + ": ");
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatos(), true, true);
         String neCliente = UIEntradas.obtenerCadena(true).toLowerCase();
-        System.out.println("\t" + UIMensajes.menuFinanciacionActualizarDatosElegir()
-           + " (" +  UIMensajes.menuFinanciacionActualizarDatosNombre() +
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatosElegir(), false, true);
+        System.out.print(" (" +  UIMensajes.menuFinanciacionActualizarDatosNombre() +
            "/" + UIMensajes.menuFinanciacionActualizarDatosEmail() + "): ");
         String mod = UIEntradas.obtenerCadena(false).toLowerCase();
         String nuevoDato;
         if(mod.equals(UIMensajes.menuFinanciacionActualizarDatosNombre().toLowerCase())){
             //Modificar el nombre del cliente
-            System.out.println("\t" + UIMensajes.menuFinanciacionActualizarDatosNombre() + ": ");
+            formatearCadena(UIMensajes.menuFinanciacionActualizarDatosNombre(), true, true);
         }else if(mod.equals(UIMensajes.menuFinanciacionActualizarDatosEmail().toLowerCase())){
             //Modificar el email del cliente
+            formatearCadena(UIMensajes.menuFinanciacionActualizarDatosEmail(), true, true);
             System.out.println("\t" + UIMensajes.menuFinanciacionActualizarDatosEmail() + ": ");
         }
         nuevoDato = UIEntradas.obtenerCadena(false);
@@ -66,33 +66,30 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * @param usuarios Base de datos del programa
      */
     public void darAlta(Usuarios usuarios){
-        System.out.println();
-        System.out.print(UIMensajes.menuFinanciacionDarAlta() + ": ");
-        System.out.println();
-        System.out.print("\t");
-        System.out.print(UIMensajes.menuFinanciacionActualizarDatosNombre() + ": ");
+        formatearCadena(UIMensajes.menuFinanciacionDarAlta(), true, true);
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatosNombre(), true, true);
         String nombre = UIEntradas.obtenerCadena(true);
         System.out.println(UIMensajes.menuFinanciacionDarAltaNombreExito());
-        System.out.println();
-        System.out.print("\t");
-        System.out.print(UIMensajes.menuFinanciacionActualizarDatosEmail() + ": ");
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatosEmail(), true, true);
         String email = UIEntradas.obtenerCadena(true);
         System.out.println(UIMensajes.menuFinanciacionDarAltaEmailExito());
         usuarios.añadirUsuario(new Cliente(nombre, email));
         System.out.println(UIMensajes.menuFinanciacionDarAltaExito());
     }
     
+    /**
+     * Imprime los datos de un cliente
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
     public void imprimirDatosCliente(Usuarios usuarios){
-        System.out.println();
-        System.out.print("\t" + UIMensajes.menuFinanciacionActualizarDatos() + ": ");
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatos(), true, true);
         String neCliente = UIEntradas.obtenerCadena(true).toLowerCase();
         Cliente cliente = (Cliente) usuarios.obtenerUsuario(neCliente);
-        System.out.println("\t" +
-            UIMensajes.menuFinanciacionActualizarDatosNombre() + ": "
-            + cliente.obtenerNombreUsuario());
-        System.out.println("\t" +
-            UIMensajes.menuFinanciacionActualizarDatosEmail() + ": "
-            + cliente.obtenerEmailUsuario());
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatosNombre(), true, true);
+        System.out.print(cliente.obtenerNombreUsuario());
+        formatearCadena(UIMensajes.menuFinanciacionActualizarDatosEmail(), true, true);
+        System.out.print(cliente.obtenerEmailUsuario());
     }
     
 }
