@@ -2,6 +2,9 @@ package uitextual;
 
 import backend.Usuario;
 import backend.Usuarios;
+
+import backend.Util;
+
 import java.util.Iterator;
 
 /**
@@ -29,7 +32,7 @@ public abstract class UIUsuario{
      * @param nombresEntradas Array con los nombres para las diferentes entradas
      * @return salidas Array con entradas obtenidas del usuario
      */
-    public String[] formulario(String[] nombresEntradas){
+    public String[] formularioCadenas(String[] nombresEntradas){
         int numeroEntradas = nombresEntradas.length;
         String [] salidas = new String[numeroEntradas];
         for(int i = 0; i < numeroEntradas; i++){
@@ -39,6 +42,51 @@ public abstract class UIUsuario{
         }
         
         return salidas;
+    }
+    
+    /**
+     * Pide una entrada para cada entero o decimal en nombresEntradas.
+     * 
+     * @param nombresEntradas Array con los nombres para las diferentes entradas
+     * @return salidas Array con entradas obtenidas del usuario
+     */
+    public float[] formularioDecimales(String[] nombresEntradas){
+        int numeroEntradas = nombresEntradas.length;
+        float [] salidas = new float[numeroEntradas];
+        for(int i = 0; i < numeroEntradas; i++){
+            formatearCadena(nombresEntradas[i], true, true);
+            float entrada = UIEntradas.obtenerDecimal(0, Util.MAXIMACANTIDAD);
+            salidas[i] = entrada;
+        }
+        
+        return salidas;
+    }
+    
+    /**
+     * Obtiene una cadena de caracteres usando texto formateado
+     */
+    public String formatearEntradaCadena(String nombreEntrada, boolean lineaCompleta){
+        formatearCadena(nombreEntrada, true, true);
+        return UIEntradas.obtenerCadena(lineaCompleta);
+    }
+    
+    /**
+     * Obtiene un numero decimal usando texto formateado
+     * 
+     * Puede ser convertido a entero para obtener entradas enteras
+     */
+    public float formatearEntradaDecimal(String nombreEntrada){
+        formatearCadena(nombreEntrada, true, true);
+        return UIEntradas.obtenerDecimal(0, Util.MAXIMACANTIDAD);
+    }
+    
+    /**
+     * Obtiene un estado booleano usando texto formateado
+     */
+    public boolean formatearEntradaBoolean(String nombreEntrada){
+        formatearCadena(nombreEntrada, true, false);
+        System.out.print(" [true (si)/false (no)]: ");
+        return UIEntradas.obtenerBooleana();
     }
     
     /**
@@ -83,12 +131,15 @@ public abstract class UIUsuario{
      * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
      */
     public void imprimirDatos(){
-        System.out.println(UIMensajes.menuEncabezado());
-        System.out.println(UIMensajes.informacionNombre() + ": " +
+        //"* * * * * * ....... * *"
+        System.out.println(UIMensajes.g_EncabezadoMenus());
+        
+        //"Nombre", "Email", "* * * * * * ....... * *"
+        System.out.println(UIMensajes.gNombre() + ": " +
             usuario.obtenerNombreUsuario());
-        System.out.println(UIMensajes.informacionEmail() + ": " +
+        System.out.println(UIMensajes.gEmail() + ": " +
             usuario.obtenerEmailUsuario());
-        System.out.println(UIMensajes.menuEncabezado());
+        System.out.println(UIMensajes.g_EncabezadoMenus());
     }
     
     /**
@@ -99,8 +150,9 @@ public abstract class UIUsuario{
      */
     public void imprimirListaUsuarios(Usuarios usuarios){
         for(int i = 0; i < usuarios.obtenerTamaño(); i++){
-            System.out.println(UIMensajes.menuEncabezado());
-            System.out.println(UIMensajes.informacionNombre() + ": " +
+            //"* * * * * * ....... * *"
+            System.out.println(UIMensajes.g_EncabezadoMenus());
+            System.out.println(UIMensajes.gNombre() + ": " +
                 usuarios.obtenerUsuario(i).obtenerNombreUsuario() + 
                 "  " + usuarios.obtenerUsuario(i).obtenerEmailUsuario());
         }

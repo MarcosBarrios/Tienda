@@ -38,9 +38,43 @@ public class UIEpdoCajero extends UIUsuario{
      *
      * @param productos Base de datos de productos de la tienda
      */
-    public Producto crearProducto(){
-        System.out.println(UIMensajes.opcionCrearProductoInicio());
+    public Producto añadirProducto(){
+        //"A continuacion se va a proceder a introducir" + 
+        //" las caracteristicas del producto. "
+        System.out.println(UIMensajes.mC_AñP_ProcederIntroduccion());
         
+        //Obtenemos la clase producto adecuada segun su categoria
+        Producto producto = obtenerCategoria();
+        
+        //Creamos un formulario para los valores que son numeros        
+        String entradasNumericas[] = new String[6];
+        entradasNumericas[0] = UIMensajes.mC_AñP_Precio();
+        entradasNumericas[1] = UIMensajes.mC_AñP_Cantidad();
+        entradasNumericas[2] = UIMensajes.mC_AñP_Peso();
+        entradasNumericas[3] = UIMensajes.mC_AñP_Dia();
+        entradasNumericas[4] = UIMensajes.mC_AñP_Mes();
+        entradasNumericas[5] = UIMensajes.mC_AñP_Año();
+        float salidasNumericas[] = formularioDecimales(entradasNumericas);
+        producto.asignarPrecio(salidasNumericas[0]);
+        producto.asignarCantidad((int) salidasNumericas[1]);
+        producto.asignarPeso(salidasNumericas[2]);
+        producto.asignarDiaCompra((int)salidasNumericas[3]);
+        producto.asignarMesCompra((int)salidasNumericas[4]);
+        producto.asignarAñoCompra((int)salidasNumericas[5]);
+        
+        //Descripcion
+        String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+        producto.asignarDescripcion(descripcion);
+        
+        return producto;
+    }
+    
+    /**
+     * Metodo auxiliar de añadirProducto()
+     * 
+     * Devuelve un producto segun su categoria
+     */
+    private Producto obtenerCategoria(){
         //Categoria del producto (Hogar|Telefonia|Imagen|Informatica)
         boolean valido = false;
         String categoria;
@@ -48,7 +82,8 @@ public class UIEpdoCajero extends UIUsuario{
         //Obtenemos la lista con las categorias de productos
         ArrayList<String> listaCategorias = Util.listaCategoriasProductos();
         
-        System.out.println(UIMensajes.opcionCrearProductoCategoria());
+        //"Categoria del producto (Sonido|Hogar|Telefonia|Imagen|Informatica) "
+        System.out.println(UIMensajes.mC_AñP_ElegirCategoriaProducto());
         do{
             categoria = UIEntradas.obtenerCadena(false).toLowerCase().trim();
             
@@ -61,66 +96,30 @@ public class UIEpdoCajero extends UIUsuario{
                 }
             }
             if(!valido){
-                System.out.print(UIMensajes.opcionCrearProductoCategoriaIncorrecta());
+                //"Categoria inexistente, por favor vuelva a intentarlo "
+                System.out.print(UIMensajes.mC_AñP_CategoriaInexistente());
             }
         }while(!valido);
-        System.out.println(UIMensajes.opcionCrearProductoCategoriaCorrecta());
+        //""Categoria seleccionada correctamente"
+        System.out.println(UIMensajes.mC_AñP_CategoriaSeleccionada());
         
         //Creamos la clase del producto segun la categoria que sea
         Producto producto = null;
-        if(categoria.equals(UIMensajes.opcionCrearProductoCategoriaHogar().toLowerCase())){
+        if(categoria.equals(UIMensajes.mC_AñP_Hogar().toLowerCase())){
             producto = new ProductoHogar();
         }
-        else if(categoria.equals(UIMensajes.opcionCrearProductoCategoriaImagen().toLowerCase())){
+        else if(categoria.equals(UIMensajes.mC_AñP_Imagen().toLowerCase())){
             producto = new ProductoImagen();
         }
-        else if(categoria.equals(UIMensajes.opcionCrearProductoCategoriaSonido().toLowerCase())){
+        else if(categoria.equals(UIMensajes.mC_AñP_Sonido().toLowerCase())){
             producto = new ProductoSonido();
         }
-        else if(categoria.equals(UIMensajes.opcionCrearProductoCategoriaTelefonia().toLowerCase())){
+        else if(categoria.equals(UIMensajes.mC_AñP_Hogar().toLowerCase())){
             producto = new ProductoHogar();
         }
-        else if(categoria.equals(UIMensajes.opcionCrearProductoCategoriaInformatica().toLowerCase())){
+        else if(categoria.equals(UIMensajes.mC_AñP_Informatica().toLowerCase())){
             producto = new ProductoInformatica();
         }
-        
-        //Descripcion
-        System.out.print(UIMensajes.opcionCrearProductoDescripcion() + ": ");
-        String descripcion = UIEntradas.obtenerCadena(true);
-        producto.asignarDescripcion(descripcion);
-        
-        //Precio
-        System.out.print(UIMensajes.opcionCrearProductoPrecio() + ": ");
-        float precio = UIEntradas.obtenerDecimal(0, Util.MAXIMOPRECIO);
-        producto.asignarPrecio(precio);
-        
-        //Cantidad
-        System.out.print(UIMensajes.opcionCrearProductoCantidad() + ": ");
-        int cantidad = UIEntradas.obtenerEntero(0, Util.MAXIMACANTIDAD);
-        producto.asignarCantidad(cantidad);
-        
-        //Peso
-        System.out.print(UIMensajes.opcionCrearProductoPeso() + ": ");
-        float peso = UIEntradas.obtenerDecimal(0, Util.MAXIMOPESO);
-        producto.asignarPeso(peso);
-        
-        //Fecha de compra (dia/mes/año)
-        System.out.println(UIMensajes.opcionCrearProductoFechaCompra() + ": ");
-        
-        //Dia
-        System.out.print(UIMensajes.opcionCrearProductoDiaCompra() + ": ");
-        int diaCompra = UIEntradas.obtenerEntero(0, Util.MAXIMODIA);
-        producto.asignarDiaCompra(diaCompra);
-        
-        //Mes
-        System.out.print(UIMensajes.opcionCrearProductoMesCompra() + ": ");
-        int mesCompra = UIEntradas.obtenerEntero(0, Util.MAXIMOMES);
-        producto.asignarMesCompra(mesCompra);
-        
-        //Año
-        System.out.print(UIMensajes.opcionCrearProductoAñoCompra() + ": ");
-        int añoCompra = UIEntradas.obtenerEntero(0, Util.MAXIMOAÑO);
-        producto.asignarAñoCompra(añoCompra);
         
         return producto;
     }
@@ -141,15 +140,17 @@ public class UIEpdoCajero extends UIUsuario{
         //Obtenemos el producto con el numero de producto
         Producto producto = productos.obtenerProducto(numProducto, true);
         if(producto!=null){
-            System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoEncontrado()+
-                numProducto); //"Producto encontrado. Numero de producto= "
+            //"Producto encontrado. Numero de producto = "
+            System.out.println(UIMensajes.mC_AcP_ProductoEncontrado()+
+                numProducto);
             
             imprimirCaracteristicasProducto(producto);
             
             //Creamos un menu para elegir que opcion modificar
             menuModificacionOpciones(producto);
         }else{ //En caso de que no encuentre el producto
-            System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoNoEncontrado()
+            //"No se ha encontrado ningun producto con el numero "
+            System.out.println(UIMensajes.mC_AcP_ProductoEncontrado()
                 + numProducto);
         }
     }
@@ -162,47 +163,10 @@ public class UIEpdoCajero extends UIUsuario{
      */
     private void menuModificacionOpciones(Producto producto){
         //"Elegir opcion a modificar"
-        System.out.println();
-        System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoElegirOpcion());
+        System.out.println(UIMensajes.mC_AcP_ElegirOpcion());
         
         //Iniciamos el menu y añadimos las opciones
-        UIMenu menuModOpciones = new UIMenu();
-        
-        //Numero producto (NO ACTUALIZABLE)
-        //menuModOpciones.añadirOpcion(UIMensajes.menuCajeroOpcionListaProductosNumeroProducto());
-        
-        //Precio
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoPrecio());
-        
-        //Cantidad
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoCantidad());
-        
-        //Descripcion
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoDescripcion());
-        
-        //Peso
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoPeso());
-        
-        //Devuelve el estado de la financiacion del producto
-        menuModOpciones.añadirOpcion(UIMensajes.menuCajeroOpcionActualizarProductoFinanciado());
-        
-        //Estado
-        menuModOpciones.añadirOpcion(UIMensajes.menuCajeroOpcionListaProductosEstado());
-        
-        //Año de compra
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoAñoCompra());
-        
-        //Mes de compra
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoMesCompra());
-        
-        //Dia de compra
-        menuModOpciones.añadirOpcion(UIMensajes.opcionCrearProductoDiaCompra());
-    
-        //Tiempo de garantia
-        menuModOpciones.añadirOpcion(UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia());
-        
-        //Añadir una caracteristica
-        menuModOpciones.añadirOpcion(UIMensajes.menuCajeroOpcionActualizarProductoNuevaCaracteristica());
+        UIMenu menuModOpciones = añadirOpcionesMenuActualizar();
     
         //Imprime el menu
         menuModOpciones.imprimirOpciones();
@@ -210,40 +174,29 @@ public class UIEpdoCajero extends UIUsuario{
         //Implementacion de que hace cada opcion
         int entrada = UIEntradas.obtenerEntero(0, menuModOpciones.obtenerNumeroOpciones());
         switch(entrada){
-            /*case 0: //Numero producto (NO ACTUALIZABLE)
-                String numeroProducto = UIMensajes.menuCajeroOpcionListaProductosNumeroProducto();
-                String nuevoNumeroProducto = actualizarStringProducto(numeroProducto, _lineaCompleta_)
-                
-                break;*/
             case 0: //Precio
-                String precio = UIMensajes.opcionCrearProductoPrecio();
-                float nuevoPrecio = Util.UIactualizarNumeroProducto(precio, 0, Util.MAXIMOPRECIO);
+                float nuevoPrecio = formatearEntradaDecimal(UIMensajes.mC_AñP_Precio());
                 producto.asignarPrecio(nuevoPrecio);
                 break;
             case 1: //Cantidad
-                String cantidad = UIMensajes.opcionCrearProductoCantidad();
-                int nuevaCantidad = (int) Util.UIactualizarNumeroProducto(cantidad, 0, Util.MAXIMACANTIDAD);
+                int nuevaCantidad = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Cantidad());
                 producto.asignarCantidad(nuevaCantidad);
                 break;
             case 2: //Descripcion
-                String descripcion = UIMensajes.opcionCrearProductoDescripcion();
-                String nuevaDescripcion = Util.UIactualizarStringProducto(descripcion, true);
+                String nuevaDescripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
                 producto.asignarDescripcion(nuevaDescripcion);
                 break;
             case 3: //Peso
-                String peso = UIMensajes.opcionCrearProductoPeso();
-                float nuevoPeso = Util.UIactualizarNumeroProducto(peso, 0, Util.MAXIMOPESO);
-                producto.asignarPrecio(nuevoPeso);
+                float nuevoPeso = formatearEntradaDecimal(UIMensajes.mC_AñP_Peso());
+                producto.asignarPeso(nuevoPeso);
                 break;
             case 4: //Devuelve el estado de la financiacion del producto
-                String financiado = UIMensajes.menuCajeroOpcionActualizarProductoFinanciado();
-                boolean financiacion = Util.UIactualizarEstadoProducto(financiado);
+                boolean financiacion = formatearEntradaBoolean(UIMensajes.mC_AcP_Financiado());
+                producto.cambiarFinanciado(financiacion);
                 break;
             case 5: //Estado del producto (INTACTO, ROTO, DEVUELTO (29/04))
-                String estadoProducto = UIMensajes.menuCajeroOpcionListaProductosEstado();
                 ArrayList<String> listaEstados = EnumEstadoProducto.obtenerEstados();
-                System.out.println();
-                System.out.print("\t" + estadoProducto);
+                formatearCadena(UIMensajes.mC_LP_Estado(), true, false); //"Estado"
                 System.out.print(" [");
                 //Vamos a imprimir el numero de estados posibles
                 Iterator<String> itr = listaEstados.iterator();
@@ -266,33 +219,54 @@ public class UIEpdoCajero extends UIUsuario{
                 }
                 break;
             case 6: //Año de compra
-                String año = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoAño = (int) Util.UIactualizarNumeroProducto(año, 2018, Util.MAXIMOAÑO);
-                producto.asignarDiaCompra(nuevoAño);
+                int nuevoAño = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Año());
+                producto.asignarAñoCompra(nuevoAño);
                 break;
             case 7: //Mes de compra
-                String mes = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoMes = (int) Util.UIactualizarNumeroProducto(mes, 1, Util.MAXIMOMES);
-                producto.asignarDiaCompra(nuevoMes);
+                int nuevoMes = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Mes());
+                producto.asignarMesCompra(nuevoMes);
                 break;
             case 8: //Dia de compra
-                String dia = UIMensajes.opcionCrearProductoDiaCompra();
-                int nuevoDia = (int) Util.UIactualizarNumeroProducto(dia, 1, Util.MAXIMODIA);
+                int nuevoDia = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Dia());
                 producto.asignarDiaCompra(nuevoDia);
                 break;
             case 9: //Tiempo de garantia
-                String tiempoGarantia = UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia();
-                int nuevoTiempoGarantia = (int) Util.UIactualizarNumeroProducto(tiempoGarantia, 0, 60);
+                int nuevoTiempoGarantia = (int) formatearEntradaDecimal(UIMensajes.mC_AcP_TiempoGarantia());
+                producto.asignarTiempoGarantia(nuevoTiempoGarantia);
                 break;
-            case 10: //Añadir una caracteristica
-                System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoNuevaCaracteristica() 
-                    + ": ");
-                String titulo = UIMensajes.menuCajeroOpcionActualizarProductoTituloCaracteristica();
-                String tituloCaracteristica = Util.UIactualizarStringProducto(titulo, true);
-                String descrip = UIMensajes.menuCajeroOpcionActualizarProductoCaracteristica();
-                String descripcionCaracteristica = Util.UIactualizarStringProducto(descrip, true);
+            case 10: //Añadir una caracteristica. "Indique a continuacion el titulo de la caracteristica y su descripcion"
+                formatearCadena(UIMensajes.mC_Acp_CaracteristicaTituloDescripcion(), false, true);
+                String tituloCaracteristica = formatearEntradaCadena(UIMensajes.mC_AcP_Titulo(), true);
+                String descripcionCaracteristica = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+                producto.añadirCaracteristica(new Caracteristica(tituloCaracteristica, descripcionCaracteristica));
                 break;
         }
+        //"Se ha actualizado el producto con exito"
+        System.out.println(UIMensajes.mC_AcP_Exito()); 
+    }
+    
+    /**
+     * Metodo auxiliar de menuModificacionOpciones(...)
+     * Añade las opciones al menu
+     */
+    private UIMenu añadirOpcionesMenuActualizar(){
+        UIMenu menuModOpciones = new UIMenu();
+        
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Precio());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Cantidad());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Descripcion());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Peso());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AcP_Financiado());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_LP_Estado());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Año());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Mes());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Dia());
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AcP_TiempoGarantia());
+        
+        //"Añadir caracteristica al producto"
+        menuModOpciones.añadirOpcion(UIMensajes.mC_AcP_AñadirCaracteristica());
+        
+        return menuModOpciones;
     }
     
     /**

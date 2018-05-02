@@ -3,22 +3,34 @@ comment0.target=UIUsuario
 comment0.text=\r\n\ Clase\ especifica\ para\ la\ parte\ textual\ del\ programa\ que\ implementa\r\n\ metodos\ que\ los\ usuarios\ del\ programa\ necesitan.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
 comment1.params=usuario
 comment1.target=UIUsuario(backend.Usuario)
+comment10.params=
+comment10.target=void\ imprimirDatos()
+comment10.text=\r\n\ Imprime\ los\ datos\ del\ usuario\ (nombre\ y\ email)\r\n\ \r\n\ Ejemplo\ formato\:\ \r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n\ \ Nombre\:\ Marcos\ Barrios\r\n\ \ Email\:\ marcosloscardones@gmail.com\r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n
+comment11.params=usuarios
+comment11.target=void\ imprimirListaUsuarios(backend.Usuarios)
+comment11.text=\r\n\ Imprime\ en\ forma\ de\ lista\ los\ nombres\ y\ emails\ de\ los\ usuarios\r\n\ que\ se\ encuentran\ en\ la\ base\ de\ datos\ del\ programa.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
 comment2.params=nombresEntradas
-comment2.target=java.lang.String[]\ formulario(java.lang.String[])
+comment2.target=java.lang.String[]\ formularioCadenas(java.lang.String[])
 comment2.text=\r\n\ Pide\ una\ entrada\ para\ cada\ cadena\ de\ caracteres\ en\ nombresEntradas.\r\n\ \r\n\ Las\ entradas\ obtenidas\ son\ lineas\ completas\ (UIEntradas.obtenerCadena(true))\r\n\ \r\n\ @param\ nombresEntradas\ Array\ con\ los\ nombres\ para\ las\ diferentes\ entradas\r\n\ @return\ salidas\ Array\ con\ entradas\ obtenidas\ del\ usuario\r\n
-comment3.params=nombreEntrada\ tabular\ puntoComa
-comment3.target=void\ formatearCadena(java.lang.String,\ boolean,\ boolean)
-comment3.text=\r\n\ Da\ formato\ a\ una\ cadena.\ \r\n\ \r\n\ @param\ nombreEntrada\ Nombre\ de\ la\ entrada\r\n\ @param\ tabular\ Si\ tabular\=true\ pone\ "\\t"\ antes\ de\ nombreEntrada\r\n\ @param\ puntoComa\ Si\ puntoComa\=true\ pone\ "\:\ "\ despues\ de\ nombreEntrada\r\n
-comment4.params=tabular
-comment4.target=void\ tabularCadena(boolean)
-comment4.text=\r\n\ Tabula\ una\ cadena\ de\ caracteres\ si\ tabular\=true\r\n
-comment5.params=ponerPuntoComa
-comment5.target=void\ a\u00F1adirPuntoComa(boolean)
-comment5.text=\r\n\ Imprime\ punto\ y\ coma\ si\ ponerPuntoComa\=true\r\n
-comment6.params=
-comment6.target=void\ imprimirDatos()
-comment6.text=\r\n\ Imprime\ los\ datos\ del\ usuario\ (nombre\ y\ email)\r\n\ \r\n\ Ejemplo\ formato\:\ \r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n\ \ Nombre\:\ Marcos\ Barrios\r\n\ \ Email\:\ marcosloscardones@gmail.com\r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n
-comment7.params=usuarios
-comment7.target=void\ imprimirListaUsuarios(backend.Usuarios)
-comment7.text=\r\n\ Imprime\ en\ forma\ de\ lista\ los\ nombres\ y\ emails\ de\ los\ usuarios\r\n\ que\ se\ encuentran\ en\ la\ base\ de\ datos\ del\ programa.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
-numComments=8
+comment3.params=nombresEntradas
+comment3.target=float[]\ formularioDecimales(java.lang.String[])
+comment3.text=\r\n\ Pide\ una\ entrada\ para\ cada\ entero\ o\ decimal\ en\ nombresEntradas.\r\n\ \r\n\ @param\ nombresEntradas\ Array\ con\ los\ nombres\ para\ las\ diferentes\ entradas\r\n\ @return\ salidas\ Array\ con\ entradas\ obtenidas\ del\ usuario\r\n
+comment4.params=nombreEntrada\ lineaCompleta
+comment4.target=java.lang.String\ formatearEntradaCadena(java.lang.String,\ boolean)
+comment4.text=\r\n\ Obtiene\ una\ cadena\ de\ caracteres\ usando\ texto\ formateado\r\n
+comment5.params=nombreEntrada
+comment5.target=float\ formatearEntradaDecimal(java.lang.String)
+comment5.text=\r\n\ Obtiene\ un\ numero\ decimal\ usando\ texto\ formateado\r\n\ \r\n\ Puede\ ser\ convertido\ a\ entero\ para\ obtener\ entradas\ enteras\r\n
+comment6.params=nombreEntrada
+comment6.target=boolean\ formatearEntradaBoolean(java.lang.String)
+comment6.text=\r\n\ Obtiene\ un\ estado\ booleano\ usando\ texto\ formateado\r\n
+comment7.params=nombreEntrada\ tabular\ puntoComa
+comment7.target=void\ formatearCadena(java.lang.String,\ boolean,\ boolean)
+comment7.text=\r\n\ Da\ formato\ a\ una\ cadena.\ \r\n\ \r\n\ @param\ nombreEntrada\ Nombre\ de\ la\ entrada\r\n\ @param\ tabular\ Si\ tabular\=true\ pone\ "\\t"\ antes\ de\ nombreEntrada\r\n\ @param\ puntoComa\ Si\ puntoComa\=true\ pone\ "\:\ "\ despues\ de\ nombreEntrada\r\n
+comment8.params=tabular
+comment8.target=void\ tabularCadena(boolean)
+comment8.text=\r\n\ Tabula\ una\ cadena\ de\ caracteres\ si\ tabular\=true\r\n
+comment9.params=ponerPuntoComa
+comment9.target=void\ a\u00F1adirPuntoComa(boolean)
+comment9.text=\r\n\ Imprime\ punto\ y\ coma\ si\ ponerPuntoComa\=true\r\n
+numComments=12

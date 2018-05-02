@@ -40,9 +40,11 @@ public class UIMenu{
      * Imprime el menu
      */
     public void imprimirOpciones(){
-        System.out.println(); //Linea de espacio
-        System.out.println(UIMensajes.menuEncabezado()); //Imprime el decorado superior del menu
-        System.out.println(UIMensajes.menuElegirOpcion());
+        System.out.println();
+        //"* * * * ... * *"
+        //"Elija una de las opciones escribiendo el nº de opcion a continuacion"
+        System.out.println(UIMensajes.g_EncabezadoMenus());
+        System.out.println(UIMensajes.g_ElegirOpcionMenu());
         System.out.println();
         
         //Itera las opciones del menu almacenadas en la coleccion y las imprime
@@ -59,7 +61,7 @@ public class UIMenu{
         }
         
         System.out.println();
-        System.out.println(UIMensajes.menuEncabezado()); //Imprime el decorado inferior de menu
+        System.out.println(UIMensajes.g_EncabezadoMenus());
         System.out.println();
     }
     

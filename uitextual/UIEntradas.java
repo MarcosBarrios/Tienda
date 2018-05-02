@@ -32,11 +32,12 @@ public class UIEntradas{
             try{
                 aux = s.nextInt();
             }catch(InputMismatchException ex){
-                System.out.println(UIMensajes.entradaIncorrectaEntero());
+                //"Entrada no valida. (Se esperaba numero)"
+                System.out.println(UIMensajes.g_EI_EsperabaNumero());
             }
             if(aux < min || aux>max){
-                UIMensajes.menuEntradaIncorrecta();
-                System.out.println();
+                //"Entrada no valida. (Fuera de rango)"
+                System.out.println(UIMensajes.g_EI_FueraRango());
             }
         }while(aux < min || aux > max);
         
@@ -59,11 +60,12 @@ public class UIEntradas{
             try{
                 aux = s.nextFloat();
             }catch(InputMismatchException ex){
-                System.out.println(UIMensajes.entradaIncorrectaEntero());
+                //"Entrada no valida. (Se esperaba numero)"
+                System.out.println(UIMensajes.g_EI_EsperabaNumero());
             }
             if(aux < min || aux>max){
-                UIMensajes.menuEntradaIncorrecta();
-                System.out.println();
+                //"Entrada no valida. (Fuera de rango)"
+                System.out.println(UIMensajes.g_EI_FueraRango());
             }
             
         }while((aux < min || aux > max));
@@ -89,11 +91,15 @@ public class UIEntradas{
         boolean valida = false;
         do{
             entrada = s.next().toLowerCase().trim();
-            if(entrada.equals("true") || entrada.equals("false")){
+            if(entrada.equals("true")){
                 valida = true;
                 return true;
+            }else if(entrada.equals("false")){
+                valida = true;
+                return false;
             }else{
-                System.out.println(UIMensajes.entradaIncorrectaBooleana());
+                //"Entrada no valida. (Se esperaba true o false)"
+                System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
             }
         }while(!valida);
         
@@ -117,7 +123,8 @@ public class UIEntradas{
             if(listaValidas.contains(aux)){
                 valida = true;
             }else{
-                System.out.println(UIMensajes.menuEntradaIncorrecta());
+                //"Entrada no valida. (Cadena no incluida)"
+                System.out.println(UIMensajes.g_EI_CadenaNoIncluida());
             }
         }while(!valida);
         

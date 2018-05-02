@@ -29,52 +29,6 @@ public class Util{
     public static final int MAXIMODIA = 31;
     public static final int MAXIMOMES = 12;
     
-    
-    /**
-     * Actualiza la informacion de un producto almacenada en cadena de caracteres.
-     *
-     * @param nombreString Nombre del dato del producto que se quiere actualizar
-     * @param lineaCompleta true: leer linea entera
-     */
-    public static String UIactualizarStringProducto(String nombreString, boolean lineaCompleta){
-        System.out.println();
-        System.out.print("\t");
-        System.out.print(nombreString + ": ");
-        String nuevoValor = UIEntradas.obtenerCadena(lineaCompleta);
-        System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoExito());        
-        return nuevoValor;
-    }
-    
-    /**
-     * Actualiza la informacion de un producto almacenada en un numero decimal.
-     *
-     * @param nombreString Nombre del dato del producto que se quiere actualizar
-     * @param min Minimo valor aceptable
-     * @param max Maximo valor aceptable
-     */
-    public static float UIactualizarNumeroProducto(String nombreString, float min, float max){
-        System.out.println();
-        System.out.print("\t");
-        System.out.print(nombreString + ": ");
-        float nuevoValor = UIEntradas.obtenerDecimal(min, max);
-        System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoExito());
-        return nuevoValor;
-    }
-    
-    /**
-     * Actualiza la informacion de un producto almacenada en boolean.
-     *
-     * @param nombreString Nombre del dato del producto que se quiere actualizar
-     */
-    public static boolean UIactualizarEstadoProducto(String nombreString){
-        System.out.println();
-        System.out.print("\t");
-        System.out.print(nombreString + "[true (si)/false (no)]: ");
-        boolean nuevoValor = UIEntradas.obtenerBooleana();
-        System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoExito());
-        return nuevoValor;
-    }
-    
     /**
      * Devuelve una lista con todas las categorias de productos que hay en
      * la tienda.

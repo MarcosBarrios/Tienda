@@ -73,7 +73,7 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             case 0:
                 //Añadir producto a la base de datos
                 //Llamamos al metodo en la clase UI para EpdoCajeros
-                Producto producto = obtenerCajero().crearProducto();
+                Producto producto = obtenerCajero().añadirProducto();
                 obtenerProductos().añadirProducto(producto);
                 
                 //Vuelve a imprimir el menu
@@ -86,9 +86,8 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
                 String aux = UIMensajes.menuCajeroOpcionListaProductosNumeroProducto();
                 
                 //Obtenemos el numero de producto del producto a modificar
-                int numeroProducto = (int) Util.UIactualizarNumeroProducto(aux, 0,
-                    Util.MAXIMACANTIDAD);
-                
+                int numeroProducto = (int) obtenerCajero().formatearEntradaDecimal(aux);
+                System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoExito()); 
                 //Invocamos el metodo para modificarlo
                 obtenerCajero().actualizarProducto(obtenerProductos(), numeroProducto);
                 

@@ -15,266 +15,262 @@ package uitextual;
  */
 public class UIMensajes{
     
-    public static String entradaIncorrectaEntero(){
-        return "Por favor introduzca el numero de la opcion (Se esperaba numero)";
+    public static String g_EI_EsperabaNumero(){
+        return "Entrada no valida. (Se esperaba numero)";
     }
     
-    public static String entradaIncorrectaBooleana(){
-        return "Entrada no valida. Intentelo de nuevo";
+    public static String g_EI_FueraRango(){
+        return "Entrada no valida. (Fuera de rango) ";
     }
     
-    public static String menuEncabezado(){
+    public static String g_EI_ValorBooleanoIncorrecto(){
+        return "Entrada no valida. (Se esperaba true o false)";
+    }
+    
+    public static String g_EI_CadenaNoIncluida(){
+        return "Entrada no valida. (Cadena no incluida)";
+    }
+    
+    public static String g_EncabezadoMenus(){
         return "* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *";
     }
     
-    public static String menuFinanciacionActualizarDatos(){
-        return "Indique a continuacion el nombre o email del cliente";
-    }
-    
-    public static String menuFinanciacionDarAlta(){
-        return "Indique a continuacion el nombre e email del cliente a registrar";
-    }
-    
-    public static String menuFinanciacionDarAltaNombreExito(){
-        return "Nombre aceptado";
-    }
-    
-    public static String menuFinanciacionDarAltaEmailExito(){
-        return "Email aceptado";
-    }
-    
-    public static String menuFinanciacionActualizarDatosElegir(){
-        return "¿Que desea modificar?";
-    }
-    
-    public static String menuFinanciacionActualizarDatosNombre(){
-        return "Nombre";
-    }
-    
-    public static String menuFinanciacionActualizarDatosEmail(){
-        return "Email";
-    }
-    
-    public static String menuFinanciacionActualizarDatosUsuarioNoEncontrado(){
-        return "Cliente no encontrado";
-    }
-    
-    public static String menuFinanciacionDarAltaExito(){
-        return "Se ha registrado el usuario con exito";
-    }
-    
-    public static String menuFinanciacionActualizarDatosExito(){
-        return "Se han actualizado los datos del cliente";
-    }
-    
-    public static String menuFinanciacionOpcionActualizarDatos(){
-        return "Actualizar datos de un cliente";
-    }
-    
-    public static String menuFinanciacionOpcionDarAlta(){
-        return "Dar de alta a un cliente";
-    }
-    
-    public static String menuFinanciacionOpcionDatosCliente(){
-        return "Ver los datos de un cliente";
-    }
-    
-    public static String menuPrincipalOpcionIniciarSesion(){
-        return "Iniciar Sesion";
-    }
-    
-    public static String menuPrincipalOpcionListaUsuarios(){
-        return "Lista de usuarios";
-    }
-    
-    public static String menuPrincipalOpcionSalir(){
+    public static String g_OpcionSalir(){
         return "Salir del programa";
     }
     
-    public static String menuPrincipalLoginFallido(){
-        return "Usuario o contraseña incorrectos";
-    }
-    
-    public static String menuPrincipalLoginExito(){
-        return "Bienvenido";
-    }
-    
-    public static String menuCajeroOpcionListaProductos(){
-        return "Lista de productos";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoNoEncontrado(){
-        return "No se ha encontrado ningun producto con el numero";
-    }
-    
-    public static String menuCajeroOpcionVerDatosProducto(){
-        return "Ver las caracteristicas de un producto";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoEncontrado(){
-        return "Producto encontrado. Numero de producto= ";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoFinanciado(){
-        return "Financiado";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoFechaCompra(){
-        return "Fecha de compra";
-    }
-    
-    public static String menuCajeroOpcionCrearProducto(){
-        return "Añadir un producto";
-    }
-    
-    public static String menuCajeroOpcionDatosProducto(){
-        return "Introduzca a continuacion el numero del producto";
-    }
-    
-    public static String menuElegirOpcion(){
+    public static String g_ElegirOpcionMenu(){
         return "Elija una de las opciones escribiendo el nº de opcion a continuacion";
     }
     
-    public static String menuEntradaIncorrecta(){
-        return "Entrada Incorrecta. Por favor, vuelva a intentarlo";
+    public static String g_Nombre(){
+        return "Nombre";
     }
     
-    public static String opcionCrearProductoInicio(){
+    public static String g_Email(){
+        return "Email";
+    }
+    
+    public static String g_EscribirUsuarioContraseña(){
+        return "Escriba su usuario y contraseña a continuacion";
+    }
+    
+    public static String g_Usuario(){
+        return "Usuario";
+    }
+    
+    public static String g_Contraseña(){
+        return "Contraseña";
+    }
+    
+    public static String mF_opcionDarAlta(){
+        return "Dar de alta a un cliente";
+    }
+    
+    public static String mF_opcionActualizarDatos(){
+        return "Actualizar datos de un cliente";
+    }
+    
+    public static String mF_opcionVerDatosCliente(){
+        return "Ver los datos de un cliente";
+    }
+    
+    public static String mF_DA_IndicarNombreEmail(){
+        return "Indique a continuacion el nombre e email del cliente a registrar";
+    }
+    
+    public static String mF_DA_NombreAceptado(){
+        return "Nombre aceptado";
+    }
+    
+    public static String mF_DA_EmailAceptado(){
+        return "Email aceptado";
+    }
+    
+    public static String mF_DA_RegistradoExito(){
+        return "Se ha registrado el cliente con exito";
+    }
+    
+    public static String mF_AD_IndicarNombreEmail(){
+        return "Indique a continuacion el nombre o email del cliente";
+    }
+    
+    public static String mF_AD_ClienteNoEncontrado(){
+        return "Cliente no encontrado";
+    }
+    
+    public static String mF_AD_QueModificar(){
+        return "¿Que desea modificar?";
+    }
+    
+    public static String mF_AD_Nombre(){
+        return "Nombre";
+    }
+    
+    public static String mF_AD_Email(){
+        return "Email";
+    }
+    
+    public static String mF_AD_DatosActualizados(){
+        return "Se han actualizado los datos del cliente";
+    }
+    
+    public static String mP_OpcionIniciarSesion(){
+        return "Iniciar Sesion";
+    }
+    
+    public static String mP_OpcionListaUsuarios(){
+        return "Lista de usuarios";
+    }
+    
+    public static String mP_FalloLogin(){
+        return "Usuario o contraseña incorrectos";
+    }
+    
+    public static String mP_ExitoLogin(){
+        return "Se ha entrado a la cuenta con exito";
+    }
+    
+    public static String mC_OpcionAñadirProducto(){
+        return "Añadir un producto";
+    }
+    
+    public static String mC_OpcionActualizarProducto(){
+        return "Actualizar producto";
+    }
+    
+    public static String mC_OpcionVerDatosProducto(){
+        return "Ver las caracteristicas de un producto";
+    }
+    
+    public static String mC_OpcionListaProductos(){
+        return "Lista de productos";
+    }
+    
+    public static String mC_AñP_ProcederIntroduccion(){
         return "A continuacion se va a proceder a introducir" +
             " las caracteristicas del producto. ";
     }
     
-    public static String opcionCrearProductoPrecio(){
+    public static String mC_AñP_Precio(){
         return "Precio (en euros)";
     }
     
-    public static String opcionCrearProductoDescripcion(){
+    public static String mC_AñP_Descripcion(){
         return "Descripcion";
     }
     
-    public static String opcionCrearProductoPeso(){
+    public static String mC_AñP_Peso(){
         return "Peso (en kg) ";
     }
     
-    public static String opcionCrearProductoCantidad(){
+    public static String mC_AñP_Cantidad(){
         return "Cantidad";
     }
     
-    public static String opcionCrearProductoFechaCompra(){
+    public static String mC_AñP_IntroducirFechaCompra(){
         return "Introducir a continuacion la fecha de compra";
     }
     
-    public static String opcionCrearProductoDiaCompra(){
+    public static String mC_AñP_Dia(){
         return "Dia";
     }
     
-    public static String opcionCrearProductoMesCompra(){
+    public static String mC_AñP_Mes(){
         return "Mes";
     }
     
-    public static String opcionCrearProductoAñoCompra(){
+    public static String mC_AñP_Año(){
         return "Año";
     }
     
-    public static String menuCajeroOpcionListaProductosDescripcion(){
-        return "Descripcion";
-    }
-    
-    public static String menuCajeroOpcionListaProductosEstado(){
-        return "Estado";
-    }
-    
-    public static String menuCajeroOpcionListaProductosNumeroProducto(){
-        return "Numero de producto";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoTituloCaracteristica(){
-        return "Titulo";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoDescripcionCaracteristica(){
-        return "Descripcion";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoCaracteristica(){
-        return "Indique a continuacion el titulo de la caracteristica y su descripcion";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoExito(){
-        return "Se ha actualizado el producto con exito";
-    }
-    
-    public static String menuCajeroOpcionActualizarProducto(){
-        return "Actualizar producto";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoTiempoGarantia(){
-        return "Tiempo de garantia";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoNuevaCaracteristica(){
-        return "Añadir caracteristica al producto";
-    }
-    
-    public static String menuCajeroOpcionActualizarProductoElegirOpcion(){
-        return "Elegir opcion a modificar";
-    }
-    
-    public static String opcionCrearProductoCategoria(){
+    public static String mC_AñP_ElegirCategoriaProducto(){
         return "Categoria del producto (Sonido|Hogar|Telefonia|Imagen|Informatica) ";
     }
     
-    public static String opcionCrearProductoCategoriaCorrecta(){
+    public static String mC_AñP_CategoriaSeleccionada(){
         return "Categoria seleccionada correctamente";
     }
     
-    public static String opcionCrearProductoCategoriaIncorrecta(){
+    public static String mC_AñP_CategoriaInexistente(){
         return "Categoria inexistente, por favor vuelva a intentarlo ";
     }
     
     //Sensible a la hora de crear un producto
-    public static String opcionCrearProductoCategoriaSonido(){
+    public static String mC_AñP_Sonido(){
         return "Sonido";
     }
     
     //Sensible a la hora de crear un producto
-    public static String opcionCrearProductoCategoriaHogar(){
+    public static String mC_AñP_Hogar(){
         return "Hogar";
     }
     
     //Sensible a la hora de crear un producto
-    public static String opcionCrearProductoCategoriaTelefonia(){
+    public static String mC_AñP_Telefonia(){
         return "Telefonia";
     }
     
     //Sensible a la hora de crear un producto
-    public static String opcionCrearProductoCategoriaImagen(){
+    public static String mC_AñP_Imagen(){
         return "Imagen";
     }
     
     //Sensible a la hora de crear un producto
-    public static String opcionCrearProductoCategoriaInformatica(){
+    public static String mC_AñP_Informatica(){
         return "Informatica";
     }
     
-    public static String informacionNombre(){
-        return "Nombre";
+    public static String mC_AcP_ProductoNoEncontrado(){
+        return "No se ha encontrado ningun producto con el numero ";
     }
     
-    public static String informacionEmail(){
-        return "Email";
+    public static String mC_AcP_ProductoEncontrado(){
+        return "Producto encontrado. Numero de producto = ";
     }
     
-    public static String loginInformacion(){
-        return "Escriba su usuario y contraseña a continuacion";
+    public static String mC_AcP_Financiado(){
+        return "Financiado";
     }
     
-    public static String loginUsuario(){
-        return "Usuario";
+    public static String mC_AcP_FechaCompra(){
+        return "Fecha de compra";
     }
     
-    public static String loginContraseña(){
-        return "Contraseña";
+    public static String mC_AcP_Titulo(){
+        return "Titulo";
+    }
+    
+    public static String mC_Acp_CaracteristicaTituloDescripcion(){
+        return "Indique a continuacion el titulo de la caracteristica y su descripcion";
+    }
+    
+    public static String mC_AcP_Exito(){
+        return "Se ha actualizado el producto con exito";
+    }
+    
+    public static String mC_AcP_TiempoGarantia(){
+        return "Tiempo de garantia";
+    }
+    
+    public static String mC_AcP_AñadirCaracteristica(){
+        return "Añadir caracteristica al producto";
+    }
+    
+    public static String mC_AcP_ElegirOpcion(){
+        return "Elegir opcion a modificar";
+    }
+    
+    public static String mC_VDP_IntroducirNumeroProducto(){
+        return "Introduzca a continuacion el numero del producto";
+    }
+    
+    public static String mC_LP_Estado(){
+        return "Estado";
+    }
+    
+    public static String mC_LP_NumeroProducto(){
+        return "Numero de producto";
     }
     
 }

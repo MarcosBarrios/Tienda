@@ -45,9 +45,10 @@ public class UIMenuPrincipal extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        obtenerMenu().añadirOpcion(UIMensajes.menuPrincipalOpcionIniciarSesion());
-        obtenerMenu().añadirOpcion(UIMensajes.menuPrincipalOpcionListaUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.menuPrincipalOpcionSalir());
+        //"Iniciar Sesion", "Lista de usuarios", "Salir del programa"
+        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionIniciarSesion());
+        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionListaUsuarios());
+        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
     
@@ -63,9 +64,9 @@ public class UIMenuPrincipal extends UIMenuAccionable{
                 break;
                 
             case 1:
-                //Lista de usuarios
+                //Lista de usuarios, "Lista de usuarios"
                 System.out.print(" " +
-                    UIMensajes.menuPrincipalOpcionListaUsuarios() + ": ");
+                    UIMensajes.mP_OpcionListaUsuarios() + ": ");
                 System.out.println();
                 obtenerUsuario().imprimirListaUsuarios(obtenerUsuarios());
                 
@@ -87,12 +88,13 @@ public class UIMenuPrincipal extends UIMenuAccionable{
      * En caso de login fallido vuelve al menu
      */
     private void login(){
-        System.out.println(UIMensajes.menuEncabezado());
-        System.out.println(UIMensajes.loginInformacion());
-        obtenerUsuario().formatearCadena(UIMensajes.loginUsuario(), true, true);
+        System.out.println(UIMensajes.g_EncabezadoMenus());
+        //"Iniciar sesion", "Usuario", "Contraseña"
+        System.out.println(UIMensajes.mP_OpcionIniciarSesion());
+        obtenerUsuario().formatearCadena(UIMensajes.g_Usuario(), true, true);
         //Obtenemos el usuario
         String nombreUsuario = UIEntradas.obtenerCadena(false);
-        obtenerUsuario().formatearCadena(UIMensajes.loginContraseña(), true, true);
+        obtenerUsuario().formatearCadena(UIMensajes.g_Contraseña(), true, true);
         //Obtenemos la contraseña
         String contraseña = UIEntradas.obtenerCadena(false);
         
@@ -102,14 +104,16 @@ public class UIMenuPrincipal extends UIMenuAccionable{
         
         if(temp != null){ //Si encuentra un empleado con los datos
             if(temp instanceof EpdoCajero){
-                System.out.println(UIMensajes.menuPrincipalLoginExito() + 
+                //"Se ha entrado a la cuenta con exito"
+                System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoCajero menuCajero = new UIMenuEpdoCajero(obtenerUsuarios(),
                 obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp));
             }else if(temp instanceof EpdoPostVenta){
                 //En caso de empleados de postventa
             }else if(temp instanceof EpdoFinanciacion){
-                System.out.println(UIMensajes.menuPrincipalLoginExito() + 
+                //"Se ha entrado a la cuenta con exito"
+                System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoFinanciacion menuFinanciador = new UIMenuEpdoFinanciacion(
                     obtenerUsuarios(),obtenerProductos(), 
@@ -117,8 +121,8 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             }
             //PENDIENTE añadir condiciones para cada tipo de empleado
         }else{ //Si por el contrario no existe ninguna cuenta con dichos datos
-            //Avisa de fallo y vuelve al menu
-            System.out.println(UIMensajes.menuPrincipalLoginFallido());
+            //Avisa de fallo y vuelve al menu, "Usuario o contraseña incorrectos"
+            System.out.println(UIMensajes.mP_FalloLogin());
             volverMenu();
         }
     }
