@@ -63,15 +63,15 @@ public class UIMensajes{
         return "Contraseña";
     }
     
-    public static String mF_opcionDarAlta(){
+    public static String mF_OpcionDarAlta(){
         return "Dar de alta a un cliente";
     }
     
-    public static String mF_opcionActualizarDatos(){
+    public static String mF_OpcionActualizarDatos(){
         return "Actualizar datos de un cliente";
     }
     
-    public static String mF_opcionVerDatosCliente(){
+    public static String mF_OpcionVerDatosCliente(){
         return "Ver los datos de un cliente";
     }
     
@@ -196,27 +196,27 @@ public class UIMensajes{
         return "Categoria inexistente, por favor vuelva a intentarlo ";
     }
     
-    //Sensible a la hora de crear un producto
+    //Sensible a la hora de añadir un producto
     public static String mC_AñP_Sonido(){
         return "Sonido";
     }
     
-    //Sensible a la hora de crear un producto
+    //Sensible a la hora de añadir un producto
     public static String mC_AñP_Hogar(){
         return "Hogar";
     }
     
-    //Sensible a la hora de crear un producto
+    //Sensible a la hora de añadir un producto
     public static String mC_AñP_Telefonia(){
         return "Telefonia";
     }
     
-    //Sensible a la hora de crear un producto
+    //Sensible a la hora de añadir un producto
     public static String mC_AñP_Imagen(){
         return "Imagen";
     }
     
-    //Sensible a la hora de crear un producto
+    //Sensible a la hora de añadir un producto
     public static String mC_AñP_Informatica(){
         return "Informatica";
     }

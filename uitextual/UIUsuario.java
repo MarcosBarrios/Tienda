@@ -135,9 +135,9 @@ public abstract class UIUsuario{
         System.out.println(UIMensajes.g_EncabezadoMenus());
         
         //"Nombre", "Email", "* * * * * * ....... * *"
-        System.out.println(UIMensajes.gNombre() + ": " +
+        System.out.println(UIMensajes.g_Nombre() + ": " +
             usuario.obtenerNombreUsuario());
-        System.out.println(UIMensajes.gEmail() + ": " +
+        System.out.println(UIMensajes.g_Email() + ": " +
             usuario.obtenerEmailUsuario());
         System.out.println(UIMensajes.g_EncabezadoMenus());
     }
@@ -152,7 +152,7 @@ public abstract class UIUsuario{
         for(int i = 0; i < usuarios.obtenerTamaño(); i++){
             //"* * * * * * ....... * *"
             System.out.println(UIMensajes.g_EncabezadoMenus());
-            System.out.println(UIMensajes.gNombre() + ": " +
+            System.out.println(UIMensajes.g_Nombre() + ": " +
                 usuarios.obtenerUsuario(i).obtenerNombreUsuario() + 
                 "  " + usuarios.obtenerUsuario(i).obtenerEmailUsuario());
         }

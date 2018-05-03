@@ -55,10 +55,12 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
      * 
      */
     public void añadirOpciones(){
-        obtenerMenu().añadirOpcion(UIMensajes.menuFinanciacionOpcionDarAlta());
-        obtenerMenu().añadirOpcion(UIMensajes.menuFinanciacionOpcionActualizarDatos());
-        obtenerMenu().añadirOpcion(UIMensajes.menuFinanciacionOpcionDatosCliente());
-        obtenerMenu().añadirOpcion(UIMensajes.menuPrincipalOpcionSalir());
+        //"Dar de alta a un cliente", "Actualizar datos de un cliente"
+        //"Ver los datos de un cliente"
+        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionDarAlta());
+        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionActualizarDatos());
+        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerDatosCliente());
+        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
     

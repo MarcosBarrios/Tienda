@@ -38,11 +38,11 @@ public class Util{
     public static ArrayList<String> listaCategoriasProductos(){
         ArrayList<String> aux = new ArrayList<String>();
         
-        aux.add(UIMensajes.opcionCrearProductoCategoriaHogar());
-        aux.add(UIMensajes.opcionCrearProductoCategoriaSonido());
-        aux.add(UIMensajes.opcionCrearProductoCategoriaInformatica());
-        aux.add(UIMensajes.opcionCrearProductoCategoriaImagen());
-        aux.add(UIMensajes.opcionCrearProductoCategoriaTelefonia());
+        aux.add(UIMensajes.mC_AñP_Hogar());
+        aux.add(UIMensajes.mC_AñP_Sonido());
+        aux.add(UIMensajes.mC_AñP_Informatica());
+        aux.add(UIMensajes.mC_AñP_Imagen());
+        aux.add(UIMensajes.mC_AñP_Telefonia());
         
         return aux;
     }

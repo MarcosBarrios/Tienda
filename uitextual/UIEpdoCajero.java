@@ -278,47 +278,47 @@ public class UIEpdoCajero extends UIUsuario{
      */
     private void imprimirCaracteristicasProducto(Producto producto){
         //Numero de producto
-        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosNumeroProducto(), 
+        formatearCadena(UIMensajes.mC_LP_NumeroProducto(), 
             true, true);
         System.out.print(producto.obtenerNumeroProducto());
         
         //Precio
-        formatearCadena(UIMensajes.opcionCrearProductoPrecio(), true, true);
+        formatearCadena(UIMensajes.mC_AñP_Precio(), true, true);
         System.out.print(producto.obtenerPrecio());
         
         //Cantidad
-        formatearCadena(UIMensajes.opcionCrearProductoCantidad(), true, true);
+        formatearCadena(UIMensajes.mC_AñP_Cantidad(), true, true);
         System.out.print(producto.obtenerCantidad());
         
         //Descripcion
-        formatearCadena(UIMensajes.opcionCrearProductoDescripcion(), true, true);
+        formatearCadena(UIMensajes.mC_AñP_Descripcion(), true, true);
         System.out.print(producto.obtenerDescripcion());
         
         //Peso
-        formatearCadena(UIMensajes.opcionCrearProductoPrecio(), true, true);
+        formatearCadena(UIMensajes.mC_AñP_Peso(), true, true);
         System.out.print(producto.obtenerPeso());
         
         //Devuelve el estado de la financiacion del producto
-        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoFinanciado(), 
+        formatearCadena(UIMensajes.mC_AcP_Financiado(), 
             true, true);
         System.out.print(producto.obtenerEstadoFinanciado());
         
         //Estado
-        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosEstado(), true, true);
+        formatearCadena(UIMensajes.mC_LP_Estado(), true, true);
         System.out.print(producto.obtenerEstadoProducto());
         
         //Fecha de compra
-        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoFechaCompra(), 
+        formatearCadena(UIMensajes.mC_AcP_FechaCompra(), 
             true, true);
         System.out.print(producto.obtenerDiaCompra() + "/");
         System.out.print(producto.obtenerMesCompra() + "/");
         System.out.print(producto.obtenerAñoCompra());
-        System.out.print(" " + UIMensajes.opcionCrearProductoDiaCompra());
-        System.out.print("/" + UIMensajes.opcionCrearProductoMesCompra());
-        System.out.print("/" + UIMensajes.opcionCrearProductoAñoCompra());
+        System.out.print(" " + UIMensajes.mC_AñP_Dia());
+        System.out.print("/" + UIMensajes.mC_AñP_Mes());
+        System.out.print("/" + UIMensajes.mC_AñP_Año());
         
         //Tiempo de garantia
-        formatearCadena(UIMensajes.menuCajeroOpcionActualizarProductoTiempoGarantia(), 
+        formatearCadena(UIMensajes.mC_AcP_TiempoGarantia(), 
             true, true);
         System.out.print(producto.obtenerTiempoGarantia());
         
@@ -336,8 +336,9 @@ public class UIEpdoCajero extends UIUsuario{
      * @param productos Base de datos de productos del programa
      */
     public void imprimirDatosProducto(Productos productos){
-        formatearCadena(UIMensajes.menuCajeroOpcionDatosProducto(), false, true);
-        formatearCadena(UIMensajes.menuCajeroOpcionListaProductosNumeroProducto(),
+        //"Numero de producto"
+        formatearCadena(UIMensajes.mC_OpcionVerDatosProducto(), false, true);
+        formatearCadena(UIMensajes.mC_LP_NumeroProducto(),
             true, true);
         //Pregunta por el numero de producto hasta obtener un numero valido
         int nProducto = UIEntradas.obtenerEntero(0, productos.obtenerTamaño());
@@ -345,7 +346,8 @@ public class UIEpdoCajero extends UIUsuario{
         if(producto!=null){ //Si encuentra el producto
             imprimirCaracteristicasProducto(producto);
         }else{ //Si NO encuentra el producto
-            System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoNoEncontrado());
+            //"Producto encontrado. Numero de producto = "
+            System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
         }
     }
     
@@ -357,26 +359,26 @@ public class UIEpdoCajero extends UIUsuario{
      * 
      */
     public void imprimirListaProductos(Productos productos){
-        System.out.println(UIMensajes.menuEncabezado());
-        System.out.println(UIMensajes.menuCajeroOpcionListaProductos());
+        System.out.println(UIMensajes.g_EncabezadoMenus());
+        System.out.println(UIMensajes.mC_OpcionListaProductos());
         System.out.println();
         for(int i = 0; i < productos.obtenerTamaño(); i++){
             //Obtiene el producto mediante su id dentro del arraylist
             //si el segundo argumento fuese true entonces usaria el
             //numero de producto en vez de la id en arraylist
             Producto temp = productos.obtenerProducto(i, false);
-            System.out.print("\t" + UIMensajes.menuCajeroOpcionListaProductosNumeroProducto()
+            System.out.print("\t" + UIMensajes.mC_LP_NumeroProducto()
                 + ": " + temp.obtenerNumeroProducto() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoCantidad()
+            System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
                 + ": " + temp.obtenerCantidad() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoPrecio() 
+            System.out.print("|" + UIMensajes.mC_AñP_Precio() 
                 + ": " + temp.obtenerPrecio() + " ");
-            System.out.print("|" + UIMensajes.opcionCrearProductoPeso()
+            System.out.print("|" + UIMensajes.mC_AñP_Peso()
                 + ": " + temp.obtenerPeso() + " ");
-            System.out.print("|" + UIMensajes.menuCajeroOpcionListaProductosEstado()
+            System.out.print("|" + UIMensajes.mC_LP_Estado()
                 + ": " + temp.obtenerEstadoProducto() + " ");
             System.out.println("|" + 
-                UIMensajes.menuCajeroOpcionListaProductosDescripcion()
+                UIMensajes.mC_AñP_Descripcion()
                 + ": " + temp.obtenerDescripcion() + " ");
             System.out.println();
         }

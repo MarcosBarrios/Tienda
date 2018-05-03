@@ -35,27 +35,27 @@ public class UIEpdoFinanciacion extends UIUsuario{
         
         //"¿Que desea modificar?" , "Nombre", "Email"
         formatearCadena(UIMensajes.mF_AD_QueModificar(), false, true);
-        System.out.print(" (" +  UIMensajes.gNombre() +
-           "/" + UIMensajes.gEmail() + "): ");
+        System.out.print(" (" +  UIMensajes.g_Nombre() +
+           "/" + UIMensajes.g_Email() + "): ");
         String mod = UIEntradas.obtenerCadena(false).toLowerCase();
         String nuevoDato;
         
         //"Nombre", "Email" 
-        if(mod.equals(UIMensajes.gNombre().toLowerCase())){
+        if(mod.equals(UIMensajes.g_Nombre().toLowerCase())){
             //Modificar el nombre del cliente
-            formatearCadena(UIMensajes.gNombre(), true, true);
-        }else if(mod.equals(UIMensajes.gEmail().toLowerCase())){
+            formatearCadena(UIMensajes.g_Nombre(), true, true);
+        }else if(mod.equals(UIMensajes.g_Email().toLowerCase())){
             //Modificar el email del cliente
-            formatearCadena(UIMensajes.gEmail(), true, true);
+            formatearCadena(UIMensajes.g_Email(), true, true);
         }
         nuevoDato = UIEntradas.obtenerCadena(false);
         
         if(cliente!=null){
             //"Nombre", "Email"
-            if(mod.equals(UIMensajes.gNombre().toLowerCase())){
+            if(mod.equals(UIMensajes.g_Nombre().toLowerCase())){
                 //Modificar el nombre del cliente
                 cliente.asignarNombreUsuario(nuevoDato);
-            }else if(mod.equals(UIMensajes.gEmail().toLowerCase())){
+            }else if(mod.equals(UIMensajes.g_Email().toLowerCase())){
                 //Modificar el email del cliente
                 cliente.asignarEmailUsuario(nuevoDato);
             }
@@ -77,11 +77,11 @@ public class UIEpdoFinanciacion extends UIUsuario{
         formatearCadena(UIMensajes.mF_DA_IndicarNombreEmail(), true, true);
         
         //"Nombre", "Nombre aceptado"
-        String nombre = formatearEntradaCadena(UIMensajes.gNombre(), true);
+        String nombre = formatearEntradaCadena(UIMensajes.g_Nombre(), true);
         System.out.println(UIMensajes.mF_DA_NombreAceptado());
         
         //"Email", "Email aceptado"
-        String email = formatearEntradaCadena(UIMensajes.gEmail(), true);
+        String email = formatearEntradaCadena(UIMensajes.g_Email(), true);
         System.out.println(UIMensajes.mF_DA_EmailAceptado());
         
         //Añadimos el cliente a la base de datos de clientes
@@ -100,9 +100,9 @@ public class UIEpdoFinanciacion extends UIUsuario{
         Cliente cliente = (Cliente) usuarios.obtenerUsuario(neCliente.toLowerCase());
         
         //Imprimir los datos del cliente. "Nombre", "Email"
-        formatearCadena(UIMensajes.gNombre(), true, true);
+        formatearCadena(UIMensajes.g_Nombre(), true, true);
         System.out.print(cliente.obtenerNombreUsuario());
-        formatearCadena(UIMensajes.gEmail(), true, true);
+        formatearCadena(UIMensajes.g_Email(), true, true);
         System.out.print(cliente.obtenerEmailUsuario());
     }
     

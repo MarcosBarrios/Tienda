@@ -56,11 +56,14 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        obtenerMenu().añadirOpcion(UIMensajes.menuCajeroOpcionCrearProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.menuCajeroOpcionActualizarProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.menuCajeroOpcionVerDatosProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.menuCajeroOpcionListaProductos());
-        obtenerMenu().añadirOpcion(UIMensajes.menuPrincipalOpcionSalir());
+        //"Añadir un producto", "Actualizar producto"
+        //"Ver las caracteristicas de un producto",
+        //"Lista de productos"
+        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionAñadirProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionActualizarProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVerDatosProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionListaProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
     
@@ -83,11 +86,13 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             case 1: //Actualizar los datos de un producto
                 
                 //Obtenemos la cadena "Numero de producto"
-                String aux = UIMensajes.menuCajeroOpcionListaProductosNumeroProducto();
+                String aux = UIMensajes.mC_LP_NumeroProducto();
                 
                 //Obtenemos el numero de producto del producto a modificar
                 int numeroProducto = (int) obtenerCajero().formatearEntradaDecimal(aux);
-                System.out.println(UIMensajes.menuCajeroOpcionActualizarProductoExito()); 
+                //"Se ha actualizado el producto con exito"
+                System.out.println(UIMensajes.mC_AcP_Exito()); 
+                
                 //Invocamos el metodo para modificarlo
                 obtenerCajero().actualizarProducto(obtenerProductos(), numeroProducto);
                 
