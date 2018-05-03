@@ -43,16 +43,16 @@ public class UIMensajes{
         return "Elija una de las opciones escribiendo el nº de opcion a continuacion";
     }
     
+    public static String g_EscribirUsuarioContraseña(){
+        return "Escriba su usuario y contraseña a continuacion";
+    }
+    
     public static String g_Nombre(){
         return "Nombre";
     }
     
     public static String g_Email(){
         return "Email";
-    }
-    
-    public static String g_EscribirUsuarioContraseña(){
-        return "Escriba su usuario y contraseña a continuacion";
     }
     
     public static String g_Usuario(){
@@ -62,6 +62,63 @@ public class UIMensajes{
     public static String g_Contraseña(){
         return "Contraseña";
     }
+    
+    //*********************************************************************
+    
+    public static String mGU_OpcionAñadirEmpleado(){
+        return "Añadir empleado al sistema";
+    }
+    
+    public static String mGU_OpcionActualizarDatos(){
+        return "Actualizar los datos de un empleado";
+    }
+    
+    public static String mGU_OpcionVerListaEmpleados(){
+        return "Ver lista de empleados";
+    }
+    
+    public static String mGU_EspecificarDatos(){
+        return "Especificar a continuacion el nombre, email, usuario" +
+            "y la contraseña del empleado a registrar";
+    }
+    
+    public static String mGU_AcE_EmpleadoActualizado(){
+        return "Empleado actualizado con exito";
+    }
+    
+    public static String mGU_AñE_EmpleadoRegistrado(){
+        return "Empleado registrado con exito";
+    }
+    
+    public static String mGU_AñE_EspecificarTipoEmpleado(){
+        return "¿Tipo de empleado?";
+    }
+    
+    public static String mGU_AñE_EmpleadoNoEncontrado(){
+        return "Empleado no encontrado";
+    }
+    
+    public static String mGU_AñE_Cajero(){
+        return "Cajero";
+    }
+    
+    public static String mGU_AñE_Financiacion(){
+        return "Financiacion";
+    }
+    
+    public static String mGU_AñE_Tecnico(){
+        return "Tecnico";
+    }
+    
+    public static String mGU_AñE_Comercial(){
+        return "Comercial";
+    }
+    
+    public static String mGU_AñE_PostVenta(){
+        return "PostVenta";
+    }
+    
+    //*********************************************************************
     
     public static String mF_OpcionDarAlta(){
         return "Dar de alta a un cliente";
@@ -115,6 +172,8 @@ public class UIMensajes{
         return "Se han actualizado los datos del cliente";
     }
     
+    //*********************************************************************
+    
     public static String mP_OpcionIniciarSesion(){
         return "Iniciar Sesion";
     }
@@ -123,6 +182,10 @@ public class UIMensajes{
         return "Lista de usuarios";
     }
     
+    public static String mP_OpcionGestionarUsuarios(){
+        return "Gestionar usuarios";
+    }
+
     public static String mP_FalloLogin(){
         return "Usuario o contraseña incorrectos";
     }
@@ -130,6 +193,12 @@ public class UIMensajes{
     public static String mP_ExitoLogin(){
         return "Se ha entrado a la cuenta con exito";
     }
+    
+    public static String mP_ContraseñaIncorrecta(){
+        return "Contraseña incorrecta";
+    }
+    
+    //*********************************************************************
     
     public static String mC_OpcionAñadirProducto(){
         return "Añadir un producto";
@@ -273,4 +342,5 @@ public class UIMensajes{
         return "Numero de producto";
     }
     
+    //*********************************************************************
 }

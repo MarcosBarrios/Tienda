@@ -5,6 +5,8 @@ import backend.Usuarios;
 import backend.Cliente;
 import backend.Util;
 
+import java.util.ArrayList;
+
 /**
  * Dispone de metodos para dar de alta a clientes en el sistema con sus 
  * datos personales y actualizar los datos de clientes del sistema.
@@ -33,31 +35,31 @@ public class UIEpdoFinanciacion extends UIUsuario{
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
         Cliente cliente = (Cliente) usuarios.obtenerUsuario(neCliente.toLowerCase());
         
-        //"¿Que desea modificar?" , "Nombre", "Email"
-        formatearCadena(UIMensajes.mF_AD_QueModificar(), false, true);
-        System.out.print(" (" +  UIMensajes.g_Nombre() +
-           "/" + UIMensajes.g_Email() + "): ");
-        String mod = UIEntradas.obtenerCadena(false).toLowerCase();
-        String nuevoDato;
-        
-        //"Nombre", "Email" 
-        if(mod.equals(UIMensajes.g_Nombre().toLowerCase())){
-            //Modificar el nombre del cliente
-            formatearCadena(UIMensajes.g_Nombre(), true, true);
-        }else if(mod.equals(UIMensajes.g_Email().toLowerCase())){
-            //Modificar el email del cliente
-            formatearCadena(UIMensajes.g_Email(), true, true);
-        }
-        nuevoDato = UIEntradas.obtenerCadena(false);
-        
         if(cliente!=null){
-            //"Nombre", "Email"
-            if(mod.equals(UIMensajes.g_Nombre().toLowerCase())){
+            String nombre = UIMensajes.g_Nombre();
+            String email = UIMensajes.g_Email();
+            
+            //"¿Que desea modificar?" , "Nombre", "Email"
+            formatearCadena(UIMensajes.mF_AD_QueModificar(), true, true);
+            System.out.print(" (" +  nombre + "/" + email + "): ");
+            
+            ArrayList<String> listaModificaciones = new ArrayList<String>();
+            listaModificaciones.add(nombre.toLowerCase());
+            listaModificaciones.add(email.toLowerCase());
+               
+            String modElegida = UIEntradas.obtenerCadenaLimitada(listaModificaciones, false);
+            
+            //"Nombre", "Email" 
+            if(modElegida.equals(nombre.toLowerCase())){
                 //Modificar el nombre del cliente
-                cliente.asignarNombreUsuario(nuevoDato);
-            }else if(mod.equals(UIMensajes.g_Email().toLowerCase())){
+                formatearCadena(nombre, true, true);
+                String nuevoNombre = UIEntradas.obtenerCadena(true);
+                cliente.asignarNombreUsuario(nuevoNombre);
+            }else if(modElegida.equals(email.toLowerCase())){
                 //Modificar el email del cliente
-                cliente.asignarEmailUsuario(nuevoDato);
+                formatearCadena(email, true, true);
+                String nuevoEmail = UIEntradas.obtenerCadena(true);
+                cliente.asignarEmailUsuario(nuevoEmail);
             }
             //"Se ha registrado el cliente con exito"
             System.out.println(UIMensajes.mF_DA_RegistradoExito());

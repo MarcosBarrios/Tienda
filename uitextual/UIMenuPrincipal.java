@@ -45,8 +45,10 @@ public class UIMenuPrincipal extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        //"Iniciar Sesion", "Lista de usuarios", "Salir del programa"
+        //"Iniciar Sesion", "Lista de usuarios", 
+        //"Gestionar usuarios", "Salir del programa"
         obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionIniciarSesion());
+        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionGestionarUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionListaUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -58,29 +60,48 @@ public class UIMenuPrincipal extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
-            case 0:
-                //Iniciar sesion
-                login(); //Vuelve al menu si falla el inicio de sesion
-                break;
-                
-            case 1:
-                //Lista de usuarios, "Lista de usuarios"
-                System.out.print(" " +
-                    UIMensajes.mP_OpcionListaUsuarios() + ": ");
-                System.out.println();
-                obtenerUsuario().imprimirListaUsuarios(obtenerUsuarios());
-                
-                //Vuelve al menu
-                volverMenu();
-                break;
-                
-            case 2:
-                //Salir del programa
-                System.exit(0);
-                break;
+            case 0: //Iniciar sesion
+            login(); //Vuelve al menu si falla el inicio de sesion
+            break;
+            
+            case 1: //"Gestionar usuarios"
+            accederGestionUsuarios(); //Accede al menu de gestion de usuarios
+            break;
+            
+            case 2: //Lista de usuarios, "Lista de usuarios"
+            obtenerUsuario().formatearCadena(UIMensajes.mP_OpcionListaUsuarios(), 
+                true, true);
+            obtenerUsuario().imprimirListaUsuarios(obtenerUsuarios());
+            
+            //Vuelve al menu
+            volverMenu();
+            break;
+            
+            case 3: //Salir del programa
+            System.exit(0);
+            break;
         }
     }
 
+    /**
+     * Accede al menu de gestion de usuarios
+     */
+    private void accederGestionUsuarios(){
+        //Preguntamos por la contraseña
+        String contraseña = obtenerUsuario().formatearEntradaCadena(UIMensajes.g_Contraseña(), false);
+        //Buscamos un posible empleado con los datos previamente especificados
+        Empleado temp = (Empleado) Util.buscarCuentaEmpleado(obtenerUsuarios(),
+                "GESTION_USUARIOS", contraseña);
+        if(temp!=null){ //Si la contraseña es correcta
+            UIMenuGestionUsuarios uig = new UIMenuGestionUsuarios(obtenerUsuarios(),
+                obtenerProductos(), new UIGestionUsuarios((EpdoFinanciacion) temp));
+        }else{ //Si la contraseña NO es correcta
+            //Avisa de fallo y vuelve al menu, "contraseña incorrecta"
+            System.out.println(UIMensajes.mP_ContraseñaIncorrecta());
+            volverMenu();
+        }
+    }
+    
     /**
      * Entra al programa como un empleado especifico usando los datos
      * de su cuenta (usuario y contraseña)

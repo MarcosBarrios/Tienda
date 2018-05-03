@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=UIGestionUsuarios
+comment0.text=\r\n\ Parte\ funcional\ del\ menu\ de\ gestion\ de\ usuarios.\r\n\ \r\n\ \ Operaciones\ implementadas\:\r\n\ \ \r\n\ \ -\ A\u00F1adir\ empleado\ al\ sistema\r\n\ \ -\ Actualizar\ nombre,email,\ usuario\ o\ contrase\u00F1a\ de\ un\ empleado\r\n\ \ -\ Ver\ lista\ de\ usuarios\r\n\ \ \r\n\ \ Utiliza\ la\ clase\ EpdoFinanciacion\ como\ contenedor\ de\ la\ contrase\u00F1a\r\n\ \ para\ entrar\ al\ menu\ de\ gestion\ de\ usuarios.\ \r\n\ \ \r\n\ \ A\ la\ hora\ de\ acceder\ al\ menu\ de\ gestion\ de\ usuarios\ el\ menu\ principal\r\n\ \ solo\ pedira\ la\ contrase\u00F1a.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIGestionUsuarios(backend.EpdoFinanciacion)
+comment2.params=usuarios
+comment2.target=void\ a\u00F1adirEmpleado(backend.Usuarios)
+comment2.text=\r\n\ A\u00F1ade\ un\ empleado\ a\ la\ base\ de\ datos\ de\ usuarios\ del\ programa\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
+comment3.params=nombre\ email\ usuario\ contrase\u00F1a
+comment3.target=backend.Empleado\ obtenerTipoEmpleado(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment3.text=\r\n\ Crea\ la\ clase\ de\ empleado\ adecuada\ preguntando\ al\ usuario\r\n\ que\ desea\ registrar\ un\ nuevo\ empleado.\r\n
+comment4.params=usuarios
+comment4.target=void\ actualizarDatosEmpleado(backend.Usuarios)
+comment5.params=usuarios
+comment5.target=void\ imprimirListaEmpleados(backend.Usuarios)
+comment5.text=\r\n\ Implime\ una\ lista\ con\ los\ empleados\ de\ la\ tienda.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ de\ la\ tienda\r\n
+numComments=6

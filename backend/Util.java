@@ -30,6 +30,24 @@ public class Util{
     public static final int MAXIMOMES = 12;
     
     /**
+     * Devuelve una lista con todos los tipos de empleados trabajando
+     * en la tienda.
+     * 
+     * @return aux Lista con los empleados trabajando en la tienda
+     */
+    public static ArrayList<String> listaEmpleados(){
+        ArrayList<String> aux = new ArrayList<String>();
+        
+        aux.add(UIMensajes.mGU_AñE_Cajero().toLowerCase());
+        aux.add(UIMensajes.mGU_AñE_Financiacion().toLowerCase());
+        aux.add(UIMensajes.mGU_AñE_Tecnico().toLowerCase());
+        aux.add(UIMensajes.mGU_AñE_Comercial().toLowerCase());
+        aux.add(UIMensajes.mGU_AñE_PostVenta().toLowerCase());
+        
+        return aux;
+    }
+    
+    /**
      * Devuelve una lista con todas las categorias de productos que hay en
      * la tienda.
      * 

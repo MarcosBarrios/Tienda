@@ -17,12 +17,20 @@ public class Usuarios{
     //Metodo constructor
     public Usuarios(){
         listaUsuarios = new ArrayList<Usuario>();
+        
+        //Usuarios para testeo de funciones el durante desarrollo del programa
         Usuario cajeroPrueba = new EpdoCajero("Marcos Barrios", 
             "marcosloscardones@gmail.com", "unclainC", "1234");
         Usuario financiadorPrueba = new EpdoFinanciacion(
             "Adrian Barrera", "adrian.zorro@gmail.com", "unclainF", "1234");
+        
+        //Usuario fijo para el menu gestion de usuarios
+        Usuario gestionadorUsuarios = new EpdoFinanciacion(
+            "GESTION_USUARIOS", "GESTION_USUARIOS@gmail.com",
+            "GESTION_USUARIOS", "12345");
         añadirUsuario(cajeroPrueba);
         añadirUsuario(financiadorPrueba);
+        añadirUsuario(gestionadorUsuarios);
     }
     
     /**
@@ -66,9 +74,11 @@ public class Usuarios{
         
         for(int i = 0; i < obtenerListaUsuarios().size(); i++){
             Usuario temp = obtenerListaUsuarios().get(i);
-            if(temp.obtenerNombreUsuario().equals(nombreOemail)){
+            String nombre = temp.obtenerNombreUsuario().toLowerCase();
+            String email = temp.obtenerEmailUsuario().toLowerCase();
+            if(nombre.equals(nombreOemail.toLowerCase())){
                 return temp;
-            }else if (temp.obtenerEmailUsuario().equals(nombreOemail)){
+            }else if (email.equals(nombreOemail.toLowerCase())){
                 return temp;
             }
         }

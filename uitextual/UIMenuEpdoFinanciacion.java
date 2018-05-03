@@ -51,12 +51,11 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
      * 
      * (0) Dar de alta a un cliente
      * (1) Actualizar datos de un cliente
-     * (2) Salir del programa
+     * (2) Ver los datos de un cliente
+     * (3) Salir del programa
      * 
      */
-    public void añadirOpciones(){
-        //"Dar de alta a un cliente", "Actualizar datos de un cliente"
-        //"Ver los datos de un cliente"
+    private void añadirOpciones(){
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionDarAlta());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionActualizarDatos());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerDatosCliente());
@@ -67,28 +66,31 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
     /**
      * Implementa el funcionamiento del menu
      */
-    public void activarInteraccion(){
+    private void activarInteraccion(){
         int entrada = UIEntradas.obtenerEntero(0, obtenerMenu().obtenerNumeroOpciones());
         switch(entrada){
             case 0: //Dar de alta a un cliente
-                obtenerFinanciador().darAlta(obtenerUsuarios());
-                //Vuelve a imprimir el menu
-                volverMenu();
-                break;
+            obtenerFinanciador().darAlta(obtenerUsuarios());
+            //Vuelve a imprimir el menu
+            volverMenu();
+            break;
+            
             case 1: //Actualizar datos de un cliente
-                obtenerFinanciador().actualizarDatosCliente(obtenerUsuarios());
-                //Vuelve a imprimir el menu
-                volverMenu();
-                break;
+            obtenerFinanciador().actualizarDatosCliente(obtenerUsuarios());
+            //Vuelve a imprimir el menu
+            volverMenu();
+            break;
+            
             case 2: //Ver los datos de un cliente
-                obtenerFinanciador().imprimirDatosCliente(obtenerUsuarios());
-                
-                //Vuelve a imprimir el menu
-                volverMenu();
-                break;
+            obtenerFinanciador().imprimirDatosCliente(obtenerUsuarios());
+            
+            //Vuelve a imprimir el menu
+            volverMenu();
+            break;
+            
             case 3: //Salir del programa
-                System.exit(0);
-                break;
+            System.exit(0);
+            break;
         }
 
     }

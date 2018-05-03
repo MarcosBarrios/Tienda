@@ -76,7 +76,6 @@ public class UIEpdoCajero extends UIUsuario{
      */
     private Producto obtenerCategoria(){
         //Categoria del producto (Hogar|Telefonia|Imagen|Informatica)
-        boolean valido = false;
         String categoria;
         
         //Obtenemos la lista con las categorias de productos
@@ -84,22 +83,8 @@ public class UIEpdoCajero extends UIUsuario{
         
         //"Categoria del producto (Sonido|Hogar|Telefonia|Imagen|Informatica) "
         System.out.println(UIMensajes.mC_AñP_ElegirCategoriaProducto());
-        do{
-            categoria = UIEntradas.obtenerCadena(false).toLowerCase().trim();
-            
-            //Comprobamos si al categoria especificada existe
-            Iterator<String> itr = listaCategorias.iterator();
-            while(itr.hasNext()){
-                String temp = itr.next().toLowerCase();
-                if(temp.equals(categoria)){
-                    valido = true; //En caso de que encuentre la categoria especificada
-                }
-            }
-            if(!valido){
-                //"Categoria inexistente, por favor vuelva a intentarlo "
-                System.out.print(UIMensajes.mC_AñP_CategoriaInexistente());
-            }
-        }while(!valido);
+        categoria = UIEntradas.obtenerCadenaLimitada(listaCategorias, false);
+        
         //""Categoria seleccionada correctamente"
         System.out.println(UIMensajes.mC_AñP_CategoriaSeleccionada());
         
