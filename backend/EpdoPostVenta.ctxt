@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EpdoPostVenta
 comment0.text=\r\n\ Clase\ que\ implementa\ las\ funciones\ de\ los\ empleados\ de\ post-venta.\r\n\ \r\n\ Entre\ sus\ funciones\ se\ incluye\ la\ capacidad\ para\ modificar\ la\ informacion\r\n\ de\ los\ empleados\ y\ clientes\ en\ la\ base\ de\ datos\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=nombre\ email\ usuario\ contrase\u00F1a
-comment1.target=EpdoPostVenta(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=dni\ nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=EpdoPostVenta(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 numComments=2

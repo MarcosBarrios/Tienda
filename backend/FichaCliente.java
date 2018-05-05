@@ -1,9 +1,9 @@
 package backend;
 
+import productos.Producto;
 
 import java.util.Stack;
 import java.util.Iterator;
-import productos.*;
 
 /**
  * Cada cliente va a tener asignada una ficha cliente tal que puedan
@@ -33,10 +33,35 @@ public class FichaCliente{
     }
     
     /**
+     * Elimina un producto del historial de productos comprados. 
+     * 
+     * Si usarNumeroProducto = false es necesario el uso de un metodo 
+     * de busqueda para encontrar el identificador adecuado.
+     * 
+     * @param id Posicion en coleccion (false) / Numero de producto (true)
+     * @param usarNumeroProducto true: id=numeroProducto, fase: id=pos(ArrayList)
+     */
+    public void eliminarProductoComprado(int id, boolean usarNumeroProducto){
+        if(usarNumeroProducto){
+            Iterator<Producto> itr = listaProductosComprados.iterator();
+            while(itr.hasNext()){
+                Producto temp = itr.next();
+                if(temp.obtenerNumeroProducto()==id){
+                    itr.remove();
+                }
+            }
+        }else{
+            if(id>=0 && id < listaProductosComprados.size()){
+                listaProductosComprados.remove(id);
+            }
+        }
+    }
+    
+    /**
      * Obtiene un producto del historial de productos comprados.
      * 
-     * Es necesario el uso de un metodo de busqueda para encontrar el
-     * identificador adecuado en caso de usarNumeroProducto = false.
+     * Si sarNumeroProducto = false es necesario el uso de un metodo 
+     * de busqueda para encontrar el identificador adecuado.
      * 
      * @param id Posicion en coleccion (false) / Numero de producto (true)
      * @param usarNumeroProducto true: id=numeroProducto, fase: id=pos(ArrayList)

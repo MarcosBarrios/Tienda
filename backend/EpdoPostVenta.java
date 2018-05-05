@@ -11,9 +11,9 @@ package backend;
  */
 public class EpdoPostVenta extends Empleado{
     
-    public EpdoPostVenta(String nombre, String email, String usuario, 
+    public EpdoPostVenta(String dni, String nombre, String email, String usuario, 
         String contraseña){
-       super(nombre, email, usuario, contraseña);
+       super(dni, nombre, email, usuario, contraseña);
     }
     
 }

@@ -15,8 +15,8 @@ public class Cliente extends Usuario{
     private FichaCliente fichaCliente;
     
     //Metodo constructor
-    public Cliente(String nombreUsuario, String emailUsuario){
-        super(nombreUsuario, emailUsuario);
+    public Cliente(String dni, String nombreUsuario, String emailUsuario){
+        super(dni, nombreUsuario, emailUsuario);
         fichaCliente = new FichaCliente();
     }
     

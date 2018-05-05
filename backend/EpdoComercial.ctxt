@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EpdoComercial
 comment0.text=\r\n\ Clase\ que\ implementa\ las\ funciones\ de\ los\ empleados\ comerciales.\r\n\ \r\n\ Se\ encargar\u00E1\ de\ modificar\ los\ estados\ de\ los\ productos\ de\ un\r\n\ cliente\ mediante\ la\ creaci\u00F3n\ de\ reportes.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=nombre\ email\ usuario\ contrase\u00F1a
-comment1.target=EpdoComercial(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=dni\ nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=EpdoComercial(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 numComments=2

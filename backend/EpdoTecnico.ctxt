@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=EpdoTecnico
 comment0.text=\r\n\ Clase\ que\ implementa\ las\ funciones\ de\ los\ empleados\ tecnicos.\r\n\ \r\n\ Empleado\ encargado\ de\ la\ reparaci\u00F3n\ de\ productos.\r\n\ \r\n\ @author\ Marcos\ Barrios\ \r\n\ @version\ 1.0\r\n
-comment1.params=nombre\ email\ usuario\ contrase\u00F1a
-comment1.target=EpdoTecnico(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=dni\ nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=EpdoTecnico(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 numComments=2

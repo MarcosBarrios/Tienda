@@ -27,7 +27,7 @@ public class UIMain{
     public UIMain(){
         productos = new Productos();
         usuarios = new Usuarios();
-        Usuario u = new EpdoCajero("Marcos", "azucar@gmail.com", "vodafone",
+        Usuario u = new EpdoCajero("11111111B", "Marcos", "azucar@gmail.com", "vodafone",
             "12345");
         usuario = new UIEpdoCajero((EpdoCajero) u);
         UIMenuAccionable menuPrincipal = new UIMenuPrincipal(usuarios, productos,

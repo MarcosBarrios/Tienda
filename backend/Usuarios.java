@@ -19,13 +19,13 @@ public class Usuarios{
         listaUsuarios = new ArrayList<Usuario>();
         
         //Usuarios para testeo de funciones el durante desarrollo del programa
-        Usuario cajeroPrueba = new EpdoCajero("Marcos Barrios", 
+        Usuario cajeroPrueba = new EpdoCajero("11111111A", "Marcos Barrios", 
             "marcosloscardones@gmail.com", "unclainC", "1234");
-        Usuario financiadorPrueba = new EpdoFinanciacion(
+        Usuario financiadorPrueba = new EpdoFinanciacion("11111112A",
             "Adrian Barrera", "adrian.zorro@gmail.com", "unclainF", "1234");
         
         //Usuario fijo para el menu gestion de usuarios
-        Usuario gestionadorUsuarios = new EpdoFinanciacion(
+        Usuario gestionadorUsuarios = new EpdoFinanciacion("11111113A",
             "GESTION_USUARIOS", "GESTION_USUARIOS@gmail.com",
             "GESTION_USUARIOS", "12345");
         añadirUsuario(cajeroPrueba);
@@ -64,21 +64,24 @@ public class Usuarios{
     }
     
     /**
-     * Obtiene un usuario de la coleccion mediante su nombre o
-     * email.
+     * Obtiene un usuario de la coleccion mediante su nombre,
+     * email o dni.
      * 
-     * @param nombreOemail nombre o email del usuario objetivo
+     * @param nombreOemailOdni nombre, email o dni del usuario objetivo
      * @return obtenerListaUsuarios().get(aux)
      */
-    public Usuario obtenerUsuario(String nombreOemail){
+    public Usuario obtenerUsuario(String nombreOemailOdni){
         
         for(int i = 0; i < obtenerListaUsuarios().size(); i++){
             Usuario temp = obtenerListaUsuarios().get(i);
             String nombre = temp.obtenerNombreUsuario().toLowerCase();
             String email = temp.obtenerEmailUsuario().toLowerCase();
-            if(nombre.equals(nombreOemail.toLowerCase())){
+            String dni = temp.obtenerDNI().toLowerCase();
+            if(nombre.equals(nombreOemailOdni.toLowerCase())){
                 return temp;
-            }else if (email.equals(nombreOemail.toLowerCase())){
+            }else if (email.equals(nombreOemailOdni.toLowerCase())){
+                return temp;
+            }else if(dni.equals(nombreOemailOdni.toLowerCase())){
                 return temp;
             }
         }

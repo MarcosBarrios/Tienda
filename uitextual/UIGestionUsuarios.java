@@ -10,7 +10,6 @@ import backend.Usuario;
 import backend.Empleado;
 import backend.Util;
 
-
 import java.util.ArrayList;
 
 
@@ -93,20 +92,25 @@ public class UIGestionUsuarios extends UIUsuario{
         
         //Asigna la clase de aux segun la entrada obtenida.
         if(tipoEmpleado.equals(postventa.toLowerCase())){
-            aux = new EpdoPostVenta(nombre, email, usuario, contraseña);
+            aux = new EpdoPostVenta("", nombre, email, usuario, contraseña);
         }else if(tipoEmpleado.equals(cajero.toLowerCase())){
-            aux = new EpdoCajero(nombre, email, usuario, contraseña);
+            aux = new EpdoCajero("", nombre, email, usuario, contraseña);
         }else if(tipoEmpleado.equals(financiacion.toLowerCase())){
-            aux = new EpdoFinanciacion(nombre, email, usuario, contraseña);
+            aux = new EpdoFinanciacion("", nombre, email, usuario, contraseña);
         }else if(tipoEmpleado.equals(tecnico.toLowerCase())){
-            aux = new EpdoTecnico(nombre, email, usuario, contraseña);
+            aux = new EpdoTecnico("", nombre, email, usuario, contraseña);
         }else if(tipoEmpleado.equals(comercial.toLowerCase())){
-            aux = new EpdoComercial(nombre, email, usuario, contraseña);
+            aux = new EpdoComercial("", nombre, email, usuario, contraseña);
         }
         
         return aux;
     }
     
+    /**
+     * Actualiza los datos de un empleado de la tienda.
+     * 
+     * @usuarios Base de datos del programa
+     */
     public void actualizarDatosEmpleado(Usuarios usuarios){
         String entrada = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
         Empleado empleado = (Empleado) usuarios.obtenerUsuario(entrada.toLowerCase());

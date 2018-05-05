@@ -11,8 +11,8 @@ package backend;
  */
 public class EpdoTecnico extends Empleado{
     
-    public EpdoTecnico(String nombre, String email, String usuario, 
+    public EpdoTecnico(String dni, String nombre, String email, String usuario, 
         String contraseña){
-       super(nombre, email, usuario, contraseña);
+       super(dni, nombre, email, usuario, contraseña);
     }
 }

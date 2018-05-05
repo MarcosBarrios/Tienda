@@ -56,9 +56,12 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        //"Añadir un producto", "Actualizar producto"
-        //"Ver las caracteristicas de un producto",
+        //"Vcender un producto a un cliente",
+        //"Añadir un producto",
+        //"Actualizar producto", 
+        //"Ver las caracteristicas de un producto" ,
         //"Lista de productos"
+        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVenderProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionAñadirProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionActualizarProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVerDatosProducto());
@@ -72,17 +75,23 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
      */
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
-        switch(entrada){ //Si la opcion es salir (asignada a ultima pos)
-            case 0: //Añadir producto a la base de datos
+        switch(entrada){ 
+            case 0: //"Vender un producto a un cliente
+            obtenerCajero().venderProducto(obtenerUsuarios(), obtenerProductos());
+            
+            //Volver a imprimir el menu
+            volverMenu();
+            break;
+            
+            case 1: //Añadir producto a la base de datos
             //Llamamos al metodo en la clase UI para EpdoCajeros
-            Producto producto = obtenerCajero().añadirProducto();
-            obtenerProductos().añadirProducto(producto);
+            obtenerCajero().añadirProducto(obtenerProductos());
             
             //Vuelve a imprimir el menu
             volverMenu();
             break;
                 
-            case 1: //Actualizar los datos de un producto
+            case 2: //Actualizar los datos de un producto
                 
             //Obtenemos la cadena "Numero de producto"
             String aux = UIMensajes.mC_LP_NumeroProducto();
@@ -95,26 +104,26 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             //Invocamos el metodo para modificarlo
             obtenerCajero().actualizarProducto(obtenerProductos(), numeroProducto);
             
-            //Vuelve a imprimir el menu
+            //Volver a imprimir el menu
             volverMenu();
             break;
                 
-            case 2: //Ver las caracteristicas de un producto
+            case 3: //Ver las caracteristicas de un producto
             obtenerCajero().imprimirDatosProducto(obtenerProductos());
             
             volverMenu();
             break;
             
-            case 3: //Lista de productos
+            case 4: //Lista de productos
             
             //Imprimir lista de productos
             obtenerCajero().imprimirListaProductos(obtenerProductos());
             
-            //Vuelve a imprimir el menu
+            //Volver a imprimir el menu
             volverMenu();
             break;
                 
-            case 4: //Salir del programa
+            case 5: //Salir del programa
             System.exit(0);
             break;
         }

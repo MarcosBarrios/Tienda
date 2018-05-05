@@ -12,9 +12,9 @@ package backend;
  */
 public class EpdoFinanciacion extends Empleado{
     
-    public EpdoFinanciacion(String nombre, String email, String usuario, 
-        String contraseña){
-        super(nombre, email, usuario, contraseña);
+    public EpdoFinanciacion(String dni, String nombre, String email,
+        String usuario, String contraseña){
+        super(dni, nombre, email, usuario, contraseña);
     }
     
     public void darAlta(Usuarios usuarios, Cliente cliente){

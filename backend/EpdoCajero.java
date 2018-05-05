@@ -22,9 +22,9 @@ public class EpdoCajero extends Empleado{
     private boolean estaOperando;
     
     //Metodo constructor
-    public EpdoCajero(String nombre, String email, String usuario, 
-        String contraseña){
-        super(nombre, email, usuario, contraseña);
+    public EpdoCajero(String dni, String nombre, String email, 
+        String usuario, String contraseña){
+        super(dni, nombre, email, usuario, contraseña);
     }
     
     /**

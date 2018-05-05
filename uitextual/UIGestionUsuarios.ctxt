@@ -11,6 +11,7 @@ comment3.target=backend.Empleado\ obtenerTipoEmpleado(java.lang.String,\ java.la
 comment3.text=\r\n\ Crea\ la\ clase\ de\ empleado\ adecuada\ preguntando\ al\ usuario\r\n\ que\ desea\ registrar\ un\ nuevo\ empleado.\r\n
 comment4.params=usuarios
 comment4.target=void\ actualizarDatosEmpleado(backend.Usuarios)
+comment4.text=\r\n\ Actualiza\ los\ datos\ de\ un\ empleado\ de\ la\ tienda.\r\n\ \r\n\ @usuarios\ Base\ de\ datos\ del\ programa\r\n
 comment5.params=usuarios
 comment5.target=void\ imprimirListaEmpleados(backend.Usuarios)
 comment5.text=\r\n\ Implime\ una\ lista\ con\ los\ empleados\ de\ la\ tienda.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ de\ la\ tienda\r\n

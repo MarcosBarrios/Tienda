@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Empleado
 comment0.text=\r\n\ Clase\ encargada\ de\ definir\ los\ metodos\ comunes\ a\ todos\ los\ empleados\r\n\ que\ utilizan\ el\ sistema.\ \r\n\ \r\n\ @author\:\ Marcos\ Barrios\r\n\ @version\:\ 1.0\r\n
-comment1.params=nombre\ email\ usuario\ contrase\u00F1a
-comment1.target=Empleado(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=dni\ nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=Empleado(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 comment2.params=
 comment2.target=java.lang.String\ obtenerContrase\u00F1a()
 comment2.text=\r\n\ Devuelve\ la\ contrase\u00F1a\ asignada\ al\ empleado.\r\n\ \r\n\ @return\ contrase\u00F1a\ Contrase\u00F1a\ para\ iniciar\ sesion\r\n

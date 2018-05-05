@@ -12,8 +12,8 @@ public abstract class Empleado extends Usuario{
     //Datos con los que el empleado debe iniciar sesion
     private String usuario, contraseña;
     
-    public Empleado(String nombre, String email, String usuario, String contraseña){
-        super(nombre, email);
+    public Empleado(String dni, String nombre, String email, String usuario, String contraseña){
+        super(dni, nombre, email);
         this.usuario = usuario;
         this.contraseña = contraseña;
     }

@@ -17,10 +17,32 @@ public abstract class Usuario{
     //Email del usuario
     private String emailUsuario;
     
+    //DNI del usuario
+    private String dni; 
+    
     //Matodo constructor
-    public Usuario(String nombreUsuario, String emailUsuario){
+    public Usuario(String dni, String nombreUsuario, String emailUsuario){
+        this.dni = dni;
         this.nombreUsuario = nombreUsuario;
         this.emailUsuario = emailUsuario;
+    }
+    
+    /**
+     * Asigna o cambia el dni del usuario
+     * 
+     * @param nuevoDNI Nuevo DNI del usuario
+     */
+    public void asignarDNI(String nuevoDNI){
+        this.dni = nuevoDNI;
+    }
+    
+    /**
+     * Devuelve el DNI del usuario
+     * 
+     * @return dni DNI del usuario
+     */
+    public String obtenerDNI(){
+        return dni;
     }
     
     /**

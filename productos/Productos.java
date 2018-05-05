@@ -77,9 +77,11 @@ public class Productos{
                     return null;
                 }
             }
+        }else{
+            return obtenerListaProductos().get(id);
         }
         
-        return obtenerListaProductos().get(id);
+        return null;
     }
     
     /**

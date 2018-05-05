@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=UIEpdoPostVenta
+comment0.text=\r\n\ Implementa\ las\ funciones\ que\ debe\ realizar\ un\ empleado\ de\r\n\ post\ venta\ en\ la\ parte\ textual\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIEpdoPostVenta(backend.EpdoPostVenta)
+comment2.params=productos\ usuarios
+comment2.target=void\ devolverProducto(productos.Productos,\ backend.Usuarios)
+numComments=3

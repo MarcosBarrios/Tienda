@@ -1,6 +1,8 @@
 package uitextual;
 
+import backend.Usuarios;
 import backend.Usuario;
+import backend.Cliente;
 import backend.EpdoCajero;
 import backend.Util;
 
@@ -31,6 +33,50 @@ public class UIEpdoCajero extends UIUsuario{
     }
     
     /**
+     * Vende un producto a un cliente. 
+     * 
+     * @param usuarios Base de datos de usuarios
+     * @param productos Base de datos de productos
+     */
+    public void venderProducto(Usuarios usuarios, Productos productos){
+        //Obtener el cliente al que se va a vender el producto. "Indicar el nombre del cliente"
+        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
+        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
+        
+        boolean encontrado = true;
+        if(usuario!=null){
+            
+            if(usuario instanceof Cliente){
+                encontrado = true;
+                Cliente cliente = (Cliente) usuario;
+                
+                //Obtener el producto que se va a vender al cliente. "Numero de producto"
+                int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
+                Producto producto = productos.obtenerProducto(nProducto, true);
+                
+                if(producto!=null){ 
+                    if(producto.obtenerCantidad()>0){ //Si hay al menos un producto en el almacen
+                        //Añadir producto a la lista de productos comprados del cliente
+                        cliente.obtenerFichaCliente().añadirProductoComprado(producto);
+                        producto.asignarCantidad(producto.obtenerCantidad()-1);
+                    }else{ //Sin reservas
+                        //"No quedan reservas del producto especificado"
+                        System.out.println(UIMensajes.mC_VP_SinStock());
+                    }
+                }else{
+                    //"No se ha encontrado ningun producto con el numero "
+                    System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
+                }
+            }
+        }
+        
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
+    }
+    
+    /**
      * El cajero ingresa en la base de datos de productos un producto que
      * la tienda acaba de recibir.
      * 
@@ -38,7 +84,7 @@ public class UIEpdoCajero extends UIUsuario{
      *
      * @param productos Base de datos de productos de la tienda
      */
-    public Producto añadirProducto(){
+    public void añadirProducto(Productos productos){
         //"A continuacion se va a proceder a introducir" + 
         //" las caracteristicas del producto. "
         System.out.println(UIMensajes.mC_AñP_ProcederIntroduccion());
@@ -66,7 +112,15 @@ public class UIEpdoCajero extends UIUsuario{
         String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
         producto.asignarDescripcion(descripcion);
         
-        return producto;
+        //Se comprueba si la base de datos contiene un producto igual al que se
+        //va a añadir, en cuyo caso simplemente aumenta la cantidad del actual
+        //producto en la base de datos en vez de añadir un producto mas a esta.
+        Producto productoIgual = Util.obtenerProductoIgual(producto, productos);
+        if(productoIgual!=null){
+            productoIgual.asignarCantidad(productoIgual.obtenerCantidad()+1);
+        }else{
+            productos.añadirProducto(producto);
+        }
     }
     
     /**

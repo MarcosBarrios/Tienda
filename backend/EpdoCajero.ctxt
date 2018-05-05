@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=EpdoCajero
 comment0.text=\r\n\ Los\ cajeros\ son\ los\ encargados\ de\ trabajar\ con\ los\ diferentes\ productos.\r\n\ \r\n\ Entre\ sus\ tareas\ estan\ la\ de\ ordenar\ los\ electrodomesticos,\ asegurarse\ de\ que\r\n\ siempre\ hay\ electrodomesticos,\ cobrar\ a\ los\ clientes,\ resolver\ dudas\ de\ clientes,\r\n\ etc...\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=nombre\ email\ usuario\ contrase\u00F1a
-comment1.target=EpdoCajero(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=dni\ nombre\ email\ usuario\ contrase\u00F1a
+comment1.target=EpdoCajero(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
 comment2.params=estaOperando
 comment2.target=void\ cambiarEstadoOperando(boolean)
 comment2.text=\r\n\ Cambia\ el\ estado\ de\ la\ variable\ booleana\ que\ indica\ si\ el\ cajero\r\n\ tiene\ una\ caja\ asignada\ y\ esta\ efectivamente\ en\ ella.\r\n\ \r\n\ @param\ estaOperando\ Nuevo\ estado\ de\ la\ variable\ booleana\r\n

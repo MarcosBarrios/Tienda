@@ -2,6 +2,7 @@ package uitextual;
 
 import backend.EpdoFinanciacion;
 import backend.Usuarios;
+import backend.Usuario;
 import backend.Cliente;
 import backend.Util;
 
@@ -31,39 +32,47 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * @param usuarios Base de datos de usuarios
      */
     public void actualizarDatosCliente(Usuarios usuarios){
-        //"Indique a continuacion el nombre e email del cliente a registrar"
+        //"Indique a continuacion el nombre o email del cliente a registrar"
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Cliente cliente = (Cliente) usuarios.obtenerUsuario(neCliente.toLowerCase());
+        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
         
-        if(cliente!=null){
-            String nombre = UIMensajes.g_Nombre();
-            String email = UIMensajes.g_Email();
-            
-            //"¿Que desea modificar?" , "Nombre", "Email"
-            formatearCadena(UIMensajes.mF_AD_QueModificar(), true, true);
-            System.out.print(" (" +  nombre + "/" + email + "): ");
-            
-            ArrayList<String> listaModificaciones = new ArrayList<String>();
-            listaModificaciones.add(nombre.toLowerCase());
-            listaModificaciones.add(email.toLowerCase());
-               
-            String modElegida = UIEntradas.obtenerCadenaLimitada(listaModificaciones, false);
-            
-            //"Nombre", "Email" 
-            if(modElegida.equals(nombre.toLowerCase())){
-                //Modificar el nombre del cliente
-                formatearCadena(nombre, true, true);
-                String nuevoNombre = UIEntradas.obtenerCadena(true);
-                cliente.asignarNombreUsuario(nuevoNombre);
-            }else if(modElegida.equals(email.toLowerCase())){
-                //Modificar el email del cliente
-                formatearCadena(email, true, true);
-                String nuevoEmail = UIEntradas.obtenerCadena(true);
-                cliente.asignarEmailUsuario(nuevoEmail);
+        boolean encontrado = false;
+        if(usuario != null){
+            if(usuario instanceof Cliente){
+                encontrado = true;
+                
+                Cliente cliente = (Cliente) usuario;
+                String nombre = UIMensajes.g_Nombre();
+                String email = UIMensajes.g_Email();
+                
+                //"¿Que desea modificar?" , "Nombre", "Email"
+                formatearCadena(UIMensajes.mF_AD_QueModificar(), true, true);
+                System.out.print(" (" +  nombre + "/" + email + "): ");
+                
+                ArrayList<String> listaModificaciones = new ArrayList<String>();
+                listaModificaciones.add(nombre.toLowerCase());
+                listaModificaciones.add(email.toLowerCase());
+                   
+                String modElegida = UIEntradas.obtenerCadenaLimitada(listaModificaciones, false);
+                
+                //"Nombre", "Email" 
+                if(modElegida.equals(nombre.toLowerCase())){
+                    //Modificar el nombre del cliente
+                    formatearCadena(nombre, true, true);
+                    String nuevoNombre = UIEntradas.obtenerCadena(true);
+                    cliente.asignarNombreUsuario(nuevoNombre);
+                }else if(modElegida.equals(email.toLowerCase())){
+                    //Modificar el email del cliente
+                    formatearCadena(email, true, true);
+                    String nuevoEmail = UIEntradas.obtenerCadena(true);
+                    cliente.asignarEmailUsuario(nuevoEmail);
+                }
+                //"Se ha registrado el cliente con exito"
+                System.out.println(UIMensajes.mF_DA_RegistradoExito());
             }
-            //"Se ha registrado el cliente con exito"
-            System.out.println(UIMensajes.mF_DA_RegistradoExito());
-        }else{
+        }
+        
+        if(!encontrado){
             //"Cliente no encontrado"
             System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
         }
@@ -87,7 +96,7 @@ public class UIEpdoFinanciacion extends UIUsuario{
         System.out.println(UIMensajes.mF_DA_EmailAceptado());
         
         //Añadimos el cliente a la base de datos de clientes
-        usuarios.añadirUsuario(new Cliente(nombre, email));
+        usuarios.añadirUsuario(new Cliente("", nombre, email));
         System.out.println(UIMensajes.mF_DA_RegistradoExito());
     }
     
@@ -99,13 +108,25 @@ public class UIEpdoFinanciacion extends UIUsuario{
     public void imprimirDatosCliente(Usuarios usuarios){
         //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Cliente cliente = (Cliente) usuarios.obtenerUsuario(neCliente.toLowerCase());
+        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
         
-        //Imprimir los datos del cliente. "Nombre", "Email"
-        formatearCadena(UIMensajes.g_Nombre(), true, true);
-        System.out.print(cliente.obtenerNombreUsuario());
-        formatearCadena(UIMensajes.g_Email(), true, true);
-        System.out.print(cliente.obtenerEmailUsuario());
+        boolean encontrado = false;
+        if(usuario!=null){
+            if(usuario instanceof Cliente){
+                encontrado = true;
+                Cliente cliente = (Cliente) usuario;
+                //Imprimir los datos del cliente. "Nombre", "Email"
+                formatearCadena(UIMensajes.g_Nombre(), true, true);
+                System.out.print(cliente.obtenerNombreUsuario());
+                formatearCadena(UIMensajes.g_Email(), true, true);
+                System.out.print(cliente.obtenerEmailUsuario());
+            }
+        }
+        
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
     }
     
 }

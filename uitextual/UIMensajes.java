@@ -15,6 +15,10 @@ package uitextual;
  */
 public class UIMensajes{
     
+    public static String g_FueraRango(){
+        return "Fuera de rango";
+    }
+    
     public static String g_EI_EsperabaNumero(){
         return "Entrada no valida. (Se esperaba numero)";
     }
@@ -63,6 +67,23 @@ public class UIMensajes{
         return "Contraseña";
     }
     
+    //*********************************************************************
+    
+    public static String mPV_OpcionDevolverProducto(){
+        return "Devolver un producto";
+    }
+    
+    public static String mPV_IndicarCliente(){
+        return "Escriba a continuacion el DNI del cliente";
+    }
+    
+    public static String mPV_IntroducirFecha(){
+        return "Indique el dia, mes y año actual";
+    }
+    
+    public static String mPV_DevolucionRechazada(){
+        return "El producto se ha comprado hace mas de 3 meses, devolucion rechazada";
+    }
     //*********************************************************************
     
     public static String mGU_OpcionAñadirEmpleado(){
@@ -200,6 +221,10 @@ public class UIMensajes{
     
     //*********************************************************************
     
+    public static String mC_OpcionVenderProducto(){
+        return "Vender un producto a un cliente";
+    }
+    
     public static String mC_OpcionAñadirProducto(){
         return "Añadir un producto";
     }
@@ -214,6 +239,14 @@ public class UIMensajes{
     
     public static String mC_OpcionListaProductos(){
         return "Lista de productos";
+    }
+    
+    public static String mC_VP_IndicarNombre(){
+        return "Indicar el nombre del cliente";
+    }
+    
+    public static String mC_VP_SinStock(){
+        return "No quedan reservas del producto especificado";
     }
     
     public static String mC_AñP_ProcederIntroduccion(){
