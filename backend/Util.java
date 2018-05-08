@@ -81,6 +81,26 @@ public class Util{
     }
     
     /**
+     * Devuelve una lista con los productos comprados por un cliente que tengan
+     * un numero de producto especificado como parametro.
+     * 
+     * @param cliente Cliente del que obtener la lista
+     * @param numProducto El numero de producto con el que buscar coincidencias
+     * @return aux Lista con los productos comprados por un cliente con numProducto
+     */
+    public static ArrayList<Producto> listaProductosComprados(Cliente cliente){
+        ArrayList<Producto> aux = new ArrayList<Producto>();
+        
+        int nProductosComprados = cliente.obtenerFichaCliente().obtenerNumeroProductosComprados();
+        for(int j = 0; j < nProductosComprados; j++){ //Por cada producto comprado por el cliente
+           Producto temp = cliente.obtenerFichaCliente().obtenerProductoComprado(j, false);
+           aux.add(temp);
+        }
+        
+        return aux;
+    }
+    
+    /**
      * Devuelve una lista con todas las categorias de productos que hay en
      * la tienda.
      * 
@@ -89,11 +109,11 @@ public class Util{
     public static ArrayList<String> listaCategoriasProductos(){
         ArrayList<String> aux = new ArrayList<String>();
         
-        aux.add(UIMensajes.mC_AñP_Hogar());
-        aux.add(UIMensajes.mC_AñP_Sonido());
-        aux.add(UIMensajes.mC_AñP_Informatica());
-        aux.add(UIMensajes.mC_AñP_Imagen());
-        aux.add(UIMensajes.mC_AñP_Telefonia());
+        aux.add(UIMensajes.mC_AñP_Hogar().toLowerCase());
+        aux.add(UIMensajes.mC_AñP_Sonido().toLowerCase());
+        aux.add(UIMensajes.mC_AñP_Informatica().toLowerCase());
+        aux.add(UIMensajes.mC_AñP_Imagen().toLowerCase());
+        aux.add(UIMensajes.mC_AñP_Telefonia().toLowerCase());
         
         return aux;
     }

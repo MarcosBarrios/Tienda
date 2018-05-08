@@ -68,6 +68,9 @@ public class UIEpdoCajero extends UIUsuario{
                     System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
                 }
             }
+        }else{ //En caso de que no encuentre ningun usuario
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
         }
         
         if(!encontrado){
@@ -139,7 +142,7 @@ public class UIEpdoCajero extends UIUsuario{
         System.out.println(UIMensajes.mC_AñP_ElegirCategoriaProducto());
         categoria = UIEntradas.obtenerCadenaLimitada(listaCategorias, false);
         
-        //""Categoria seleccionada correctamente"
+        //"Categoria seleccionada correctamente"
         System.out.println(UIMensajes.mC_AñP_CategoriaSeleccionada());
         
         //Creamos la clase del producto segun la categoria que sea
@@ -175,13 +178,63 @@ public class UIEpdoCajero extends UIUsuario{
      * @param productos Base de datos de productos de la tienda
      * @param numProducto Numero del producto que se quiere modificar
      */
-    public void actualizarProducto(Productos productos, int numProducto){
+    public void actualizarProducto(Productos productos, Usuarios usuarios){
+        //"¿El producto pertenece a un cliente? (si/no)"
+        boolean buscarCliente = formatearEntradaBoolean(UIMensajes.mC_AcP_BuscarCliente());
+        
+        //Obtenemos el numero del producto a modificar
+        int numeroProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
+        
         //Obtenemos el producto con el numero de producto
-        Producto producto = productos.obtenerProducto(numProducto, true);
+        Producto producto = null;
+        if(buscarCliente){ //Si se va a buscar el producto en un cliente
+            //"Especificar el nombre, email o dni del cliente"
+            String entrada = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);
+            Usuario usuario = usuarios.obtenerUsuario(entrada);
+            
+            boolean encontrado = false;
+            if(usuario instanceof Cliente){
+                if(usuario!=null){
+                    Cliente cliente = (Cliente) usuario;
+                
+                    ArrayList<Producto> listaProductos = Util.listaProductosComprados(cliente);
+                    Iterator<Producto> itr = listaProductos.iterator();
+                    while(itr.hasNext()){
+                        Producto tempProducto = itr.next();
+                        
+                        //Si se encuentra un producto con el numero especificado en la 
+                        //lista de productos del cliente
+                        if(tempProducto.obtenerNumeroProducto()==numeroProducto){
+                            encontrado = true;
+                            producto = tempProducto;
+                            
+                            //"mC_AcP_EncontradoEnCliente"
+                            System.out.println(UIMensajes.mC_AcP_EncontradoEnCliente() + ": "
+                                + cliente.obtenerNombreUsuario());
+                        }
+                    }
+                }else{ //Si no se encuentra el cliente
+                    //"Cliente no encontrado"
+                    System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+                }
+
+            }else{ //Si no se encuentra el cliente
+                //"Cliente no encontrado"
+                System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+            }
+            
+            if(!encontrado){ //Si no se ha encontrado ningun producto
+                //"No se ha encontrado ningun producto con el numero"
+                System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
+            }
+        }else{
+            producto = productos.obtenerProducto(numeroProducto, true);
+        }
+        
         if(producto!=null){
             //"Producto encontrado. Numero de producto = "
             System.out.println(UIMensajes.mC_AcP_ProductoEncontrado()+
-                numProducto);
+                numeroProducto);
             
             imprimirCaracteristicasProducto(producto);
             
@@ -190,8 +243,9 @@ public class UIEpdoCajero extends UIUsuario{
         }else{ //En caso de que no encuentre el producto
             //"No se ha encontrado ningun producto con el numero "
             System.out.println(UIMensajes.mC_AcP_ProductoEncontrado()
-                + numProducto);
+                + numeroProducto);
         }
+        
     }
     
     /**
@@ -374,19 +428,103 @@ public class UIEpdoCajero extends UIUsuario{
      * 
      * @param productos Base de datos de productos del programa
      */
-    public void imprimirDatosProducto(Productos productos){
+    public void imprimirDatosProducto(Productos productos, Usuarios usuarios){
+        
         //"Numero de producto"
         formatearCadena(UIMensajes.mC_OpcionVerDatosProducto(), false, true);
         formatearCadena(UIMensajes.mC_LP_NumeroProducto(),
             true, true);
+            
+        //Buscamos coincidencias en la tienda
         //Pregunta por el numero de producto hasta obtener un numero valido
         int nProducto = UIEntradas.obtenerEntero(0, productos.obtenerTamaño());
-        Producto producto = productos.obtenerProducto(nProducto, true);
-        if(producto!=null){ //Si encuentra el producto
-            imprimirCaracteristicasProducto(producto);
+        Producto bProducto = productos.obtenerProducto(nProducto, true);
+        if(bProducto!=null){ //Si encuentra el producto
+            imprimirCaracteristicasProducto(bProducto);
         }else{ //Si NO encuentra el producto
             //"Producto encontrado. Numero de producto = "
             System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
+        }
+        
+        //Imprimimos los productos comprados por los clientes
+        imprimirProductosCompradosCliente(usuarios, nProducto);
+    }
+    
+    /**
+     * Metodo auxiliar de imprimirDatosProducto(...)
+     */
+    private void imprimirProductosCompradosCliente(Usuarios usuarios, int numProducto){
+        
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){ //Para cada cliente de la tienda
+            Usuario tempUsuario = usuarios.obtenerUsuario(i);
+            
+            if(tempUsuario instanceof Cliente){ //Obtenemos un cliente
+                Cliente cliente = (Cliente) tempUsuario;
+                
+                //Obtenemos la lista de productos que el cliente ha comprado
+                ArrayList<Producto> productosComprados = Util.listaProductosComprados(cliente);
+                Iterator<Producto> itr = productosComprados.iterator();
+                while(itr.hasNext()){ //Por cada producto comprado
+                    Producto tempProducto = itr.next();
+                    //Si el numero de producto de tempProducto coincide con el del parametro
+                    if(tempProducto.obtenerNumeroProducto()==numProducto){
+                        System.out.println();
+                        System.out.print("\t" + cliente.obtenerNombreUsuario());
+                        System.out.print("(" + cliente.obtenerDNI() + ") ");
+                        System.out.print("|" + UIMensajes.mC_LP_NumeroProducto()
+                            + ": " + tempProducto.obtenerNumeroProducto() + " ");
+                        System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
+                            + ": " + tempProducto.obtenerCantidad() + " ");
+                        System.out.print("|" + UIMensajes.mC_AñP_Precio() 
+                            + ": " + tempProducto.obtenerPrecio() + " ");
+                        System.out.print("|" + UIMensajes.mC_AñP_Peso()
+                            + ": " + tempProducto.obtenerPeso() + " ");
+                        System.out.print("|" + UIMensajes.mC_LP_Estado()
+                            + ": " + tempProducto.obtenerEstadoProducto() + " ");
+                        System.out.println();
+                        System.out.println("|" + UIMensajes.mC_AñP_Descripcion()
+                            + ": " + tempProducto.obtenerDescripcion() + " ");
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    /**
+     * Metodo auxiliar de imprimirListaProductos(...)
+     */
+    private void imprimirCaracteristicasProductoComprado(Usuarios usuarios){
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario tempUsuario = usuarios.obtenerUsuario(i);
+            if(tempUsuario instanceof Cliente){ //Obtenemos un cliente
+                Cliente cliente = (Cliente) tempUsuario;
+                
+                //Obtenemos la lista de productos que el cliente ha comprado
+                ArrayList<Producto> productosComprados = Util.listaProductosComprados(cliente);
+                Iterator<Producto> itr = productosComprados.iterator();
+                while(itr.hasNext()){ //Por cada producto comprado
+                    Producto tempProducto = itr.next();
+                    System.out.print("\t" + UIMensajes.g_Nombre()
+                        + ": " + tempUsuario.obtenerNombreUsuario() + " ");
+                    System.out.print("|" + UIMensajes.mC_LP_NumeroProducto()
+                        + ": " + tempProducto.obtenerNumeroProducto() + " ");
+                    System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
+                        + ": " + tempProducto.obtenerCantidad() + " ");
+                    System.out.print("|" + UIMensajes.mC_AñP_Precio() 
+                        + ": " + tempProducto.obtenerPrecio() + " ");
+                    System.out.print("|" + UIMensajes.mC_AñP_Peso()
+                        + ": " + tempProducto.obtenerPeso() + " ");
+                    System.out.print("|" + UIMensajes.mC_LP_Estado()
+                        + ": " + tempProducto.obtenerEstadoProducto() + " ");
+                    System.out.println();
+                    System.out.println("\t" + UIMensajes.mC_AñP_Descripcion()
+                        + ": " + tempProducto.obtenerDescripcion() + " ");
+                    System.out.println();
+                    
+                }
+                
+            }
         }
     }
     
@@ -397,7 +535,7 @@ public class UIEpdoCajero extends UIUsuario{
      * Numero de producto, Cantidad, Precio, Peso, Estado, Descripcion
      * 
      */
-    public void imprimirListaProductos(Productos productos){
+    public void imprimirListaProductos(Productos productos, Usuarios usuarios){
         System.out.println(UIMensajes.g_EncabezadoMenus());
         System.out.println(UIMensajes.mC_OpcionListaProductos());
         System.out.println();
@@ -416,11 +554,14 @@ public class UIEpdoCajero extends UIUsuario{
                 + ": " + temp.obtenerPeso() + " ");
             System.out.print("|" + UIMensajes.mC_LP_Estado()
                 + ": " + temp.obtenerEstadoProducto() + " ");
-            System.out.println("|" + 
-                UIMensajes.mC_AñP_Descripcion()
+            System.out.println();
+            System.out.println("\t" + UIMensajes.mC_AñP_Descripcion()
                 + ": " + temp.obtenerDescripcion() + " ");
             System.out.println();
         }
+        
+        //Ahora imprimimos los productos comprados por los clientes
+        imprimirCaracteristicasProductoComprado(usuarios);
     }
     
 }

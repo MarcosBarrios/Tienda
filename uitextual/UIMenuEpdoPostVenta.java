@@ -52,6 +52,7 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
     private void añadirOpciones(){
         //"Devolver un producto", "Salir del programa"
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionDevolverProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
@@ -65,6 +66,11 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
             case 0: //Devolver un producto
             obtenerPostVenta().devolverProducto(obtenerProductos(), obtenerUsuarios());
             volverMenu();
+            break;
+            
+            case 1: //Cerrar Sesion
+            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
+            obtenerUsuario());
             break;
             
             case 2: //Salir del programa

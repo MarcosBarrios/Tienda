@@ -23,6 +23,9 @@ public class Usuarios{
             "marcosloscardones@gmail.com", "unclainC", "1234");
         Usuario financiadorPrueba = new EpdoFinanciacion("11111112A",
             "Adrian Barrera", "adrian.zorro@gmail.com", "unclainF", "1234");
+        Usuario postventaPrueba = new EpdoFinanciacion("11111112A",
+            "Postvento Barrera", "postventotolerante@gmail.com", "unclainPV", "1234");
+            
         
         //Usuario fijo para el menu gestion de usuarios
         Usuario gestionadorUsuarios = new EpdoFinanciacion("11111113A",
@@ -31,6 +34,7 @@ public class Usuarios{
         añadirUsuario(cajeroPrueba);
         añadirUsuario(financiadorPrueba);
         añadirUsuario(gestionadorUsuarios);
+        añadirUsuario(postventaPrueba);
     }
     
     /**
@@ -94,6 +98,7 @@ public class Usuarios{
      * posicion dentro de la lista que contiene la base de
      * datos de usuarios.
      * 
+     * @param id Posicion del usuario en la lista
      * @return obtenerListaUsuarios().get(id)
      */
     public Usuario obtenerUsuario(int id){

@@ -86,7 +86,7 @@ public abstract class UIUsuario{
     public boolean formatearEntradaBoolean(String nombreEntrada){
         formatearCadena(nombreEntrada, true, false);
         System.out.print(" [true (si)/false (no)]: ");
-        return UIEntradas.obtenerBooleana();
+        return UIEntradas.obtenerBooleana(false);
     }
     
     /**
@@ -149,9 +149,9 @@ public abstract class UIUsuario{
      * @param usuarios Base de datos de usuarios del programa
      */
     public void imprimirListaUsuarios(Usuarios usuarios){
+        //"* * * * * * ....... * *"
+        System.out.println(UIMensajes.g_EncabezadoMenus());
         for(int i = 0; i < usuarios.obtenerTamaño(); i++){
-            //"* * * * * * ....... * *"
-            System.out.println(UIMensajes.g_EncabezadoMenus());
             System.out.println(UIMensajes.g_Nombre() + ": " +
                 usuarios.obtenerUsuario(i).obtenerNombreUsuario() + 
                 "  " + usuarios.obtenerUsuario(i).obtenerEmailUsuario());

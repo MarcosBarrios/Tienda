@@ -59,6 +59,7 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionDarAlta());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionActualizarDatos());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerDatosCliente());
+        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
@@ -88,7 +89,12 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
             volverMenu();
             break;
             
-            case 3: //Salir del programa
+            case 3: //Cerrar sesion
+            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
+            obtenerUsuario());
+            break;
+            
+            case 4: //Salir del programa
             System.exit(0);
             break;
         }

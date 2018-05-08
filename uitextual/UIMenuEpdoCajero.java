@@ -61,11 +61,13 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
         //"Actualizar producto", 
         //"Ver las caracteristicas de un producto" ,
         //"Lista de productos"
+        //"Cerrar sesion"
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVenderProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionAñadirProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionActualizarProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVerDatosProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionListaProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
@@ -92,24 +94,16 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             break;
                 
             case 2: //Actualizar los datos de un producto
-                
-            //Obtenemos la cadena "Numero de producto"
-            String aux = UIMensajes.mC_LP_NumeroProducto();
-            
-            //Obtenemos el numero de producto del producto a modificar
-            int numeroProducto = (int) obtenerCajero().formatearEntradaDecimal(aux);
-            //"Se ha actualizado el producto con exito"
-            System.out.println(UIMensajes.mC_AcP_Exito()); 
             
             //Invocamos el metodo para modificarlo
-            obtenerCajero().actualizarProducto(obtenerProductos(), numeroProducto);
+            obtenerCajero().actualizarProducto(obtenerProductos(), obtenerUsuarios());
             
             //Volver a imprimir el menu
             volverMenu();
             break;
                 
             case 3: //Ver las caracteristicas de un producto
-            obtenerCajero().imprimirDatosProducto(obtenerProductos());
+            obtenerCajero().imprimirDatosProducto(obtenerProductos(), obtenerUsuarios());
             
             volverMenu();
             break;
@@ -117,13 +111,18 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
             case 4: //Lista de productos
             
             //Imprimir lista de productos
-            obtenerCajero().imprimirListaProductos(obtenerProductos());
+            obtenerCajero().imprimirListaProductos(obtenerProductos(), obtenerUsuarios());
             
             //Volver a imprimir el menu
             volverMenu();
             break;
-                
-            case 5: //Salir del programa
+            
+            case 5: //Cerrar sesión
+            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
+            obtenerUsuario());
+            break;
+            
+            case 6: //Salir del programa
             System.exit(0);
             break;
         }

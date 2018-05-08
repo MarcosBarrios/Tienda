@@ -30,5 +30,9 @@ public class EpdoFinanciacion extends Empleado{
         Cliente c = (Cliente) usuarios.obtenerUsuario(emailCliente);
         if(c!=null) c.asignarNombreUsuario(nuevoEmail);
     }
+    
+    public void actualizarDatosCliente(){
+        
+    }
 
 }

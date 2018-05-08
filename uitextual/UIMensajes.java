@@ -15,6 +15,20 @@ package uitextual;
  */
 public class UIMensajes{
     
+    public static String g_CerrarSesion(){
+        return "Cerrar Sesion";
+    }
+    
+    //Sensible a la hora de obtener entradas. Utilizado en UIEntradas
+    public static String g_Si(){
+        return "Si";
+    }
+    
+    //Sensible a la hora de obtener entradas. Utilizado en UIEntradas
+    public static String g_No(){
+        return "No";
+    }
+    
     public static String g_FueraRango(){
         return "Fuera de rango";
     }
@@ -241,10 +255,6 @@ public class UIMensajes{
         return "Lista de productos";
     }
     
-    public static String mC_VP_IndicarNombre(){
-        return "Indicar el nombre del cliente";
-    }
-    
     public static String mC_VP_SinStock(){
         return "No quedan reservas del producto especificado";
     }
@@ -321,6 +331,18 @@ public class UIMensajes{
     //Sensible a la hora de añadir un producto
     public static String mC_AñP_Informatica(){
         return "Informatica";
+    }
+    
+    public static String mC_AcP_NombreDNIEmailCliente(){
+        return "Especificar el nombre, email o dni del cliente";
+    }
+    
+    public static String mC_AcP_EncontradoEnCliente(){
+        return "Se ha encontrado un producto igual de ";
+    }
+    
+    public static String mC_AcP_BuscarCliente(){
+        return "¿El producto pertenece a un cliente? (si/no)";
     }
     
     public static String mC_AcP_ProductoNoEncontrado(){

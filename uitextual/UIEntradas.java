@@ -85,21 +85,34 @@ public class UIEntradas{
      * 
      * @return true si entrada.equals("true")
      */
-    public static boolean obtenerBooleana(){
+    public static boolean obtenerBooleana(boolean siOno){
         Scanner s = new Scanner(System.in);
         String entrada;
         boolean valida = false;
         do{
             entrada = s.next().toLowerCase().trim();
-            if(entrada.equals("true")){
-                valida = true;
-                return true;
-            }else if(entrada.equals("false")){
-                valida = true;
-                return false;
-            }else{
-                //"Entrada no valida. (Se esperaba true o false)"
-                System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
+            if(!siOno){ //Obtener "true" o "false"
+                if(entrada.toLowerCase().equals("true")){
+                    valida = true;
+                    return true;
+                }else if(entrada.toLowerCase().equals("false")){
+                    valida = true;
+                    return false;
+                }else{
+                    //"Entrada no valida. (Se esperaba true o false)"
+                    System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
+                }
+            }else{ //Obtener "si" o "no"
+                if(entrada.toLowerCase().equals(UIMensajes.g_Si().toLowerCase())){
+                    valida = true;
+                    return true;
+                }else if(entrada.toLowerCase().equals(UIMensajes.g_No().toLowerCase())){
+                    valida = true;
+                    return false;
+                }else{
+                    //"Entrada no valida. (Se esperaba true o false)"
+                    System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
+                }
             }
         }while(!valida);
         

@@ -1,6 +1,24 @@
 #BlueJ class context
 comment0.target=ProductoInformatica
-comment0.text=\r\n\ Define\ los\ productos\ que\ pertenezcan\ a\ la\ categoria\ de\ informatica.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment0.text=\r\n\ Define\ los\ productos\ que\ pertenecen\ a\ la\ categoria\ de\ informatica.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
 comment1.params=
 comment1.target=ProductoInformatica()
-numComments=2
+comment2.params=nuevaFrecuencia
+comment2.target=void\ asignarFrecuencia(int)
+comment2.text=\r\n\ Asigna\ o\ reasigna\ la\ frecuencia\ del\ producto\ informatico.\r\n\ \r\n\ Medida\ en\ MHz.\r\n\ \r\n\ @param\ nuevaFrecuencia\ La\ nueva\ frecuencia\ del\ producto\r\n
+comment3.params=
+comment3.target=int\ obtenerFrecuencia()
+comment3.text=\r\n\ Devuelve\ la\ frecuencia\ en\ MHz.\r\n\ \r\n\ @return\ frecuencia\ Frecuencia\ en\ MHz\r\n
+comment4.params=nuevaCantidad
+comment4.target=void\ asignarNumeroNucleos(int)
+comment4.text=\r\n\ Asigna\ o\ reasigna\ el\ numero\ de\ nucleos\ del\ producto\r\n\ informatico.\r\n\ \r\n\ @param\ nuevaCantidad\ Nuevo\ numero\ de\ nucleos\r\n
+comment5.params=
+comment5.target=int\ obtenerNumeroNucleos()
+comment5.text=\r\n\ Devuelve\ el\ numero\ de\ nucleos\ de\ la\ CPU\ o\ procesador\r\n\ del\ producto\ informatico.\r\n\ \r\n\ @return\ numeroNucleos\ Numero\ de\ nucleos\ de\ la\ CPU\r\n
+comment6.params=nuevaCapacidad
+comment6.target=void\ asignarCapacidadAlmacenamiento(float)
+comment6.text=\r\n\ Asigna\ o\ reasigna\ la\ capacidad\ de\ almacenamiento\ en\ GB.\r\n\ \r\n\ @param\ nuevaCapacidad\ Nueva\ capacidad\ de\ almacenamiento\ (en\ GB)\r\n
+comment7.params=
+comment7.target=float\ obtenerCapacidadAlmacenamiento()
+comment7.text=\r\n\ Devuelve\ la\ capacidad\ de\ almacenamiento\ en\ GB.\r\n\ \r\n\ @return\ capacidadAlmacenamiento\ Numero\ de\ GBs\ que\ puede\ almacenar\r\n
+numComments=8

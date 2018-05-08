@@ -6,10 +6,13 @@ comment1.target=FichaCliente()
 comment2.params=producto
 comment2.target=void\ a\u00F1adirProductoComprado(productos.Producto)
 comment2.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
-comment3.params=id\ usarNumeroProducto
-comment3.target=void\ eliminarProductoComprado(int,\ boolean)
-comment3.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment3.params=
+comment3.target=int\ obtenerNumeroProductosComprados()
+comment3.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ comprados\ por\ el\ cliente\r\n\ \r\n\ @return\ listaProductosComprados.size();\r\n
 comment4.params=id\ usarNumeroProducto
-comment4.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
-comment4.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
-numComments=5
+comment4.target=void\ eliminarProductoComprado(int,\ boolean)
+comment4.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment5.params=id\ usarNumeroProducto
+comment5.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
+comment5.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+numComments=6

@@ -33,6 +33,15 @@ public class FichaCliente{
     }
     
     /**
+     * Devuelve la cantidad de productos comprados por el cliente
+     * 
+     * @return listaProductosComprados.size();
+     */
+    public int obtenerNumeroProductosComprados(){
+        return listaProductosComprados.size();
+    }
+    
+    /**
      * Elimina un producto del historial de productos comprados. 
      * 
      * Si usarNumeroProducto = false es necesario el uso de un metodo 

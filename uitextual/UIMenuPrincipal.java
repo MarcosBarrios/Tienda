@@ -69,8 +69,6 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             break;
             
             case 2: //Lista de usuarios, "Lista de usuarios"
-            obtenerUsuario().formatearCadena(UIMensajes.mP_OpcionListaUsuarios(), 
-                true, true);
             obtenerUsuario().imprimirListaUsuarios(obtenerUsuarios());
             
             //Vuelve al menu
@@ -131,7 +129,12 @@ public class UIMenuPrincipal extends UIMenuAccionable{
                 UIMenuEpdoCajero menuCajero = new UIMenuEpdoCajero(obtenerUsuarios(),
                 obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp));
             }else if(temp instanceof EpdoPostVenta){
-                //En caso de empleados de postventa
+                //"Se ha entrado a la cuenta con exito"
+                System.out.println(UIMensajes.mP_ExitoLogin() + 
+                    " " + temp.obtenerNombreUsuario());
+                UIMenuEpdoPostVenta menuPostVenta = new UIMenuEpdoPostVenta(
+                    obtenerUsuarios(),obtenerProductos(), 
+                    new UIEpdoPostVenta((EpdoPostVenta) temp));
             }else if(temp instanceof EpdoFinanciacion){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
