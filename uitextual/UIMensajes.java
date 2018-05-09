@@ -80,6 +80,11 @@ public class UIMensajes{
     public static String g_Contraseña(){
         return "Contraseña";
     }
+    //*********************************************************************
+    
+    public static String mT_OpcionVerFichas(){
+        return "Ver mis fichas de reparacion";
+    }
     
     //*********************************************************************
     
@@ -95,7 +100,15 @@ public class UIMensajes{
         return "Indique el dia, mes y año actual";
     }
     
-    public static String mPV_DevolucionRechazada(){
+    public static String mPV_RP_GarantiaCaducada(){
+        return "El producto no dispone de garantia";
+    }
+    
+    public static String mPV_DP_DevolucionAceptada(){
+        return "Se ha devuelto el producto con exito";
+    }
+    
+    public static String mPV_DP_DevolucionRechazada(){
         return "El producto se ha comprado hace mas de 3 meses, devolucion rechazada";
     }
     //*********************************************************************

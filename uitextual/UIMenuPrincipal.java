@@ -6,6 +6,8 @@ import backend.Empleado;
 import backend.EpdoCajero;
 import backend.EpdoPostVenta;
 import backend.EpdoFinanciacion;
+import backend.EpdoTecnico;
+import backend.EpdoComercial;
 
 import productos.Productos;
 
@@ -142,6 +144,13 @@ public class UIMenuPrincipal extends UIMenuAccionable{
                 UIMenuEpdoFinanciacion menuFinanciador = new UIMenuEpdoFinanciacion(
                     obtenerUsuarios(),obtenerProductos(), 
                     new UIEpdoFinanciacion((EpdoFinanciacion) temp));
+            }else if(temp instanceof EpdoTecnico){
+                //"Se ha entrado a la cuenta con exito"
+                System.out.println(UIMensajes.mP_ExitoLogin() + 
+                    " " + temp.obtenerNombreUsuario());
+                UIMenuEpdoTecnico menuFinanciador = new UIMenuEpdoTecnico(
+                    obtenerUsuarios(),obtenerProductos(), 
+                    new UIEpdoTecnico((EpdoTecnico) temp));
             }
             //PENDIENTE añadir condiciones para cada tipo de empleado
         }else{ //Si por el contrario no existe ninguna cuenta con dichos datos

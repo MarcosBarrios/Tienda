@@ -5,21 +5,20 @@ import backend.Usuarios;
 import productos.Productos;
 
 /**
- * Menu para los empleados de post venta.
- * 
+ * Implementa el menu de UIEpdoTecnico
+ *
  * @author Marcos Barrios
  * @version 1.0
  */
-public class UIMenuEpdoPostVenta extends UIMenuAccionable{
+public class UIMenuEpdoTecnico extends UIMenuAccionable{
     
-    private UIEpdoPostVenta postVenta;
-
-    //Metodo constructor
-    public UIMenuEpdoPostVenta(Usuarios usuarios, Productos productos,
-        UIEpdoPostVenta usuario){
+    private UIEpdoTecnico tecnico;
+    
+    public UIMenuEpdoTecnico(Usuarios usuarios, Productos productos,
+        UIEpdoTecnico usuario){
         super(usuarios, productos, usuario);
-        postVenta = usuario;
-        
+        tecnico = usuario;
+                
         //Añade las opciones al menu y las imprime por primera vez
         añadirOpciones();
         
@@ -30,8 +29,8 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
     /**
      * Devuelve el empleado de PostVenta para el menu
      */
-    private UIEpdoPostVenta obtenerPostVenta(){
-        return postVenta;
+    private UIEpdoTecnico obtenerTecnico(){
+        return tecnico;
     }
     
     /**
@@ -51,8 +50,8 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        //"Devolver un producto", "Salir del programa"
-        obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionDevolverProducto());
+        //"Ver mis fichas de reparacion", "Salir del programa"
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerFichas());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -64,8 +63,8 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){ 
-            case 0: //Devolver un producto
-            obtenerPostVenta().devolverProducto(obtenerProductos(), obtenerUsuarios());
+            case 0: //Ver mis fichas de reparacion
+            
             volverMenu();
             break;
             
@@ -80,4 +79,5 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
             
         }
     }
+    
 }

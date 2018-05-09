@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=FichaReparacion
+comment0.text=\r\n\ Contiene\ un\ producto\ y\ el\ propietario\ del\ producto.\ Necesaria\r\n\ para\ que\ los\ tecnicos\ trabajen\ con\ dicha\ informacion\ accesible.\r\n\r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=producto\ propietario
+comment1.target=FichaReparacion(productos.Producto,\ Cliente)
+comment2.params=producto
+comment2.target=void\ asignarProducto(productos.Producto)
+comment2.text=\r\n\ Asigna\ o\ reasigna\ el\ producto\r\n\ \r\n\ @param\ producto\r\n
+comment3.params=
+comment3.target=productos.Producto\ obtenerProducto()
+comment3.text=\r\n\ Devuelve\ el\ producto\r\n\ \r\n\ @return\ producto\r\n
+comment4.params=propietario
+comment4.target=void\ asignarPropietario(Cliente)
+comment4.text=\r\n\ Asigna\ o\ reasigna\ el\ propietario\ del\ producto\r\n\ \r\n\ @param\ propietario\r\n
+comment5.params=
+comment5.target=Cliente\ obtenerPropietario()
+comment5.text=\r\n\ Devuelve\ el\ propietario\ del\ producto\r\n\ \r\n\ @return\ propietario\r\n
+numComments=6

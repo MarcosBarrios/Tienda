@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=UIEpdoTecnico
+comment0.text=\r\n\ Implementa\ las\ funciones\ de\ los\ tecnicos\ de\ la\ tienda.\r\n\r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=usuario
+comment1.target=UIEpdoTecnico(backend.EpdoTecnico)
+numComments=2

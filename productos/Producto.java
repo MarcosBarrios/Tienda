@@ -1,6 +1,7 @@
 package productos;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Clase base para todos los productos de la tienda. Define métodos generales
@@ -33,7 +34,10 @@ public abstract class Producto{
     private boolean comprado;
 
     //Fecha de compra del producto
-    private int diaCompra, mesCompra, añoCompra;
+    private int diaCompra, mesCompra, añoCompra; 
+    
+    //Fecha del ultimo reporte añadido
+    private int diaUltimoReporte, mesUltimoReporte, añoUltimoReporte;
 
     //Tiempo antes de que se acabe la garantia (años)
     private int tiempoGarantia;
@@ -44,6 +48,9 @@ public abstract class Producto{
     //Coleccion con caracteristicas extras añadidas en ejecucion
     private ArrayList<Caracteristica> listaCaracteristicas;
 
+    //Coleccion con el historial de reportes
+    private Stack<Reporte> historialReportes;
+    
     //Metodo constructor
     public Producto(){
         precio = 1f; //Precio predeterminado (euros)
@@ -53,8 +60,48 @@ public abstract class Producto{
         financiado = false; //Indica si esta financiado
 
         estadoProducto = EnumEstadoProducto.INTACTO; //Intacto y no vendido
-
+        
+        //Iniciamos las colecciones
         listaCaracteristicas = new ArrayList<Caracteristica>();
+        historialReportes = new Stack<Reporte>();
+    }
+    
+    /**
+     * Añade un reporte al historial de reportes y asigna
+     * el estado del reporte al producto
+     * 
+     * @param reporte Nuevo reporte a añadir
+     */
+    public void añadirReporte(Reporte reporte){
+        //Asignamos el nuevo estado del producto
+        cambiarEstado(reporte.obtenerNuevoEstado());
+        
+        //Asignamos la fecha del ultimo reporte
+        diaUltimoReporte = reporte.obtenerDiaReporte();
+        mesUltimoReporte = reporte.obtenerMesReporte();
+        añoUltimoReporte = reporte.obtenerAñoReporte();
+        
+        historialReportes.add(reporte);
+    }
+    
+    /**
+     * Devuelve el numero de reportes en el historial de
+     * reportes del producto
+     * 
+     * @return historialReportes.size()
+     */
+    public int obtenerNumeroReportes(){
+        return historialReportes.size();
+    }
+    
+    /**
+     * Devuelve un reporte mediante su posicion en la
+     * coleccion
+     * 
+     * @param id Posicion del reporte en la coleccion
+     */
+    public Reporte obtenerReporte(int id){
+        return historialReportes.get(id);
     }
     
     /**
@@ -64,6 +111,66 @@ public abstract class Producto{
      */
     public void asignarCantidad(int cantidad){
         this.cantidad = cantidad;
+    }
+    
+    /**
+     * Asigna o reasigna el dia en el que se añadio el ultimo
+     * reporte al producto
+     * 
+     * @param diaUltimoReporte Dia del ultimo reporte
+     */
+    public void asignarDiaUltimoReporte(int diaUltimoReporte){
+        this.diaUltimoReporte = diaUltimoReporte;
+    }
+    
+    /**
+     * Devuelve el ultimo dia en el que se añadio el ultimo
+     * reporte al producto.
+     * 
+     * @return diaUltimoReporte Dia del ultimo reporte
+     */
+    public int obtenerDiaUltimoReporte(){
+        return diaUltimoReporte;
+    }
+    
+    /**
+     * Asigna o reasigna el mes en el que se añadio el ultimo
+     * reporte al producto
+     * 
+     * @param mesUltimoReporte Mes del ultimo reporte
+     */
+    public void asignarMesUltimoReporte(int mesUltimoReporte){
+        this.mesUltimoReporte = mesUltimoReporte;
+    }
+    
+    /**
+     * Devuelve el ultimo mes en el que se añadio el ultimo
+     * reporte al producto.
+     * 
+     * @return mesUltimoReporte Mes del ultimo reporte
+     */
+    public int obtenerMesUltimoReporte(){
+        return mesUltimoReporte;
+    }
+    
+    /**
+     * Asigna o reasigna el año en el que se añadio el ultimo
+     * reporte al producto
+     * 
+     * @param añoUltimoReporte Año del ultimo reporte
+     */
+    public void asignarAñoUltimoReporte(int mesUltimoReporte){
+        this.añoUltimoReporte = añoUltimoReporte;
+    }
+    
+    /**
+     * Devuelve el ultimo año en el que se añadio el ultimo
+     * reporte al producto.
+     * 
+     * @return añoUltimoReporte Año del ultimo reporte
+     */
+    public int obtenerAñoUltimoReporte(){
+        return añoUltimoReporte;
     }
     
     /**
@@ -77,6 +184,7 @@ public abstract class Producto{
     
     /**
      * Devuelve el estado de la variable financiado
+     * 
      * @return financiado true=producto financiado
      */
     public boolean obtenerEstadoFinanciado(){
@@ -162,7 +270,7 @@ public abstract class Producto{
 
     /**
      * Devuelve el tiempo en años hasta que se termine la garantia
-     * del producto.
+     * del producto
      * 
      * @return tiempoGarantia Tiempo en años hasta que termine la garantia
      */
@@ -172,7 +280,7 @@ public abstract class Producto{
 
     /**
      * Asigna el tiempo en años hasta que se termine la garantia
-     * del producto.
+     * del producto
      * 
      * @param tiempoGarantia Tiempo en años hasta que termina la garantia
      */
@@ -181,18 +289,18 @@ public abstract class Producto{
     }
 
     /**
-     * Añade una caracteristica a la coleccion del producto.
+     * Añade una caracteristica a la coleccion del producto
      * 
-     * #param caracteristica Caracteristica a añadir
+     * @param caracteristica Caracteristica a añadir
      */
     public void añadirCaracteristica(Caracteristica caracteristica){
         listaCaracteristicas.add(caracteristica);
     }
 
     /**
-     * Elimina una caracteristica de la coleccion del producto.
+     * Elimina una caracteristica de la coleccion del producto
      * Es necesario utilizar un metodo de busqueda para encontrar
-     * el identificador (entero) del producto buscado.
+     * el identificador (entero) del producto buscado
      * 
      * @param id Identificador (entero) del producto a eliminar
      */
@@ -201,11 +309,11 @@ public abstract class Producto{
     }
 
     /**
-     * Devuelve una caracteristica de la coleccion del producto.
+     * Devuelve una caracteristica de la coleccion del producto
      * Es necesario utilizar un metodo de busqueda para encontrar
      * el identificador (entero) del producto buscado.
      * 
-     * @param id Identificador (Entero) del producto a eliminar.
+     * @param id Identificador (Entero) del producto a eliminar
      */
     public Caracteristica obtenerCaracteristica(int id){
         return listaCaracteristicas.get(id);
@@ -221,8 +329,9 @@ public abstract class Producto{
     }
 
     /**
-     * Asigna el numero unico de producto.
-     * Es llamado cuando se añade el producto a la base de datos.
+     * Asigna el numero unico de producto
+     * 
+     * Es llamado cuando se añade el producto a la base de datos
      * 
      * @param numeroProducto Numero correspondiente al producto
      */
@@ -231,14 +340,16 @@ public abstract class Producto{
     }
 
     /**
-     * Devuelve el numero unico del producto.
+     * Devuelve el numero unico del producto
+     * 
+     * @return numeroProducto Numero del producto
      */
     public int obtenerNumeroProducto(){
         return numeroProducto;
     }
 
     /**
-     * Asigna/cambia el precio del producto en euros.
+     * Asigna/cambia el precio del producto en euros
      * 
      * @param precio Precio del producto
      */
@@ -247,14 +358,16 @@ public abstract class Producto{
     }
 
     /**
-     * Devuelve el precio del producto en euros.
+     * Devuelve el precio del producto en euros
+     * 
+     * @return precio Precio del producto
      */
     public float obtenerPrecio(){
         return precio;
     }
 
     /**
-     * Asigna el peso del producto en kg.
+     * Asigna el peso del producto en kg
      * 
      * @param peso Peso del producto
      */
@@ -263,14 +376,16 @@ public abstract class Producto{
     }
 
     /**
-     * Devuelve el peso del producto en kg.
+     * Devuelve el peso del producto en kg
+     * 
+     * @return peso Peso del producto
      */
     public float obtenerPeso(){
         return peso;
     }
 
     /**
-     * Cambia el estado de financiacion del producto.
+     * Cambia el estado de financiacion del producto
      * 
      * @param financiado Estado de financiacion
      */
@@ -279,7 +394,7 @@ public abstract class Producto{
     }
 
     /**
-     * Cambia el estado del producto.
+     * Cambia el estado del producto
      * Posibles estados = {"INTACTO", "ROTO", "DEVUELTO"}
      * 
      * @param estadoProducto Estado del producto
@@ -291,22 +406,26 @@ public abstract class Producto{
     /**
      * Devuelve el estado del producto.
      * Posibles estados = {"INTACTO", "ROTO", "DEVUELTO"}
+     * 
+     * @return estadoProducto Estado del producto
      */
     public EnumEstadoProducto obtenerEstadoProducto(){
         return estadoProducto;
     }
 
     /**
-     * Asigna/Cambia una descripcion del producto.
+     * Asigna/Cambia una descripcion del producto
      * 
-     * #param descripcionProducto Descripcion del producto
+     * @param descripcionProducto Descripcion del producto
      */
     public void asignarDescripcion(String descripcionProducto){
         this.descripcionProducto =  descripcionProducto;
     }
 
     /** 
-     * Devuelve la descripcion del producto.
+     * Devuelve la descripcion del producto
+     * 
+     * @return descripcionProducto Descripcion del producto
      */
     public String obtenerDescripcion(){
         return descripcionProducto;

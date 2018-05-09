@@ -23,9 +23,10 @@ public class Usuarios{
             "marcosloscardones@gmail.com", "unclainC", "1234");
         Usuario financiadorPrueba = new EpdoFinanciacion("11111112A",
             "Adrian Barrera", "adrian.zorro@gmail.com", "unclainF", "1234");
-        Usuario postventaPrueba = new EpdoFinanciacion("11111112A",
+        Usuario postventaPrueba = new EpdoPostVenta("11111112A",
             "Postvento Barrera", "postventotolerante@gmail.com", "unclainPV", "1234");
-            
+        Usuario tecnicoPrueba = new EpdoTecnico("11111113A", 
+            "Tecnico Noestupido", "tecnicoverdugo@gmail.com", "unclainT", "1234");
         
         //Usuario fijo para el menu gestion de usuarios
         Usuario gestionadorUsuarios = new EpdoFinanciacion("11111113A",
@@ -35,6 +36,7 @@ public class Usuarios{
         añadirUsuario(financiadorPrueba);
         añadirUsuario(gestionadorUsuarios);
         añadirUsuario(postventaPrueba);
+        añadirUsuario(tecnicoPrueba);
     }
     
     /**
