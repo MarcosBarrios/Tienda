@@ -124,6 +124,7 @@ public class UIEntradas{
      * en una lista de cadena de caracteres.
      * 
      * @param listaValidas Lista con cadenas de caracteres validas
+     * @param lineaCompleta
      * 
      * @return aux Una de las cadenas de caracteres que este en listaValidas.
      */

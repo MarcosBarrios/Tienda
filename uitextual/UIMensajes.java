@@ -82,26 +82,62 @@ public class UIMensajes{
     }
     //*********************************************************************
     
+    public static String mT_OpcionAñadirReporte(){
+        return "Añadir reporte a un producto";
+    }
+    
     public static String mT_OpcionVerFichas(){
         return "Ver mis fichas de reparacion";
     }
     
+    public static String mT_VLR_DatosTecnico(){
+        return "Introducir el nombre, email o DNI del tecnico";
+    }
+    
+    public static String mT_AR_Coste(){
+        return "Coste";
+    }
+    
     //*********************************************************************
+    
+    public static String mPV_OpcionRepararProducto(){
+        return "Reparar un producto";
+    }
     
     public static String mPV_OpcionDevolverProducto(){
         return "Devolver un producto";
     }
     
-    public static String mPV_IndicarCliente(){
+    public static String mPV_RP_GarantiaCaducada(){
+        return "El producto no dispone de garantia";
+    }
+    
+    public static String mPV_RP_DescripcionProblema(){
+        return "Descripcion del problema";
+    }
+    
+    public static String mPV_RP_TecnicoNoEncontrado(){
+        return "Tecnico no encontrado";
+    }
+    
+    public static String mPV_RP_AsignarTecnico(){
+        return "Nombre, email o DNI del tecnico encargado";
+    }
+    
+    public static String mPV_RP_CumpleGarantia(){
+        return "El producto mantiene la garantia. Precio 0 asegurado.";
+    }
+    
+    public static String mPV_RP_NoCumpleGarantia(){
+        return "El producto no mantiene la garantia. Es necesario realizar un pago";
+    }
+    
+    public static String mPV_DP_IndicarCliente(){
         return "Escriba a continuacion el DNI del cliente";
     }
     
-    public static String mPV_IntroducirFecha(){
+    public static String mPV_DP_IntroducirFecha(){
         return "Indique el dia, mes y año actual";
-    }
-    
-    public static String mPV_RP_GarantiaCaducada(){
-        return "El producto no dispone de garantia";
     }
     
     public static String mPV_DP_DevolucionAceptada(){

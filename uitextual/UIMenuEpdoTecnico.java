@@ -50,7 +50,9 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
+        //"Añadir reporte a un producto"
         //"Ver mis fichas de reparacion", "Salir del programa"
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirReporte());
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerFichas());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
@@ -63,17 +65,24 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){ 
-            case 0: //Ver mis fichas de reparacion
+            case 0: //Añadir reporte a un producto
+            obtenerTecnico().añadirReporte(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 1: //Cerrar Sesion
+            case 1: //Ver mis fichas de reparacion
+            obtenerTecnico().verListaFichasReparacion(obtenerUsuarios());
+            
+            volverMenu();
+            break;
+            
+            case 2: //Cerrar Sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 2: //Salir del programa
+            case 3: //Salir del programa
             System.exit(0);
             break;
             

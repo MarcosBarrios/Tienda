@@ -19,6 +19,9 @@ public class Reporte{
     //Cuanto ha costado la modificacion
     private float coste;
     
+    //Indica si se ha pagado o no
+    private boolean pagado;
+    
     //Descripcion de lo que se ha hecho
     private String descripcion;
     
@@ -30,18 +33,39 @@ public class Reporte{
         mesReporte = 1;
         añoReporte = 2018;
         coste = 0;
+        pagado = false;
         nuevoEstado = EnumEstadoProducto.INTACTO;
     }
     
     //Metodo constructor
     public Reporte(EnumEstadoProducto nuevoEstado, float coste,
-    int diaReporte, int mesReporte, int añoReporte, String descripcion){
+    boolean pagado, int diaReporte, int mesReporte, int añoReporte, 
+    String descripcion){
         this.nuevoEstado = nuevoEstado;
         this.coste = coste;
+        this.pagado = pagado;
         this.diaReporte = diaReporte;
         this.mesReporte = mesReporte;
         this.añoReporte = añoReporte;
         this.descripcion = descripcion;
+    }
+    
+    /**
+     * Indica si se tiene que pagar o no la reparacion
+     * 
+     * @param pagado Nuevo estado de la variable booleana
+     */
+    public void cambiarPagado(boolean pagado){
+        this.pagado = pagado;
+    }
+    
+    /**
+     * Devuelve el valor de la variable pagado
+     * 
+     * @return pagado Indica si se tiene que pagar o no
+     */
+    public boolean obtenerPagado(){
+        return pagado;
     }
     
     /**

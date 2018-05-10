@@ -34,6 +34,39 @@ public class Util{
     public static final int MAXIMODIA = 31;
     public static final int MAXIMOMES = 12;
     
+    public static FichaReparacion obtenerFichaReparacion(Usuarios usuarios, Cliente cliente,
+    int numProducto){
+        
+        /*
+         * Iterar todos los usuarios de la tienda tal que
+         * por cada tecnico encontrado se compruebe si contiene
+         * una ficha con correspondiente a cierto cliente y numero
+         * de producto
+         */
+        
+        String nombreCliente = cliente.obtenerNombreUsuario();
+        String dniCliente = cliente.obtenerDNI();
+        
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario usuarioTemp = usuarios.obtenerUsuario(i);
+            if(usuarioTemp instanceof EpdoTecnico){
+                EpdoTecnico tecnico = (EpdoTecnico) usuarioTemp;
+                
+                for(int j = 0; j < tecnico.obtenerNumeroFichas(); j++){
+                    FichaReparacion fr = tecnico.obtenerFichaReparacion(j);
+                    if(fr.obtenerPropietario().obtenerNombreUsuario().equals(nombreCliente) &&
+                        fr.obtenerPropietario().obtenerDNI().equals(dniCliente) &&
+                        fr.obtenerProducto().obtenerNumeroProducto()==numProducto){
+                         //Ficha de reparacion correcta encontrada
+                         return fr;
+                    }
+                }
+            }
+        }   
+        
+        return null;
+    }
+    
     /**
      * Devuelve verdadero si la base de datos de productos
      * contiene un producto.

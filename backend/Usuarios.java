@@ -32,6 +32,7 @@ public class Usuarios{
         Usuario gestionadorUsuarios = new EpdoFinanciacion("11111113A",
             "GESTION_USUARIOS", "GESTION_USUARIOS@gmail.com",
             "GESTION_USUARIOS", "12345");
+        
         añadirUsuario(cajeroPrueba);
         añadirUsuario(financiadorPrueba);
         añadirUsuario(gestionadorUsuarios);
