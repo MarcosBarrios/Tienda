@@ -1,5 +1,7 @@
 package productos;
 
+import backend.OperacionProducto;
+
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -51,6 +53,9 @@ public abstract class Producto{
     //Coleccion con el historial de reportes
     private Stack<Reporte> historialReportes;
     
+    //Historial de operaciones
+    private Stack<OperacionProducto> historialOperaciones;
+    
     //Metodo constructor
     public Producto(){
         precio = 1f; //Precio predeterminado (euros)
@@ -64,6 +69,34 @@ public abstract class Producto{
         //Iniciamos las colecciones
         listaCaracteristicas = new ArrayList<Caracteristica>();
         historialReportes = new Stack<Reporte>();
+    }
+    
+    /**
+     * Añade una operacion al historial
+     * 
+     * @param operacion Operacion a añadir
+     */
+    public void añadirOperacion(OperacionProducto operacion){
+        historialOperaciones.add(operacion);
+    }
+    
+    /**
+     * Devuelve una operacion en la posicion id
+     * 
+     * @param id Posicion de la operacion en la coleccion
+     */
+    public OperacionProducto obtenerOperacion(int id){
+        return historialOperaciones.get(id);
+    }
+    
+    /**
+     * Devuelve el numero de operaciones almacenadas en
+     * el historial de operaciones.
+     * 
+     * @return historialOperaiones.size()
+     */
+    public int obtenerNumeroOperaciones(){
+        return historialOperaciones.size();
     }
     
     /**

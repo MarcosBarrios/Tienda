@@ -14,7 +14,7 @@ comment4.target=void\ eliminarElemento(int)
 comment4.text=\r\n\ Nota\ (10/03/2018)\:\ Puede\ que\ no\ sea\ necesario\ el\ uso\ de\ este\ metodo\r\n\ \r\n\ Elimina\ un\ producto\ de\ la\ coleccion.\r\n\ \r\n\ Es\ necesario\ el\ uso\ de\ un\ metodo\ de\ busqueda\ para\ encontrar\ el\ \r\n\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Identificador\ (entero)\ del\ producto\ a\ eliminar\r\n
 comment5.params=id\ usarNumeroProducto
 comment5.target=Producto\ obtenerProducto(int,\ boolean)
-comment5.text=\r\n\ Obtiene\ un\ producto\ de\ la\ colecci\u00F3n.\r\n\ \r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment5.text=\r\n\ Obtiene\ un\ producto\ de\ la\ colecci\u00F3n.\r\n\ \r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ false\:\ id\=pos(ArrayList)\r\n
 comment6.params=
 comment6.target=int\ obtenerTama\u00F1o()
 comment6.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ que\ hay\ en\ la\ base\ de\ datos\r\n\ de\ la\ tienda.\r\n\ \r\n\ @return\ listaProductos.size()\ Tama\u00F1o\ de\ la\ base\ de\ datos\ de\ productos\r\n

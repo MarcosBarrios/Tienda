@@ -63,6 +63,7 @@ public class UIEpdoCajero extends UIUsuario{
                         //"No quedan reservas del producto especificado"
                         System.out.println(UIMensajes.mC_VP_SinStock());
                     }
+                    
                 }else{
                     //"No se ha encontrado ningun producto con el numero "
                     System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());

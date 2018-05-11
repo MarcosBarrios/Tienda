@@ -50,10 +50,17 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        //"Añadir reporte a un producto"
-        //"Ver mis fichas de reparacion", "Salir del programa"
+        //"Añadir reporte a un producto", "Ver mis fichas de reparacion",
+        //"Ver el estado de un producto",
+        //"Añadir una pieza a la lista de piezas necesarias", 
+        //"Eliminar una pieza de la lista de piezas necesarias",
+        //"Ver piezas necesarias", "Cerrar sesion", "Salir del programa"
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirReporte());
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerFichas());
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerEstadoProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirPieza());
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionEliminarPieza());
+        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerPiezasNecesarias());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -77,12 +84,36 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
             volverMenu();
             break;
             
-            case 2: //Cerrar Sesion
+            case 2: //Ver el estado de un producto
+            obtenerTecnico().verEstadoProducto(obtenerUsuarios());
+            
+            volverMenu();
+            break;
+            
+            case 3: //Añadir una pieza a la lista de piezas necesarias
+            obtenerTecnico().añadirPiezaNecesaria();
+            
+            volverMenu();
+            break;
+            
+            case 4: //Eliminar una pieza de la lista de piezas necesarias
+            obtenerTecnico().eliminarPiezaNecesaria();
+            
+            volverMenu();
+            break;
+            
+            case 5: //Ver piezas necesarias
+            obtenerTecnico().verPiezasNecesarias();
+            
+            volverMenu();
+            break;
+            
+            case 6: //Cerrar Sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 3: //Salir del programa
+            case 7: //Salir del programa
             System.exit(0);
             break;
             

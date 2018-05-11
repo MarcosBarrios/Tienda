@@ -51,10 +51,11 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
-        //"Reparar un producto"
-        //"Devolver un producto", "Salir del programa"
+        //"Reparar un producto", "Devolver un producto",
+        // "Comprobar el estado de un producto", "Salir del programa"
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionRepararProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionDevolverProducto());
+        obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionComprobarEstadoProducto());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -80,12 +81,17 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
             volverMenu();
             break;
             
-            case 2: //Cerrar Sesion
+            case 2: //"Comprobar el estado de un producto"
+            obtenerPostVenta().comprobarEstadoProducto(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 3: //Cerrar Sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 3: //Salir del programa
+            case 4: //Salir del programa
             System.exit(0);
             break;
             

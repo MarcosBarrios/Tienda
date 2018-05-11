@@ -4,6 +4,7 @@ import productos.Producto;
 
 import java.util.Stack;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 /**
  * Cada cliente va a tener asignada una ficha cliente tal que puedan
@@ -18,9 +19,98 @@ public class FichaCliente{
     //Una pila es adecuada para un historial de productos
     private Stack<Producto> listaProductosComprados;
     
+    //Historial de facturas
+    private Stack<Factura> listaFacturas;
+    
+    //Lista de solicitudes
+    private ArrayList<Solicitud> listaSolicitudes;
+    
     //Metodo constructor
     public FichaCliente(){
+        //Iniciamos las colecciones
         listaProductosComprados = new Stack<Producto>();
+        listaFacturas = new Stack<Factura>();
+        listaSolicitudes = new ArrayList<Solicitud>();
+    }
+    
+    /**
+     * Añade una solicitud a la lista de solicitudes
+     * 
+     * @param solicitud Solicitud a añadir
+     */
+    public void añadirSolicitud(Solicitud solicitud){
+        listaSolicitudes.add(solicitud);
+    }
+    
+    /**
+     * Eliminar una solicitud de la lista de solicitudes
+     * 
+     * @param id Posicion de la solicitud en la lista
+     */
+    public void eliminarSolicitud(int id){
+        listaSolicitudes.remove(id);
+    }
+    
+    /**
+     * Obtiene una solicitud de la colección de solicitudes
+     * 
+     * 
+     * @param id Posicion en coleccion (false) / Numero de solicitud (true)
+     * @param usarNumeroSolicitud true: id=numeroSolicitud, false: id=pos(ArrayList)
+     */
+    public Solicitud obtenerSolicitud(int id, boolean usarNumeroSolicitud){
+        
+        if(usarNumeroSolicitud){
+            Iterator<Solicitud> itr = listaSolicitudes.iterator();
+            while(itr.hasNext()){
+                Solicitud temp = itr.next();
+                if(temp.obtenerNumeroSolicitud()==id){
+                    return temp;
+                }else{
+                    return null;
+                }
+            }
+        }else{
+            return listaSolicitudes.get(id);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Devuelve el numero de solicitudes almacenadas
+     * 
+     * @return listaSolicitudes.size()
+     */
+    public int obtenerNumeroSolicitudes(){
+        return listaSolicitudes.size();
+    }
+    
+    /**
+     * Añade una factura
+     * 
+     * @param factura Factura a añadir
+     */
+    public void añadirFactura(Factura factura){
+        listaFacturas.add(factura);
+    }
+    
+    /**
+     * Elimina una factura
+     * 
+     * @param id Posicion en la coleccion de la factura a eliminar
+     */
+    public void eliminarFactura(int id){
+        listaFacturas.remove(id);
+    }
+    
+    /**
+     * Obtiene una factura utilizando su posicion en la lista
+     * 
+     * @param id Posicion en la coleccion de la factura a obtenerinar
+     */
+    public Factura obtenerFactura(int id ){
+        return listaFacturas.get(id);
     }
     
     /**

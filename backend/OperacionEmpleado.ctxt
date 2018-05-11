@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=OperacionEmpleado
+comment0.text=\r\n\ Define\ una\ operacion\ sobre\ un\ empleado.\r\n\r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=empleado
+comment1.target=OperacionEmpleado(Empleado)
+comment2.params=empleado
+comment2.target=void\ asignarEmpleado(Empleado)
+comment2.text=\r\n\ Asigna\ o\ reasigna\ el\ empleado\ sobre\ el\ cual\ se\ hace\r\n\ la\ operacion\r\n\ \r\n\ @param\ empleado\ Empleado\ asignado\ a\ la\ operacion\r\n
+comment3.params=
+comment3.target=Empleado\ obtenerEmpleado()
+comment3.text=\r\n\ Devuelve\ el\ empleado\ asignado\ a\ la\ operacion\r\n\ \r\n\ @return\ empleado\ Empleado\ asignado\ a\ la\ operacion\r\n
+numComments=4

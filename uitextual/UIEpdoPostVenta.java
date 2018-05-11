@@ -7,6 +7,7 @@ import backend.Cliente;
 import backend.FichaCliente;
 import backend.FichaReparacion;
 import backend.EpdoTecnico;
+import backend.Factura;
 
 import productos.Reporte;
 import productos.Productos;
@@ -117,6 +118,113 @@ public class UIEpdoPostVenta extends UIUsuario{
         }
     }
     
+    /**
+     * Comprueba el estado de un producto y, en caso de que este arreglado y 
+     * la variable pagado del ultimo reporte este en false, se cobra al cliente.
+     * 
+     * (Genera una factura en caso de que sea necesario)
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
+    public void comprobarEstadoProducto(Usuarios usuarios){
+        //"Especificar el nombre, email o dni del cliente"
+        String datosUsuario = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);
+        Usuario usuarioTemp = usuarios.obtenerUsuario(datosUsuario); //Obtener usuario por dni
+    
+        boolean encontrado = false;
+        if(usuarioTemp != null){
+            if(usuarioTemp instanceof Cliente){
+                encontrado = true;
+                Cliente cliente = (Cliente) usuarioTemp;
+                FichaCliente fc = cliente.obtenerFichaCliente();
+                
+                //Obtener el producto que se va a vender al cliente. "Numero de producto"
+                int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
+                Producto producto = fc.obtenerProductoComprado(nProducto, true);
+
+                if(producto!=null){
+                    //Obtenemos el ultimo reporte del producto
+                    Reporte rAnterior = producto.obtenerReporte(producto.obtenerNumeroReportes()-1);
+                    
+                    //Imprimir la informacion del ultimo reporte del producto
+                    
+                    //Estado
+                    formatearCadena(UIMensajes.mC_LP_Estado(), true, true);
+                    System.out.print(rAnterior.obtenerNuevoEstado());
+                    
+                    //Fecha:
+                    //Dia
+                    formatearCadena(UIMensajes.mC_AñP_Dia(), true, true);
+                    System.out.print(rAnterior.obtenerDiaReporte());
+                    
+                    //Mes
+                    formatearCadena(UIMensajes.mC_AñP_Mes(), true, true);
+                    System.out.print(rAnterior.obtenerMesReporte());
+                    
+                    //Año
+                    formatearCadena(UIMensajes.mC_AñP_Año(), true, true);
+                    System.out.print(rAnterior.obtenerAñoReporte());
+                    
+                    //Descripcion
+                    formatearCadena(UIMensajes.mPV_RP_DescripcionProblema(), true, true);
+                    System.out.print(rAnterior.obtenerDescripcion());
+                    
+                    //Si se ha pagado el producto
+                    formatearCadena(UIMensajes.mT_AR_Pagado(), true, true);
+                    if(rAnterior.obtenerPagado()){
+                        System.out.print(UIMensajes.g_Si());
+                    }else{
+                        System.out.print(UIMensajes.g_No());
+                    }
+                    
+                    //Coste
+                    formatearCadena(UIMensajes.mT_AR_Coste(), true, true);
+                    System.out.print(rAnterior.obtenerCoste());
+                    
+                    if(!rAnterior.obtenerPagado()){
+                        //"El producto se ha arreglado con exito y esta a espera de pago"
+                        System.out.println(UIMensajes.mPV_RP_ProductoArreglado());
+                        
+                        //"¿Generar factura al cliente?"
+                        boolean generarFactura = formatearEntradaBoolean(UIMensajes.mT_CEP_GenerarFactura());
+                        
+                        if(generarFactura){
+                            //"Indique el dia, mes y año actual"
+                            System.out.println(UIMensajes.mPV_DP_IntroducirFecha());
+                            int diaActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Dia());
+                            int mesActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Mes());
+                            int añoActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Año());
+                            int costeFactura = (int) formatearEntradaDecimal(UIMensajes.mT_AR_Coste());
+                            String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+                            
+                            Factura f = new Factura(costeFactura, descripcion, diaActual,
+                                mesActual, añoActual);
+                                
+                            fc.añadirFactura(f);
+                        }
+                    }else{
+                        //"El producto ya se ha pagado"
+                        System.out.println(UIMensajes.mT_CEP_ProcesoCompletado());
+                    }
+                }else{
+                    //"No se ha encontrado ningun producto con el numero "
+                    System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
+                }
+            }
+        }
+        
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
+    }
+    
+    /**
+     * Devuelve un producto a la tienda
+     * 
+     * @param productos Base de datos de productos de la tienda
+     * @param usuarios Base de datos de usuarios de la tienda
+     */
     public void devolverProducto(Productos productos, Usuarios usuarios){
         //"Especificar el nombre, email o dni del cliente"
         String dniUsuario = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);

@@ -3,16 +3,37 @@ comment0.target=FichaCliente
 comment0.text=\r\n\ Cada\ cliente\ va\ a\ tener\ asignada\ una\ ficha\ cliente\ tal\ que\ puedan\r\n\ almacenar\ informacion\ como\ los\ productos\ comprados,\ las\ facturas,\r\n\ los\ manuales,\ adem\u00E1s\ de\ las\ promociones.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
 comment1.params=
 comment1.target=FichaCliente()
-comment2.params=producto
-comment2.target=void\ a\u00F1adirProductoComprado(productos.Producto)
-comment2.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
-comment3.params=
-comment3.target=int\ obtenerNumeroProductosComprados()
-comment3.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ comprados\ por\ el\ cliente\r\n\ \r\n\ @return\ listaProductosComprados.size();\r\n
-comment4.params=id\ usarNumeroProducto
-comment4.target=void\ eliminarProductoComprado(int,\ boolean)
-comment4.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
-comment5.params=id\ usarNumeroProducto
-comment5.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
-comment5.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
-numComments=6
+comment10.params=
+comment10.target=int\ obtenerNumeroProductosComprados()
+comment10.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ comprados\ por\ el\ cliente\r\n\ \r\n\ @return\ listaProductosComprados.size();\r\n
+comment11.params=id\ usarNumeroProducto
+comment11.target=void\ eliminarProductoComprado(int,\ boolean)
+comment11.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment12.params=id\ usarNumeroProducto
+comment12.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
+comment12.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment2.params=solicitud
+comment2.target=void\ a\u00F1adirSolicitud(Solicitud)
+comment2.text=\r\n\ A\u00F1ade\ una\ solicitud\ a\ la\ lista\ de\ solicitudes\r\n\ \r\n\ @param\ solicitud\ Solicitud\ a\ a\u00F1adir\r\n
+comment3.params=id
+comment3.target=void\ eliminarSolicitud(int)
+comment3.text=\r\n\ Eliminar\ una\ solicitud\ de\ la\ lista\ de\ solicitudes\r\n\ \r\n\ @param\ id\ Posicion\ de\ la\ solicitud\ en\ la\ lista\r\n
+comment4.params=id\ usarNumeroSolicitud
+comment4.target=Solicitud\ obtenerSolicitud(int,\ boolean)
+comment4.text=\r\n\ Obtiene\ una\ solicitud\ de\ la\ colecci\u00F3n\ de\ solicitudes\r\n\ \r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ solicitud\ (true)\r\n\ @param\ usarNumeroSolicitud\ true\:\ id\=numeroSolicitud,\ false\:\ id\=pos(ArrayList)\r\n
+comment5.params=
+comment5.target=int\ obtenerNumeroSolicitudes()
+comment5.text=\r\n\ Devuelve\ el\ numero\ de\ solicitudes\ almacenadas\r\n\ \r\n\ @return\ listaSolicitudes.size()\r\n
+comment6.params=factura
+comment6.target=void\ a\u00F1adirFactura(Factura)
+comment6.text=\r\n\ A\u00F1ade\ una\ factura\r\n\ \r\n\ @param\ factura\ Factura\ a\ a\u00F1adir\r\n
+comment7.params=id
+comment7.target=void\ eliminarFactura(int)
+comment7.text=\r\n\ Elimina\ una\ factura\r\n\ \r\n\ @param\ id\ Posicion\ en\ la\ coleccion\ de\ la\ factura\ a\ eliminar\r\n
+comment8.params=id
+comment8.target=Factura\ obtenerFactura(int)
+comment8.text=\r\n\ Obtiene\ una\ factura\ utilizando\ su\ posicion\ en\ la\ lista\r\n\ \r\n\ @param\ id\ Posicion\ en\ la\ coleccion\ de\ la\ factura\ a\ obtenerinar\r\n
+comment9.params=producto
+comment9.target=void\ a\u00F1adirProductoComprado(productos.Producto)
+comment9.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
+numComments=13

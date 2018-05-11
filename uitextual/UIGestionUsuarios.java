@@ -9,9 +9,12 @@ import backend.Usuarios;
 import backend.Usuario;
 import backend.Empleado;
 import backend.Util;
+import backend.FichaReparacion;
+import backend.Cliente;
+import backend.Solicitud;
+import backend.FichaCliente;
 
 import java.util.ArrayList;
-
 
 /**
  * Parte funcional del menu de gestion de usuarios.
@@ -36,6 +39,151 @@ public class UIGestionUsuarios extends UIUsuario{
     //Metodo constructor
     public UIGestionUsuarios(EpdoFinanciacion usuario){
         super(usuario);
+    }
+    
+    /**
+     * Añade una solicitud sobre un cliente
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
+    public void añadirSolicitud(Usuarios usuarios){
+        //"Indique a continuacion el nombre, email o DNI del cliente"
+        String ncliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
+        Usuario u = usuarios.obtenerUsuario(ncliente);
+        
+        boolean encontrado = false;
+        if(u!=null){
+            if(u instanceof Cliente){
+                Cliente c = (Cliente) u;
+                encontrado = true;
+                FichaCliente fc = c.obtenerFichaCliente();
+                
+                //Obtenemos la descripcion de la solicitud
+                String descripcionSolicitud = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+                
+                //Añadimos la soliticud
+                Solicitud s = new Solicitud(false, fc, descripcionSolicitud);
+                s.asignarNumeroSolicitud(); //Asignamos su numero de solicitud correspondiente
+                
+                //Añadimos la solicitud a la ficha del cliente
+                fc.añadirSolicitud(s);
+                
+                //"Solicitud añadida con exito
+                System.out.println(UIMensajes.mGU_AS_SolicitudAñadida());
+            }
+        }
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
+    }
+    
+    /**
+     * Acepta una solicitud utilizando su respectivo numero de solicitud
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
+    public void aceptarSolicitud(Usuarios usuarios){
+        //"Indique a continuacion el nombre, email o DNI del cliente"
+        String ncliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
+        Usuario u = usuarios.obtenerUsuario(ncliente);
+        
+        boolean encontrado = false;
+        if(u!=null){
+            if(u instanceof Cliente){
+                Cliente c = (Cliente) u;
+                encontrado = true;
+                FichaCliente fc = c.obtenerFichaCliente();
+                
+                //"Indicar el numero de la solicitud a aceptar"
+                int numeroSolicitud = (int)formatearEntradaDecimal(UIMensajes.mGU_AS_IndicarNumeroSolicitud());
+                
+                //Obtenemos la solicitud utilizando el numero de solicitud
+                Solicitud s = fc.obtenerSolicitud(numeroSolicitud, true);
+                
+                s.cambiarAceptada(true); //Aceptamos la solicitud
+            }
+        }
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
+    }
+    
+    /**
+     * Imprime una lista de solicitudes de todos los clientes
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
+    public void verListaSolicitudes(Usuarios usuarios){
+        
+        //Iteramos todos los usuarios
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario u = usuarios.obtenerUsuario(i);
+            if(u instanceof Cliente){ //Si el usuario es un cliente
+                Cliente c = (Cliente) u;
+                FichaCliente fc = c.obtenerFichaCliente();
+                
+                //Imprimimos el nombre del cliente
+                System.out.println();
+                System.out.print("\t" + UIMensajes.g_Nombre()+": ");
+                System.out.print(c.obtenerNombreUsuario());
+                
+                //Iteramos todas las solicitudes del cliente
+                for(int j = 0; j < fc.obtenerNumeroSolicitudes(); j++){
+                    //Obtenemos una solicitud mediante posicion en lista de solicitudes
+                    Solicitud s = fc.obtenerSolicitud(0, false);
+                    
+                    //Imprimimos el estado seguido de la descripcion
+                    System.out.println();
+                    if(s.obtenerAceptada()){
+                        //"Solicitud aceptada"
+                        System.out.print("\t" + UIMensajes.mGU_VLS_SolicitudAceptada());
+                    }else{
+                        //"Solicitud pendiente"
+                        System.out.print("\t" + UIMensajes.mGU_VLS_SolicitudPendiente());
+                    }
+                    System.out.print(" | ");
+                    System.out.print(UIMensajes.mC_AñP_Descripcion()+": ");
+                    System.out.print(s.obtenerDescripcion());
+                }
+            }
+        }
+        
+    }
+    
+    /**
+     * Imprime una lista con todas las fichas de reparacion y sus
+     * tecnicos asignatos.
+     * 
+     * @param usuarios Base de datos de usuarios del programa
+     */
+    public void verFichasReparacion(Usuarios usuarios){
+        
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario u = usuarios.obtenerUsuario(i);
+
+            //Si el usuario obtenido es un tecnico
+            if(u instanceof EpdoTecnico){
+                //Imprimimos sus fichas de reparacion
+                EpdoTecnico t = (EpdoTecnico) u;
+                
+                //Imprimimos el nombre del tecnico
+                System.out.println();
+                System.out.print(UIMensajes.g_Nombre() + ": ");
+                System.out.print(t.obtenerNombreUsuario());
+                for(int j = 0; j < t.obtenerNumeroFichas(); j++){
+                    //Imprimimos el nombre del propietario y el numero del producto
+                    FichaReparacion fr = t.obtenerFichaReparacion(j);
+                    System.out.print(UIMensajes.g_Nombre() + ": ");
+                    System.out.print(fr.obtenerPropietario().obtenerNombreUsuario() + " | ");
+                    System.out.print(UIMensajes.mC_LP_NumeroProducto() + ": ");
+                    System.out.print(fr.obtenerProducto().obtenerNumeroProducto());
+                }
+                
+            }
+        }
+        
     }
     
     /**

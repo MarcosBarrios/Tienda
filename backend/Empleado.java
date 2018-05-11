@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.Stack;
+
 /**
  * Clase encargada de definir los metodos comunes a todos los empleados
  * que utilizan el sistema. 
@@ -12,10 +14,41 @@ public abstract class Empleado extends Usuario{
     //Datos con los que el empleado debe iniciar sesion
     private String usuario, contraseña;
     
+    //Historial de operaciones
+    public Stack<OperacionEmpleado> historialOperaciones;
+    
     public Empleado(String dni, String nombre, String email, String usuario, String contraseña){
         super(dni, nombre, email);
         this.usuario = usuario;
         this.contraseña = contraseña;
+    }
+    
+    /**
+     * Añade una operacion al historial
+     * 
+     * @param operacion Operacion a añadir
+     */
+    public void añadirOperacion(OperacionEmpleado operacion){
+        historialOperaciones.add(operacion);
+    }
+    
+    /**
+     * Devuelve una operacion en la posicion id
+     * 
+     * @param id Posicion de la operacion en la coleccion
+     */
+    public OperacionEmpleado obtenerOperacion(int id){
+        return historialOperaciones.get(id);
+    }
+    
+    /**
+     * Devuelve el numero de operaciones almacenadas en
+     * el historial de operaciones.
+     * 
+     * @return historialOperaiones.size()
+     */
+    public int obtenerNumeroOperaciones(){
+        return historialOperaciones.size();
     }
     
     /**

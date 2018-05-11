@@ -81,6 +81,11 @@ public class UIMensajes{
         return "Contraseña";
     }
     //*********************************************************************
+    //---------------------------OPERACIONES---------------------------
+    
+    
+    
+    //*********************************************************************
     
     public static String mT_OpcionAñadirReporte(){
         return "Añadir reporte a un producto";
@@ -88,6 +93,22 @@ public class UIMensajes{
     
     public static String mT_OpcionVerFichas(){
         return "Ver mis fichas de reparacion";
+    }
+    
+    public static String mT_OpcionAñadirPieza(){
+        return "Añadir una pieza a la lista de piezas necesarias";
+    }
+    
+    public static String mT_OpcionEliminarPieza(){
+        return "Eliminar una pieza de la lista de piezas necesarias";
+    }
+    
+    public static String mT_OpcionVerEstadoProducto(){
+        return "Ver el estado de un producto en reparacion";
+    }
+    
+    public static String mT_OpcionVerPiezasNecesarias(){
+        return "Ver piezas necesarias";
     }
     
     public static String mT_VLR_DatosTecnico(){
@@ -98,6 +119,30 @@ public class UIMensajes{
         return "Coste";
     }
     
+    public static String mT_AR_Pagado(){
+        return "Pagado";
+    }
+    
+    public static String mT_AP_NombrePieza(){
+        return "Nombre de la pieza";
+    }
+    
+    public static String mT_AP_DescripcionPieza(){
+        return "Descripcion de la pieza";
+    }
+    
+    public static String mT_AP_PrecioPieza(){
+        return "Precio de la pieza";
+    }
+    
+    public static String mT_EP_PiezaEliminada(){
+        return "Pieza eliminada";
+    }
+    
+    public static String mT_EP_PiezaNoEncontrada(){
+        return "No se encontro la pieza";
+    }
+    
     //*********************************************************************
     
     public static String mPV_OpcionRepararProducto(){
@@ -106,6 +151,14 @@ public class UIMensajes{
     
     public static String mPV_OpcionDevolverProducto(){
         return "Devolver un producto";
+    }
+    
+    public static String mPV_OpcionComprobarEstadoProducto(){
+        return "Comprobar el estado de un producto";
+    }
+    
+    public static String mPV_RP_ProductoArreglado(){
+        return "El producto se ha arreglado con exito y esta a espera de pago";
     }
     
     public static String mPV_RP_GarantiaCaducada(){
@@ -147,6 +200,14 @@ public class UIMensajes{
     public static String mPV_DP_DevolucionRechazada(){
         return "El producto se ha comprado hace mas de 3 meses, devolucion rechazada";
     }
+    
+    public static String mT_CEP_GenerarFactura(){
+        return "¿Generar factura al cliente?";
+    }
+    
+    public static String mT_CEP_ProcesoCompletado(){
+        return "El producto ya se ha pagado";
+    }
     //*********************************************************************
     
     public static String mGU_OpcionAñadirEmpleado(){
@@ -159,6 +220,22 @@ public class UIMensajes{
     
     public static String mGU_OpcionVerListaEmpleados(){
         return "Ver lista de empleados";
+    }
+    
+    public static String mGU_OpcionVerFichasReparacion(){
+        return "Ver lista de fichas de reparacion";
+    }
+    
+    public static String mGU_OpcionAñadirSolicitud(){
+        return "Añadir solicitud a la ficha de un cliente";
+    }
+    
+    public static String mGU_OpcionAceptarSolicitud(){
+        return "Aceptar una solicitud de un cliente";
+    }
+    
+    public static String mGU_OpcionVerSolicitudes(){
+        return "Ver lista de solicitudes de todos los clientes";
     }
     
     public static String mGU_EspecificarDatos(){
@@ -202,6 +279,23 @@ public class UIMensajes{
         return "PostVenta";
     }
     
+    public static String mGU_AS_SolicitudAñadida(){
+        return "Solicitud añadida con exito";
+    }
+    
+    public static String mGU_AS_IndicarNumeroSolicitud(){
+        return "Indicar el numero de la solicitud a aceptar";
+    }
+    
+    public static String mGU_VLS_SolicitudAceptada(){
+        return "Solicitud aceptada";
+    }
+    
+    public static String mGU_VLS_SolicitudPendiente(){
+        return "Solicitud pendiente";
+    }
+
+    
     //*********************************************************************
     
     public static String mF_OpcionDarAlta(){
@@ -233,7 +327,7 @@ public class UIMensajes{
     }
     
     public static String mF_AD_IndicarNombreEmail(){
-        return "Indique a continuacion el nombre o email del cliente";
+        return "Indique a continuacion el nombre, email o DNI del cliente";
     }
     
     public static String mF_AD_ClienteNoEncontrado(){

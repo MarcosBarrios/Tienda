@@ -73,6 +73,10 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAñadirEmpleado());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionActualizarDatos());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerListaEmpleados());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerFichasReparacion());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAñadirSolicitud());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAceptarSolicitud());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerSolicitudes());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -101,12 +105,35 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
             volverMenu(); //Imprime el menu de nuevo y activa la interaccion
             break;
             
-            case 3: //Cerrar sesion
+            case 3: //Ver fichas de reparacion
+            obtenerTemp().verFichasReparacion(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 4: //Cerrar sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 4: //Salir del programa
+            case 5: //Añadir solicitud a un cliente
+            obtenerTemp().añadirSolicitud(obtenerUsuarios());
+            
+            volverMenu();
+            break;
+            
+            case 6: //Aceptar solicitud sobre un cliente
+            obtenerTemp().aceptarSolicitud(obtenerUsuarios());
+            
+            volverMenu();
+            break;
+            
+            case 7: //Ver lista de solicitudes de todos los clientes
+            obtenerTemp().verListaSolicitudes(obtenerUsuarios());
+            
+            volverMenu();
+            break;
+            
+            case 8: //Salir del programa
             System.exit(0);
             break;
         }

@@ -63,7 +63,7 @@ public class Productos{
      * 
      * 
      * @param id Posicion en coleccion (false) / Numero de producto (true)
-     * @param usarNumeroProducto true: id=numeroProducto, fase: id=pos(ArrayList)
+     * @param usarNumeroProducto true: id=numeroProducto, false: id=pos(ArrayList)
      */
     public Producto obtenerProducto(int id, boolean usarNumeroProducto){
         

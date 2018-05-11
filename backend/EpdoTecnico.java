@@ -15,10 +15,48 @@ public class EpdoTecnico extends Empleado{
     //Coleccion con las fichas de reparacion
     private ArrayList<FichaReparacion> listaFichas;
     
+    //Coleccion con las piezas que el tecnico necesita
+    private ArrayList<Pieza> piezasNecesarias;
+    
     public EpdoTecnico(String dni, String nombre, String email, String usuario, 
         String contraseña){
        super(dni, nombre, email, usuario, contraseña);
        listaFichas = new ArrayList<FichaReparacion>();
+       piezasNecesarias = new ArrayList<Pieza>();
+    }
+    
+    /**
+     * Añade una pieza a la lista de piezas necesarias
+     */
+    public void añadirPieza(Pieza pieza){
+        piezasNecesarias.add(pieza);
+    }
+    
+    /**
+     * Elimina una pieza en la posicion id de la coleccion
+     * 
+     * @param id Posicion de la pieza en la coleccion
+     */
+    public void eliminarPieza(int id){
+        piezasNecesarias.remove(id);
+    }
+    
+    /**
+     * Obtiene una pieza en la posicion id de la coleccion
+     * 
+     * @param id Posicion de la pieza en la coleccion
+     */
+    public Pieza obtenerPieza(int id){
+        return piezasNecesarias.get(id);
+    }
+    
+    /**
+     * Devuelve el numero de piezas necesarias
+     * 
+     * @return piezasNecesarias.size();
+     */
+    public int obtenerNumeroPiezas(){
+        return piezasNecesarias.size();
     }
     
     /**
