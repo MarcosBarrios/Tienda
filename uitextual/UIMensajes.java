@@ -65,6 +65,10 @@ public class UIMensajes{
         return "Escriba su usuario y contraseña a continuacion";
     }
     
+    public static String g_DNI(){
+        return "DNI";
+    }
+    
     public static String g_Nombre(){
         return "Nombre";
     }
@@ -314,12 +318,20 @@ public class UIMensajes{
         return "Indique a continuacion el nombre e email del cliente a registrar";
     }
     
+    public static String mF_DA_ClienteYaRegistrado(){
+        return "Ya existe un cliente registrado con el DNI especificado, registro fallido";
+    }
+    
     public static String mF_DA_NombreAceptado(){
         return "Nombre aceptado";
     }
     
     public static String mF_DA_EmailAceptado(){
         return "Email aceptado";
+    }
+    
+    public static String mF_DA_EscribirDNI(){
+        return "Escribir DNI";
     }
     
     public static String mF_DA_RegistradoExito(){

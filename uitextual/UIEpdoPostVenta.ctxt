@@ -5,6 +5,7 @@ comment1.params=usuario
 comment1.target=UIEpdoPostVenta(backend.EpdoPostVenta)
 comment2.params=productos\ usuarios
 comment2.target=void\ repararProducto(productos.Productos,\ backend.Usuarios)
+comment2.text=\r\n\ Repara\ un\ producto\r\n\ \r\n\ @param\ productos\ Base\ de\ datos\ de\ productos\ del\ programa\r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
 comment3.params=usuarios
 comment3.target=void\ comprobarEstadoProducto(backend.Usuarios)
 comment3.text=\r\n\ Comprueba\ el\ estado\ de\ un\ producto\ y,\ en\ caso\ de\ que\ este\ arreglado\ y\ \r\n\ la\ variable\ pagado\ del\ ultimo\ reporte\ este\ en\ false,\ se\ cobra\ al\ cliente.\r\n\ \r\n\ (Genera\ una\ factura\ en\ caso\ de\ que\ sea\ necesario)\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n

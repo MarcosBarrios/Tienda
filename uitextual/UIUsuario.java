@@ -1,9 +1,17 @@
 package uitextual;
 
+import backend.Cliente;
 import backend.Usuario;
 import backend.Usuarios;
-
+import backend.Empleado;
 import backend.Util;
+import backend.FichaCliente;
+import backend.EnumOperaciones;
+import backend.Operacion;
+import backend.OperacionUsuario;
+import backend.OperacionProducto;
+
+import productos.Producto;
 
 import java.util.Iterator;
 
@@ -22,6 +30,102 @@ public abstract class UIUsuario{
     //Metodo constructor
     public UIUsuario(Usuario usuario){
         this.usuario = usuario;
+    }
+    
+    /**
+     * Devuelve el usuario utilizando el programa
+     * 
+     * @return usuario Usuario utilizando el programa
+     */
+    protected Usuario obtenerUsuario(){
+        return usuario;
+    }
+    
+    /**
+     * Crea un mini formulario para obtener fecha actual
+     * 
+     * Utilizado para simplificar la creacion de historiales de acciones.
+     * 
+     * @return salida Array con los valores entero dia(0), mes(1) y año(2).
+     */
+    protected int[] preguntarFechaActual(){
+        int[] salida = new int[3];
+        String[] entradas = new String[3];
+        //Obtenemos las cadenas de caracteres para preguntar por la fecha
+        entradas[0] = UIMensajes.mC_AñP_Dia();
+        entradas[1] = UIMensajes.mC_AñP_Mes();
+        entradas[2] = UIMensajes.mC_AñP_Año();
+        float salidas[] = formularioDecimales(entradas);
+        //Asignamos las salidas
+        salida[0] = (int) salidas[0];
+        salida[1] = (int) salidas[1];
+        salida[2] = (int) salidas[2];
+        return salida;
+    }
+    
+    /**
+     * Deja constancia de las acciones realizadas en los respectivos
+     * historiales.
+     * 
+     * @param cliente Cliente involucrado en la operacion
+     * @param responsable Empleado que ha realizado la accion
+     * @param tipoOperacion Tipo de operacion realizada
+     * @param dia Fecha de la operacion
+     * @param mes Fecha de la operacion
+     * @param año Fecha de la operacion
+     */
+    protected void dejarConstancia(Usuario usuario, Empleado responsable, 
+    EnumOperaciones tipoOperacion, int dia, int mes, int año){
+        //Obtenemos la cadena que indicara la operacion que se ha realizado.
+        String cadenaOperacion = EnumOperaciones.obtenerCadenaOperacion(tipoOperacion);
+        
+        Operacion operacion = new OperacionUsuario(usuario, responsable, cadenaOperacion, dia,
+        mes, año);
+        
+        //Añadimos la operacion a la ficha de cliente o a Empleado dependiendo
+        //del tipo de usuario especificado
+        if(usuario instanceof Cliente){
+            Cliente cliente = (Cliente) usuario;
+            FichaCliente fc = cliente.obtenerFichaCliente();
+            
+            //Añadimos operacion a la ficha de cliente
+            fc.añadirOperacion(operacion);
+        }else{ //Si se trata de un empleado
+            if(usuario instanceof Empleado){
+                Empleado empleado = (Empleado) usuario;
+                empleado.añadirOperacion(operacion);
+            }
+        }
+        
+        //En cualquier caso la operacion la realizara un empleado de la tienda.
+        responsable.añadirOperacion(operacion);
+    }
+    
+    /**
+     * Deja constancia de las acciones realizadas en los respectivos
+     * historiales.
+     * 
+     * @param numProducto Numero del producto involucrado
+     * @param responsable Empleado que ha realizado la accion
+     * @param tipoOperacion Tipo de operacion realizada
+     * @param dia Fecha de la operacion
+     * @param mes Fecha de la operacion
+     * @param año Fecha de la operacion
+     */
+    protected void dejarConstancia(Cliente propietario, Producto producto, 
+    Empleado responsable, EnumOperaciones tipoOperacion, int dia, int mes, int año){
+        //Obtenemos la cadena que indicara la operacion que se ha realizado.
+        String cadenaOperacion = EnumOperaciones.obtenerCadenaOperacion(tipoOperacion);
+        
+        Operacion operacion = new OperacionProducto(producto.obtenerNumeroProducto(), 
+        responsable, cadenaOperacion, dia, mes, año);
+        
+        //Obtenemos la ficha de cliente y le añadimos la operacion
+        FichaCliente fc = propietario.obtenerFichaCliente();
+        fc.añadirOperacion(operacion);
+        
+        //En cualquier caso la operacion la realizara un empleado de la tienda.
+        responsable.añadirOperacion(operacion);
     }
     
     /**

@@ -1,12 +1,12 @@
 #BlueJ class context
 comment0.target=OperacionProducto
 comment0.text=\r\n\ Define\ una\ operacion\ sobre\ un\ producto\r\n\r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=producto
-comment1.target=OperacionProducto(productos.Producto)
-comment2.params=producto
-comment2.target=void\ asignarProducto(productos.Producto)
-comment2.text=\r\n\ Asigna\ o\ reasigna\ el\ producto\ sobre\ el\ cual\ se\ hace\r\n\ la\ operacion\r\n\ \r\n\ @param\ producto\ Producto\ asignado\ a\ la\ operacion\r\n
+comment1.params=numeroProducto\ responsable\ descripcion\ dia\ mes\ a\u00F1o
+comment1.target=OperacionProducto(int,\ Empleado,\ java.lang.String,\ int,\ int,\ int)
+comment2.params=numeroProducto
+comment2.target=void\ asignarNumeroProducto(int)
+comment2.text=\r\n\ Asigna\ o\ reasigna\ el\ numero\ de\ producto\ sobre\ el\ cual\ se\ hace\r\n\ la\ operacion\r\n\ \r\n\ @param\ numeroProducto\ Numero\ del\ producto\ asignado\ a\ la\ operacion\r\n
 comment3.params=
-comment3.target=productos.Producto\ obtenerProducto()
-comment3.text=\r\n\ Devuelve\ el\ producto\ asignado\ a\ la\ operacion\r\n\ \r\n\ @return\ producto\ Producto\ asignado\ a\ la\ operacion\r\n
+comment3.target=int\ obtenerNumeroProducto()
+comment3.text=\r\n\ Devuelve\ el\ producto\ asignado\ a\ la\ operacion\r\n\ \r\n\ @return\ nuevoProducto\ Numero\ del\ producto\ asignado\ a\ la\ operacion\r\n
 numComments=4

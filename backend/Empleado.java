@@ -15,7 +15,7 @@ public abstract class Empleado extends Usuario{
     private String usuario, contraseña;
     
     //Historial de operaciones
-    public Stack<OperacionEmpleado> historialOperaciones;
+    public Stack<Operacion> historialOperaciones;
     
     public Empleado(String dni, String nombre, String email, String usuario, String contraseña){
         super(dni, nombre, email);
@@ -28,7 +28,7 @@ public abstract class Empleado extends Usuario{
      * 
      * @param operacion Operacion a añadir
      */
-    public void añadirOperacion(OperacionEmpleado operacion){
+    public void añadirOperacion(Operacion operacion){
         historialOperaciones.add(operacion);
     }
     
@@ -37,7 +37,7 @@ public abstract class Empleado extends Usuario{
      * 
      * @param id Posicion de la operacion en la coleccion
      */
-    public OperacionEmpleado obtenerOperacion(int id){
+    public Operacion obtenerOperacion(int id){
         return historialOperaciones.get(id);
     }
     

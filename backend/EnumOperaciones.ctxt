@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=EnumOperaciones
+comment0.text=\r\n\ Contiene\ todas\ las\ operaciones\ y\ sus\ cadenas\ de\ caracteres\ en\ el\ programa.\r\n\ \r\n\ El\ sistema\ que\ utiliza\ este\ enum\ es\ el\ de\ historial\ de\ operaciones;\ cada\ cliente\r\n\ tiene\ un\ historial\ en\ FichaCliente\ al\ igual\ que\ los\ Empleados.\r\n\ \r\n\ Cada\ vez\ que\ se\ hace\ una\ operacion\ se\ a\u00F1ade\ una\ entrada\ Operacion\ a\ las\ colecciones\r\n\ correspondientes\ de\ cada\ actor.\r\n\r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=operaciones
+comment1.target=java.lang.String\ obtenerCadenaOperacion(EnumOperaciones)
+comment1.text=\r\n\ Devuelve\ una\ cadena\ de\ caracteres\ asociada\ a\ una\ operacion\r\n\ \r\n\ @param\ operacion\ Operacion\ de\ la\ que\ obtener\ cadena\r\n
+numComments=2

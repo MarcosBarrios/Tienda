@@ -25,12 +25,43 @@ public class FichaCliente{
     //Lista de solicitudes
     private ArrayList<Solicitud> listaSolicitudes;
     
+    //Historial de operaciones
+    private Stack<Operacion> historialOperaciones;
+    
     //Metodo constructor
     public FichaCliente(){
         //Iniciamos las colecciones
         listaProductosComprados = new Stack<Producto>();
         listaFacturas = new Stack<Factura>();
         listaSolicitudes = new ArrayList<Solicitud>();
+    }
+    
+    /**
+     * Añade una operacion al historial
+     * 
+     * @param operacion Operacion a añadir
+     */
+    public void añadirOperacion(Operacion operacion){
+        historialOperaciones.add(operacion);
+    }
+    
+    /**
+     * Devuelve una operacion en la posicion id
+     * 
+     * @param id Posicion de la operacion en la coleccion
+     */
+    public Operacion obtenerOperacion(int id){
+        return historialOperaciones.get(id);
+    }
+    
+    /**
+     * Devuelve el numero de operaciones almacenadas en
+     * el historial de operaciones.
+     * 
+     * @return historialOperaiones.size()
+     */
+    public int obtenerNumeroOperaciones(){
+        return historialOperaciones.size();
     }
     
     /**

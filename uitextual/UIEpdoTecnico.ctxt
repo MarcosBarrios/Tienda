@@ -8,6 +8,7 @@ comment2.target=void\ a\u00F1adirPiezaNecesaria()
 comment2.text=\r\n\ A\u00F1ade\ una\ pieza\ a\ la\ coleccion\ de\ piezas\ necesarias\ del\ tecnico\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ de\ la\ tienda\r\n
 comment3.params=
 comment3.target=void\ eliminarPiezaNecesaria()
+comment3.text=\r\n\ Elimina\ una\ pieza\ de\ la\ lista\ de\ piezas\ necesarias\r\n
 comment4.params=
 comment4.target=void\ verPiezasNecesarias()
 comment4.text=\r\n\ Imprime\ una\ lista\ de\ las\ piezas\ que\ el\ tecnico\ necesita\r\n\ \r\n

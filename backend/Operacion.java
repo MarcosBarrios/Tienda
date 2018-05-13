@@ -16,14 +16,37 @@ public class Operacion{
     //Fecha de la operacion
     public int dia, mes, año;
     
+    //Empleado responsable de la operacion
+    public Empleado responsable;
+    
     //Metodo constructor
     public Operacion(){}
     
-    public Operacion(String descripcion, int dia, int mes, int año){
+    //Metodo constructor
+    public Operacion(Empleado responsable, String descripcion, int dia, int mes, int año){
+        this.responsable = responsable;
         this.descripcion = descripcion;
         this.dia = dia;
         this.mes = mes;
         this.año = año;
+    }
+    
+    /**
+     * Asigna o reasigna un empleado responsable de la operacion
+     *
+     * @param responsable Empleado que ha realizado la accion
+     */
+    public void asignarResponsable(Empleado responsable){
+        this.responsable = responsable;
+    }
+    
+    /**
+     * Devuelve el empleado responsable de la operacion
+     * 
+     * @return responsable Empleado responsable de llevar a cabo la operacion
+     */
+    public Empleado obtenerResponsable(){
+        return responsable;
     }
     
     /**

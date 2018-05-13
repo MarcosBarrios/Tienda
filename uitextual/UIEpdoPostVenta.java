@@ -29,6 +29,12 @@ public class UIEpdoPostVenta extends UIUsuario{
         super(usuario);
     }
     
+    /**
+     * Repara un producto
+     * 
+     * @param productos Base de datos de productos del programa
+     * @param usuarios Base de datos de usuarios del programa
+     */
     public void repararProducto(Productos productos, Usuarios usuarios){
         //"Especificar el nombre, email o dni del cliente"
         String datosUsuario = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);

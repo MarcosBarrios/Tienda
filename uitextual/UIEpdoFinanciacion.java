@@ -5,6 +5,7 @@ import backend.Usuarios;
 import backend.Usuario;
 import backend.Cliente;
 import backend.Util;
+import backend.EnumOperaciones;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,15 @@ public class UIEpdoFinanciacion extends UIUsuario{
     }
     
     /**
+     * Devuelve el financiador
+     * 
+     * @return (EpdoFinanciacion)obtenerUsuario()
+     */
+    private EpdoFinanciacion obtenerFinanciador(){
+        return (EpdoFinanciacion) obtenerUsuario();
+    }
+    
+    /**
      * Actualiza los datos de un cliente mediante interrogacion
      * de datos en forma de interfaz textual.
      * 
@@ -40,8 +50,9 @@ public class UIEpdoFinanciacion extends UIUsuario{
         if(usuario != null){
             if(usuario instanceof Cliente){
                 encontrado = true;
-                
                 Cliente cliente = (Cliente) usuario;
+                
+                //Entradas aceptables
                 String nombre = UIMensajes.g_Nombre();
                 String email = UIMensajes.g_Email();
                 
@@ -49,6 +60,10 @@ public class UIEpdoFinanciacion extends UIUsuario{
                 formatearCadena(UIMensajes.mF_AD_QueModificar(), true, true);
                 System.out.print(" (" +  nombre + "/" + email + "): ");
                 
+                //Obtenemos la fecha actual mediante un formulario.
+                int[] fechaActual = preguntarFechaActual();
+                
+                //Entradas aceptables
                 ArrayList<String> listaModificaciones = new ArrayList<String>();
                 listaModificaciones.add(nombre.toLowerCase());
                 listaModificaciones.add(email.toLowerCase());
@@ -69,6 +84,10 @@ public class UIEpdoFinanciacion extends UIUsuario{
                 }
                 //"Se ha registrado el cliente con exito"
                 System.out.println(UIMensajes.mF_DA_RegistradoExito());
+                
+                //Dejamos constancia de la operacion realizada
+                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_ACTUALIZARCLIENTE,
+                fechaActual[0], fechaActual[1], fechaActual[2]);
             }
         }
         
@@ -87,17 +106,37 @@ public class UIEpdoFinanciacion extends UIUsuario{
         //"Indique a continuacion el nombre e email del cliente a registrar"
         formatearCadena(UIMensajes.mF_DA_IndicarNombreEmail(), true, true);
         
-        //"Nombre", "Nombre aceptado"
-        String nombre = formatearEntradaCadena(UIMensajes.g_Nombre(), true);
-        System.out.println(UIMensajes.mF_DA_NombreAceptado());
+        //"Escribir DNI"
+        String dni = formatearEntradaCadena(UIMensajes.mF_DA_EscribirDNI(), true);
+        Usuario u = usuarios.obtenerUsuario(dni);
         
-        //"Email", "Email aceptado"
-        String email = formatearEntradaCadena(UIMensajes.g_Email(), true);
-        System.out.println(UIMensajes.mF_DA_EmailAceptado());
+        if(u==null){
+            //"Nombre", "Nombre aceptado"
+            String nombre = formatearEntradaCadena(UIMensajes.g_Nombre(), true);
+            System.out.println(UIMensajes.mF_DA_NombreAceptado());
         
-        //Añadimos el cliente a la base de datos de clientes
-        usuarios.añadirUsuario(new Cliente("", nombre, email));
-        System.out.println(UIMensajes.mF_DA_RegistradoExito());
+            //"Email", "Email aceptado"
+            String email = formatearEntradaCadena(UIMensajes.g_Email(), true);
+            System.out.println(UIMensajes.mF_DA_EmailAceptado());
+            
+            //Creamos el cliente con los datos especificados
+            Cliente cliente = new Cliente(dni, nombre, email);
+            
+            //Obtenemos la fecha actual mediante un formulario.
+            int[] fechaActual = preguntarFechaActual();
+            
+            //Añadimos el cliente a la base de datos de clientes
+            usuarios.añadirUsuario(cliente);
+            System.out.println(UIMensajes.mF_DA_RegistradoExito());
+            
+            //Dejamos constancia de la operacion realizada
+            dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_DARALTACLIENTE,
+            fechaActual[0], fechaActual[1], fechaActual[2]);
+        }else{
+            //"Ya existe un cliente registrado con el DNI especificado, registro fallido"
+            System.out.println("\t" + UIMensajes.mF_DA_ClienteYaRegistrado());
+        }
+        
     }
     
     /**
@@ -110,16 +149,26 @@ public class UIEpdoFinanciacion extends UIUsuario{
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
         Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
         
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
+        
         boolean encontrado = false;
         if(usuario!=null){
             if(usuario instanceof Cliente){
                 encontrado = true;
                 Cliente cliente = (Cliente) usuario;
+                
                 //Imprimir los datos del cliente. "Nombre", "Email"
+                formatearCadena(UIMensajes.g_DNI(), true, true);
+                System.out.print(cliente.obtenerDNI());
                 formatearCadena(UIMensajes.g_Nombre(), true, true);
                 System.out.print(cliente.obtenerNombreUsuario());
                 formatearCadena(UIMensajes.g_Email(), true, true);
-                System.out.print(cliente.obtenerEmailUsuario());
+                System.out.print(cliente.obtenerEmailUsuario());            
+                
+                //Dejamos constancia de la operacion realizada
+                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
+                fechaActual[0], fechaActual[1], fechaActual[2]);
             }
         }
         

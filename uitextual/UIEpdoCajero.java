@@ -5,6 +5,7 @@ import backend.Usuario;
 import backend.Cliente;
 import backend.EpdoCajero;
 import backend.Util;
+import backend.EnumOperaciones;
 
 import productos.Productos;
 import productos.Producto;
@@ -33,6 +34,15 @@ public class UIEpdoCajero extends UIUsuario{
     }
     
     /**
+     * Devolvemos el cajero que esta trabajando sobre el programa
+     * 
+     * @return (EpdoCajero)obtenerUsuario()
+     */
+    private EpdoCajero obtenerCajero(){
+        return (EpdoCajero) obtenerUsuario();
+    }
+    
+    /**
      * Vende un producto a un cliente. 
      * 
      * @param usuarios Base de datos de usuarios
@@ -50,16 +60,26 @@ public class UIEpdoCajero extends UIUsuario{
                 encontrado = true;
                 Cliente cliente = (Cliente) usuario;
                 
+                //Obtener la fecha actual
+                int[] fechaActual = preguntarFechaActual();
+                
                 //Obtener el producto que se va a vender al cliente. "Numero de producto"
                 int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
                 Producto producto = productos.obtenerProducto(nProducto, true);
                 
-                if(producto!=null){ 
-                    if(producto.obtenerCantidad()>0){ //Si hay al menos un producto en el almacen
+                if(producto!=null){
+                    
+                    //Si hay al menos un producto en el almacen
+                    if(producto.obtenerCantidad()>0){
                         //Añadir producto a la lista de productos comprados del cliente
                         cliente.obtenerFichaCliente().añadirProductoComprado(producto);
                         producto.asignarCantidad(producto.obtenerCantidad()-1);
-                    }else{ //Sin reservas
+                    
+                        //Dejamos constancia en el historial
+                        dejarConstancia(cliente, producto, obtenerCajero(), 
+                        EnumOperaciones.mC_VENDERPRODUCTO, fechaActual[0], fechaActual[1], 
+                        fechaActual[2]);
+                    }else{ //Si por otro lado no hay reservas del producto
                         //"No quedan reservas del producto especificado"
                         System.out.println(UIMensajes.mC_VP_SinStock());
                     }

@@ -47,6 +47,9 @@ public class UIEpdoTecnico extends UIUsuario{
         tecnico.añadirPieza(p);
     }
     
+    /**
+     * Elimina una pieza de la lista de piezas necesarias
+     */
     public void eliminarPiezaNecesaria(){
         //"Nombre de la pieza"
         String nombrePieza = formatearEntradaCadena(UIMensajes.mT_AP_NombrePieza(), true);
