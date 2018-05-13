@@ -11,7 +11,7 @@ import productos.Producto;
 public class OperacionProducto extends Operacion{
     
     //Producto sobre le cual se ha hecho la operacion
-    public int numeroProducto;
+    private int numeroProducto;
     
     //Metodo constructor
     public OperacionProducto(int numeroProducto, Empleado responsable, String descripcion, 

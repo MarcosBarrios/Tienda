@@ -8,6 +8,7 @@ import backend.Cliente;
 import backend.FichaCliente;
 import backend.Util;
 import backend.Pieza;
+import backend.EnumOperaciones;
 
 import productos.Reporte;
 import productos.Producto;
@@ -22,12 +23,14 @@ import productos.EnumEstadoProducto;
  */
 public class UIEpdoTecnico extends UIUsuario{
     
-    private EpdoTecnico tecnico;
     
     //Metodo constructor
     public UIEpdoTecnico(EpdoTecnico usuario){
         super(usuario);
-        this.tecnico = usuario;
+    }
+    
+    private EpdoTecnico obtenerTecnico(){
+        return (EpdoTecnico)obtenerUsuario();
     }
     
     /**
@@ -41,10 +44,17 @@ public class UIEpdoTecnico extends UIUsuario{
         String nombrePieza = formatearEntradaCadena(UIMensajes.mT_AP_NombrePieza(), true);
         String descripcionPieza = formatearEntradaCadena(UIMensajes.mT_AP_DescripcionPieza(), true);
         
+        //Preguntamos por la fecha
+        int[] fechaActual = preguntarFechaActual();
+        
         //Tras obtener los datos necesarios añadimos la pieza a la coleccion del tecnico
         //que ha iniciado sesion al programa
         Pieza p = new Pieza(precioPieza, nombrePieza, descripcionPieza);
-        tecnico.añadirPieza(p);
+        obtenerTecnico().añadirPieza(p);
+        
+        //Dejamos constancia de la operacion realizada
+        dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_AÑADIRPIEZA,
+        fechaActual[0], fechaActual[1], fechaActual[2]);
     }
     
     /**
@@ -54,22 +64,28 @@ public class UIEpdoTecnico extends UIUsuario{
         //"Nombre de la pieza"
         String nombrePieza = formatearEntradaCadena(UIMensajes.mT_AP_NombrePieza(), true);
         
-        for(int i = 0; i < tecnico.obtenerNumeroPiezas(); i++){
-            Pieza p = tecnico.obtenerPieza(i);
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
+        
+        for(int i = 0; i < obtenerTecnico().obtenerNumeroPiezas(); i++){
+            Pieza p = obtenerTecnico().obtenerPieza(i);
             if(p.obtenerNombre().toLowerCase().equals(nombrePieza.toLowerCase())){
-                tecnico.eliminarPieza(i);
+                obtenerTecnico().eliminarPieza(i);
                 //"Pieza eliminada"
                 System.out.println(UIMensajes.mT_EP_PiezaEliminada());
             }
             
             //Si no se encuentra el producto
             if(!p.obtenerNombre().toLowerCase().equals(nombrePieza.toLowerCase()) &&
-                i==tecnico.obtenerNumeroPiezas()-1){
+                i==obtenerTecnico().obtenerNumeroPiezas()-1){
                 //"No se encontro la pieza"
                 System.out.println(UIMensajes.mT_EP_PiezaNoEncontrada());
             }
         }
         
+        //Dejamos constancia
+        dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_ELIMINARPIEZA,
+        fechaActual[0], fechaActual[1], fechaActual[2]);
     }
     
     /**
@@ -77,8 +93,11 @@ public class UIEpdoTecnico extends UIUsuario{
      * 
      */
     public void verPiezasNecesarias(){
-        for(int i = 0; i < tecnico.obtenerNumeroPiezas(); i++){
-            Pieza p = tecnico.obtenerPieza(i);
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
+        
+        for(int i = 0; i < obtenerTecnico().obtenerNumeroPiezas(); i++){
+            Pieza p = obtenerTecnico().obtenerPieza(i);
             
             System.out.println();
             formatearCadena(UIMensajes.mT_AP_PrecioPieza(), true, true);
@@ -88,6 +107,10 @@ public class UIEpdoTecnico extends UIUsuario{
             formatearCadena(UIMensajes.mT_AP_DescripcionPieza(), true, true);
             System.out.print(p.obtenerDescripcion() + " | ");
         }
+        
+        //Dejamos constancia
+        dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_VERPIEZAS,
+        fechaActual[0], fechaActual[1], fechaActual[2]);
     }
     
     /**
@@ -111,12 +134,11 @@ public class UIEpdoTecnico extends UIUsuario{
                 //Obtener el producto que se va a vender al cliente. "Numero de producto"
                 int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
                 Producto producto = fc.obtenerProductoComprado(nProducto, true);
-
+                
                 if(producto!=null){
-                    int diaActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Dia());
-                    int mesActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Mes());
-                    int añoActual = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Año());
-                   
+                    //Obtenemos la fecha actual
+                    int[] fechaActual = preguntarFechaActual();
+                    
                     //Obtenemos la descripcion del problema
                     String descripcionProblema = formatearEntradaCadena(UIMensajes.mPV_RP_DescripcionProblema(), true);
                     
@@ -129,9 +151,9 @@ public class UIEpdoTecnico extends UIUsuario{
                     Reporte rAnterior = producto.obtenerReporte(producto.obtenerNumeroReportes()-1);
                     
                     Reporte r = new Reporte();
-                    r.asignarDiaReporte(diaActual);
-                    r.asignarMesReporte(mesActual);
-                    r.asignarAñoReporte(añoActual);
+                    r.asignarDiaReporte(fechaActual[0]);
+                    r.asignarMesReporte(fechaActual[1]);
+                    r.asignarAñoReporte(fechaActual[2]);
                     r.asignarDescripcion(descripcionProblema);
                     r.asignarCoste(costeProblema);
                     
@@ -153,6 +175,10 @@ public class UIEpdoTecnico extends UIUsuario{
                     
                     //Añadimos el reporte al producto
                     producto.añadirReporte(r);
+                    
+                    //Dejamos constancia
+                    dejarConstancia(cliente, producto, obtenerTecnico(), EnumOperaciones.mT_AÑADIRREPORTE,
+                    fechaActual[0], fechaActual[1], fechaActual[2]);
                 }else{
                     //"No se ha encontrado ningun producto con el numero "
                     System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
@@ -182,6 +208,9 @@ public class UIEpdoTecnico extends UIUsuario{
                 encontrado = true;
                 Cliente cliente = (Cliente) usuarioTemp;
                 FichaCliente fc = cliente.obtenerFichaCliente();
+                
+                //Obtenemos la fecha actual
+                int[] fechaActual = preguntarFechaActual();
                 
                 //Obtener el producto que se va a vender al cliente. "Numero de producto"
                 int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
@@ -227,6 +256,10 @@ public class UIEpdoTecnico extends UIUsuario{
                     formatearCadena(UIMensajes.mT_AR_Coste(), true, true);
                     System.out.print(rAnterior.obtenerCoste());
                     
+                    
+                    //Dejamos constancia
+                    dejarConstancia(cliente, producto, obtenerTecnico(), EnumOperaciones.mT_VERESTADOPRODUCTO,
+                    fechaActual[0], fechaActual[1], fechaActual[2]);
                 }else{
                     //"No se ha encontrado ningun producto con el numero "
                     System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
@@ -256,6 +289,9 @@ public class UIEpdoTecnico extends UIUsuario{
                 encontrado = true;
                 EpdoTecnico tecnico = (EpdoTecnico) usuarioTemp;
                 
+                //Obtenemos la fecha actual
+                int[] fechaActual = preguntarFechaActual();
+                
                 for(int i = 0; i < tecnico.obtenerNumeroFichas(); i++){
                     FichaReparacion fr = tecnico.obtenerFichaReparacion(i);
                     System.out.println();
@@ -264,6 +300,10 @@ public class UIEpdoTecnico extends UIUsuario{
                     System.out.print(" |" + UIMensajes.mC_LP_NumeroProducto() + ": ");
                     System.out.print(fr.obtenerProducto().obtenerNumeroProducto());
                 }
+                
+                //Dejamos constancia
+                dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_VERLISTAFICHASREPARACION,
+                    fechaActual[0], fechaActual[1], fechaActual[2]);
             }
         }
         if(!encontrado){

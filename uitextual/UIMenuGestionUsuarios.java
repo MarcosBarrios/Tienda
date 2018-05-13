@@ -77,6 +77,7 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAñadirSolicitud());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAceptarSolicitud());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerSolicitudes());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerHistorialUsuario());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -86,7 +87,7 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
      * Implementa el funcionamiento del menu
      */
     private void activarInteraccion(){
-        int entrada = UIEntradas.obtenerEntero(0, obtenerMenu().obtenerNumeroOpciones());
+        int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
             case 0: //Añadir empleado al sistema
             obtenerTemp().añadirEmpleado(obtenerUsuarios());
@@ -127,13 +128,18 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
             volverMenu();
             break;
             
-            case 7: //Ver lista de solicitudes de todos los clientes
+            case 7: //Ver el historial de operaciones de un usuario
+            obtenerTemp().verHistorialUsuario(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 8: //Ver lista de solicitudes de todos los clientes
             obtenerTemp().verListaSolicitudes(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 8: //Salir del programa
+            case 9: //Salir del programa
             System.exit(0);
             break;
         }

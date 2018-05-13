@@ -31,9 +31,12 @@ public class UIMenu{
     /**
      * Utiliza el gestionador de entradas del programa para
      * exigir al usuario que elija una opcion.
+     * 
+     * @return opcionElegida Opcion que el usuario ha elegido
      */
     public int obtenerOpcion(){
-        return UIEntradas.obtenerEntero(0, obtenerListaOpciones().size());
+        int opcionElegida = UIEntradas.obtenerEntero(0, obtenerListaOpciones().size());
+        return opcionElegida;
     }
     
     /**
@@ -67,6 +70,8 @@ public class UIMenu{
     
     /**
      * Reasigna la lista de opciones interna
+     * 
+     * @param listaOpciones Lista con las opciones del menu
      */
     private void asignarListaOpciones(ArrayList<String> listaOpciones){
         this.listaOpciones = listaOpciones;

@@ -13,6 +13,9 @@ import backend.FichaReparacion;
 import backend.Cliente;
 import backend.Solicitud;
 import backend.FichaCliente;
+import backend.Operacion;
+import backend.OperacionUsuario;
+import backend.OperacionProducto;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,102 @@ public class UIGestionUsuarios extends UIUsuario{
     //Metodo constructor
     public UIGestionUsuarios(EpdoFinanciacion usuario){
         super(usuario);
+    }
+    
+    /**
+     * Imprime el historial de un usuario.
+     * 
+     * @param usuarios Base de datos de usuarios
+     */
+    public void verHistorialUsuario(Usuarios usuarios){
+        String datosUsuario = formatearEntradaCadena(UIMensajes.mGU_VHU_IntroducirUsuario(), true);
+        Usuario u = usuarios.obtenerUsuario(datosUsuario);
+        
+        if(u != null){
+            if(u instanceof Cliente){
+                Cliente c = (Cliente) u;
+                FichaCliente fc = c.obtenerFichaCliente();
+                
+                for(int i = 0; i < fc.obtenerNumeroOperaciones(); i++){
+                    Operacion operacion = fc.obtenerOperacion(i);
+                    
+                    //Distinguimos entre las dos tipos de operaciones
+                    if(operacion instanceof OperacionUsuario){
+                        OperacionUsuario opUsuario = (OperacionUsuario)operacion;
+                        
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mGU_VHU_EmpleadoResponsable());
+                        System.out.print(": " + opUsuario.obtenerResponsable().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_ClienteAfectado());
+                        System.out.print(": " + opUsuario.obtenerUsuario().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_FechaOperacion());
+                        System.out.print(": " + opUsuario.obtenerDia() + "/");
+                        System.out.print(opUsuario.obtenerMes() + "/");
+                        System.out.print(opUsuario.obtenerAño());
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                        System.out.print(opUsuario.obtenerDescripcion());
+                    }else{
+                        OperacionProducto opProducto = (OperacionProducto)operacion;
+                        
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mGU_VHU_EmpleadoResponsable());
+                        System.out.print(": " + opProducto.obtenerResponsable().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mC_LP_NumeroProducto());
+                        System.out.print(": " + opProducto.obtenerNumeroProducto());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_FechaOperacion());
+                        System.out.print(": " + opProducto.obtenerDia() + "/");
+                        System.out.print(opProducto.obtenerMes() + "/");
+                        System.out.print(opProducto.obtenerAño());
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                        System.out.print(opProducto.obtenerDescripcion());
+                    }
+                    
+                }
+                
+            }else if(u instanceof Empleado){
+                Empleado e = (Empleado) u;
+                
+                for(int i = 0; i < e.obtenerNumeroOperaciones(); i++){
+                    Operacion operacion = e.obtenerOperacion(i);
+                    
+                    //Distinguimos entre las dos tipos de operaciones
+                    if(operacion instanceof OperacionUsuario){
+                        OperacionUsuario opUsuario = (OperacionUsuario)operacion;
+                        
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mGU_VHU_EmpleadoResponsable());
+                        System.out.print(": " + opUsuario.obtenerResponsable().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_ClienteAfectado());
+                        System.out.print(": " + opUsuario.obtenerUsuario().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_FechaOperacion());
+                        System.out.print(": " + opUsuario.obtenerDia() + "/");
+                        System.out.print(opUsuario.obtenerMes() + "/");
+                        System.out.print(opUsuario.obtenerAño());
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                        System.out.print(opUsuario.obtenerDescripcion());
+                    }else{
+                        OperacionProducto opProducto = (OperacionProducto)operacion;
+                        
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mGU_VHU_EmpleadoResponsable());
+                        System.out.print(": " + opProducto.obtenerResponsable().obtenerNombreUsuario());
+                        System.out.print(" | " + UIMensajes.mC_LP_NumeroProducto());
+                        System.out.print(": " + opProducto.obtenerNumeroProducto());
+                        System.out.print(" | " + UIMensajes.mGU_VHU_FechaOperacion());
+                        System.out.print(": " + opProducto.obtenerDia() + "/");
+                        System.out.print(opProducto.obtenerMes() + "/");
+                        System.out.print(opProducto.obtenerAño());
+                        System.out.println();
+                        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                        System.out.print(opProducto.obtenerDescripcion());
+                    }
+                    
+                }
+            }
+        }
     }
     
     /**

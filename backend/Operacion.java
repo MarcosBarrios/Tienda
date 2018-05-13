@@ -11,13 +11,13 @@ package backend;
 public class Operacion{
     
     //Describe la operacion
-    public String descripcion;
+    private String descripcion;
     
     //Fecha de la operacion
-    public int dia, mes, año;
+    private int dia, mes, año;
     
     //Empleado responsable de la operacion
-    public Empleado responsable;
+    private Empleado responsable;
     
     //Metodo constructor
     public Operacion(){}

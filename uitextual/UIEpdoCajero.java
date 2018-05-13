@@ -145,6 +145,10 @@ public class UIEpdoCajero extends UIUsuario{
         }else{
             productos.añadirProducto(producto);
         }
+        
+        //Dejamos constancia en el historial
+        dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_AÑADIRPRODUCTO, 
+        (int)salidasNumericas[3], (int)salidasNumericas[4], (int)salidasNumericas[5]);
     }
     
     /**
@@ -206,8 +210,12 @@ public class UIEpdoCajero extends UIUsuario{
         //Obtenemos el numero del producto a modificar
         int numeroProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
         
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
+        
         //Obtenemos el producto con el numero de producto
         Producto producto = null;
+        Cliente cliente = null;
         if(buscarCliente){ //Si se va a buscar el producto en un cliente
             //"Especificar el nombre, email o dni del cliente"
             String entrada = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);
@@ -215,8 +223,8 @@ public class UIEpdoCajero extends UIUsuario{
             
             boolean encontrado = false;
             if(usuario instanceof Cliente){
-                if(usuario!=null){
-                    Cliente cliente = (Cliente) usuario;
+                if(usuario!=null){ //Si se encontro el cliente
+                    cliente = (Cliente) usuario;
                 
                     ArrayList<Producto> listaProductos = Util.listaProductosComprados(cliente);
                     Iterator<Producto> itr = listaProductos.iterator();
@@ -229,7 +237,7 @@ public class UIEpdoCajero extends UIUsuario{
                             encontrado = true;
                             producto = tempProducto;
                             
-                            //"mC_AcP_EncontradoEnCliente"
+                            //"Se ha encontrado un producto igual de "
                             System.out.println(UIMensajes.mC_AcP_EncontradoEnCliente() + ": "
                                 + cliente.obtenerNombreUsuario());
                         }
@@ -261,6 +269,18 @@ public class UIEpdoCajero extends UIUsuario{
             
             //Creamos un menu para elegir que opcion modificar
             menuModificacionOpciones(producto);
+            
+            if(!buscarCliente){
+                //Dejamos constancia de la operacion
+                dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_ACTUALIZARPRODUCTO,
+                fechaActual[0], fechaActual[1], fechaActual[2]);
+            }else{
+                //Dejamos constancia de la operacion
+                if(cliente!=null){ //Evitamos que se trabaje con un null
+                    dejarConstancia(cliente, producto, obtenerCajero(), EnumOperaciones.mC_ACTUALIZARPRODUCTO,
+                    fechaActual[0], fechaActual[1], fechaActual[2]);
+                }
+            }
         }else{ //En caso de que no encuentre el producto
             //"No se ha encontrado ningun producto con el numero "
             System.out.println(UIMensajes.mC_AcP_ProductoEncontrado()
@@ -450,11 +470,12 @@ public class UIEpdoCajero extends UIUsuario{
      * @param productos Base de datos de productos del programa
      */
     public void imprimirDatosProducto(Productos productos, Usuarios usuarios){
-        
         //"Numero de producto"
         formatearCadena(UIMensajes.mC_OpcionVerDatosProducto(), false, true);
-        formatearCadena(UIMensajes.mC_LP_NumeroProducto(),
-            true, true);
+        formatearCadena(UIMensajes.mC_LP_NumeroProducto(), true, true);
+        
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
             
         //Buscamos coincidencias en la tienda
         //Pregunta por el numero de producto hasta obtener un numero valido
@@ -462,6 +483,10 @@ public class UIEpdoCajero extends UIUsuario{
         Producto bProducto = productos.obtenerProducto(nProducto, true);
         if(bProducto!=null){ //Si encuentra el producto
             imprimirCaracteristicasProducto(bProducto);
+            
+            //Dejamos constancia de la operacion realizada
+            dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_IMPRIMIRDATOSPRODUCTO,
+            fechaActual[0], fechaActual[1], fechaActual[2]);
         }else{ //Si NO encuentra el producto
             //"Producto encontrado. Numero de producto = "
             System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
@@ -558,6 +583,11 @@ public class UIEpdoCajero extends UIUsuario{
      */
     public void imprimirListaProductos(Productos productos, Usuarios usuarios){
         System.out.println(UIMensajes.g_EncabezadoMenus());
+        
+        //Obtenemos la fecha actual
+        int[] fechaActual = preguntarFechaActual();
+        
+        //"Lista de productos"
         System.out.println(UIMensajes.mC_OpcionListaProductos());
         System.out.println();
         for(int i = 0; i < productos.obtenerTamaño(); i++){
@@ -583,6 +613,10 @@ public class UIEpdoCajero extends UIUsuario{
         
         //Ahora imprimimos los productos comprados por los clientes
         imprimirCaracteristicasProductoComprado(usuarios);
+        
+        //Dejamos constancia de la operacion
+        dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_IMPRIMIRLISTAPRODUCTOS,
+        fechaActual[0], fechaActual[1], fechaActual[2]);
     }
     
 }

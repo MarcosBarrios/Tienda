@@ -68,7 +68,7 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
      * Implementa el funcionamiento del menu
      */
     private void activarInteraccion(){
-        int entrada = UIEntradas.obtenerEntero(0, obtenerMenu().obtenerNumeroOpciones());
+        int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
             case 0: //Dar de alta a un cliente
             obtenerFinanciador().darAlta(obtenerUsuarios());

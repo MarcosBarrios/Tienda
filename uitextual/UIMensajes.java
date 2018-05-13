@@ -242,6 +242,10 @@ public class UIMensajes{
         return "Ver lista de solicitudes de todos los clientes";
     }
     
+    public static String mGU_OpcionVerHistorialUsuario(){
+        return "Ver el historial de operaciones de un usuario";
+    }
+    
     public static String mGU_EspecificarDatos(){
         return "Especificar a continuacion el nombre, email, usuario" +
             "y la contraseña del empleado a registrar";
@@ -299,6 +303,21 @@ public class UIMensajes{
         return "Solicitud pendiente";
     }
 
+    public static String mGU_VHU_IntroducirUsuario(){
+        return "Introducir nombre o DNI del usuario";
+    }
+    
+    public static String mGU_VHU_EmpleadoResponsable(){
+        return "Responsable";
+    }
+    
+    public static String mGU_VHU_ClienteAfectado(){
+        return "Afectado";
+    }
+    
+    public static String mGU_VHU_FechaOperacion(){
+        return "Fecha de la operacion";
+    }
     
     //*********************************************************************
     

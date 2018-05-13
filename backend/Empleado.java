@@ -21,6 +21,7 @@ public abstract class Empleado extends Usuario{
         super(dni, nombre, email);
         this.usuario = usuario;
         this.contraseña = contraseña;
+        historialOperaciones = new Stack<Operacion>();
     }
     
     /**

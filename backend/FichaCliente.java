@@ -34,6 +34,7 @@ public class FichaCliente{
         listaProductosComprados = new Stack<Producto>();
         listaFacturas = new Stack<Factura>();
         listaSolicitudes = new ArrayList<Solicitud>();
+        historialOperaciones = new Stack<Operacion>();
     }
     
     /**

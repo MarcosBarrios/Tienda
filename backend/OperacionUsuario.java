@@ -10,7 +10,7 @@ package backend;
 public class OperacionUsuario extends Operacion{
     
     //Usuario sobre le cual se ha hecho la operacion
-    public Usuario usuario;
+    private Usuario usuario;
     
     //Metodo constructor
     public OperacionUsuario(Usuario usuario, Empleado responsable, String descripcion, 
