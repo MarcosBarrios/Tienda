@@ -29,9 +29,23 @@ public class UIMain{
         usuarios = new Usuarios();
         Usuario u = new EpdoCajero("11111111B", "Marcos", "azucar@gmail.com", "vodafone",
             "12345");
-        usuario = new UIEpdoCajero((EpdoCajero) u);
+        
+        
+        //Preguntamos por al fecha actual al iniciar el programa
+        System.out.println("\t" + UIMensajes.mPV_DP_IntroducirFecha() + ": ");
+        System.out.println("\t" + UIMensajes.mC_AñP_Dia() + ": ");
+        int dia = (int) UIEntradas.obtenerDecimal(0, 31);
+        System.out.println("\t" + UIMensajes.mC_AñP_Mes() + ": ");
+        int mes = (int) UIEntradas.obtenerDecimal(0, 12);
+        System.out.println("\t" + UIMensajes.mC_AñP_Año() + ": ");
+        int año = (int) UIEntradas.obtenerDecimal(2018, 2100);
+        
+        usuario = new UIEpdoCajero((EpdoCajero) u, dia, mes, año);
+        
+        //Activamos el menu principal
         UIMenuAccionable menuPrincipal = new UIMenuPrincipal(usuarios, productos,
-            usuario);
+        usuario);
+
     }
     
 }

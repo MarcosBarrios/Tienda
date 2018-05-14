@@ -82,6 +82,8 @@ public class UIEntradas{
      * 
      * String entrada   Cadena de caracteres obtenida como entrada
      *                  de usuario al invocar obtenerBooleana()
+     *                  
+     * @param siOno Aceptar tambien las entradas "si" y "no"
      * 
      * @return true si entrada.equals("true")
      */

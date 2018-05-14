@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=UIEpdoFinanciacion
 comment0.text=\r\n\ Dispone\ de\ metodos\ para\ dar\ de\ alta\ a\ clientes\ en\ el\ sistema\ con\ sus\ \r\n\ datos\ personales\ y\ actualizar\ los\ datos\ de\ clientes\ del\ sistema.\r\n\ \r\n\ Los\ metodos\ estan\ orientados\ a\ la\ parte\ textual\ de\ la\ interfaz\ de\r\n\ usuario\ del\ programa.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=usuario
-comment1.target=UIEpdoFinanciacion(backend.EpdoFinanciacion)
+comment1.params=usuario\ diaActual\ mesActual\ a\u00F1oActual
+comment1.target=UIEpdoFinanciacion(backend.EpdoFinanciacion,\ int,\ int,\ int)
 comment2.params=
 comment2.target=backend.EpdoFinanciacion\ obtenerFinanciador()
 comment2.text=\r\n\ Devuelve\ el\ financiador\r\n\ \r\n\ @return\ (EpdoFinanciacion)obtenerUsuario()\r\n

@@ -26,8 +26,9 @@ import java.lang.Math;
  */
 public class UIEpdoPostVenta extends UIUsuario{
     
-    public UIEpdoPostVenta(EpdoPostVenta usuario){
-        super(usuario);
+    public UIEpdoPostVenta(EpdoPostVenta usuario,
+    int diaActual, int mesActual, int añoActual){
+        super(usuario, diaActual, mesActual, añoActual);
     }
     
     /**
@@ -38,7 +39,9 @@ public class UIEpdoPostVenta extends UIUsuario{
     }
     
     /**
-     * Repara un producto
+     * El cliente exige la reparación de un producto. Se comprueba que el producto
+     * no haya sido comprado hace más de 2 años (reparacion gratuita a menos de 2 años
+     * de compra)
      * 
      * @param productos Base de datos de productos del programa
      * @param usuarios Base de datos de usuarios del programa
@@ -68,9 +71,6 @@ public class UIEpdoPostVenta extends UIUsuario{
                     
                     formatearCadena(UIMensajes.mPV_DP_IntroducirFecha(), true, true);
                     
-                    //Obtenemos la fecha actual
-                    int[] fechaActual = preguntarFechaActual();
-                    
                     //Obtenemos la descripcion del problema
                     String descripcionProblema = formatearEntradaCadena(UIMensajes.mPV_RP_DescripcionProblema(), true);
                     
@@ -87,13 +87,13 @@ public class UIEpdoPostVenta extends UIUsuario{
                             //Creamos el reporte que sera añadido al producto
                             Reporte r = new Reporte();
                             r.asignarEstado(EnumEstadoProducto.ROTO);
-                            r.asignarDiaReporte(fechaActual[0]); //Dia
-                            r.asignarMesReporte(fechaActual[1]); //Mes
-                            r.asignarAñoReporte(fechaActual[2]); //Año
+                            r.asignarDiaReporte(obtenerDiaActual()); //Dia
+                            r.asignarMesReporte(obtenerMesActual()); //Mes
+                            r.asignarAñoReporte(obtenerAñoActual()); //Año
                             r.asignarDescripcion(descripcionProblema);
                             
-                            //Si ha pasado menos tiempo que el tiempo de garantia (En años)
-                            if(Math.abs(fechaActual[2]-añoComprado) <= producto.obtenerTiempoGarantia()){
+                            //Si han pasado menos de 2 años se repara gratuitamente
+                            if(Math.abs(obtenerAñoActual()-2) <= 0){
                                 r.cambiarPagado(true);
                                 //"El producto mantiene la garantia. Precio 0 asegurado."
                                 System.out.println(UIMensajes.mPV_RP_CumpleGarantia());
@@ -114,7 +114,7 @@ public class UIEpdoPostVenta extends UIUsuario{
                             
                             //Dejamos constancia
                             dejarConstancia(cliente, producto, obtenerPostVenta(), EnumOperaciones.mPV_REPARARPRODUCTO,
-                            fechaActual[0], fechaActual[1], fechaActual[2]);
+                            obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
                         }
                     }
                     if(!tecnicoEncontrado){ //Si no se encuenta el tecnico
@@ -158,9 +158,6 @@ public class UIEpdoPostVenta extends UIUsuario{
                 //Obtener el producto que se va a vender al cliente. "Numero de producto"
                 int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
                 Producto producto = fc.obtenerProductoComprado(nProducto, true);
-                
-                //Obtenemos la fecha actual
-                int[] fechaActual = preguntarFechaActual();
 
                 if(producto!=null){
                     //Obtenemos el ultimo reporte del producto
@@ -217,15 +214,15 @@ public class UIEpdoPostVenta extends UIUsuario{
                             int costeFactura = (int) formatearEntradaDecimal(UIMensajes.mT_AR_Coste());
                             String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
                             
-                            Factura f = new Factura(costeFactura, descripcion, fechaActual[0],
-                                fechaActual[1], fechaActual[2]);
+                            Factura f = new Factura(costeFactura, descripcion, obtenerDiaActual(),
+                            obtenerMesActual(), obtenerAñoActual());
                                 
                             fc.añadirFactura(f);
                             
                             //Dejamos constancia
                             dejarConstancia(cliente, producto, obtenerPostVenta(),
                             EnumOperaciones.mPV_COMPROBARESTADOPRODUCTO,
-                            fechaActual[0], fechaActual[1], fechaActual[2]);
+                            obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
                         }
                     }else{
                         //"El producto ya se ha pagado"
@@ -272,12 +269,11 @@ public class UIEpdoPostVenta extends UIUsuario{
                     
                     formatearCadena(UIMensajes.mPV_DP_IntroducirFecha(), true, true);
                     
-                    //Obtenemos la fecha actual
-                    int[] fechaActual = preguntarFechaActual();
-                    
                     //fechaActual[1]=mesActual
+                    
                     //Si no se ha comprado el producto hace mas de 3 meses
-                    if(Math.abs(fechaActual[1]-mesComprado) <= 3){
+                    if(Math.abs(obtenerMesActual()-mesComprado) <= 3){
+                        //Se acepta el producto
                         if(producto.obtenerCantidad()==1){ //Si el cliente solo ha comprado una ud. de ese producto
                             //Eliminar el producto de la coleccion de productos comprados del cliente
                             cliente.obtenerFichaCliente().eliminarProductoComprado(nProducto, true);
@@ -289,8 +285,8 @@ public class UIEpdoPostVenta extends UIUsuario{
                         
                         //Dejamos constancia
                         dejarConstancia(cliente, producto, obtenerPostVenta(),
-                        EnumOperaciones.mPV_DEVOLVERPRODUCTO, fechaActual[0],
-                        fechaActual[1], fechaActual[2]);
+                        EnumOperaciones.mPV_DEVOLVERPRODUCTO, obtenerDiaActual(), 
+                        obtenerMesActual(), obtenerAñoActual());
                     }else{
                         //"El producto se ha comprado hace mas de 3 meses, devolucion rechazada"
                         System.out.println(UIMensajes.mPV_DP_DevolucionRechazada());

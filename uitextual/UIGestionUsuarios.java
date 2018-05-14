@@ -40,8 +40,9 @@ import java.util.ArrayList;
 public class UIGestionUsuarios extends UIUsuario{
     
     //Metodo constructor
-    public UIGestionUsuarios(EpdoFinanciacion usuario){
-        super(usuario);
+    public UIGestionUsuarios(EpdoFinanciacion usuario, 
+    int diaActual, int mesActual, int añoActual){
+        super(usuario, diaActual, mesActual, añoActual);
     }
     
     /**
@@ -303,20 +304,28 @@ public class UIGestionUsuarios extends UIUsuario{
         entradas[3] = UIMensajes.g_Contraseña();
         String[] salidas = formularioCadenas(entradas);
         
-        //Crea la clase adecuada segun el tipo empleado que se desea registrar
-        Empleado e = obtenerTipoEmpleado(salidas[0], salidas[1], 
+        Empleado e = null;
+        Usuario u = usuarios.obtenerUsuario(salidas[0]);
+        if(u==null){
+            //Crea la clase adecuada segun el tipo empleado que se desea registrar
+            e = obtenerTipoEmpleado(salidas[0], salidas[1], 
             salidas[2], salidas[3]);
+            
+            //Añadimos el empleado a la base de datos de usuarios del programa
+            usuarios.añadirUsuario(e);
         
-        //Añadimos el empleado a la base de datos de usuarios del programa
-        usuarios.añadirUsuario(e);
-        
-        //"Empleado registrado con exito"
-        System.out.println(UIMensajes.mGU_AñE_EmpleadoRegistrado());
+            //"Empleado registrado con exito"
+            System.out.println(UIMensajes.mGU_AñE_EmpleadoRegistrado());
+        }else{
+            //"Ya existe un usuario con ese nombre"
+            System.out.println(UIMensajes.mGU_AñE_UsuarioYaExistente());
+        }
+
     }
     
     /**
-     * Crea la clase de empleado adecuada preguntando al usuario
-     * que desea registrar un nuevo empleado.
+     * Crea la clase de empleado adecuada preguntando al usuario el 
+     * tipo de empleado que desea registrar un nuevo empleado.
      */
     private Empleado obtenerTipoEmpleado(String nombre, String email,
         String usuario, String contraseña){
@@ -362,7 +371,7 @@ public class UIGestionUsuarios extends UIUsuario{
         String entrada = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
         Empleado empleado = (Empleado) usuarios.obtenerUsuario(entrada.toLowerCase());
     
-        if(empleado!=null){ //Si se encuentra el empleado
+        if(empleado!=null){ //Si se encuentra un empleado con los datos especificados
             String nombre = UIMensajes.g_Nombre();
             String email = UIMensajes.g_Email();
             String usuario = UIMensajes.g_Usuario();

@@ -77,6 +77,14 @@ public class UIMensajes{
         return "Email";
     }
     
+    public static String g_Domicilio(){
+        return "Domicilio";
+    }
+    
+    public static String g_Telefono(){
+        return "Telefono";
+    }
+    
     public static String g_Usuario(){
         return "Usuario";
     }
@@ -84,10 +92,6 @@ public class UIMensajes{
     public static String g_Contraseña(){
         return "Contraseña";
     }
-    //*********************************************************************
-    //---------------------------OPERACIONES---------------------------
-    
-    
     
     //*********************************************************************
     
@@ -259,6 +263,10 @@ public class UIMensajes{
         return "Empleado registrado con exito";
     }
     
+    public static String mGU_AñE_UsuarioYaExistente(){
+        return "Ya existe un usuario con ese nombre";
+    }
+    
     public static String mGU_AñE_EspecificarTipoEmpleado(){
         return "¿Tipo de empleado?";
     }
@@ -347,6 +355,14 @@ public class UIMensajes{
     
     public static String mF_DA_EmailAceptado(){
         return "Email aceptado";
+    }
+    
+    public static String mF_DA_DomicilioAceptado(){
+        return "Domicilio aceptado";
+    }
+    
+    public static String mF_DA_TelefonoAceptado(){
+        return "Telefono aceptado";
     }
     
     public static String mF_DA_EscribirDNI(){
@@ -554,11 +570,7 @@ public class UIMensajes{
     public static String mC_AcP_AñadirCaracteristica(){
         return "Añadir caracteristica al producto";
     }
-    
-    public static String mC_AcP_ElegirOpcion(){
-        return "Elegir opcion a modificar";
-    }
-    
+
     public static String mC_VDP_IntroducirNumeroProducto(){
         return "Introduzca a continuacion el numero del producto";
     }

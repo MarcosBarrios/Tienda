@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=UIGestionUsuarios
 comment0.text=\r\n\ Parte\ funcional\ del\ menu\ de\ gestion\ de\ usuarios.\r\n\ \r\n\ \ Operaciones\ implementadas\:\r\n\ \ \r\n\ \ -\ A\u00F1adir\ empleado\ al\ sistema\r\n\ \ -\ Actualizar\ nombre,email,\ usuario\ o\ contrase\u00F1a\ de\ un\ empleado\r\n\ \ -\ Ver\ lista\ de\ usuarios\r\n\ \ \r\n\ \ Utiliza\ la\ clase\ EpdoFinanciacion\ como\ contenedor\ de\ la\ contrase\u00F1a\r\n\ \ para\ entrar\ al\ menu\ de\ gestion\ de\ usuarios.\ \r\n\ \ \r\n\ \ A\ la\ hora\ de\ acceder\ al\ menu\ de\ gestion\ de\ usuarios\ el\ menu\ principal\r\n\ \ solo\ pedira\ la\ contrase\u00F1a.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=usuario
-comment1.target=UIGestionUsuarios(backend.EpdoFinanciacion)
+comment1.params=usuario\ diaActual\ mesActual\ a\u00F1oActual
+comment1.target=UIGestionUsuarios(backend.EpdoFinanciacion,\ int,\ int,\ int)
 comment10.params=usuarios
 comment10.target=void\ imprimirListaEmpleados(backend.Usuarios)
 comment10.text=\r\n\ Implime\ una\ lista\ con\ los\ empleados\ de\ la\ tienda.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ de\ la\ tienda\r\n
@@ -26,7 +26,7 @@ comment7.target=void\ a\u00F1adirEmpleado(backend.Usuarios)
 comment7.text=\r\n\ A\u00F1ade\ un\ empleado\ a\ la\ base\ de\ datos\ de\ usuarios\ del\ programa\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
 comment8.params=nombre\ email\ usuario\ contrase\u00F1a
 comment8.target=backend.Empleado\ obtenerTipoEmpleado(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
-comment8.text=\r\n\ Crea\ la\ clase\ de\ empleado\ adecuada\ preguntando\ al\ usuario\r\n\ que\ desea\ registrar\ un\ nuevo\ empleado.\r\n
+comment8.text=\r\n\ Crea\ la\ clase\ de\ empleado\ adecuada\ preguntando\ al\ usuario\ el\ \r\n\ tipo\ de\ empleado\ que\ desea\ registrar\ un\ nuevo\ empleado.\r\n
 comment9.params=usuarios
 comment9.target=void\ actualizarDatosEmpleado(backend.Usuarios)
 comment9.text=\r\n\ Actualiza\ los\ datos\ de\ un\ empleado\ de\ la\ tienda.\r\n\ \r\n\ @usuarios\ Base\ de\ datos\ del\ programa\r\n

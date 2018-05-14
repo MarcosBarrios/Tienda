@@ -94,7 +94,9 @@ public class UIMenuPrincipal extends UIMenuAccionable{
                 "GESTION_USUARIOS", contraseña);
         if(temp!=null){ //Si la contraseña es correcta
             UIMenuGestionUsuarios uig = new UIMenuGestionUsuarios(obtenerUsuarios(),
-                obtenerProductos(), new UIGestionUsuarios((EpdoFinanciacion) temp));
+                obtenerProductos(), new UIGestionUsuarios((EpdoFinanciacion) temp,
+                obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
+                obtenerUsuario().obtenerAñoActual()));
         }else{ //Si la contraseña NO es correcta
             //Avisa de fallo y vuelve al menu, "contraseña incorrecta"
             System.out.println(UIMensajes.mP_ContraseñaIncorrecta());
@@ -129,28 +131,35 @@ public class UIMenuPrincipal extends UIMenuAccionable{
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoCajero menuCajero = new UIMenuEpdoCajero(obtenerUsuarios(),
-                obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp));
+                obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp, 
+                obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
+                obtenerUsuario().obtenerAñoActual()));
             }else if(temp instanceof EpdoPostVenta){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoPostVenta menuPostVenta = new UIMenuEpdoPostVenta(
                     obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoPostVenta((EpdoPostVenta) temp));
+                    new UIEpdoPostVenta((EpdoPostVenta) temp, 
+                    obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
+                    obtenerUsuario().obtenerAñoActual()));
             }else if(temp instanceof EpdoFinanciacion){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoFinanciacion menuFinanciador = new UIMenuEpdoFinanciacion(
                     obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoFinanciacion((EpdoFinanciacion) temp));
+                    new UIEpdoFinanciacion((EpdoFinanciacion) temp, obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
+                    obtenerUsuario().obtenerAñoActual()));
             }else if(temp instanceof EpdoTecnico){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
                     " " + temp.obtenerNombreUsuario());
                 UIMenuEpdoTecnico menuFinanciador = new UIMenuEpdoTecnico(
                     obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoTecnico((EpdoTecnico) temp));
+                    new UIEpdoTecnico((EpdoTecnico) temp, 
+                    obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
+                obtenerUsuario().obtenerAñoActual()));
             }
             //PENDIENTE añadir condiciones para cada tipo de empleado
         }else{ //Si por el contrario no existe ninguna cuenta con dichos datos

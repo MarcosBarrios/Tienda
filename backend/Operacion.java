@@ -8,7 +8,7 @@ package backend;
  * @author Marcos Barrios
  * @version 1.0
  */
-public class Operacion{
+public abstract class Operacion{
     
     //Describe la operacion
     private String descripcion;

@@ -27,9 +27,15 @@ public abstract class UIUsuario{
     //Clase a la que representa UIUsuario
     private Usuario usuario;
     
+    //Fecha actual
+    private int diaActual, mesActual, añoActual;
+    
     //Metodo constructor
-    public UIUsuario(Usuario usuario){
+    public UIUsuario(Usuario usuario, int diaActual, int mesActual, int añoActual){
         this.usuario = usuario;
+        this.diaActual = diaActual;
+        this.mesActual = mesActual;
+        this.añoActual = añoActual;
     }
     
     /**
@@ -42,25 +48,30 @@ public abstract class UIUsuario{
     }
     
     /**
-     * Crea un mini formulario para obtener fecha actual
+     * Devuelve el dia actual en el que se esta usando el programa.
      * 
-     * Utilizado para simplificar la creacion de historiales de acciones.
-     * 
-     * @return salida Array con los valores entero dia(0), mes(1) y año(2).
+     * @return diaActual Dia actual
      */
-    protected int[] preguntarFechaActual(){
-        int[] salida = new int[3];
-        String[] entradas = new String[3];
-        //Obtenemos las cadenas de caracteres para preguntar por la fecha
-        entradas[0] = UIMensajes.mC_AñP_Dia();
-        entradas[1] = UIMensajes.mC_AñP_Mes();
-        entradas[2] = UIMensajes.mC_AñP_Año();
-        float salidas[] = formularioDecimales(entradas);
-        //Asignamos las salidas
-        salida[0] = (int) salidas[0];
-        salida[1] = (int) salidas[1];
-        salida[2] = (int) salidas[2];
-        return salida;
+    protected int obtenerDiaActual(){
+        return diaActual;
+    }
+    
+    /**
+     * Devuelve el mes actual en el que se esta usando el programa.
+     * 
+     * @return mesActual Mes actual
+     */
+    protected int obtenerMesActual(){
+        return mesActual;
+    }
+    
+    /**
+     * Devuelve el año actual en el que se esta usando el programa.
+     * 
+     * @return añoActual Año actual
+     */
+    protected int obtenerAñoActual(){
+        return añoActual;
     }
     
     /**
