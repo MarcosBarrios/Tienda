@@ -6,6 +6,7 @@ import backend.Cliente;
 import backend.EpdoCajero;
 import backend.Util;
 import backend.EnumOperaciones;
+import backend.FichaCliente;
 
 import productos.Productos;
 import productos.Producto;
@@ -410,6 +411,9 @@ public class UIEpdoCajero extends UIUsuario{
             true, true);
         System.out.print(producto.obtenerNumeroProducto());
         
+        //Imprime la categoria del producto con el mismo formato que el resto
+        imprimirCaracteristicasEspecificas(producto);
+        
         //Precio
         formatearCadena(UIMensajes.mC_AñP_Precio(), true, true);
         System.out.print(producto.obtenerPrecio());
@@ -426,7 +430,7 @@ public class UIEpdoCajero extends UIUsuario{
         formatearCadena(UIMensajes.mC_AñP_Peso(), true, true);
         System.out.print(producto.obtenerPeso());
         
-        //Devuelve el estado de la financiacion del producto
+        //Financiado
         formatearCadena(UIMensajes.mC_AcP_Financiado(), 
             true, true);
         System.out.print(producto.obtenerEstadoFinanciado());
@@ -450,6 +454,9 @@ public class UIEpdoCajero extends UIUsuario{
             true, true);
         System.out.print(producto.obtenerTiempoGarantia());
         
+        //Imprime caracteristicas segun el tipo de producto
+        imprimirCaracteristicasEspecificas(producto);
+        
         //Caracteristicas extra
         for(int i = 0; i < producto.obtenerNumCaracteristicas(); i++){
             Caracteristica temp = producto.obtenerCaracteristica(i);
@@ -459,73 +466,177 @@ public class UIEpdoCajero extends UIUsuario{
     }
     
     /**
-     * Imprime los datos de un producto
+     * Metodo auxiliar del metodo imprimirCaracteristicasProducto(...)
      * 
-     * @param productos Base de datos de productos del programa
+     * Imprime el tipo de producto
      */
-    public void imprimirDatosProducto(Productos productos, Usuarios usuarios){
-        //"Numero de producto"
-        formatearCadena(UIMensajes.mC_OpcionVerDatosProducto(), false, true);
-        formatearCadena(UIMensajes.mC_LP_NumeroProducto(), true, true);
-            
-        //Buscamos coincidencias en la tienda
-        //Pregunta por el numero de producto hasta obtener un numero valido
-        int nProducto = UIEntradas.obtenerEntero(0, productos.obtenerTamaño());
-        Producto bProducto = productos.obtenerProducto(nProducto, true);
-        if(bProducto!=null){ //Si encuentra el producto
-            imprimirCaracteristicasProducto(bProducto);
-            
-            //Dejamos constancia de la operacion realizada
-            dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_IMPRIMIRDATOSPRODUCTO,
-            obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
-        }else{ //Si NO encuentra el producto
-            //"Producto encontrado. Numero de producto = "
-            System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
+    private void imprimirTipoProducto(Producto producto){
+        //"Categoria del producto"
+        formatearCadena(UIMensajes.mC_ITP_CategoriaProducto(), true, true);
+        if(producto instanceof ProductoHogar){
+            System.out.print(UIMensajes.mC_AñP_Hogar());
+        }else if(producto instanceof ProductoSonido){
+            System.out.print(UIMensajes.mC_AñP_Sonido());
+        }else if(producto instanceof ProductoInformatica){
+            System.out.print(UIMensajes.mC_AñP_Informatica());
+        }else if(producto instanceof ProductoImagen){
+            System.out.print(UIMensajes.mC_AñP_Imagen());
+        }else if(producto instanceof ProductoTelefonia){
+            System.out.print(UIMensajes.mC_AñP_Telefonia());
         }
-        
-        //Imprimimos los productos comprados por los clientes
-        imprimirProductosCompradosCliente(usuarios, nProducto);
     }
     
     /**
-     * Metodo auxiliar de imprimirDatosProducto(...)
+     * Metodo auxiliar del metodo imprimirCaracteristicasProducto(...)
+     * 
+     * Imprime las caracteristicas especificas del producto segun su
+     * categoria
      */
-    private void imprimirProductosCompradosCliente(Usuarios usuarios, int numProducto){
-        
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){ //Para cada cliente de la tienda
-            Usuario tempUsuario = usuarios.obtenerUsuario(i);
+    private void imprimirCaracteristicasEspecificas(Producto producto){
+        if(producto instanceof ProductoHogar){
+            ProductoHogar ph = (ProductoHogar) producto;
             
-            if(tempUsuario instanceof Cliente){ //Obtenemos un cliente
-                Cliente cliente = (Cliente) tempUsuario;
+            //"Ancho"
+            formatearCadena(UIMensajes.mC_ICE_Ancho(), true, true);
+            System.out.print(ph.obtenerAncho());
+            
+            //"Alto"
+            formatearCadena(UIMensajes.mC_ICE_Alto(), true, true);
+            System.out.print(ph.obtenerAlto());
+            
+            //"Consumo"
+            formatearCadena(UIMensajes.mC_ICE_Consumo(), true, true);
+            System.out.print(ph.obtenerConsumo());
+        }else if(producto instanceof ProductoSonido){
+            ProductoSonido ps = (ProductoSonido) producto;
+            
+            //Util.booleanAPalabra toma una boolean y devuelve "Si" o "No"
+            
+            //"¿Es inalambrico?"
+            formatearCadena(UIMensajes.mC_ICE_Inalambrico(), true, true);
+            System.out.print(Util.booleanAPalabra(ps.inalambrico()));
+            
+            //"¿Es resistente al agua?"
+            formatearCadena(UIMensajes.mC_ICE_ResistenteAgua(), true, true);
+            System.out.print(Util.booleanAPalabra(ps.resistenteAgua()));
+            
+            //"¿Tiene bluetooth?"
+            formatearCadena(UIMensajes.mC_ICE_Bluetooth(), true, true);
+            System.out.print(Util.booleanAPalabra(ps.bluetooth()));
+            
+            //"Frecuencia"
+            formatearCadena(UIMensajes.mC_ICE_Frecuencia(), true, true);
+            System.out.print(ps.obtenerFrecuencia());
+            
+        }else if(producto instanceof ProductoInformatica){
+            ProductoInformatica pi = (ProductoInformatica) producto;
+            
+            //"Frecuencia"
+            formatearCadena(UIMensajes.mC_ICE_Frecuencia(), true, true);
+            System.out.print(pi.obtenerFrecuencia());
+            
+            //"Numero de nucleos"
+            formatearCadena(UIMensajes.mC_ICE_NumeroNucleos(), true, true);
+            System.out.print(pi.obtenerNumeroNucleos());
+        }else if(producto instanceof ProductoImagen){
+            ProductoImagen pi = (ProductoImagen) producto;
+            
+            //"Pulgadas"
+            formatearCadena(UIMensajes.mC_ICE_Pulgadas(), true, true);
+            System.out.print(pi.obtenerPulgadas());
+            
+            //"Ancho (Resolucion)"
+            formatearCadena(UIMensajes.mC_ICE_AnchoResolucion(), true, true);
+            System.out.print(pi.obtenerAnchoResolucion());
+            
+            //"Alto (Resolucion)"
+            formatearCadena(UIMensajes.mC_ICE_AltoResolucion(), true, true);
+            System.out.print(pi.obtenerAltoResolucion());
+        }else if(producto instanceof ProductoTelefonia){
+            ProductoTelefonia pt = (ProductoTelefonia) producto;
+            
+            //"¿Tiene bateria?"
+            formatearCadena(UIMensajes.mC_ICE_TieneBateria(), true, true);
+            System.out.print(Util.booleanAPalabra(pt.tieneBateria()));
+            
+            //"¿Es inalambrico?"
+            formatearCadena(UIMensajes.mC_ICE_Inalambrico(), true, true);
+            System.out.print(Util.booleanAPalabra(pt.esInalambrico()));
+            
+            //"Duracion"
+            formatearCadena(UIMensajes.mC_ICE_Duracion(), true, true);
+            System.out.print(pt.obtenerDuracion());
+        }
+    }
+    
+    /**
+     * Imprime los datos de un producto
+     * 
+     * @param productos Base de datos de productos
+     * @param usuarios Base de datos de usuarios 
+     */
+    public void imprimirDatosProducto(Productos productos, Usuarios usuarios){
+        //"Ver las caracteristicas de un producto"
+        formatearCadena(UIMensajes.mC_OpcionVerDatosProducto(), false, true);
+        
+        //"¿El producto pertenece a un cliente? (si/no)"
+        boolean perteneceCliente = formatearEntradaBoolean(UIMensajes.mC_AcP_BuscarCliente());
+        
+        if(!perteneceCliente){ //Si el producto NO pertenece a un cliente
+            
+            //Pregunta por el numero de producto hasta obtener un numero valido
+            //"Numero de producto"
+            int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
+            Producto bProducto = productos.obtenerProducto(nProducto, true);
+            if(bProducto!=null){ //Si encuentra el producto
+                imprimirCaracteristicasProducto(bProducto);
                 
-                //Obtenemos la lista de productos que el cliente ha comprado
-                ArrayList<Producto> productosComprados = Util.listaProductosComprados(cliente);
-                Iterator<Producto> itr = productosComprados.iterator();
-                while(itr.hasNext()){ //Por cada producto comprado
-                    Producto tempProducto = itr.next();
-                    //Si el numero de producto de tempProducto coincide con el del parametro
-                    if(tempProducto.obtenerNumeroProducto()==numProducto){
-                        System.out.println();
-                        System.out.print("\t" + cliente.obtenerNombreUsuario());
-                        System.out.print("(" + cliente.obtenerDNI() + ") ");
-                        System.out.print("|" + UIMensajes.mC_LP_NumeroProducto()
-                            + ": " + tempProducto.obtenerNumeroProducto() + " ");
-                        System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
-                            + ": " + tempProducto.obtenerCantidad() + " ");
-                        System.out.print("|" + UIMensajes.mC_AñP_Precio() 
-                            + ": " + tempProducto.obtenerPrecio() + " ");
-                        System.out.print("|" + UIMensajes.mC_AñP_Peso()
-                            + ": " + tempProducto.obtenerPeso() + " ");
-                        System.out.print("|" + UIMensajes.mC_LP_Estado()
-                            + ": " + tempProducto.obtenerEstadoProducto() + " ");
-                        System.out.println();
-                        System.out.println("|" + UIMensajes.mC_AñP_Descripcion()
-                            + ": " + tempProducto.obtenerDescripcion() + " ");
+                //Dejamos constancia de la operacion realizada
+                dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_IMPRIMIRDATOSPRODUCTO,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+            }else{ //Si NO encuentra el producto
+                //"No se ha encontrado ningun producto con el numero "
+                System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado() +
+                    nProducto);
+            }
+        }else{ //Si el producto pertenece a un cliente
+            //"Especificar el nombre, email o dni del cliente"
+            String datosCliente = formatearEntradaCadena(UIMensajes.mC_AcP_NombreDNIEmailCliente(), true);
+            Usuario usuario = usuarios.obtenerUsuario(datosCliente);
+            
+            boolean encontrado = false;
+            if(usuario!=null){ //Si se encontro un usuario con los datos especificados
+                if(usuario instanceof Cliente){ //Si el usuario encontrado es un cliente
+                    encontrado = true;
+                    Cliente cliente = (Cliente) usuario;
+                    FichaCliente fc = cliente.obtenerFichaCliente();
+                    
+                    //"Numero de producto"
+                    int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
+                    Producto bProducto = productos.obtenerProducto(nProducto, true);
+                    
+                    //Buscamos el producto de la coleccion del cliente
+                    Producto producto = fc.obtenerProductoComprado(nProducto, true);
+                    
+                    if(producto!=null){ //Si se encuentra el producto
+                        imprimirCaracteristicasProducto(bProducto);
+                
+                        //Dejamos constancia de la operacion realizada
+                        dejarConstancia(cliente, producto, obtenerCajero(), EnumOperaciones.mC_IMPRIMIRDATOSPRODUCTO,
+                        obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+                    }else{ //Si NO se encuentra el producto
+                        //"No se ha encontrado ningun producto con el numero "
+                        System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado() +
+                            nProducto);
                     }
                 }
-                
+            }
+            if(!encontrado){ //Si no se encuentra el cliente
+                //"Cliente no encontrado"
+                System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
             }
         }
+        
     }
     
     /**
@@ -542,23 +653,9 @@ public class UIEpdoCajero extends UIUsuario{
                 Iterator<Producto> itr = productosComprados.iterator();
                 while(itr.hasNext()){ //Por cada producto comprado
                     Producto tempProducto = itr.next();
-                    System.out.print("\t" + UIMensajes.g_Nombre()
+                    System.out.println("\t" + UIMensajes.g_Nombre()
                         + ": " + tempUsuario.obtenerNombreUsuario() + " ");
-                    System.out.print("|" + UIMensajes.mC_LP_NumeroProducto()
-                        + ": " + tempProducto.obtenerNumeroProducto() + " ");
-                    System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
-                        + ": " + tempProducto.obtenerCantidad() + " ");
-                    System.out.print("|" + UIMensajes.mC_AñP_Precio() 
-                        + ": " + tempProducto.obtenerPrecio() + " ");
-                    System.out.print("|" + UIMensajes.mC_AñP_Peso()
-                        + ": " + tempProducto.obtenerPeso() + " ");
-                    System.out.print("|" + UIMensajes.mC_LP_Estado()
-                        + ": " + tempProducto.obtenerEstadoProducto() + " ");
-                    System.out.println();
-                    System.out.println("\t" + UIMensajes.mC_AñP_Descripcion()
-                        + ": " + tempProducto.obtenerDescripcion() + " ");
-                    System.out.println();
-                    
+                    imprimirCaracteristicasCompacta(tempProducto);
                 }
                 
             }
@@ -566,11 +663,13 @@ public class UIEpdoCajero extends UIUsuario{
     }
     
     /**
-     * Obtiene la lista de productos de la tienda (base de datos de
-     * productos) e imprime una lista.
+     * Imprime la lista de productos en la base de datos de productos 
+     * seguida de la lista de productos comprados.
      * 
      * Numero de producto, Cantidad, Precio, Peso, Estado, Descripcion
      * 
+     * @param productos Base de datos de productos
+     * @param usuarios Base de datos de usuario
      */
     public void imprimirListaProductos(Productos productos, Usuarios usuarios){
         System.out.println(UIMensajes.g_EncabezadoMenus());
@@ -578,26 +677,12 @@ public class UIEpdoCajero extends UIUsuario{
         //"Lista de productos"
         System.out.println();
         System.out.println(UIMensajes.mC_OpcionListaProductos() + ": ");
-        System.out.println();
         for(int i = 0; i < productos.obtenerTamaño(); i++){
-            //Obtiene el producto mediante su id dentro del arraylist
-            //si el segundo argumento fuese true entonces usaria el
-            //numero de producto en vez de la id en arraylist
+            //Obtenemos un producto usando la posicion en la coleccion
             Producto temp = productos.obtenerProducto(i, false);
-            System.out.print("\t" + UIMensajes.mC_LP_NumeroProducto()
-                + ": " + temp.obtenerNumeroProducto() + " ");
-            System.out.print("|" + UIMensajes.mC_AñP_Cantidad()
-                + ": " + temp.obtenerCantidad() + " ");
-            System.out.print("|" + UIMensajes.mC_AñP_Precio() 
-                + ": " + temp.obtenerPrecio() + " ");
-            System.out.print("|" + UIMensajes.mC_AñP_Peso()
-                + ": " + temp.obtenerPeso() + " ");
-            System.out.print("|" + UIMensajes.mC_LP_Estado()
-                + ": " + temp.obtenerEstadoProducto() + " ");
-            System.out.println();
-            System.out.println("\t" + UIMensajes.mC_AñP_Descripcion()
-                + ": " + temp.obtenerDescripcion() + " ");
-            System.out.println();
+            
+            //Imprimir lista compacta con las caracteristicas de un producto
+            imprimirCaracteristicasCompacta(temp);
         }
         
         //Ahora imprimimos los productos comprados por los clientes
@@ -606,6 +691,180 @@ public class UIEpdoCajero extends UIUsuario{
         //Dejamos constancia de la operacion
         dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_IMPRIMIRLISTAPRODUCTOS,
         obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+    }
+    
+    /**
+     * Metodo auxiliar de imprimirListaProductos(...)
+     * 
+     * Imprime las caracteristicas de un producto de manera compacta
+     */
+    private void imprimirCaracteristicasCompacta(Producto producto){
+        System.out.println(); //Primera linea
+        //"Numero de producto"
+        System.out.print("\t" + UIMensajes.mC_LP_NumeroProducto()
+        + ": " + producto.obtenerNumeroProducto());
+            
+        //"Cantidad"
+        System.out.print(" |" + UIMensajes.mC_AñP_Cantidad()
+        + ": " + producto.obtenerCantidad());
+        
+        //"Precio"
+        System.out.print(" |" + UIMensajes.mC_AñP_Precio() 
+        + ": " + producto.obtenerPrecio());
+        
+        //"Precio"
+        System.out.print(" |" + UIMensajes.mC_AñP_Peso()
+        + ": " + producto.obtenerPeso());
+        
+        //"Estado" {INTACTO, ROTO, DEVUELTO}
+        System.out.print(" |" + UIMensajes.mC_LP_Estado()
+        + ": " + producto.obtenerEstadoProducto() + " ");
+        
+        System.out.println(); //Segunda linea
+        //"Financiado"
+        System.out.print("\t" + UIMensajes.mC_AcP_Financiado() + ": ");
+        System.out.print(Util.booleanAPalabra(producto.obtenerEstadoFinanciado()));
+        
+        //"Fecha de compra"
+        System.out.print(" |" + UIMensajes.mC_AcP_FechaCompra() + ": ");
+        System.out.print(producto.obtenerDiaCompra() + "/");
+        System.out.print(producto.obtenerMesCompra() + "/");
+        System.out.print(producto.obtenerAñoCompra());
+        System.out.print(" " + UIMensajes.mC_AñP_Dia());
+        System.out.print("/" + UIMensajes.mC_AñP_Mes());
+        System.out.print("/" + UIMensajes.mC_AñP_Año());
+        
+        //Tiempo de garantia
+        System.out.print(" |" + UIMensajes.mC_AcP_TiempoGarantia() + ": ");
+        System.out.print(producto.obtenerTiempoGarantia());
+        
+        //Caracteristicas especificas segun categoria
+        caracteristicasEspecificasCompactas(producto);
+        
+        //Caracteristicas añadidas por usuario
+        caracteristicasNuevasCompactas(producto);
+        
+        System.out.println(); //Ultima linea
+        //"Descripcion"
+        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion()
+        + ": " + producto.obtenerDescripcion() + " ");
+    }
+    
+    /**
+     * Metodo auxiliar de imprimirCaracteristicasCompacta(...)
+     * 
+     * Imprime caracteristicas especificas segun la categoria del producto
+     */
+    private void caracteristicasEspecificasCompactas(Producto producto){
+        if(producto instanceof ProductoHogar){
+            ProductoHogar ph = (ProductoHogar) producto;
+            
+            System.out.println();
+            //"Ancho"
+            System.out.print("\t" + UIMensajes.mC_ICE_Ancho() + ": ");
+            System.out.print(ph.obtenerAncho());
+            
+            //"Alto"
+            System.out.print(" |" + UIMensajes.mC_ICE_Alto() + ": ");
+            System.out.print(ph.obtenerAlto());
+            
+            //"Consumo"
+            System.out.print(" |" + UIMensajes.mC_ICE_Consumo() + ": ");
+            System.out.print(ph.obtenerConsumo());
+        }else if(producto instanceof ProductoSonido){
+            ProductoSonido ps = (ProductoSonido) producto;
+            
+            //Util.booleanAPalabra toma una boolean y devuelve "Si" o "No"
+            
+            System.out.println();
+            //"¿Es inalambrico?"
+            System.out.print("\t" + UIMensajes.mC_ICE_Inalambrico() + ": ");
+            System.out.print(Util.booleanAPalabra(ps.inalambrico()));
+            
+            //"¿Es resistente al agua?"
+            System.out.print(" |" + UIMensajes.mC_ICE_ResistenteAgua() + ": ");
+            System.out.print(Util.booleanAPalabra(ps.resistenteAgua()));
+            
+            //"¿Tiene bluetooth?"
+            System.out.print(" |" + UIMensajes.mC_ICE_Bluetooth() + ": ");
+            System.out.print(Util.booleanAPalabra(ps.bluetooth()));
+            
+            System.out.println();
+            //"Frecuencia"
+            System.out.print("\t" + UIMensajes.mC_ICE_Frecuencia() + ": ");
+            System.out.print(ps.obtenerFrecuencia());
+            
+        }else if(producto instanceof ProductoInformatica){
+            ProductoInformatica pi = (ProductoInformatica) producto;
+            
+            System.out.println();
+            //"Frecuencia"
+            System.out.print("\t" + UIMensajes.mC_ICE_Frecuencia() + ": ");
+            System.out.print(pi.obtenerFrecuencia());
+            
+            //"Numero de nucleos"
+            System.out.print(" |"+ UIMensajes.mC_ICE_NumeroNucleos() + ": ");
+            System.out.print(pi.obtenerNumeroNucleos());
+        }else if(producto instanceof ProductoImagen){
+            ProductoImagen pi = (ProductoImagen) producto;
+            
+            System.out.println();
+            //"Pulgadas"
+            System.out.print("\t" + UIMensajes.mC_ICE_Pulgadas() + ": ");
+            System.out.print(pi.obtenerPulgadas());
+            
+            //"Ancho (Resolucion)"
+            System.out.print(" |" + UIMensajes.mC_ICE_AnchoResolucion() + ": ");
+            System.out.print(pi.obtenerAnchoResolucion());
+            
+            //"Alto (Resolucion)"
+            System.out.print(" |" + UIMensajes.mC_ICE_AltoResolucion() + ": ");
+            System.out.print(pi.obtenerAltoResolucion());
+        }else if(producto instanceof ProductoTelefonia){
+            ProductoTelefonia pt = (ProductoTelefonia) producto;
+            
+            System.out.println();
+            //"¿Tiene bateria?"
+            System.out.print("\t" + UIMensajes.mC_ICE_TieneBateria() + ": ");
+            System.out.print(Util.booleanAPalabra(pt.tieneBateria()));
+            
+            //"¿Es inalambrico?"
+            System.out.print(" |" + UIMensajes.mC_ICE_Inalambrico() + ": ");
+            System.out.print(Util.booleanAPalabra(pt.esInalambrico()));
+            
+            //"Duracion"
+            System.out.print(" |" + UIMensajes.mC_ICE_Duracion() + ": ");
+            System.out.print(pt.obtenerDuracion());
+        }
+    }
+    
+    /**
+     * Metodo auxiliar de imprimirCaracteristicasCompacta(...)
+     * 
+     * Imprime las caracteristicas añadidas por usuarios
+     */
+    private void caracteristicasNuevasCompactas(Producto producto){
+        System.out.println();
+        
+        //Controla el numero de caracteristicas por linea
+        int caracteristicasEnLinea = 1; 
+        
+        for(int i = 0; i < producto.obtenerNumCaracteristicas(); i++){
+            Caracteristica temp = producto.obtenerCaracteristica(i);
+            if(caracteristicasEnLinea==1){
+                //Tabulamos la primera caracteristica de la linea
+                System.out.print("\t");
+            }
+            System.out.print(temp.obtenerTitulo() + ": ");
+            System.out.print(temp.obtenerDescripcion());
+            if(caracteristicasEnLinea==3){ //Si hay 3 caracteristicas en linea
+                //Resetear para tener 3 caracteristicas por linea
+                caracteristicasEnLinea = 1;
+            }else{
+                System.out.print(" |");
+                caracteristicasEnLinea++;
+            }
+        }
     }
     
 }

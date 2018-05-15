@@ -445,6 +445,62 @@ public class UIMensajes{
         return "Lista de productos";
     }
     
+    public static String mC_ITP_CategoriaProducto(){
+        return "Categoria del producto";
+    }
+    
+    public static String mC_ICE_Ancho(){
+        return "Ancho";
+    }
+    
+    public static String mC_ICE_Alto(){
+        return "Alto";
+    }
+    
+    public static String mC_ICE_Consumo(){
+        return "Consumo";
+    }
+    
+    public static String mC_ICE_Inalambrico(){
+        return "¿Es inalambrico?";
+    }
+    
+    public static String mC_ICE_ResistenteAgua(){
+        return "¿Es resistente al agua?";
+    }
+    
+    public static String mC_ICE_Bluetooth(){
+        return "¿Tiene bluetooth?";
+    }
+    
+    public static String mC_ICE_Frecuencia(){
+        return "Frecuencia";
+    }
+    
+    public static String mC_ICE_NumeroNucleos(){
+        return "Numero de nucleos";
+    }
+    
+    public static String mC_ICE_TieneBateria(){
+        return "¿Tiene bateria?";
+    }
+    
+    public static String mC_ICE_Duracion(){
+        return "Duracion";
+    }
+    
+    public static String mC_ICE_Pulgadas(){
+        return "Pulgadas";
+    }
+    
+    public static String mC_ICE_AnchoResolucion(){
+        return "Ancho (Resolucion)";
+    }
+    
+    public static String mC_ICE_AltoResolucion(){
+        return "Alto (Resolucion)";
+    }
+    
     public static String mC_VP_SinStock(){
         return "No quedan reservas del producto especificado";
     }

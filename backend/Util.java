@@ -29,11 +29,34 @@ public class Util{
     //Maxima cantidad de productos
     public static final int MAXIMACANTIDAD = 999999;
     
-    //Maximas fechas
-    public static final int MAXIMOAÑO = 2050;
-    public static final int MAXIMODIA = 31;
-    public static final int MAXIMOMES = 12;
+    /**
+     * Devuelve Si o No dependiendo del valor de un boolean
+     * 
+     * @param b Boolean del que obtener el valor
+     * 
+     * @return aux "Si" si b==true, "No" si b==false
+     */
+    public static String booleanAPalabra(boolean b){
+        
+        if(b){
+            //"Si"
+            return UIMensajes.g_Si();
+        }else{
+            //"No"
+            return UIMensajes.g_No();
+        }
+        
+    }
     
+    /**
+     * Devuelve una ficha de reparacion
+     * 
+     * @param usuarios Base de datos de usuarios
+     * @param cliente Cliente propietario del producto
+     * @param numProducto Numero del producto a tratar
+     * 
+     * @return fr Ficha de reparacion asignada al cliente y producto con numProducto
+     */
     public static FichaReparacion obtenerFichaReparacion(Usuarios usuarios, Cliente cliente,
     int numProducto){
         

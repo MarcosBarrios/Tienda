@@ -200,8 +200,8 @@ public abstract class UIUsuario{
      */
     public boolean formatearEntradaBoolean(String nombreEntrada){
         formatearCadena(nombreEntrada, true, false);
-        System.out.print(" [true (si)/false (no)]: ");
-        return UIEntradas.obtenerBooleana(false);
+        System.out.print(" [true/si] o [false/no)]: ");
+        return UIEntradas.obtenerBooleana(true);
     }
     
     /**
