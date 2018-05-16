@@ -1,15 +1,16 @@
+import uitextual.UIMain;
 
 /**
- * Clase principal del proyecto. Aqui se decide si abrir
- * el programa con la interfaz grafica o textual.
+ * Clase principal del proyecto.
  * 
  * @author Marcos Barrios
  * @version 1.0
  */
 public class Tienda{
     
-    public Tienda(){
-        
+    public static void main (String[] args){
+        //Abrimos la clase principal de la interfaz textual de usuario del programa
+        UIMain uim = new UIMain();
     }
 
 }

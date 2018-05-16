@@ -53,6 +53,8 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
     private void añadirOpciones(){
         //"Reparar un producto", "Devolver un producto",
         // "Comprobar el estado de un producto", "Salir del programa"
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionRepararProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionDevolverProducto());
         obtenerMenu().añadirOpcion(UIMensajes.mPV_OpcionComprobarEstadoProducto());
@@ -67,31 +69,41 @@ public class UIMenuEpdoPostVenta extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){ 
-            case 0: //Reparar un producto
+            case 0: //"Buscar productos"
+            obtenerPostVenta().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
+            volverMenu();
+            break;
+            
+            case 1: //Buscar usuarios
+            obtenerPostVenta().imprimirBusquedaUsuarios(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 2: //Reparar un producto
             obtenerPostVenta().repararProducto(obtenerProductos(), obtenerUsuarios());
             
             //Vuelve al menu
             volverMenu();
             break;
             
-            case 1: //Devolver un producto
+            case 3: //Devolver un producto
             obtenerPostVenta().devolverProducto(obtenerProductos(), obtenerUsuarios());
             
             //Vuelve al menu
             volverMenu();
             break;
             
-            case 2: //"Comprobar el estado de un producto"
+            case 4: //"Comprobar el estado de un producto"
             obtenerPostVenta().comprobarEstadoProducto(obtenerUsuarios());
             volverMenu();
             break;
             
-            case 3: //Cerrar Sesion
+            case 5: //Cerrar Sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 4: //Salir del programa
+            case 6: //Salir del programa
             System.exit(0);
             break;
             

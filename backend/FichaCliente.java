@@ -20,7 +20,7 @@ public class FichaCliente{
     private Stack<Producto> listaProductosComprados;
     
     //Historial de facturas
-    private Stack<Factura> listaFacturas;
+    private Stack<Factura> historialFacturas;
     
     //Lista de solicitudes
     private ArrayList<Solicitud> listaSolicitudes;
@@ -32,7 +32,7 @@ public class FichaCliente{
     public FichaCliente(){
         //Iniciamos las colecciones
         listaProductosComprados = new Stack<Producto>();
-        listaFacturas = new Stack<Factura>();
+        historialFacturas = new Stack<Factura>();
         listaSolicitudes = new ArrayList<Solicitud>();
         historialOperaciones = new Stack<Operacion>();
     }
@@ -124,7 +124,7 @@ public class FichaCliente{
      * @param factura Factura a añadir
      */
     public void añadirFactura(Factura factura){
-        listaFacturas.add(factura);
+        historialFacturas.add(factura);
     }
     
     /**
@@ -133,7 +133,7 @@ public class FichaCliente{
      * @param id Posicion en la coleccion de la factura a eliminar
      */
     public void eliminarFactura(int id){
-        listaFacturas.remove(id);
+        historialFacturas.get(id);
     }
     
     /**
@@ -142,7 +142,17 @@ public class FichaCliente{
      * @param id Posicion en la coleccion de la factura a obtenerinar
      */
     public Factura obtenerFactura(int id ){
-        return listaFacturas.get(id);
+        return historialFacturas.get(id);
+    }
+    
+    /**
+     * Devuelve el numero de facturas almacenadas en el historial
+     * de facturas del cliente.
+     * 
+     * @return historialFacturas.size()
+     */
+    public int obtenerNumeroFacturas(){
+        return historialFacturas.size();
     }
     
     /**

@@ -43,6 +43,9 @@ public abstract class Producto{
 
     //Tiempo antes de que se acabe la garantia (años)
     private int tiempoGarantia;
+    
+    //Numero de la caja en la que se vendio
+    private int numeroCaja;
 
     //Contiene los estados {"INTACTO", "ROTO", "DEVUELTO"}
     private EnumEstadoProducto estadoProducto;
@@ -173,6 +176,25 @@ public abstract class Producto{
      */
     public int obtenerAñoUltimoReporte(){
         return añoUltimoReporte;
+    }
+    
+    /**
+     * Asigna o reasigna el numero de la caja en la que se vendio
+     * el producto
+     * 
+     * @param numeroCaja Numero de la caja en la que se vendio el producto
+     */
+    public void asignarNumeroCaja(int numeroCaja){
+        this.numeroCaja = numeroCaja;
+    }
+    
+    /**
+     * Obtener numero de la caja en la que se vendio el producto
+     * 
+     * @return numeroCaja Numero de la caja en la que se vendio el producto
+     */
+    public int obtenerNumeroCaja(){
+        return numeroCaja;
     }
     
     /**

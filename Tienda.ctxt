@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Tienda
-comment0.text=\r\n\ Clase\ principal\ del\ proyecto.\ Aqui\ se\ decide\ si\ abrir\r\n\ el\ programa\ con\ la\ interfaz\ grafica\ o\ textual.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
-comment1.params=
-comment1.target=Tienda()
+comment0.text=\r\n\ Clase\ principal\ del\ proyecto.\r\n\ \r\n\ @author\ Marcos\ Barrios\r\n\ @version\ 1.0\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
 numComments=2

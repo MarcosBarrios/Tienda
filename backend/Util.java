@@ -2,10 +2,12 @@ package backend;
 
 import productos.Productos;
 import productos.Producto;
+import productos.EnumEstadoProducto;
 
 import backend.Usuarios;
 import backend.Usuario;
 import backend.Empleado;
+import backend.FichaCliente;
 
 import uitextual.UIMensajes;
 import uitextual.UIEntradas;
@@ -28,6 +30,152 @@ public class Util{
     
     //Maxima cantidad de productos
     public static final int MAXIMACANTIDAD = 999999;
+    
+    //Numero de cajas de la tienda
+    public static final int NUMEROCAJAS = 10;
+    
+    /**
+     * Permite encontrar una lista de usuarios que cumplan ciertos datos.
+     * 
+     * Cada parametro es ignorado si su valor es "".
+     * 
+     */
+    public static ArrayList<Usuario> buscarUsuarios(Usuarios usuarios, String dni,
+    String nombreUsuario, String emailUsuario){
+        ArrayList<Usuario> al = new ArrayList<Usuario>();
+        
+        //Iteramos todos los usuarios
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario usuario = usuarios.obtenerUsuario(i);
+            
+            //Comprobamos datos
+            if(coincideValorCadena(usuario.obtenerNombreUsuario(), nombreUsuario)
+            && coincideValorCadena(usuario.obtenerEmailUsuario(), emailUsuario)
+            && coincideValorCadena(usuario.obtenerDNI(), dni)){
+                al.add(usuario);
+            }
+        }
+        
+        return al;
+    }
+    
+    /**
+     * Permite encontrar una lista de productos que cumplan ciertas caracteristicas 
+     * que pertenezcan a un cliente.
+     *  
+     * Cada parametro es tenido en cuenta en la busqueda siempre que su
+     * valor no sea igual a "" o -1.
+     * 
+     * @return producto Producto cuyas caracteristicas coinciden con las buscadas
+     */
+    public static ArrayList<Producto> buscarProductosEnCliente(Productos productos, Cliente cliente,
+    int cantidad, float precio, float peso, String descripcion, int dia,
+    int mes, int año, int tiempoGarantia, int numeroCaja){
+        
+        /*
+         * Necesitamos que los 9 del producto coincidan con la busqueda tal que
+         * si un valor es "" o -1 es completamente ignorado.
+         * 
+         * Cada valor sera verdadero si el producto es igual al valor especificado
+         * del parametro o si el valor del parametro es igual a "" o -1.
+         */
+        
+        ArrayList<Producto> al = new ArrayList<Producto>();
+        
+        //Obtenemos la ficha de cliente pues es la que almacena
+        //los productos del cliente
+        FichaCliente fc = cliente.obtenerFichaCliente();
+        
+        //Iteramos todos los productos de la base de datos de la tienda
+        for(int i = 0; i < productos.obtenerTamaño(); i++){
+            //Obtenemos un producto usando su posicion en la coleccion
+            Producto producto = fc.obtenerProductoComprado(i, false);
+            
+            if(coincideValorEntero(producto.obtenerCantidad(), cantidad)
+            && coincideValorEntero((int)producto.obtenerPrecio(), (int)precio)
+            && coincideValorEntero((int)producto.obtenerPeso(), (int) peso)
+            && coincideValorEntero(producto.obtenerDiaCompra(), dia)
+            && coincideValorEntero(producto.obtenerMesCompra(), mes)
+            && coincideValorEntero(producto.obtenerAñoCompra(), año)
+            && coincideValorEntero(producto.obtenerTiempoGarantia(), tiempoGarantia)
+            && coincideValorEntero(producto.obtenerNumeroCaja(), numeroCaja)
+            && coincideValorCadena(producto.obtenerDescripcion(), descripcion)){
+                al.add(producto);
+            }
+            
+        }
+        
+        return al;
+    }
+    
+    /**
+     * Permite encontrar una lista de productos que cumplan ciertas caracteristicas 
+     * y que esten almacenados en la base de datos de la tienda.
+     *  
+     * Cada parametro es tenido en cuenta en la busqueda siempre que su
+     * valor no sea igual a "" o -1.
+     * 
+     * @return producto Producto cuyas caracteristicas coinciden con las buscadas
+     */
+    public static ArrayList<Producto> buscarProductos(Productos productos, int cantidad, 
+    float precio, float peso, String descripcion, int dia,
+    int mes, int año, int tiempoGarantia, int numeroCaja){
+        
+        /*
+         * Necesitamos que los 9 del producto coincidan con la busqueda tal que
+         * si un valor es "" o -1 es completamente ignorado.
+         * 
+         * Cada valor sera verdadero si el producto es igual al valor especificado
+         * del parametro o si el valor del parametro es igual a "" o -1.
+         */
+        
+        ArrayList<Producto> al = new ArrayList<Producto>();
+        
+        //Iteramos todos los productos de la base de datos de la tienda
+        for(int i = 0; i < productos.obtenerTamaño(); i++){
+            //Obtenemos un producto usando su posicion en la coleccion
+            Producto producto = productos.obtenerProducto(i, false);
+            
+            if(coincideValorEntero(producto.obtenerCantidad(), cantidad)
+            && coincideValorEntero((int)producto.obtenerPrecio(), (int)precio)
+            && coincideValorEntero((int)producto.obtenerPeso(), (int) peso)
+            && coincideValorEntero(producto.obtenerDiaCompra(), dia)
+            && coincideValorEntero(producto.obtenerMesCompra(), mes)
+            && coincideValorEntero(producto.obtenerAñoCompra(), año)
+            && coincideValorEntero(producto.obtenerTiempoGarantia(), tiempoGarantia)
+            && coincideValorEntero(producto.obtenerNumeroCaja(), numeroCaja)
+            && coincideValorCadena(producto.obtenerDescripcion(), descripcion)){
+                al.add(producto);
+            }
+            
+        }
+        
+        return al;
+    }
+    
+    /**
+     * Metodo auxiliar de buscarProducto(...)
+     * 
+     * Devuelve verdadero si entrada==-1 o si valorProducto==entrada
+     */
+    private static boolean coincideValorEntero(int valorProducto, int entrada){
+        if(entrada==-1 || valorProducto==entrada){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Metodo auxiliar de buscarProducto(...)
+     * 
+     * Devuelve verdadero si entrada.equals("") o si cadenaProducto.equals(entrada)
+     */
+    private static boolean coincideValorCadena(String cadenaProducto, String entrada){
+        if(entrada.equals("") || cadenaProducto.toLowerCase().equals(entrada)){
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Devuelve Si o No dependiendo del valor de un boolean

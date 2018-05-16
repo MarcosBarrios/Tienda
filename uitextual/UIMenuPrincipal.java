@@ -51,7 +51,6 @@ public class UIMenuPrincipal extends UIMenuAccionable{
         //"Gestionar usuarios", "Salir del programa"
         obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionIniciarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionGestionarUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionListaUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
     }
@@ -70,14 +69,7 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             accederGestionUsuarios(); //Accede al menu de gestion de usuarios
             break;
             
-            case 2: //Lista de usuarios, "Lista de usuarios"
-            obtenerUsuario().imprimirListaUsuarios(obtenerUsuarios());
-            
-            //Vuelve al menu
-            volverMenu();
-            break;
-            
-            case 3: //Salir del programa
+            case 2: //Salir del programa
             System.exit(0);
             break;
         }
@@ -129,15 +121,23 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             if(temp instanceof EpdoCajero){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
-                    " " + temp.obtenerNombreUsuario());
+                " " + temp.obtenerNombreUsuario());
+                
+                //Obtenemos el numero de la caja desde la cual
+                //el cajero va a operar
+                System.out.println(UIMensajes.mC_EspecificarNumeroCaja() +
+                ": ");
+                int numeroCaja = (int) UIEntradas.obtenerDecimal(0, Util.NUMEROCAJAS);
+                
                 UIMenuEpdoCajero menuCajero = new UIMenuEpdoCajero(obtenerUsuarios(),
                 obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp, 
                 obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                obtenerUsuario().obtenerAñoActual()));
+                obtenerUsuario().obtenerAñoActual(), numeroCaja));
             }else if(temp instanceof EpdoPostVenta){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
-                    " " + temp.obtenerNombreUsuario());
+                " " + temp.obtenerNombreUsuario());
+                
                 UIMenuEpdoPostVenta menuPostVenta = new UIMenuEpdoPostVenta(
                     obtenerUsuarios(),obtenerProductos(), 
                     new UIEpdoPostVenta((EpdoPostVenta) temp, 
@@ -146,7 +146,8 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             }else if(temp instanceof EpdoFinanciacion){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
-                    " " + temp.obtenerNombreUsuario());
+                " " + temp.obtenerNombreUsuario());
+                    
                 UIMenuEpdoFinanciacion menuFinanciador = new UIMenuEpdoFinanciacion(
                     obtenerUsuarios(),obtenerProductos(), 
                     new UIEpdoFinanciacion((EpdoFinanciacion) temp, obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
@@ -154,7 +155,8 @@ public class UIMenuPrincipal extends UIMenuAccionable{
             }else if(temp instanceof EpdoTecnico){
                 //"Se ha entrado a la cuenta con exito"
                 System.out.println(UIMensajes.mP_ExitoLogin() + 
-                    " " + temp.obtenerNombreUsuario());
+                " " + temp.obtenerNombreUsuario());
+                    
                 UIMenuEpdoTecnico menuFinanciador = new UIMenuEpdoTecnico(
                     obtenerUsuarios(),obtenerProductos(), 
                     new UIEpdoTecnico((EpdoTecnico) temp, 

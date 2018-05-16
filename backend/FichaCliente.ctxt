@@ -9,18 +9,21 @@ comment10.text=\r\n\ Elimina\ una\ factura\r\n\ \r\n\ @param\ id\ Posicion\ en\ 
 comment11.params=id
 comment11.target=Factura\ obtenerFactura(int)
 comment11.text=\r\n\ Obtiene\ una\ factura\ utilizando\ su\ posicion\ en\ la\ lista\r\n\ \r\n\ @param\ id\ Posicion\ en\ la\ coleccion\ de\ la\ factura\ a\ obtenerinar\r\n
-comment12.params=producto
-comment12.target=void\ a\u00F1adirProductoComprado(productos.Producto)
-comment12.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
-comment13.params=
-comment13.target=int\ obtenerNumeroProductosComprados()
-comment13.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ comprados\ por\ el\ cliente\r\n\ \r\n\ @return\ listaProductosComprados.size();\r\n
-comment14.params=id\ usarNumeroProducto
-comment14.target=void\ eliminarProductoComprado(int,\ boolean)
-comment14.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment12.params=
+comment12.target=int\ obtenerNumeroFacturas()
+comment12.text=\r\n\ Devuelve\ el\ numero\ de\ facturas\ almacenadas\ en\ el\ historial\r\n\ de\ facturas\ del\ cliente.\r\n\ \r\n\ @return\ historialFacturas.size()\r\n
+comment13.params=producto
+comment13.target=void\ a\u00F1adirProductoComprado(productos.Producto)
+comment13.text=\r\n\ A\u00F1ade\ al\ historial\ un\ producto\ que\ el\ cliente\ ha\ comprado.\r\n\ \r\n\ @param\ producto\ Producto\ comprado\ por\ el\ cliente\r\n
+comment14.params=
+comment14.target=int\ obtenerNumeroProductosComprados()
+comment14.text=\r\n\ Devuelve\ la\ cantidad\ de\ productos\ comprados\ por\ el\ cliente\r\n\ \r\n\ @return\ listaProductosComprados.size();\r\n
 comment15.params=id\ usarNumeroProducto
-comment15.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
-comment15.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment15.target=void\ eliminarProductoComprado(int,\ boolean)
+comment15.text=\r\n\ Elimina\ un\ producto\ del\ historial\ de\ productos\ comprados.\ \r\n\ \r\n\ Si\ usarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
+comment16.params=id\ usarNumeroProducto
+comment16.target=productos.Producto\ obtenerProductoComprado(int,\ boolean)
+comment16.text=\r\n\ Obtiene\ un\ producto\ del\ historial\ de\ productos\ comprados.\r\n\ \r\n\ Si\ sarNumeroProducto\ \=\ false\ es\ necesario\ el\ uso\ de\ un\ metodo\ \r\n\ de\ busqueda\ para\ encontrar\ el\ identificador\ adecuado.\r\n\ \r\n\ @param\ id\ Posicion\ en\ coleccion\ (false)\ /\ Numero\ de\ producto\ (true)\r\n\ @param\ usarNumeroProducto\ true\:\ id\=numeroProducto,\ fase\:\ id\=pos(ArrayList)\r\n
 comment2.params=operacion
 comment2.target=void\ a\u00F1adirOperacion(Operacion)
 comment2.text=\r\n\ A\u00F1ade\ una\ operacion\ al\ historial\r\n\ \r\n\ @param\ operacion\ Operacion\ a\ a\u00F1adir\r\n
@@ -45,4 +48,4 @@ comment8.text=\r\n\ Devuelve\ el\ numero\ de\ solicitudes\ almacenadas\r\n\ \r\n
 comment9.params=factura
 comment9.target=void\ a\u00F1adirFactura(Factura)
 comment9.text=\r\n\ A\u00F1ade\ una\ factura\r\n\ \r\n\ @param\ factura\ Factura\ a\ a\u00F1adir\r\n
-numComments=16
+numComments=17

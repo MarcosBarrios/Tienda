@@ -55,6 +55,8 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
         //"Añadir una pieza a la lista de piezas necesarias", 
         //"Eliminar una pieza de la lista de piezas necesarias",
         //"Ver piezas necesarias", "Cerrar sesion", "Salir del programa"
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirReporte());
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerFichas());
         obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerEstadoProducto());
@@ -72,48 +74,58 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){ 
-            case 0: //Añadir reporte a un producto
+            case 0: //"Buscar productos"
+            obtenerTecnico().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
+            volverMenu();
+            break;
+            
+            case 1: //Buscar usuarios
+            obtenerTecnico().imprimirBusquedaUsuarios(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 2: //Añadir reporte a un producto
             obtenerTecnico().añadirReporte(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 1: //Ver mis fichas de reparacion
+            case 3: //Ver mis fichas de reparacion
             obtenerTecnico().verListaFichasReparacion(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 2: //Ver el estado de un producto
+            case 4: //Ver el estado de un producto
             obtenerTecnico().verEstadoProducto(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 3: //Añadir una pieza a la lista de piezas necesarias
+            case 5: //Añadir una pieza a la lista de piezas necesarias
             obtenerTecnico().añadirPiezaNecesaria();
             
             volverMenu();
             break;
             
-            case 4: //Eliminar una pieza de la lista de piezas necesarias
+            case 6: //Eliminar una pieza de la lista de piezas necesarias
             obtenerTecnico().eliminarPiezaNecesaria();
             
             volverMenu();
             break;
             
-            case 5: //Ver piezas necesarias
+            case 7: //Ver piezas necesarias
             obtenerTecnico().verPiezasNecesarias();
             
             volverMenu();
             break;
             
-            case 6: //Cerrar Sesion
+            case 8: //Cerrar Sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 7: //Salir del programa
+            case 9: //Salir del programa
             System.exit(0);
             break;
             

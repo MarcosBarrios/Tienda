@@ -17,22 +17,4 @@ public class EpdoFinanciacion extends Empleado{
         super(dni, nombre, email, usuario, contraseña);
     }
     
-    public void darAlta(Usuarios usuarios, Cliente cliente){
-        usuarios.añadirUsuario(cliente);
-    }
-    
-    public void actualizarNombreCliente(Usuarios usuarios, String nombreCliente, String nuevoNombre){
-        Cliente c = (Cliente) usuarios.obtenerUsuario(nombreCliente);
-        if(c!=null) c.asignarNombreUsuario(nuevoNombre);
-    }
-    
-    public void actualizarEmailCliente(Usuarios usuarios, String emailCliente, String nuevoEmail){
-        Cliente c = (Cliente) usuarios.obtenerUsuario(emailCliente);
-        if(c!=null) c.asignarNombreUsuario(nuevoEmail);
-    }
-    
-    public void actualizarDatosCliente(){
-        
-    }
-
 }

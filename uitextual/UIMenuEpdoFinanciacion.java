@@ -56,9 +56,12 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionDarAlta());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionActualizarDatos());
         obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerDatosCliente());
+        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerFacturasCliente());
         obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
         obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
         obtenerMenu().imprimirOpciones();
@@ -70,31 +73,46 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
-            case 0: //Dar de alta a un cliente
+            case 0: //"Buscar productos"
+            obtenerFinanciador().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
+            volverMenu();
+            break;
+            
+            case 1: //Buscar usuarios
+            obtenerFinanciador().imprimirBusquedaUsuarios(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 2: //Dar de alta a un cliente
             obtenerFinanciador().darAlta(obtenerUsuarios());
             //Vuelve a imprimir el menu
             volverMenu();
             break;
             
-            case 1: //Actualizar datos de un cliente
+            case 3: //Actualizar datos de un cliente
             obtenerFinanciador().actualizarDatosCliente(obtenerUsuarios());
             //Vuelve a imprimir el menu
             volverMenu();
             break;
             
-            case 2: //Ver los datos de un cliente
+            case 4: //Ver los datos de un cliente
             obtenerFinanciador().imprimirDatosCliente(obtenerUsuarios());
             
             //Vuelve a imprimir el menu
             volverMenu();
             break;
             
-            case 3: //Cerrar sesion
+            case 5: //Ver lista de facturas de un cliente
+            obtenerFinanciador().verListaFacturas(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 6: //Cerrar sesion
             UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
             obtenerUsuario());
             break;
             
-            case 4: //Salir del programa
+            case 7: //Salir del programa
             System.exit(0);
             break;
         }

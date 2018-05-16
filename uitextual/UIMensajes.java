@@ -95,6 +95,48 @@ public class UIMensajes{
     
     //*********************************************************************
     
+    public static String b_OpcionBuscarProductos(){
+        return "Buscar productos";
+    }
+    
+    public static String b_OpcionBuscarUsuarios(){
+        return "Buscar usuarios";
+    }
+    
+    public static String b_IndicarDatos(){
+        return "Indicar a continuacion los datos de busqueda";
+    }
+    
+    public static String b_ValoresPredeterminados(){
+        return "No escriba nada en el campo para ignorar ese dato";
+    }
+    
+    public static String b_ValoresNegativos(){
+        return "Escriba un -1 en el campo para ignorar ese dato";
+    }
+    
+    public static String b_BuscarEnCliente(){
+        return "¿Buscar en clientes?";
+    }
+    
+    public static String b_Empleados(){
+        return "Empleados";
+    }
+    
+    public static String b_Clientes(){
+        return "Clientes";
+    }
+    
+    public static String b_BuscandoEnClientes(){
+        return "Buscando en clientes";
+    }
+    
+    public static String b_BuscandoEnBaseDeDatos(){
+        return "Buscando en la base de datos de la tienda";
+    }
+    
+    //*********************************************************************
+    
     public static String mT_OpcionAñadirReporte(){
         return "Añadir reporte a un producto";
     }
@@ -127,7 +169,7 @@ public class UIMensajes{
         return "Coste";
     }
     
-    public static String mT_AR_Pagado(){
+    public static String mTdia_AR_Pagado(){
         return "Pagado";
     }
     
@@ -149,6 +191,14 @@ public class UIMensajes{
     
     public static String mT_EP_PiezaNoEncontrada(){
         return "No se encontro la pieza";
+    }
+    
+    public static String mT_CEP_GenerarFactura(){
+        return "¿Generar factura al cliente?";
+    }
+    
+    public static String mT_CEP_ProcesoCompletado(){
+        return "El producto ya se ha pagado";
     }
     
     //*********************************************************************
@@ -209,13 +259,10 @@ public class UIMensajes{
         return "El producto se ha comprado hace mas de 3 meses, devolucion rechazada";
     }
     
-    public static String mT_CEP_GenerarFactura(){
-        return "¿Generar factura al cliente?";
+    public static String mT_AR_Pagado(){
+       return "Pagado";
     }
     
-    public static String mT_CEP_ProcesoCompletado(){
-        return "El producto ya se ha pagado";
-    }
     //*********************************************************************
     
     public static String mGU_OpcionAñadirEmpleado(){
@@ -228,6 +275,10 @@ public class UIMensajes{
     
     public static String mGU_OpcionVerListaEmpleados(){
         return "Ver lista de empleados";
+    }
+    
+    public static String mGU_OpcionVerListaClientes(){
+        return "Ver lista de clientes";
     }
     
     public static String mGU_OpcionVerFichasReparacion(){
@@ -341,6 +392,10 @@ public class UIMensajes{
         return "Ver los datos de un cliente";
     }
     
+    public static String mF_OpcionVerFacturasCliente(){
+        return "Ver las facturas de un cliente";
+    }
+    
     public static String mF_DA_IndicarNombreEmail(){
         return "Indique a continuacion el nombre e email del cliente a registrar";
     }
@@ -401,10 +456,6 @@ public class UIMensajes{
     
     public static String mP_OpcionIniciarSesion(){
         return "Iniciar Sesion";
-    }
-    
-    public static String mP_OpcionListaUsuarios(){
-        return "Lista de usuarios";
     }
     
     public static String mP_OpcionGestionarUsuarios(){
@@ -479,6 +530,10 @@ public class UIMensajes{
     
     public static String mC_ICE_NumeroNucleos(){
         return "Numero de nucleos";
+    }
+    
+    public static String mC_ICE_CapacidadAlmacenamiento(){
+        return "Capacidad de almacenamiento";
     }
     
     public static String mC_ICE_TieneBateria(){
@@ -603,6 +658,14 @@ public class UIMensajes{
         return "Financiado";
     }
     
+    public static String mC_AñP_Financiar(){
+        return "¿Financiar producto?";
+    }
+    
+    public static String mC_AñP_DescripcionFactura(){
+        return "Descripcion de la factura";
+    }
+    
     public static String mC_AcP_FechaCompra(){
         return "Fecha de compra";
     }
@@ -631,12 +694,20 @@ public class UIMensajes{
         return "Introduzca a continuacion el numero del producto";
     }
     
+    public static String mC_ILP_NumeroCaja(){
+        return "Numero de caja";
+    }
+    
     public static String mC_LP_Estado(){
         return "Estado";
     }
     
     public static String mC_LP_NumeroProducto(){
         return "Numero de producto";
+    }
+    
+    public static String mC_EspecificarNumeroCaja(){
+        return "Especificar el numero de la caja desde la que se va a operar";
     }
     
     //*********************************************************************

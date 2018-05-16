@@ -17,7 +17,8 @@ public abstract class Empleado extends Usuario{
     //Historial de operaciones
     public Stack<Operacion> historialOperaciones;
     
-    public Empleado(String dni, String nombre, String email, String usuario, String contraseña){
+    public Empleado(String dni, String nombre, String email, 
+    String usuario, String contraseña){
         super(dni, nombre, email);
         this.usuario = usuario;
         this.contraseña = contraseña;

@@ -7,6 +7,7 @@ import backend.EpdoCajero;
 import backend.Util;
 import backend.EnumOperaciones;
 import backend.FichaCliente;
+import backend.Factura;
 
 import productos.Productos;
 import productos.Producto;
@@ -30,8 +31,22 @@ import java.util.Iterator;
  */
 public class UIEpdoCajero extends UIUsuario{
     
-    public UIEpdoCajero(EpdoCajero usuario, int diaActual, int mesActual, int añoActual){
+    //Numero de la caja desde la que se esta operando
+    private int numeroCaja;
+    
+    public UIEpdoCajero(EpdoCajero usuario, int diaActual, int mesActual, 
+    int añoActual, int numeroCaja){
         super(usuario, diaActual, mesActual, añoActual);
+        this.numeroCaja = numeroCaja;
+    }
+    
+    /**
+     * Devuelve el numero de caja desde la que se esta operando
+     * 
+     * @return numeroCaja Numero de caja desde la que se esta operando
+     */
+    public int obtenerNumeroCaja(){
+        return numeroCaja;
     }
     
     /**
@@ -66,13 +81,37 @@ public class UIEpdoCajero extends UIUsuario{
                 Producto producto = productos.obtenerProducto(nProducto, true);
                 
                 if(producto!=null){
+                    //Asignamos el numero de la caja desde la que se vende el producto
+                    producto.asignarNumeroCaja(obtenerCajero().obtenerNumeroCaja());
                     
                     //Si hay al menos un producto en el almacen
                     if(producto.obtenerCantidad()>0){
+                        //¿Financiar?
+                        boolean financiar = formatearEntradaBoolean(UIMensajes.mC_AñP_Financiar());
+                        producto.cambiarFinanciado(financiar);
+        
+                        //Si se quiere financiar el producto
+                        if(financiar){
+                            //Creamos la factura y asignamos sus datos
+                            Factura factura = new Factura();
+                            factura.asignarCoste(producto.obtenerPrecio());
+                            factura.asignarDia(obtenerDiaActual());
+                            factura.asignarMes(obtenerMesActual());
+                            factura.asignarAño(obtenerAñoActual());
+                            
+                            //"Descripcion de la factura"
+                            String descripcionFactura = formatearEntradaCadena(UIMensajes.mC_AñP_DescripcionFactura(), true);
+                            factura.asignarDescripcion(descripcionFactura);
+                            
+                            //Añadimos la factura al historial de facturas del cliente
+                            FichaCliente fc = cliente.obtenerFichaCliente();
+                            fc.añadirFactura(factura);
+                        }
+                        
                         //Añadir producto a la lista de productos comprados del cliente
                         cliente.obtenerFichaCliente().añadirProductoComprado(producto);
                         producto.asignarCantidad(producto.obtenerCantidad()-1);
-                    
+                        
                         //Dejamos constancia en el historial
                         dejarConstancia(cliente, producto, obtenerCajero(), 
                         EnumOperaciones.mC_VENDERPRODUCTO, obtenerDiaActual(), obtenerMesActual(), 
@@ -124,14 +163,21 @@ public class UIEpdoCajero extends UIUsuario{
         producto.asignarCantidad((int) salidasNumericas[1]);
         producto.asignarPeso(salidasNumericas[2]);
         
+        //Descripcion
+        String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+        producto.asignarDescripcion(descripcion);
+        
+        //"Tiempo de garantia"
+        int tiempoGarantia = (int)formatearEntradaDecimal(UIMensajes.mC_AcP_TiempoGarantia());
+        producto.asignarTiempoGarantia(tiempoGarantia);
+        
+        //Pregunta por caracteristicas del producto segun su categoria
+        producto = añadirProductoEspecifico(producto);
+        
         //Asignamos la fecha de compra al producto
         producto.asignarDiaCompra(obtenerDiaActual());
         producto.asignarMesCompra(obtenerMesActual());
         producto.asignarAñoCompra(obtenerAñoActual());
-        
-        //Descripcion
-        String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
-        producto.asignarDescripcion(descripcion);
         
         //Se comprueba si la base de datos contiene un producto igual al que se
         //va a añadir, en cuyo caso simplemente aumenta la cantidad del actual
@@ -146,6 +192,102 @@ public class UIEpdoCajero extends UIUsuario{
         //Dejamos constancia en el historial
         dejarConstancia(obtenerCajero(), obtenerCajero(), EnumOperaciones.mC_AÑADIRPRODUCTO, 
         obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+    }
+    
+    /**
+     * Metodo auxiliar de añadirProducto(...)
+     * 
+     * Obtiene las opciones especificas iniciales del producto segun su categoria
+     * 
+     * @param producto Producto al que añadir las opciones especificas
+     */
+    private Producto añadirProductoEspecifico(Producto producto){
+        //Añadimos opciones a actualizar segun la categoria del producto
+        if(producto instanceof ProductoHogar){
+            ProductoHogar ph = (ProductoHogar) producto;
+            
+            //"Ancho"
+            int nuevoAncho = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Ancho());
+            ph.asignarAncho(nuevoAncho);
+           
+            //"Alto"
+            int nuevoAlto = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Alto());
+            ph.asignarAncho(nuevoAlto);
+            
+            //"Consumo"
+            float nuevoConsumo = (float) formatearEntradaDecimal(UIMensajes.mC_ICE_Consumo());
+            ph.asignarConsumo(nuevoConsumo); 
+            
+            return ph;
+        }else if(producto instanceof ProductoInformatica){
+            ProductoInformatica pi = (ProductoInformatica) producto;
+            //"Frecuencia"
+            int nuevaFrecuencia = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Frecuencia());
+            pi.asignarFrecuencia(nuevaFrecuencia);
+         
+            //"Numero de nucleos"
+            int nuevoNumeroNucleos = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_NumeroNucleos());
+            pi.asignarNumeroNucleos(nuevoNumeroNucleos);
+            
+            //"Capacidad de almacenamiento"
+            float nuevaCapacidadAlmacenamiento = formatearEntradaDecimal(UIMensajes.mC_ICE_CapacidadAlmacenamiento());
+            pi.asignarCapacidadAlmacenamiento(nuevaCapacidadAlmacenamiento);
+                
+            return pi;
+        }else if(producto instanceof ProductoSonido){
+            ProductoSonido ps = (ProductoSonido) producto;
+
+            //"Inalambrico"
+            boolean esInalambrico = formatearEntradaBoolean(UIMensajes.mC_ICE_Inalambrico());
+            ps.cambiarInalambrico(esInalambrico);
+                                           
+            //"Resistente al agua"
+            boolean esResistenteAgua = formatearEntradaBoolean(UIMensajes.mC_ICE_ResistenteAgua());
+            ps.cambiarResistenteAgua(esResistenteAgua);
+                                         
+            //"Bluetooth
+            boolean tieneBluetooth = formatearEntradaBoolean(UIMensajes.mC_ICE_Bluetooth());
+            ps.cambiarResistenteAgua(tieneBluetooth);
+            
+            //"Frecuencia"
+            int nuevaFrecuencia = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Frecuencia());
+            ps.asignarFrecuencia(nuevaFrecuencia);
+            
+            return ps;
+        }else if(producto instanceof ProductoTelefonia){
+            ProductoTelefonia pt = (ProductoTelefonia) producto;
+            //"Bateria"
+            boolean tieneBateria = formatearEntradaBoolean(UIMensajes.mC_ICE_TieneBateria());
+            pt.cambiarInalambrico(tieneBateria);
+            
+            //"Inalambrico"
+            boolean esInalambrico = formatearEntradaBoolean(UIMensajes.mC_ICE_Inalambrico());
+            pt.cambiarInalambrico(esInalambrico);
+                     
+            //"Frecuencia"
+            int nuevaDuracion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Duracion());
+            pt.asignarDuracion(nuevaDuracion);  
+            
+            return pt;
+        }else if(producto instanceof ProductoImagen){
+            ProductoImagen pi = (ProductoImagen) producto;
+            
+            //"Pulgadas"
+            int nuevasPulgadas = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Pulgadas());
+            pi.asignarPulgadas(nuevasPulgadas);
+            
+            //"Ancho de resolucion"
+            int nuevoAnchoResolucion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_AnchoResolucion());
+            pi.asignarAnchoResolucion(nuevoAnchoResolucion);
+            
+            //"Alto de resolucion"
+            int nuevoAltoResolucion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_AltoResolucion());
+            pi.asignarAltoResolucion(nuevoAltoResolucion);
+                
+            return pi;
+        }
+        
+        return producto;
     }
     
     /**
@@ -293,7 +435,7 @@ public class UIEpdoCajero extends UIUsuario{
      */
     private Producto menuModificacionOpciones(Producto producto){
         //Iniciamos el menu y añadimos las opciones
-        UIMenu menuModOpciones = añadirOpcionesMenuActualizar();
+        UIMenu menuModOpciones = añadirOpcionesMenuActualizar(producto);
     
         //Imprime el menu
         menuModOpciones.imprimirOpciones();
@@ -302,74 +444,227 @@ public class UIEpdoCajero extends UIUsuario{
         int entrada = UIEntradas.obtenerEntero(0, menuModOpciones.obtenerNumeroOpciones());
         switch(entrada){
             case 0: //Precio
-                float nuevoPrecio = formatearEntradaDecimal(UIMensajes.mC_AñP_Precio());
-                producto.asignarPrecio(nuevoPrecio);
-                break;
+            float nuevoPrecio = formatearEntradaDecimal(UIMensajes.mC_AñP_Precio());
+            producto.asignarPrecio(nuevoPrecio);
+            break;
+                
             case 1: //Cantidad
-                int nuevaCantidad = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Cantidad());
-                producto.asignarCantidad(nuevaCantidad);
-                break;
+            int nuevaCantidad = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Cantidad());
+            producto.asignarCantidad(nuevaCantidad);
+            break;
+                
             case 2: //Descripcion
-                String nuevaDescripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
-                producto.asignarDescripcion(nuevaDescripcion);
-                break;
+            String nuevaDescripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+            producto.asignarDescripcion(nuevaDescripcion);
+            break;
+            
             case 3: //Peso
-                float nuevoPeso = formatearEntradaDecimal(UIMensajes.mC_AñP_Peso());
-                producto.asignarPeso(nuevoPeso);
-                break;
-            case 4: //Devuelve el estado de la financiacion del producto
-                boolean financiacion = formatearEntradaBoolean(UIMensajes.mC_AcP_Financiado());
-                producto.cambiarFinanciado(financiacion);
-                break;
+            float nuevoPeso = formatearEntradaDecimal(UIMensajes.mC_AñP_Peso());
+            producto.asignarPeso(nuevoPeso);
+            break;
+                
+            case 4: //Financiacion
+            boolean financiacion = formatearEntradaBoolean(UIMensajes.mC_AcP_Financiado());
+            producto.cambiarFinanciado(financiacion);
+            break;
+                
             case 5: //Estado del producto (INTACTO, ROTO, DEVUELTO (29/04))
-                ArrayList<String> listaEstados = EnumEstadoProducto.obtenerEstados();
-                formatearCadena(UIMensajes.mC_LP_Estado(), true, false); //"Estado"
-                System.out.print(" [");
-                //Vamos a imprimir el numero de estados posibles
-                Iterator<String> itr = listaEstados.iterator();
-                while(itr.hasNext()){
-                    String temp = itr.next().toLowerCase();
-                    System.out.print(temp + "/");
-                }
-                System.out.print("] :");
-                //Obtenemos una cadena que sea "intacto" o "roto" o "vendido"
-                String nuevoEstado = UIEntradas.obtenerCadenaLimitada(listaEstados, false);
-                String estadoIntacto = EnumEstadoProducto.estadoProductoIntacto().toLowerCase();
-                String estadoRoto = EnumEstadoProducto.estadoProductoRoto().toLowerCase();
-                String estadoDevuelto = EnumEstadoProducto.estadoProductoDevuelto().toLowerCase();
-                if(nuevoEstado.equals(estadoIntacto)){
-                    producto.cambiarEstado(EnumEstadoProducto.INTACTO);
-                }else if(nuevoEstado.equals(estadoRoto)){
-                    producto.cambiarEstado(EnumEstadoProducto.ROTO);
-                }else if(nuevoEstado.equals(estadoDevuelto)){
-                    producto.cambiarEstado(EnumEstadoProducto.DEVUELTO);
-                }
-                break;
+            ArrayList<String> listaEstados = EnumEstadoProducto.obtenerEstados();
+            formatearCadena(UIMensajes.mC_LP_Estado(), true, false); //"Estado"
+            System.out.print(" [");
+            //Vamos a imprimir el numero de estados posibles
+            Iterator<String> itr = listaEstados.iterator();
+            while(itr.hasNext()){
+                String temp = itr.next().toLowerCase();
+                System.out.print(temp + "/");
+            }
+            System.out.print("] :");
+            //Obtenemos una cadena que sea "intacto" o "roto" o "vendido"
+            String nuevoEstado = UIEntradas.obtenerCadenaLimitada(listaEstados, false);
+            String estadoIntacto = EnumEstadoProducto.estadoProductoIntacto().toLowerCase();
+            String estadoRoto = EnumEstadoProducto.estadoProductoRoto().toLowerCase();
+            String estadoDevuelto = EnumEstadoProducto.estadoProductoDevuelto().toLowerCase();
+            if(nuevoEstado.equals(estadoIntacto)){
+                producto.cambiarEstado(EnumEstadoProducto.INTACTO);
+            }else if(nuevoEstado.equals(estadoRoto)){
+                producto.cambiarEstado(EnumEstadoProducto.ROTO);
+            }else if(nuevoEstado.equals(estadoDevuelto)){
+                producto.cambiarEstado(EnumEstadoProducto.DEVUELTO);
+            }
+            break;
+            
             case 6: //Año de compra
-                int nuevoAño = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Año());
-                producto.asignarAñoCompra(nuevoAño);
-                break;
+            int nuevoAño = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Año());
+            producto.asignarAñoCompra(nuevoAño);
+            break;
+            
             case 7: //Mes de compra
-                int nuevoMes = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Mes());
-                producto.asignarMesCompra(nuevoMes);
-                break;
+            int nuevoMes = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Mes());
+            producto.asignarMesCompra(nuevoMes);
+            break;
+            
             case 8: //Dia de compra
-                int nuevoDia = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Dia());
-                producto.asignarDiaCompra(nuevoDia);
-                break;
+            int nuevoDia = (int) formatearEntradaDecimal(UIMensajes.mC_AñP_Dia());
+            producto.asignarDiaCompra(nuevoDia);
+            break;
+            
             case 9: //Tiempo de garantia
-                int nuevoTiempoGarantia = (int) formatearEntradaDecimal(UIMensajes.mC_AcP_TiempoGarantia());
-                producto.asignarTiempoGarantia(nuevoTiempoGarantia);
-                break;
-            case 10: //Añadir una caracteristica. "Indique a continuacion el titulo de la caracteristica y su descripcion"
-                formatearCadena(UIMensajes.mC_Acp_CaracteristicaTituloDescripcion(), false, true);
-                String tituloCaracteristica = formatearEntradaCadena(UIMensajes.mC_AcP_Titulo(), true);
-                String descripcionCaracteristica = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
-                producto.añadirCaracteristica(new Caracteristica(tituloCaracteristica, descripcionCaracteristica));
-                break;
+            int nuevoTiempoGarantia = (int) formatearEntradaDecimal(UIMensajes.mC_AcP_TiempoGarantia());
+            producto.asignarTiempoGarantia(nuevoTiempoGarantia);
+            break;
+            
+            case 10: //Numero de caja
+            int nuevoNumeroCaja = (int) formatearEntradaDecimal(UIMensajes.mC_ILP_NumeroCaja());
+            producto.asignarNumeroCaja(nuevoNumeroCaja);
+            
+            case 11: //Añadir una caracteristica. "Indique a continuacion el titulo de la caracteristica y su descripcion"
+            formatearCadena(UIMensajes.mC_Acp_CaracteristicaTituloDescripcion(), false, true);
+            String tituloCaracteristica = formatearEntradaCadena(UIMensajes.mC_AcP_Titulo(), true);
+            String descripcionCaracteristica = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+            producto.añadirCaracteristica(new Caracteristica(tituloCaracteristica, descripcionCaracteristica));
+            break;
         }
+        
+        //Modificar las caracteristicas especificas segun categoria de producto
+        producto = menuModificacionesEspecifico(producto, entrada);
+        
         //"Se ha actualizado el producto con exito"
         System.out.println(UIMensajes.mC_AcP_Exito()); 
+        
+        return producto;
+    }
+    
+    /**
+     * Metodo auxiliar de menuModificacionOpciones(...) 
+     */
+    private Producto menuModificacionesEspecifico(Producto producto, int entrada){
+        
+        //Añadimos opciones a actualizar segun la categoria del producto
+        if(producto instanceof ProductoHogar){
+            ProductoHogar ph = (ProductoHogar) producto;
+            
+            switch(entrada){
+                case 12:
+                //"Ancho"
+                int nuevoAncho = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Ancho());
+                ph.asignarAncho(nuevoAncho);
+                break;
+                
+                case 13:
+                //"Alto"
+                int nuevoAlto = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Alto());
+                ph.asignarAncho(nuevoAlto);
+                break;
+                
+                case 14:
+                //"Consumo"
+                float nuevoConsumo = (float) formatearEntradaDecimal(UIMensajes.mC_ICE_Consumo());
+                ph.asignarConsumo(nuevoConsumo);
+                break;
+            }
+            return ph;
+        }else if(producto instanceof ProductoInformatica){
+            ProductoInformatica pi = (ProductoInformatica) producto;
+            
+            switch(entrada){
+                case 12:
+                //"Frecuencia"
+                int nuevaFrecuencia = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Frecuencia());
+                pi.asignarFrecuencia(nuevaFrecuencia);
+                break;
+                
+                case 13:
+                //"Numero de nucleos"
+                int nuevoNumeroNucleos = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_NumeroNucleos());
+                pi.asignarNumeroNucleos(nuevoNumeroNucleos);
+                break;
+                
+                case 14:
+                //"Capacidad de almacenamiento"
+                float nuevaCapacidadAlmacenamiento = formatearEntradaDecimal(UIMensajes.mC_ICE_CapacidadAlmacenamiento());
+                pi.asignarCapacidadAlmacenamiento(nuevaCapacidadAlmacenamiento);
+                break;
+            }
+            
+            return pi;
+        }else if(producto instanceof ProductoSonido){
+            ProductoSonido ps = (ProductoSonido) producto;
+            
+            switch(entrada){
+                case 12:
+                //"Inalambrico"
+                boolean esInalambrico = formatearEntradaBoolean(UIMensajes.mC_ICE_Inalambrico());
+                ps.cambiarInalambrico(esInalambrico);
+                break;
+                
+                case 13:
+                //"Resistente al agua"
+                boolean esResistenteAgua = formatearEntradaBoolean(UIMensajes.mC_ICE_ResistenteAgua());
+                ps.cambiarResistenteAgua(esResistenteAgua);
+                break;
+                
+                case 14:
+                //"Bluetooth
+                boolean tieneBluetooth = formatearEntradaBoolean(UIMensajes.mC_ICE_Bluetooth());
+                ps.cambiarResistenteAgua(tieneBluetooth);
+                break;
+                
+                case 15:
+                //"Frecuencia"
+                int nuevaFrecuencia = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Frecuencia());
+                ps.asignarFrecuencia(nuevaFrecuencia);
+                break;
+            }
+            
+            return ps;
+        }else if(producto instanceof ProductoTelefonia){
+            ProductoTelefonia pt = (ProductoTelefonia) producto;
+            
+            switch(entrada){
+                case 12:
+                //"Bateria"
+                boolean tieneBateria = formatearEntradaBoolean(UIMensajes.mC_ICE_TieneBateria());
+                pt.cambiarInalambrico(tieneBateria);
+                break;
+                
+                case 13:
+                //"Inalambrico"
+                boolean esInalambrico = formatearEntradaBoolean(UIMensajes.mC_ICE_Inalambrico());
+                pt.cambiarInalambrico(esInalambrico);
+                break;
+                
+                case 14:
+                //"Frecuencia"
+                int nuevaDuracion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Duracion());
+                pt.asignarDuracion(nuevaDuracion);
+                break;
+            }
+            return pt;
+        }else if(producto instanceof ProductoImagen){
+            ProductoImagen pi = (ProductoImagen) producto;
+            
+            switch(entrada){
+                case 12:
+                //"Pulgadas"
+                int nuevasPulgadas = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_Pulgadas());
+                pi.asignarPulgadas(nuevasPulgadas);
+                break;
+                
+                case 13:
+                //"Ancho de resolucion"
+                int nuevoAnchoResolucion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_AnchoResolucion());
+                pi.asignarAnchoResolucion(nuevoAnchoResolucion);
+                break;
+                
+                case 14:
+                //"Alto de resolucion"
+                int nuevoAltoResolucion = (int) formatearEntradaDecimal(UIMensajes.mC_ICE_AltoResolucion());
+                pi.asignarAltoResolucion(nuevoAltoResolucion);
+                break;
+            }
+           
+            return pi;
+        }
         
         return producto;
     }
@@ -378,7 +673,7 @@ public class UIEpdoCajero extends UIUsuario{
      * Metodo auxiliar de menuModificacionOpciones(...)
      * Añade las opciones al menu
      */
-    private UIMenu añadirOpcionesMenuActualizar(){
+    private UIMenu añadirOpcionesMenuActualizar(Producto producto){
         UIMenu menuModOpciones = new UIMenu();
         
         menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Precio());
@@ -391,9 +686,48 @@ public class UIEpdoCajero extends UIUsuario{
         menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Mes());
         menuModOpciones.añadirOpcion(UIMensajes.mC_AñP_Dia());
         menuModOpciones.añadirOpcion(UIMensajes.mC_AcP_TiempoGarantia());
-        
+        menuModOpciones.añadirOpcion(UIMensajes.mC_ILP_NumeroCaja());
         //"Añadir caracteristica al producto"
         menuModOpciones.añadirOpcion(UIMensajes.mC_AcP_AñadirCaracteristica());
+        
+        //Añadimos las opciones especificas segun la categoria del producto
+        menuModOpciones = añadirOpcionesEspecificas(producto, menuModOpciones);
+        
+        return menuModOpciones;
+    }
+    
+    /**
+     * Metodo auxiliar de añadirOpcionesMenuActualizar(...)
+     * 
+     * Añade las opciones especificas necesarias al menu de modificacion
+     * de un producto dependiendo de la categoria del producto
+     * 
+     * @param menuModOpciones Menu al que añadir las opciones especificas
+     */
+    private UIMenu añadirOpcionesEspecificas(Producto producto, UIMenu menuModOpciones){
+        
+        if(producto instanceof ProductoHogar){
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Ancho());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Alto());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Consumo());
+        }else if(producto instanceof ProductoInformatica){
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Frecuencia());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_NumeroNucleos());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_CapacidadAlmacenamiento());
+        }else if(producto instanceof ProductoSonido){
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Inalambrico());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_ResistenteAgua());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Bluetooth());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Frecuencia());
+        }else if(producto instanceof ProductoImagen){
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_TieneBateria());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Inalambrico());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Duracion());
+        }else if(producto instanceof ProductoTelefonia){
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_Pulgadas());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_AnchoResolucion());
+            menuModOpciones.añadirOpcion(UIMensajes.mC_ICE_AltoResolucion());
+        }
         
         return menuModOpciones;
     }
@@ -438,6 +772,10 @@ public class UIEpdoCajero extends UIUsuario{
         //Estado
         formatearCadena(UIMensajes.mC_LP_Estado(), true, true);
         System.out.print(producto.obtenerEstadoProducto());
+        
+        //Numero de caja
+        formatearCadena(UIMensajes.mC_ILP_NumeroCaja(), true, true);
+        System.out.print(producto.obtenerNumeroCaja());
         
         //Fecha de compra
         formatearCadena(UIMensajes.mC_AcP_FechaCompra(), 
@@ -738,6 +1076,11 @@ public class UIEpdoCajero extends UIUsuario{
         System.out.print(" |" + UIMensajes.mC_AcP_TiempoGarantia() + ": ");
         System.out.print(producto.obtenerTiempoGarantia());
         
+        System.out.println(); //Tercera linea
+        //"Numero de caja"
+        System.out.print("\t" + UIMensajes.mC_ILP_NumeroCaja() + ": ");
+        System.out.print(producto.obtenerNumeroCaja());
+        
         //Caracteristicas especificas segun categoria
         caracteristicasEspecificasCompactas(producto);
         
@@ -798,6 +1141,7 @@ public class UIEpdoCajero extends UIUsuario{
             ProductoInformatica pi = (ProductoInformatica) producto;
             
             System.out.println();
+            
             //"Frecuencia"
             System.out.print("\t" + UIMensajes.mC_ICE_Frecuencia() + ": ");
             System.out.print(pi.obtenerFrecuencia());
@@ -805,6 +1149,11 @@ public class UIEpdoCajero extends UIUsuario{
             //"Numero de nucleos"
             System.out.print(" |"+ UIMensajes.mC_ICE_NumeroNucleos() + ": ");
             System.out.print(pi.obtenerNumeroNucleos());
+            
+            //"Capacidad de almacenamiento"
+            System.out.print(" |" + UIMensajes.mC_ICE_CapacidadAlmacenamiento() + ": ");
+            System.out.print(pi.obtenerCapacidadAlmacenamiento());
+            
         }else if(producto instanceof ProductoImagen){
             ProductoImagen pi = (ProductoImagen) producto;
             

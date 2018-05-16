@@ -6,6 +6,8 @@ import backend.Usuario;
 import backend.Cliente;
 import backend.Util;
 import backend.EnumOperaciones;
+import backend.FichaCliente;
+import backend.Factura;
 
 import java.util.ArrayList;
 
@@ -186,6 +188,54 @@ public class UIEpdoFinanciacion extends UIUsuario{
                 System.out.print(cliente.obtenerDomicilio());  
                 formatearCadena(UIMensajes.g_Telefono(), true, true);
                 System.out.print(cliente.obtenerTelefono());  
+                
+                //Dejamos constancia de la operacion realizada
+                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+            }
+        }
+        
+        if(!encontrado){
+            //"Cliente no encontrado"
+            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        }
+    }
+    
+    /**
+     * Imprime las facturas de un cliente
+     * 
+     * @param usuarios Base de datos de usuarios 
+     */
+    public void verListaFacturas(Usuarios usuarios){
+        //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
+        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
+        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
+
+        boolean encontrado = false;
+        if(usuario!=null){
+            if(usuario instanceof Cliente){ //Si el usuario encontrado es un cliente
+                encontrado = true;
+                Cliente cliente = (Cliente) usuario;
+                FichaCliente fc = cliente.obtenerFichaCliente();
+                
+                //Imprimimos la informacion de cada factura que tenga el cliente
+                for(int i = 0; i < fc.obtenerNumeroFacturas(); i++){
+                    Factura factura = fc.obtenerFactura(i);
+                    
+                    System.out.println(); //Primera linea
+                    System.out.print("\t" + UIMensajes.mT_AR_Coste());
+                    System.out.print(factura.obtenerCoste());
+                    System.out.print(" |" + UIMensajes.mC_AñP_Dia());
+                    System.out.print(factura.obtenerDia());
+                    System.out.print(" |" + UIMensajes.mC_AñP_Mes());
+                    System.out.print(factura.obtenerMes());
+                    System.out.print(" |" + UIMensajes.mC_AñP_Año());
+                    System.out.print(factura.obtenerAño());                    
+                    
+                    System.out.println(); //Segunda linea
+                    System.out.print("\t" + UIMensajes.mC_AñP_DescripcionFactura());
+                    System.out.print(factura.obtenerDescripcion());
+                }
                 
                 //Dejamos constancia de la operacion realizada
                 dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,

@@ -422,13 +422,13 @@ public class UIGestionUsuarios extends UIUsuario{
     }
     
     /**
-     * Implime una lista con los empleados de la tienda.
+     * Imprime una lista con los empleados de la tienda.
      * 
      * @param usuarios Base de datos de usuarios de la tienda
      */
     public void imprimirListaEmpleados(Usuarios usuarios){
         System.out.println();
-        System.out.print(UIMensajes.g_Nombre() + "  " +
+        System.out.print("\t" + UIMensajes.g_Nombre() + "  " +
             UIMensajes.g_Email() + "  " + 
             UIMensajes.g_Usuario() + "  " +
             UIMensajes.g_Contraseña());
@@ -439,7 +439,7 @@ public class UIGestionUsuarios extends UIUsuario{
                 
                 //Imprimimos nombre, email, usuario y contraseña.
                 System.out.println();
-                System.out.print(UIMensajes.g_Nombre() + ": ");
+                System.out.print("\t" + UIMensajes.g_Nombre() + ": ");
                 System.out.print(temp.obtenerNombreUsuario());
                 System.out.print("  ");
                 System.out.print(temp.obtenerEmailUsuario());
@@ -447,6 +447,33 @@ public class UIGestionUsuarios extends UIUsuario{
                 System.out.print(temp.obtenerUsuario());
                 System.out.print("  ");
                 System.out.print(temp.obtenerContraseña());
+            }
+        }
+        System.out.println();
+    }
+    
+    /**
+     * Imprime una lista con los empleados de la tienda.
+     * 
+     * @param usuarios Base de datos de usuarios de la tienda
+     */
+    public void imprimirListaClientes(Usuarios usuarios){
+        System.out.println();
+        System.out.print("\t" + UIMensajes.g_Nombre() + "  " +
+            UIMensajes.g_Email() + "  " + 
+            UIMensajes.g_Usuario() + "  " +
+            UIMensajes.g_Contraseña());
+        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+            Usuario usuario = usuarios.obtenerUsuario(i);
+            if(usuario instanceof Cliente){ //Si es un cliente
+                Cliente temp = (Cliente) usuario;
+                
+                //Imprimimos nombre y email
+                System.out.println();
+                System.out.print("\t" + UIMensajes.g_Nombre() + ": ");
+                System.out.print(temp.obtenerNombreUsuario());
+                System.out.print("  ");
+                System.out.print(temp.obtenerEmailUsuario());
             }
         }
         System.out.println();

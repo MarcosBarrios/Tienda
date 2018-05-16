@@ -104,11 +104,17 @@ public class UIEntradas{
                     //"Entrada no valida. (Se esperaba true o false)"
                     System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
                 }
-            }else{ //Obtener "si" o "no"
+            }else{ //Obtener "si", "no", "true" o "false"
                 if(entrada.toLowerCase().equals(UIMensajes.g_Si().toLowerCase())){
                     valida = true;
                     return true;
                 }else if(entrada.toLowerCase().equals(UIMensajes.g_No().toLowerCase())){
+                    valida = true;
+                    return false;
+                }else if(entrada.toLowerCase().equals("true")){
+                    valida = true;
+                    return true;
+                }else if(entrada.toLowerCase().equals("false")){
                     valida = true;
                     return false;
                 }else{

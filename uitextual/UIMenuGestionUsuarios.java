@@ -70,9 +70,12 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
      * 
      */
     private void añadirOpciones(){
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
+        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAñadirEmpleado());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionActualizarDatos());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerListaEmpleados());
+        obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerListaClientes());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionVerFichasReparacion());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAñadirSolicitud());
         obtenerMenu().añadirOpcion(UIMensajes.mGU_OpcionAceptarSolicitud());
@@ -89,57 +92,72 @@ public class UIMenuGestionUsuarios extends UIMenuAccionable{
     private void activarInteraccion(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
-            case 0: //Añadir empleado al sistema
+            case 0: //"Buscar productos"
+            obtenerTemp().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
+            volverMenu();
+            break;
+            
+            case 1: //Buscar usuarios
+            obtenerTemp().imprimirBusquedaUsuarios(obtenerUsuarios());
+            volverMenu();
+            break;
+            
+            case 2: //Añadir empleado al sistema
             obtenerTemp().añadirEmpleado(obtenerUsuarios());
             
             volverMenu(); //Imprime el menu de nuevo y activa la interaccion
             break;
             
-            case 1: //Actualizar los datos de un empleado
+            case 3: //Actualizar los datos de un empleado
             obtenerTemp().actualizarDatosEmpleado(obtenerUsuarios());
             
             volverMenu(); //Imprime el menu de nuevo y activa la interaccion
             break;
             
-            case 2: //Ver lista de empleados
+            case 4: //Ver lista de empleados
             obtenerTemp().imprimirListaEmpleados(obtenerUsuarios());
             volverMenu(); //Imprime el menu de nuevo y activa la interaccion
             break;
             
-            case 3: //Ver fichas de reparacion
+            case 5: //Ver lista de clientes
+            obtenerTemp().imprimirListaClientes(obtenerUsuarios());
+            volverMenu(); //Imprime el menu de nuevo y activa la interaccion
+            break;
+            
+            case 6: //Ver fichas de reparacion
             obtenerTemp().verFichasReparacion(obtenerUsuarios());
             volverMenu();
             break;
             
-            case 4: //Cerrar sesion
-            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
-            obtenerUsuario());
-            break;
-            
-            case 5: //Añadir solicitud a un cliente
+            case 8: //Añadir solicitud a un cliente
             obtenerTemp().añadirSolicitud(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 6: //Aceptar solicitud sobre un cliente
+            case 9: //Aceptar solicitud sobre un cliente
             obtenerTemp().aceptarSolicitud(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 7: //Ver el historial de operaciones de un usuario
+            case 10: //Ver el historial de operaciones de un usuario
             obtenerTemp().verHistorialUsuario(obtenerUsuarios());
             volverMenu();
             break;
             
-            case 8: //Ver lista de solicitudes de todos los clientes
+            case 11: //Ver lista de solicitudes de todos los clientes
             obtenerTemp().verListaSolicitudes(obtenerUsuarios());
             
             volverMenu();
             break;
             
-            case 9: //Salir del programa
+            case 12: //Cerrar sesion
+            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
+            obtenerUsuario());
+            break;
+            
+            case 13: //Salir del programa
             System.exit(0);
             break;
         }

@@ -10,9 +10,21 @@ import backend.EnumOperaciones;
 import backend.Operacion;
 import backend.OperacionUsuario;
 import backend.OperacionProducto;
+import backend.EpdoComercial;
+import backend.EpdoPostVenta;
+import backend.EpdoCajero;
+import backend.EpdoTecnico;
+import backend.EpdoFinanciacion;
 
 import productos.Producto;
+import productos.Productos;
+import productos.ProductoSonido;
+import productos.ProductoInformatica;
+import productos.ProductoHogar;
+import productos.ProductoTelefonia;
+import productos.ProductoImagen;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -170,7 +182,7 @@ public abstract class UIUsuario{
         float [] salidas = new float[numeroEntradas];
         for(int i = 0; i < numeroEntradas; i++){
             formatearCadena(nombresEntradas[i], true, true);
-            float entrada = UIEntradas.obtenerDecimal(0, Util.MAXIMACANTIDAD);
+            float entrada = UIEntradas.obtenerDecimal(-1, Util.MAXIMACANTIDAD);
             salidas[i] = entrada;
         }
         
@@ -192,7 +204,7 @@ public abstract class UIUsuario{
      */
     public float formatearEntradaDecimal(String nombreEntrada){
         formatearCadena(nombreEntrada, true, true);
-        return UIEntradas.obtenerDecimal(0, Util.MAXIMACANTIDAD);
+        return UIEntradas.obtenerDecimal(-1, Util.MAXIMACANTIDAD);
     }
     
     /**
@@ -237,39 +249,234 @@ public abstract class UIUsuario{
     }
     
     /**
-     * Imprime los datos del usuario (nombre y email)
+     * Imprime una lista de usuarios 
      * 
-     * Ejemplo formato: 
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-     *  Nombre: Marcos Barrios
-     *  Email: marcosloscardones@gmail.com
-     * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+     * @param usuarios Base de datos de usuarios de la tienda
      */
-    public void imprimirDatos(){
-        //"* * * * * * ....... * *"
-        System.out.println(UIMensajes.g_EncabezadoMenus());
+    public void imprimirBusquedaUsuarios(Usuarios usuarios){
+        //"Indicar a continuacion los datos de busqueda"
+        formatearCadena(UIMensajes.b_IndicarDatos(), true, true);
+        //"No escriba nada en el campo para ignorar ese dato"
+        System.out.println("(" + UIMensajes.b_ValoresPredeterminados() + ")");
         
-        //"Nombre", "Email", "* * * * * * ....... * *"
-        System.out.println(UIMensajes.g_Nombre() + ": " +
-            usuario.obtenerNombreUsuario());
-        System.out.println(UIMensajes.g_Email() + ": " +
-            usuario.obtenerEmailUsuario());
-        System.out.println(UIMensajes.g_EncabezadoMenus());
+        //Obtenemos los datos necesarios para una busqueda
+        String dni = formatearEntradaCadena(UIMensajes.g_DNI(), true);
+        String nombre = formatearEntradaCadena(UIMensajes.g_Nombre(), true);
+        String email = formatearEntradaCadena(UIMensajes.g_Email(), true);
+        
+        //Obtenemos una lista de usuarios mediante una busqueda
+        ArrayList<Usuario> listaUsuarios = Util.buscarUsuarios(usuarios,
+        dni, nombre, email);
+        //Iteramos los usuarios obtenidos
+        Iterator<Usuario> itr = listaUsuarios.iterator();
+        while(itr.hasNext()){
+            Usuario temp = itr.next(); //Obtenemos un usuario
+            
+            //Si el usuario es un empleado
+            if(temp instanceof Empleado){
+                //"Empleados"
+                formatearCadena(UIMensajes.b_Empleados(), true, true);
+                
+                System.out.println(); //Primera y unica linea
+                System.out.print("\t(");
+                //Distinguimos entre el tipo de empleado
+                if(temp instanceof EpdoCajero){
+                    //"Cajero"
+                    System.out.print(UIMensajes.mGU_AñE_Cajero());
+                }else if(temp instanceof EpdoPostVenta){
+                    //"PostVenta"
+                    System.out.print(UIMensajes.mGU_AñE_PostVenta());
+                }else if(temp instanceof EpdoTecnico){
+                    //"Tecnico"
+                    System.out.print(UIMensajes.mGU_AñE_Tecnico());
+                }else if(temp instanceof EpdoFinanciacion){
+                    //"Financiacion"
+                    System.out.print(UIMensajes.mGU_AñE_Financiacion());
+                }else if(temp instanceof EpdoComercial){
+                    //"Comercial"
+                    System.out.print(UIMensajes.mGU_AñE_Comercial());
+                }
+                System.out.print(") " + UIMensajes.g_DNI() + ": ");
+                System.out.print(usuario.obtenerDNI());
+                System.out.print(" |" + UIMensajes.g_Nombre() + ": ");
+                System.out.print(usuario.obtenerNombreUsuario());
+                System.out.print(" |" + UIMensajes.g_Email() + ": ");
+                System.out.print(usuario.obtenerEmailUsuario());
+            }else if(temp instanceof Cliente){ //Si el usuario es un cliente
+                //"Clientes"
+                formatearCadena(UIMensajes.b_Clientes(), true, true);
+                
+                System.out.println(); //Primera y unica linea
+                System.out.print("\t" + UIMensajes.g_DNI() + ": ");
+                System.out.print(usuario.obtenerDNI());
+                System.out.print(" |" + UIMensajes.g_Nombre() + ": ");
+                System.out.print(usuario.obtenerNombreUsuario());
+                System.out.print(" |" + UIMensajes.g_Email() + ": ");
+                System.out.print(usuario.obtenerEmailUsuario());
+            }
+        }
     }
     
     /**
-     * Imprime en forma de lista los nombres y emails de los usuarios
-     * que se encuentran en la base de datos del programa.
+     * Imprime una lista de productos de un cliente o de la base de datos
      * 
-     * @param usuarios Base de datos de usuarios del programa
+     * @param usuarios Base de datos de usuarios
+     * @param productos Base de datos de productos
      */
-    public void imprimirListaUsuarios(Usuarios usuarios){
-        //"* * * * * * ....... * *"
-        System.out.println(UIMensajes.g_EncabezadoMenus());
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
-            System.out.println(UIMensajes.g_Nombre() + ": " +
-                usuarios.obtenerUsuario(i).obtenerNombreUsuario() + 
-                "  " + usuarios.obtenerUsuario(i).obtenerEmailUsuario());
+    public void imprimirBusquedaProductos(Usuarios usuarios, Productos productos){
+        //"Indicar a continuacion los datos de busqueda"
+        formatearCadena(UIMensajes.b_IndicarDatos(), true, true);
+        //"No escriba nada en el campo para ignorar ese dato"
+        System.out.println("(" + UIMensajes.b_ValoresNegativos() + ")");
+        
+        //"¿Buscar en clientes?"
+        boolean buscarEnClientes = formatearEntradaBoolean(UIMensajes.b_BuscarEnCliente());
+        
+        //Creamos un formulario para las entradas numericas
+        String[] entradas = new String[8];
+        entradas[0] = UIMensajes.mC_AñP_Cantidad();
+        entradas[1] = UIMensajes.mC_AñP_Peso();
+        entradas[2] = UIMensajes.mC_AñP_Precio();
+        entradas[3] = UIMensajes.mC_AñP_Dia();
+        entradas[4] = UIMensajes.mC_AñP_Mes();
+        entradas[5] = UIMensajes.mC_AñP_Año();
+        entradas[6] = UIMensajes.mC_AcP_TiempoGarantia();
+        entradas[7] = UIMensajes.mC_ILP_NumeroCaja();
+        float[] salidas = formularioDecimales(entradas);
+        
+        //"Descripcion"
+        String descripcion = formatearEntradaCadena(UIMensajes.mC_AñP_Descripcion(), true);
+        
+        //Distinguimos entre buscar el producto de un cliente o 
+        //de la base de datos de la tienda
+        if(buscarEnClientes){
+            //"Buscando en clientes"
+            formatearCadena(UIMensajes.b_BuscandoEnClientes(), true, true);
+            
+            //Iteramos todos los usuarios y trabajamos con los que son clientes
+            for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+                Usuario usuario = usuarios.obtenerUsuario(i);
+                
+                if(usuario instanceof Cliente){
+                    //Obtenemos el cliente
+                    Cliente cliente = (Cliente) usuario;
+                    
+                    //Obtenemos la lista de productos que cumplen con las caracteristicas especificadas
+                    //Util: Productos productos, Cliente cliente,
+                    //int cantidad, float precio, float peso, String descripcion, int dia,
+                    //int mes, int año, int tiempoGarantia, int numeroCaja
+                    ArrayList<Producto> listaProductosCliente = Util.buscarProductosEnCliente(
+                    productos, cliente, (int)salidas[0], salidas[1], salidas[2], descripcion,
+                    (int)salidas[3], (int)salidas[4], (int)salidas[5], (int)salidas[6], 
+                    (int)salidas[7]);
+                    
+                    //Iteramos la lista obtenida e imprimimos los datos de cada producto
+                    Iterator<Producto> itr = listaProductosCliente.iterator();
+                    while(itr.hasNext()){
+                        Producto producto = itr.next();
+                        
+                        System.out.println(); //Primera linea
+                        System.out.print("\t");
+                        System.out.print(UIMensajes.g_Nombre() + ": ");
+                        System.out.print(cliente.obtenerNombreUsuario() + " (");
+                        //Imprimimos el tipo de producto
+                        if(producto instanceof ProductoInformatica){
+                            System.out.print(UIMensajes.mC_AñP_Informatica());
+                        }else if(producto instanceof ProductoImagen){
+                            System.out.print(UIMensajes.mC_AñP_Imagen());
+                        }else if(producto instanceof ProductoTelefonia){
+                            System.out.print(UIMensajes.mC_AñP_Telefonia());
+                        }else if(producto instanceof ProductoSonido){
+                            System.out.print(UIMensajes.mC_AñP_Sonido());
+                        }else if(producto instanceof ProductoHogar){
+                            System.out.print(UIMensajes.mC_AñP_Hogar());
+                        }
+                        System.out.print(") " + UIMensajes.mC_LP_NumeroProducto() + ": ");
+                        System.out.print(producto.obtenerNumeroProducto());
+                        System.out.print(" |" + UIMensajes.mC_AñP_Cantidad() + ": ");
+                        System.out.print(producto.obtenerCantidad());
+                        System.out.print(" |" + UIMensajes.mC_AñP_Precio() + ": ");
+                        System.out.print(producto.obtenerPrecio());
+                        System.out.print(" |" + UIMensajes.mC_AñP_Peso() + ": ");
+                        System.out.print(producto.obtenerPeso());
+                        
+                        System.out.println(); //Segunda linea
+                        System.out.print("\t" + UIMensajes.mC_AñP_Dia() + ": ");
+                        System.out.print(producto.obtenerDiaCompra());
+                        System.out.print(" |" + UIMensajes.mC_AñP_Mes() + ": ");
+                        System.out.print(producto.obtenerMesCompra());
+                        System.out.print(" |" + UIMensajes.mC_AñP_Año() + ": ");
+                        System.out.print(producto.obtenerAñoCompra());
+                        System.out.print(" |" + UIMensajes.mC_AcP_TiempoGarantia() + ": ");
+                        System.out.print(producto.obtenerTiempoGarantia());
+                        System.out.print(" |" + UIMensajes.mC_ILP_NumeroCaja() + ": ");
+                        System.out.print(producto.obtenerNumeroCaja());
+                        
+                        System.out.println(); //Tercera y ultima linea
+                        System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                        System.out.print(producto.obtenerDescripcion());
+                        System.out.println("...");
+                    }
+                }
+            }
+        }else{
+            //"Buscando en la base de datos de la tienda"
+            formatearCadena(UIMensajes.b_BuscandoEnBaseDeDatos(), true, true);
+            
+            
+            //Obtenemos la lista de productos que cumplen con las caracteristicas especificadas
+            //Util: Productos productos,
+            //int cantidad, float precio, float peso, String descripcion, int dia,
+            //int mes, int año, int tiempoGarantia, int numeroCaja
+            ArrayList<Producto> listaProductos = Util.buscarProductos(
+            productos,(int)salidas[0], salidas[1], salidas[2], descripcion,
+            (int)salidas[3], (int)salidas[4], (int)salidas[5], (int)salidas[6], 
+            (int)salidas[7]);
+            //Iteramos la lista obtenida e imprimimos los datos de cada producto
+            Iterator<Producto> itr = listaProductos.iterator();
+            while(itr.hasNext()){
+                Producto producto = itr.next();
+                
+                System.out.println(); //Primera linea
+                System.out.print("\t(");
+                //Imprimimos el tipo de producto
+                if(producto instanceof ProductoInformatica){
+                    System.out.print(UIMensajes.mC_AñP_Informatica());
+                }else if(producto instanceof ProductoImagen){
+                    System.out.print(UIMensajes.mC_AñP_Imagen());
+                }else if(producto instanceof ProductoTelefonia){
+                    System.out.print(UIMensajes.mC_AñP_Telefonia());
+                }else if(producto instanceof ProductoSonido){
+                    System.out.print(UIMensajes.mC_AñP_Sonido());
+                }else if(producto instanceof ProductoHogar){
+                    System.out.print(UIMensajes.mC_AñP_Hogar());
+                }
+                System.out.print(") " + UIMensajes.mC_AñP_Cantidad() + ": ");
+                System.out.print(producto.obtenerCantidad());
+                System.out.print(" |" + UIMensajes.mC_AñP_Precio() + ": ");
+                System.out.print(producto.obtenerPrecio());
+                System.out.print(" |" + UIMensajes.mC_AñP_Peso() + ": ");
+                System.out.print(producto.obtenerPeso());
+                
+                System.out.println(); //Segunda linea
+                System.out.print("\t" + UIMensajes.mC_AñP_Dia() + ": ");
+                System.out.print(producto.obtenerDiaCompra());
+                System.out.print(" |" + UIMensajes.mC_AñP_Mes() + ": ");
+                System.out.print(producto.obtenerMesCompra());
+                System.out.print(" |" + UIMensajes.mC_AñP_Año() + ": ");
+                System.out.print(producto.obtenerAñoCompra());
+                System.out.print(" |" + UIMensajes.mC_AcP_TiempoGarantia() + ": ");
+                System.out.print(producto.obtenerTiempoGarantia());
+                System.out.print(" |" + UIMensajes.mC_ILP_NumeroCaja() + ": ");
+                System.out.print(producto.obtenerNumeroCaja());
+                
+                System.out.println(); //Tercera y ultima linea
+                System.out.print("\t" + UIMensajes.mC_AñP_Descripcion() + ": ");
+                System.out.print(producto.obtenerDescripcion());
+                System.out.println("...");
+            }
+            
         }
+        
     }
 }

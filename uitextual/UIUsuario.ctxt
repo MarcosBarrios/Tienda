@@ -21,12 +21,12 @@ comment14.text=\r\n\ Tabula\ una\ cadena\ de\ caracteres\ si\ tabular\=true\r\n
 comment15.params=ponerPuntoComa
 comment15.target=void\ a\u00F1adirPuntoComa(boolean)
 comment15.text=\r\n\ Imprime\ punto\ y\ coma\ si\ ponerPuntoComa\=true\r\n
-comment16.params=
-comment16.target=void\ imprimirDatos()
-comment16.text=\r\n\ Imprime\ los\ datos\ del\ usuario\ (nombre\ y\ email)\r\n\ \r\n\ Ejemplo\ formato\:\ \r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n\ \ Nombre\:\ Marcos\ Barrios\r\n\ \ Email\:\ marcosloscardones@gmail.com\r\n\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\ *\r\n
-comment17.params=usuarios
-comment17.target=void\ imprimirListaUsuarios(backend.Usuarios)
-comment17.text=\r\n\ Imprime\ en\ forma\ de\ lista\ los\ nombres\ y\ emails\ de\ los\ usuarios\r\n\ que\ se\ encuentran\ en\ la\ base\ de\ datos\ del\ programa.\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ del\ programa\r\n
+comment16.params=usuarios
+comment16.target=void\ imprimirBusquedaUsuarios(backend.Usuarios)
+comment16.text=\r\n\ Imprime\ una\ lista\ de\ usuarios\ \r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\ de\ la\ tienda\r\n
+comment17.params=usuarios\ productos
+comment17.target=void\ imprimirBusquedaProductos(backend.Usuarios,\ productos.Productos)
+comment17.text=\r\n\ Imprime\ una\ lista\ de\ productos\ de\ un\ cliente\ o\ de\ la\ base\ de\ datos\r\n\ \r\n\ @param\ usuarios\ Base\ de\ datos\ de\ usuarios\r\n\ @param\ productos\ Base\ de\ datos\ de\ productos\r\n
 comment2.params=
 comment2.target=backend.Usuario\ obtenerUsuario()
 comment2.text=\r\n\ Devuelve\ el\ usuario\ utilizando\ el\ programa\r\n\ \r\n\ @return\ usuario\ Usuario\ utilizando\ el\ programa\r\n
