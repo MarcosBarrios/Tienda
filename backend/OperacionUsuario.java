@@ -14,8 +14,8 @@ public class OperacionUsuario extends Operacion{
     
     //Metodo constructor
     public OperacionUsuario(Usuario usuario, Empleado responsable, String descripcion, 
-    int dia, int mes, int año){
-        super(responsable, descripcion, dia, mes, año);
+    int dia, int mes, int ano){
+        super(responsable, descripcion, dia, mes, ano);
         this.usuario = usuario;
     }
     

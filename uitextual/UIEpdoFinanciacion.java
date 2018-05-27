@@ -4,7 +4,7 @@ import backend.EpdoFinanciacion;
 import backend.Usuarios;
 import backend.Usuario;
 import backend.Cliente;
-import backend.Util;
+import productos.Productos;
 import backend.EnumOperaciones;
 import backend.FichaCliente;
 import backend.Factura;
@@ -21,12 +21,11 @@ import java.util.ArrayList;
  * @author Marcos Barrios
  * @version 1.0
  */
-public class UIEpdoFinanciacion extends UIUsuario{
+public class UIEpdoFinanciacion extends UIEmpleado{
     
     //Metodo constructor
-    public UIEpdoFinanciacion(EpdoFinanciacion usuario,
-    int diaActual, int mesActual, int añoActual){
-        super(usuario, diaActual, mesActual, añoActual);
+    public UIEpdoFinanciacion(EpdoFinanciacion usuario){
+        super(usuario);
     }
     
     /**
@@ -44,10 +43,10 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * 
      * @param usuarios Base de datos de usuarios
      */
-    public void actualizarDatosCliente(Usuarios usuarios){
+    public void actualizarDatosCliente(){
         //"Indique a continuacion el nombre o email del cliente a registrar"
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
+        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
         
         boolean encontrado = false;
         if(usuario != null){
@@ -103,8 +102,8 @@ public class UIEpdoFinanciacion extends UIUsuario{
                 System.out.println(UIMensajes.mF_DA_RegistradoExito());
                 
                 //Dejamos constancia de la operacion realizada
-                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_ACTUALIZARCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_ACTUALIZARCLIENTE,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
             }
         }
         
@@ -119,13 +118,13 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * 
      * @param usuarios Base de datos del programa
      */
-    public void darAlta(Usuarios usuarios){
+    public void darAlta(){
         //"Indique a continuacion el nombre e email del cliente a registrar"
         formatearCadena(UIMensajes.mF_DA_IndicarNombreEmail(), true, true);
         
         //"Escribir DNI"
         String dni = formatearEntradaCadena(UIMensajes.mF_DA_EscribirDNI(), true);
-        Usuario u = usuarios.obtenerUsuario(dni);
+        Usuario u = obtenerUsuarios().obtenerUsuario(dni);
         
         if(u==null){
             //"Nombre", "Nombre aceptado"
@@ -147,13 +146,9 @@ public class UIEpdoFinanciacion extends UIUsuario{
             //Creamos el cliente con los datos especificados
             Cliente cliente = new Cliente(dni, nombre, email, domicilio, telefono);
             
-            //Añadimos el cliente a la base de datos de clientes
-            usuarios.añadirUsuario(cliente);
+            obtenerFinanciador().darAltaCliente(cliente);
+            //"Se ha registrado el cliente con exito"
             System.out.println(UIMensajes.mF_DA_RegistradoExito());
-            
-            //Dejamos constancia de la operacion realizada
-            dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_DARALTACLIENTE,
-            obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
         }else{
             //"Ya existe un cliente registrado con el DNI especificado, registro fallido"
             System.out.println("\t" + UIMensajes.mF_DA_ClienteYaRegistrado());
@@ -166,10 +161,10 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * 
      * @param usuarios Base de datos de usuarios del programa
      */
-    public void imprimirDatosCliente(Usuarios usuarios){
+    public void imprimirDatosCliente(){
         //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
+        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
 
         boolean encontrado = false;
         if(usuario!=null){
@@ -190,8 +185,8 @@ public class UIEpdoFinanciacion extends UIUsuario{
                 System.out.print(cliente.obtenerTelefono());  
                 
                 //Dejamos constancia de la operacion realizada
-                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
             }
         }
         
@@ -206,10 +201,10 @@ public class UIEpdoFinanciacion extends UIUsuario{
      * 
      * @param usuarios Base de datos de usuarios 
      */
-    public void verListaFacturas(Usuarios usuarios){
+    public void verListaFacturas(){
         //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
         String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = usuarios.obtenerUsuario(neCliente.toLowerCase());
+        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
 
         boolean encontrado = false;
         if(usuario!=null){
@@ -225,21 +220,21 @@ public class UIEpdoFinanciacion extends UIUsuario{
                     System.out.println(); //Primera linea
                     System.out.print("\t" + UIMensajes.mT_AR_Coste());
                     System.out.print(factura.obtenerCoste());
-                    System.out.print(" |" + UIMensajes.mC_AñP_Dia());
+                    System.out.print(" |" + UIMensajes.mC_AnP_Dia());
                     System.out.print(factura.obtenerDia());
-                    System.out.print(" |" + UIMensajes.mC_AñP_Mes());
+                    System.out.print(" |" + UIMensajes.mC_AnP_Mes());
                     System.out.print(factura.obtenerMes());
-                    System.out.print(" |" + UIMensajes.mC_AñP_Año());
-                    System.out.print(factura.obtenerAño());                    
+                    System.out.print(" |" + UIMensajes.mC_AnP_Ano());
+                    System.out.print(factura.obtenerAno());                    
                     
                     System.out.println(); //Segunda linea
-                    System.out.print("\t" + UIMensajes.mC_AñP_DescripcionFactura());
+                    System.out.print("\t" + UIMensajes.mC_AnP_DescripcionFactura());
                     System.out.print(factura.obtenerDescripcion());
                 }
                 
                 //Dejamos constancia de la operacion realizada
-                dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAñoActual());
+                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
             }
         }
         
@@ -248,5 +243,12 @@ public class UIEpdoFinanciacion extends UIUsuario{
             System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
         }
     }
+
+    /**
+     * Devuelve el menu asociado al empleado
+     */
+	public UIMenuAccionable activarMenu() {
+		return new UIMenuEpdoFinanciacion(this);
+	}
     
 }

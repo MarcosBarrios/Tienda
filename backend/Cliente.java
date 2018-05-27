@@ -1,5 +1,6 @@
 package backend;
 
+import uitextual.UIMensajes;
 
 /**
  * Define el cliente que entra a la tienda a comprar o a vender.
@@ -80,5 +81,12 @@ public class Cliente extends Usuario{
     public FichaCliente obtenerFichaCliente(){
         return fichaCliente;
     }
+    
+    /**
+	 * Devuelve una cadena para referenciar este tipo de cliente
+	 */
+	public String toString() {
+		return UIMensajes.mGU_AnE_Cliente();
+	}
     
 }

@@ -1,7 +1,6 @@
 package backend;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Contiene la base de datos de todos los usuarios del programa
@@ -17,27 +16,6 @@ public class Usuarios{
     //Metodo constructor
     public Usuarios(){
         listaUsuarios = new ArrayList<Usuario>();
-        
-        //Usuarios para testeo de funciones el durante desarrollo del programa
-        Usuario cajeroPrueba = new EpdoCajero("11111111A", "Marcos Barrios", 
-            "marcosloscardones@gmail.com", "unclainC", "1234");
-        Usuario financiadorPrueba = new EpdoFinanciacion("11111112A",
-            "Adrian Barrera", "adrian.zorro@gmail.com", "unclainF", "1234");
-        Usuario postventaPrueba = new EpdoPostVenta("11111112A",
-            "Postvento Barrera", "postventotolerante@gmail.com", "unclainPV", "1234");
-        Usuario tecnicoPrueba = new EpdoTecnico("11111113A", 
-            "Tecnico Noestupido", "tecnicoverdugo@gmail.com", "unclainT", "1234");
-        
-        //Usuario fijo para el menu gestion de usuarios
-        Usuario gestionadorUsuarios = new EpdoFinanciacion("11111113A",
-            "GESTION_USUARIOS", "GESTION_USUARIOS@gmail.com",
-            "GESTION_USUARIOS", "12345");
-        
-        añadirUsuario(cajeroPrueba);
-        añadirUsuario(financiadorPrueba);
-        añadirUsuario(gestionadorUsuarios);
-        añadirUsuario(postventaPrueba);
-        añadirUsuario(tecnicoPrueba);
     }
     
     /**
@@ -50,11 +28,11 @@ public class Usuarios{
     }
     
     /**
-     * Añade un usuario a la coleccion.
+     * Anade un usuario a la coleccion.
      * 
-     * @param usuario Usuario a añadir
+     * @param usuario Usuario a anadir
      */
-    public void añadirUsuario(Usuario usuario){
+    public void anadirUsuario(Usuario usuario){
         obtenerListaUsuarios().add(usuario);
     }
     
@@ -112,10 +90,20 @@ public class Usuarios{
      * Devuelve la cantidad de usuarios que hay en la base de datos
      * de la tienda.
      * 
-     * @return listaProductos.size() Tamaño de la base de datos de usuarios
+     * @return listaProductos.size() Tamano de la base de datos de usuarios
      */
-    public int obtenerTamaño(){
+    public int obtenerTamano(){
         return obtenerListaUsuarios().size();
+    }
+    
+    /**
+     * Devuelve un logeador para el sistema de inicio
+     * de sesion del programa.
+     * 
+     * @return Logeador de esta base de datos de usuarios
+     */
+    public Logger obtenerLogeador() {
+    	return new Logger(this);
     }
     
 }

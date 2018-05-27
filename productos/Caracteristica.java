@@ -4,7 +4,7 @@ package productos;
 /**
  * Contiene un titulo y una descripcion de una caracteristica.
  * 
- * Sirve para añadir dinamicamente nuevas caracteristicas a productos
+ * Sirve para anadir dinamicamente nuevas caracteristicas a productos
  * no ya definidas como variables en las clases.
  * 
  * @author Marcos Barrios

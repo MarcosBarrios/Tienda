@@ -1,15 +1,8 @@
 package uitextual;
 
-import backend.Usuarios;
-import backend.Util;
-import backend.Empleado;
-import backend.EpdoCajero;
-import backend.EpdoPostVenta;
-import backend.EpdoFinanciacion;
-import backend.EpdoTecnico;
-import backend.EpdoComercial;
+import java.util.ArrayList;
 
-import productos.Productos;
+import backend.Logger;
 
 /**
  * Clase encargada de imprimir y obtener entradas para el menu que se abre
@@ -21,153 +14,101 @@ import productos.Productos;
  */
 public class UIMenuPrincipal extends UIMenuAccionable{
 
+	//Fecha actual
+    private int diaActual, mesActual, anoActual;
+    
+    //Parte funcional del gestor de cuentas
+    private Logger logeador;
+	
     //Metodo constructor
-    public UIMenuPrincipal(Usuarios usuarios, Productos productos, 
-    UIUsuario usuario){
-        super(usuarios, productos, usuario);
-        añadirOpciones();
-        activarInteraccion();
+    public UIMenuPrincipal(Logger logeador, int diaActual,
+    		int mesActual, int anoActual){
+    	super();
+        //A�ade las opciones al menu
+        anadirOpciones();
     }
     
     /**
-     * Vuelve a imprimir el menu y activa de nuevo las entradas para elegir
-     * una opcion
+     * Devuelve la parte funcional del gestor de cuentas
+     * 
+     * @return logeador Parte funcional del gestor de cuentas
      */
-    private void volverMenu(){
-        obtenerMenu().imprimirOpciones();
-        activarInteraccion();
+    private Logger obtenerLogeador() {
+    	return logeador;
     }
     
     /**
-     * Añade las opciones con las que el usuario del programa interactuara
+     * Devuelve el dia actual en el que se esta usando el programa.
+     * 
+     * @return diaActual Dia actual
+     */
+    private int obtenerDiaActual(){
+        return diaActual;
+    }
+    
+    /**
+     * Devuelve el mes actual en el que se esta usando el programa.
+     * 
+     * @return mesActual Mes actual
+     */
+    private int obtenerMesActual(){
+        return mesActual;
+    }
+    
+    /**
+     * Devuelve el ano actual en el que se esta usando el programa.
+     * 
+     * @return anoActual Ano actual
+     */
+    private int obtenerAnoActual(){
+        return anoActual;
+    }
+    
+    /**
+     * A�ade una opcion por cada funcion que el usuario puede
+     * usar.
      * 
      * (0) Iniciar sesion
-     * (1) Lista de usuarios
-     * (2) Salir
-     * 
+     * (1) Gestionar usuarios
+     * (2) Salir del programa
      */
-    private void añadirOpciones(){
-        //"Iniciar Sesion", "Lista de usuarios", 
-        //"Gestionar usuarios", "Salir del programa"
-        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionIniciarSesion());
-        obtenerMenu().añadirOpcion(UIMensajes.mP_OpcionGestionarUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
-        obtenerMenu().imprimirOpciones();
+    private void anadirOpciones(){
+    	ArrayList<String> listaOpciones = new ArrayList<String>();
+        listaOpciones.add(UIMensajes.mP_OpcionIniciarSesion());
+        listaOpciones.add(UIMensajes.mP_OpcionGestionarUsuarios());
+        listaOpciones.add(UIMensajes.g_OpcionSalir());
+        obtenerMenu().anadirListaOpciones(listaOpciones);
     }
     
     /**
-     * Implementa el funcionamiento del menu
+     * Imprime las opciones y obtiene una entrada con el numero
+     * de opcion que el usuario quiere usar.
      */
-    private void activarInteraccion(){
+    public void activar() {
+    	obtenerMenu().imprimirOpciones();
+    	obtenerEntradaUsuario();
+    }
+    
+    /**
+     * Obtiene una entrada con el numero de la opcion que el
+     * usuario quiere usar.
+     */
+    private void obtenerEntradaUsuario(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
             case 0: //Iniciar sesion
-            login(); //Vuelve al menu si falla el inicio de sesion
+        	UILogger.iniciarSesion(this, obtenerLogeador(), 
+        			obtenerDiaActual(), obtenerMesActual(),
+        			obtenerAnoActual());
             break;
             
             case 1: //"Gestionar usuarios"
-            accederGestionUsuarios(); //Accede al menu de gestion de usuarios
+        	UILogger.accederGestionUsuarios(obtenerLogeador());
             break;
             
             case 2: //Salir del programa
             System.exit(0);
             break;
-        }
-    }
-
-    /**
-     * Accede al menu de gestion de usuarios
-     */
-    private void accederGestionUsuarios(){
-        //Preguntamos por la contraseña
-        String contraseña = obtenerUsuario().formatearEntradaCadena(UIMensajes.g_Contraseña(), false);
-        //Buscamos un posible empleado con los datos previamente especificados
-        Empleado temp = (Empleado) Util.buscarCuentaEmpleado(obtenerUsuarios(),
-                "GESTION_USUARIOS", contraseña);
-        if(temp!=null){ //Si la contraseña es correcta
-            UIMenuGestionUsuarios uig = new UIMenuGestionUsuarios(obtenerUsuarios(),
-                obtenerProductos(), new UIGestionUsuarios((EpdoFinanciacion) temp,
-                obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                obtenerUsuario().obtenerAñoActual()));
-        }else{ //Si la contraseña NO es correcta
-            //Avisa de fallo y vuelve al menu, "contraseña incorrecta"
-            System.out.println(UIMensajes.mP_ContraseñaIncorrecta());
-            volverMenu();
-        }
-    }
-    
-    /**
-     * Entra al programa como un empleado especifico usando los datos
-     * de su cuenta (usuario y contraseña)
-     * 
-     * En caso de login fallido vuelve al menu
-     */
-    private void login(){
-        System.out.println(UIMensajes.g_EncabezadoMenus());
-        //"Iniciar sesion", "Usuario", "Contraseña"
-        System.out.println(UIMensajes.mP_OpcionIniciarSesion());
-        obtenerUsuario().formatearCadena(UIMensajes.g_Usuario(), true, true);
-        //Obtenemos el usuario
-        String nombreUsuario = UIEntradas.obtenerCadena(false);
-        obtenerUsuario().formatearCadena(UIMensajes.g_Contraseña(), true, true);
-        //Obtenemos la contraseña
-        String contraseña = UIEntradas.obtenerCadena(false);
-        
-        //Buscamos un posible empleado con los datos previamente especificados
-        Empleado temp = (Empleado) Util.buscarCuentaEmpleado(obtenerUsuarios(),
-                nombreUsuario, contraseña);
-        
-        if(temp != null){ //Si encuentra un empleado con los datos
-            if(temp instanceof EpdoCajero){
-                //"Se ha entrado a la cuenta con exito"
-                System.out.println(UIMensajes.mP_ExitoLogin() + 
-                " " + temp.obtenerNombreUsuario());
-                
-                //Obtenemos el numero de la caja desde la cual
-                //el cajero va a operar
-                System.out.println(UIMensajes.mC_EspecificarNumeroCaja() +
-                ": ");
-                int numeroCaja = (int) UIEntradas.obtenerDecimal(0, Util.NUMEROCAJAS);
-                
-                UIMenuEpdoCajero menuCajero = new UIMenuEpdoCajero(obtenerUsuarios(),
-                obtenerProductos(), new UIEpdoCajero((EpdoCajero) temp, 
-                obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                obtenerUsuario().obtenerAñoActual(), numeroCaja));
-            }else if(temp instanceof EpdoPostVenta){
-                //"Se ha entrado a la cuenta con exito"
-                System.out.println(UIMensajes.mP_ExitoLogin() + 
-                " " + temp.obtenerNombreUsuario());
-                
-                UIMenuEpdoPostVenta menuPostVenta = new UIMenuEpdoPostVenta(
-                    obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoPostVenta((EpdoPostVenta) temp, 
-                    obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                    obtenerUsuario().obtenerAñoActual()));
-            }else if(temp instanceof EpdoFinanciacion){
-                //"Se ha entrado a la cuenta con exito"
-                System.out.println(UIMensajes.mP_ExitoLogin() + 
-                " " + temp.obtenerNombreUsuario());
-                    
-                UIMenuEpdoFinanciacion menuFinanciador = new UIMenuEpdoFinanciacion(
-                    obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoFinanciacion((EpdoFinanciacion) temp, obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                    obtenerUsuario().obtenerAñoActual()));
-            }else if(temp instanceof EpdoTecnico){
-                //"Se ha entrado a la cuenta con exito"
-                System.out.println(UIMensajes.mP_ExitoLogin() + 
-                " " + temp.obtenerNombreUsuario());
-                    
-                UIMenuEpdoTecnico menuFinanciador = new UIMenuEpdoTecnico(
-                    obtenerUsuarios(),obtenerProductos(), 
-                    new UIEpdoTecnico((EpdoTecnico) temp, 
-                    obtenerUsuario().obtenerDiaActual(), obtenerUsuario().obtenerMesActual(),
-                obtenerUsuario().obtenerAñoActual()));
-            }
-            //PENDIENTE añadir condiciones para cada tipo de empleado
-        }else{ //Si por el contrario no existe ninguna cuenta con dichos datos
-            //Avisa de fallo y vuelve al menu, "Usuario o contraseña incorrectos"
-            System.out.println(UIMensajes.mP_FalloLogin());
-            volverMenu();
         }
     }
 }

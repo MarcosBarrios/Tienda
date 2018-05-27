@@ -1,5 +1,6 @@
 package productos;
 
+import uitextual.UIMensajes;
 
 /**
  * Define los productos que pertenezcan a la categoria de hogar.
@@ -75,6 +76,13 @@ public class ProductoHogar extends Producto{
      */
     public float obtenerConsumo(){
         return consumo;
+    }
+    
+    /**
+     * Devuelve una cadena para referenciar este tipo de producto
+     */
+    public String toString() {
+    	return UIMensajes.mC_AnP_Hogar();
     }
 
 }

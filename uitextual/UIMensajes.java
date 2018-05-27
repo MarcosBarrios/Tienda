@@ -7,7 +7,7 @@ package uitextual;
  * El proposito de esta clase es facilitar una posible traduccion del programa
  * textual.
  * 
- * NOTA: Con el sistema de añadido de nuevas categorias es necesario
+ * NOTA: Con el sistema de anadido de nuevas categorias es necesario
  * traducir los enums ademas de esta clase.
  * 
  * @author Marcos Barrios
@@ -61,8 +61,8 @@ public class UIMensajes{
         return "Elija una de las opciones escribiendo el nº de opcion a continuacion";
     }
     
-    public static String g_EscribirUsuarioContraseña(){
-        return "Escriba su usuario y contraseña a continuacion";
+    public static String g_EscribirUsuarioContrasena(){
+        return "Escriba su usuario y contrasena a continuacion";
     }
     
     public static String g_DNI(){
@@ -89,8 +89,8 @@ public class UIMensajes{
         return "Usuario";
     }
     
-    public static String g_Contraseña(){
-        return "Contraseña";
+    public static String g_Contrasena(){
+        return "Contrasena";
     }
     
     //*********************************************************************
@@ -108,23 +108,15 @@ public class UIMensajes{
     }
     
     public static String b_ValoresPredeterminados(){
-        return "No escriba nada en el campo para ignorar ese dato";
+        return "No escribir nada para no incluir un dato textual en la busqueda";
     }
     
     public static String b_ValoresNegativos(){
-        return "Escriba un -1 en el campo para ignorar ese dato";
+        return "Escribir -1 para no incluir un dato numerico en la busqueda";
     }
     
     public static String b_BuscarEnCliente(){
-        return "¿Buscar en clientes?";
-    }
-    
-    public static String b_Empleados(){
-        return "Empleados";
-    }
-    
-    public static String b_Clientes(){
-        return "Clientes";
+        return "Buscar en clientes?";
     }
     
     public static String b_BuscandoEnClientes(){
@@ -137,16 +129,16 @@ public class UIMensajes{
     
     //*********************************************************************
     
-    public static String mT_OpcionAñadirReporte(){
-        return "Añadir reporte a un producto";
+    public static String mT_OpcionAnadirReporte(){
+        return "Anadir reporte a un producto";
     }
     
     public static String mT_OpcionVerFichas(){
         return "Ver mis fichas de reparacion";
     }
     
-    public static String mT_OpcionAñadirPieza(){
-        return "Añadir una pieza a la lista de piezas necesarias";
+    public static String mT_OpcionAnadirPieza(){
+        return "Anadir una pieza a la lista de piezas necesarias";
     }
     
     public static String mT_OpcionEliminarPieza(){
@@ -189,12 +181,20 @@ public class UIMensajes{
         return "Pieza eliminada";
     }
     
+    public static String mT_AR_ReporteAnadido() {
+    	return "Reporte anadido con exito";
+    }
+    
+    public static String mT_VEP_ReporteNoEncontrado() {
+    	return "No se ha encontrado el reporte";
+    }
+    
     public static String mT_EP_PiezaNoEncontrada(){
         return "No se encontro la pieza";
     }
     
     public static String mT_CEP_GenerarFactura(){
-        return "¿Generar factura al cliente?";
+        return "Generar factura al cliente?";
     }
     
     public static String mT_CEP_ProcesoCompletado(){
@@ -228,7 +228,9 @@ public class UIMensajes{
     }
     
     public static String mPV_RP_TecnicoNoEncontrado(){
-        return "Tecnico no encontrado";
+        return "No se ha encontrado ningun tecnico con el dni especificado." +
+        		" Tambien es posible que no hayan fichas de reparacion asignadas" + 
+        		"al tecnico encontrado.";
     }
     
     public static String mPV_RP_AsignarTecnico(){
@@ -248,7 +250,7 @@ public class UIMensajes{
     }
     
     public static String mPV_DP_IntroducirFecha(){
-        return "Indique el dia, mes y año actual";
+        return "Indique el dia, mes y ano actual";
     }
     
     public static String mPV_DP_DevolucionAceptada(){
@@ -265,8 +267,8 @@ public class UIMensajes{
     
     //*********************************************************************
     
-    public static String mGU_OpcionAñadirEmpleado(){
-        return "Añadir empleado al sistema";
+    public static String mGU_OpcionAnadirEmpleado(){
+        return "Anadir empleado a la base de datos";
     }
     
     public static String mGU_OpcionActualizarDatos(){
@@ -285,8 +287,8 @@ public class UIMensajes{
         return "Ver lista de fichas de reparacion";
     }
     
-    public static String mGU_OpcionAñadirSolicitud(){
-        return "Añadir solicitud a la ficha de un cliente";
+    public static String mGU_OpcionAnadirSolicitud(){
+        return "Anadir solicitud a la ficha de un cliente";
     }
     
     public static String mGU_OpcionAceptarSolicitud(){
@@ -294,7 +296,7 @@ public class UIMensajes{
     }
     
     public static String mGU_OpcionVerSolicitudes(){
-        return "Ver lista de solicitudes de todos los clientes";
+        return "Ver una lista de solicitudes de todos los clientes";
     }
     
     public static String mGU_OpcionVerHistorialUsuario(){
@@ -303,51 +305,55 @@ public class UIMensajes{
     
     public static String mGU_EspecificarDatos(){
         return "Especificar a continuacion el nombre, email, usuario" +
-            "y la contraseña del empleado a registrar";
+            "y la contrasena del empleado a registrar";
     }
     
     public static String mGU_AcE_EmpleadoActualizado(){
         return "Empleado actualizado con exito";
     }
     
-    public static String mGU_AñE_EmpleadoRegistrado(){
+    public static String mGU_AnE_EmpleadoRegistrado(){
         return "Empleado registrado con exito";
     }
     
-    public static String mGU_AñE_UsuarioYaExistente(){
-        return "Ya existe un usuario con ese nombre";
+    public static String mGU_AnE_UsuarioYaExistente(){
+        return "Ya existe un usuario con los datos especificados";
     }
     
-    public static String mGU_AñE_EspecificarTipoEmpleado(){
-        return "¿Tipo de empleado?";
+    public static String mGU_AnE_EspecificarTipoEmpleado(){
+        return "Tipo de empleado?";
     }
     
-    public static String mGU_AñE_EmpleadoNoEncontrado(){
+    public static String mGU_AnE_Cliente() {
+    	return "Cliente";
+    }
+    
+    public static String mGU_AnE_EmpleadoNoEncontrado(){
         return "Empleado no encontrado";
     }
     
-    public static String mGU_AñE_Cajero(){
+    public static String mGU_AnE_Cajero(){
         return "Cajero";
     }
     
-    public static String mGU_AñE_Financiacion(){
+    public static String mGU_AnE_Financiacion(){
         return "Financiacion";
     }
     
-    public static String mGU_AñE_Tecnico(){
+    public static String mGU_AnE_Tecnico(){
         return "Tecnico";
     }
     
-    public static String mGU_AñE_Comercial(){
+    public static String mGU_AnE_Comercial(){
         return "Comercial";
     }
     
-    public static String mGU_AñE_PostVenta(){
+    public static String mGU_AnE_PostVenta(){
         return "PostVenta";
     }
     
-    public static String mGU_AS_SolicitudAñadida(){
-        return "Solicitud añadida con exito";
+    public static String mGU_AS_SolicitudAnadida(){
+        return "Solicitud anadida con exito";
     }
     
     public static String mGU_AS_IndicarNumeroSolicitud(){
@@ -362,8 +368,8 @@ public class UIMensajes{
         return "Solicitud pendiente";
     }
 
-    public static String mGU_VHU_IntroducirUsuario(){
-        return "Introducir nombre o DNI del usuario";
+    public static String mGU_VHU_IntroducirDNIUsuario(){
+        return "Introducir el DNI del usuario";
     }
     
     public static String mGU_VHU_EmpleadoResponsable(){
@@ -428,16 +434,12 @@ public class UIMensajes{
         return "Se ha registrado el cliente con exito";
     }
     
-    public static String mF_AD_IndicarNombreEmail(){
-        return "Indique a continuacion el nombre, email o DNI del cliente";
+    public static String mF_AD_IndicarDNICliente(){
+        return "Indique a continuacion el DNI del cliente";
     }
     
     public static String mF_AD_ClienteNoEncontrado(){
         return "Cliente no encontrado";
-    }
-    
-    public static String mF_AD_QueModificar(){
-        return "¿Que desea modificar?";
     }
     
     public static String mF_AD_Nombre(){
@@ -463,15 +465,15 @@ public class UIMensajes{
     }
 
     public static String mP_FalloLogin(){
-        return "Usuario o contraseña incorrectos";
+        return "Usuario o contrasena incorrectos";
     }
     
     public static String mP_ExitoLogin(){
         return "Se ha entrado a la cuenta con exito";
     }
     
-    public static String mP_ContraseñaIncorrecta(){
-        return "Contraseña incorrecta";
+    public static String mP_ContrasenaIncorrecta(){
+        return "Contrasena incorrecta";
     }
     
     //*********************************************************************
@@ -480,8 +482,8 @@ public class UIMensajes{
         return "Vender un producto a un cliente";
     }
     
-    public static String mC_OpcionAñadirProducto(){
-        return "Añadir un producto";
+    public static String mC_OpcionAnadirProducto(){
+        return "Anadir un producto";
     }
     
     public static String mC_OpcionActualizarProducto(){
@@ -513,15 +515,15 @@ public class UIMensajes{
     }
     
     public static String mC_ICE_Inalambrico(){
-        return "¿Es inalambrico?";
+        return "Es inalambrico?";
     }
     
     public static String mC_ICE_ResistenteAgua(){
-        return "¿Es resistente al agua?";
+        return "Es resistente al agua?";
     }
     
     public static String mC_ICE_Bluetooth(){
-        return "¿Tiene bluetooth?";
+        return "Tiene bluetooth?";
     }
     
     public static String mC_ICE_Frecuencia(){
@@ -537,7 +539,7 @@ public class UIMensajes{
     }
     
     public static String mC_ICE_TieneBateria(){
-        return "¿Tiene bateria?";
+        return "Tiene bateria?";
     }
     
     public static String mC_ICE_Duracion(){
@@ -560,77 +562,77 @@ public class UIMensajes{
         return "No quedan reservas del producto especificado";
     }
     
-    public static String mC_AñP_ProcederIntroduccion(){
+    public static String mC_AnP_ProcederIntroduccion(){
         return "A continuacion se va a proceder a introducir" +
             " las caracteristicas del producto. ";
     }
     
-    public static String mC_AñP_Precio(){
+    public static String mC_AnP_Precio(){
         return "Precio (en euros)";
     }
     
-    public static String mC_AñP_Descripcion(){
+    public static String mC_AnP_Descripcion(){
         return "Descripcion";
     }
     
-    public static String mC_AñP_Peso(){
+    public static String mC_AnP_Peso(){
         return "Peso (en kg) ";
     }
     
-    public static String mC_AñP_Cantidad(){
+    public static String mC_AnP_Cantidad(){
         return "Cantidad";
     }
     
-    public static String mC_AñP_IntroducirFechaCompra(){
+    public static String mC_AnP_IntroducirFechaCompra(){
         return "Introducir a continuacion la fecha de compra";
     }
     
-    public static String mC_AñP_Dia(){
+    public static String mC_AnP_Dia(){
         return "Dia";
     }
     
-    public static String mC_AñP_Mes(){
+    public static String mC_AnP_Mes(){
         return "Mes";
     }
     
-    public static String mC_AñP_Año(){
-        return "Año";
+    public static String mC_AnP_Ano(){
+        return "Ano";
     }
     
-    public static String mC_AñP_ElegirCategoriaProducto(){
+    public static String mC_AnP_ElegirCategoriaProducto(){
         return "Categoria del producto (Sonido|Hogar|Telefonia|Imagen|Informatica) ";
     }
     
-    public static String mC_AñP_CategoriaSeleccionada(){
+    public static String mC_AnP_CategoriaSeleccionada(){
         return "Categoria seleccionada correctamente";
     }
     
-    public static String mC_AñP_CategoriaInexistente(){
+    public static String mC_AnP_CategoriaInexistente(){
         return "Categoria inexistente, por favor vuelva a intentarlo ";
     }
     
-    //Sensible a la hora de añadir un producto
-    public static String mC_AñP_Sonido(){
+    //Sensible a la hora de anadir un producto
+    public static String mC_AnP_Sonido(){
         return "Sonido";
     }
     
-    //Sensible a la hora de añadir un producto
-    public static String mC_AñP_Hogar(){
+    //Sensible a la hora de anadir un producto
+    public static String mC_AnP_Hogar(){
         return "Hogar";
     }
     
-    //Sensible a la hora de añadir un producto
-    public static String mC_AñP_Telefonia(){
+    //Sensible a la hora de anadir un producto
+    public static String mC_AnP_Telefonia(){
         return "Telefonia";
     }
     
-    //Sensible a la hora de añadir un producto
-    public static String mC_AñP_Imagen(){
+    //Sensible a la hora de anadir un producto
+    public static String mC_AnP_Imagen(){
         return "Imagen";
     }
     
-    //Sensible a la hora de añadir un producto
-    public static String mC_AñP_Informatica(){
+    //Sensible a la hora de anadir un producto
+    public static String mC_AnP_Informatica(){
         return "Informatica";
     }
     
@@ -643,7 +645,7 @@ public class UIMensajes{
     }
     
     public static String mC_AcP_BuscarCliente(){
-        return "¿El producto pertenece a un cliente? (si/no)";
+        return "El producto pertenece a un cliente? (si/no)";
     }
     
     public static String mC_AcP_ProductoNoEncontrado(){
@@ -658,11 +660,11 @@ public class UIMensajes{
         return "Financiado";
     }
     
-    public static String mC_AñP_Financiar(){
-        return "¿Financiar producto?";
+    public static String mC_AnP_Financiar(){
+        return "Financiar producto?";
     }
     
-    public static String mC_AñP_DescripcionFactura(){
+    public static String mC_AnP_DescripcionFactura(){
         return "Descripcion de la factura";
     }
     
@@ -686,8 +688,8 @@ public class UIMensajes{
         return "Tiempo de garantia";
     }
     
-    public static String mC_AcP_AñadirCaracteristica(){
-        return "Añadir caracteristica al producto";
+    public static String mC_AcP_AnadirCaracteristica(){
+        return "Anadir caracteristica al producto";
     }
 
     public static String mC_VDP_IntroducirNumeroProducto(){

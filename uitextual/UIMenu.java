@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * Genera un menu con varias opciones de navegacion
  * 
- * La idea es que se puedan ir añadiendo opciones externamente.
+ * La idea es que se puedan ir anadiendo opciones externamente.
  * 
  * @author Marcos Barrios
  * @version 1.0
@@ -29,21 +29,19 @@ public class UIMenu{
     }
     
     /**
-     * Utiliza el gestionador de entradas del programa para
-     * exigir al usuario que elija una opcion.
+     * Obtiene una opcion del usuario.
      * 
      * @return opcionElegida Opcion que el usuario ha elegido
      */
     public int obtenerOpcion(){
-        int opcionElegida = UIEntradas.obtenerEntero(0, obtenerListaOpciones().size());
-        return opcionElegida;
+    	return UIEntradas.obtenerEntero(0, obtenerListaOpciones().size());
     }
     
     /**
      * Imprime el menu
      */
     public void imprimirOpciones(){
-        System.out.println();
+    	System.out.println();
         //"* * * * ... * *"
         //"Elija una de las opciones escribiendo el nº de opcion a continuacion"
         System.out.println(UIMensajes.g_EncabezadoMenus());
@@ -52,7 +50,7 @@ public class UIMenu{
         
         //Itera las opciones del menu almacenadas en la coleccion y las imprime
         //formato: (x) :opcion:
-        //ej formato: (4) Añadir producto a base de datos
+        //ej formato: (4) Anadir producto a base de datos
         Iterator<String> itr = listaOpciones.iterator();
         int aux = 0;
         
@@ -78,22 +76,33 @@ public class UIMenu{
     }
     
     /**
-     * Añade una opcion en la ultima posicion del menu
+     * Anade una lista de opciones al menu
+     * 
+     * @param listaOpciones Lista con las opciones a anadir
+     */
+    public void anadirListaOpciones(ArrayList<String> listaOpciones) {
+    	for(int i = 0; i < listaOpciones.size(); i++) {
+    		this.listaOpciones.add(listaOpciones.get(i));
+    	}
+    }
+    
+    /**
+     * Anade una opcion en la ultima posicion del menu
      * 
      * @param opcion - Texto de la opcion
      */
-    public void añadirOpcion(String opcion){
+    public void anadirOpcion(String opcion){
         obtenerListaOpciones().add(opcion);
     }
     
     /**
-     * Añade una opcion en la posicion indicada siempre que sea valida
+     * Anade una opcion en la posicion indicada siempre que sea valida
      * 
      * @Precondicion: pos => 0 && pos <= listaOpciones.size()
      * @param opcion - Texto de la opcion
      * @param pos - Posicion de la opcion en el menu
      */
-    public void añadirOpcion(String opcion, int pos){
+    public void anadirOpcion(String opcion, int pos){
         ArrayList<String> aux = new ArrayList<String>();
         
         if(pos >= 0 && pos <= obtenerListaOpciones().size()){
@@ -102,10 +111,10 @@ public class UIMenu{
             while(itr.hasNext()){
                 String temp = itr.next();
                 if(pos != numeroIteracion){ //Si no es la posicion buscada
-                    aux.add(temp); //Simplemente se añade a la coleccion auxiliar
-                }else { //Si es la posicion en la que se quiere añadir la opcion
-                    aux.add(opcion); //Añadir a la coleccion auxiliar la nueva opcion
-                    aux.add(temp);  //Añadir la opcion que estaba en la posicion buscada
+                    aux.add(temp); //Simplemente se anade a la coleccion auxiliar
+                }else { //Si es la posicion en la que se quiere anadir la opcion
+                    aux.add(opcion); //Anadir a la coleccion auxiliar la nueva opcion
+                    aux.add(temp);  //Anadir la opcion que estaba en la posicion buscada
                                     //despues de la nueva opcion
                 }
                 numeroIteracion++;
@@ -177,7 +186,7 @@ public class UIMenu{
     }
     
     /**
-     * Devuelve el nº de opciones del menu
+     * Devuelve el numero de opciones del menu
      * @return obtenerListaOpciones.size() - Numero de opciones que tiene el menu
      */
     public int obtenerNumeroOpciones(){

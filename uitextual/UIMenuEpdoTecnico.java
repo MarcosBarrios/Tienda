@@ -1,8 +1,6 @@
 package uitextual;
 
-import backend.Usuarios;
-
-import productos.Productos;
+import java.util.ArrayList;
 
 /**
  * Implementa el menu de UIEpdoTecnico
@@ -10,20 +8,17 @@ import productos.Productos;
  * @author Marcos Barrios
  * @version 1.0
  */
-public class UIMenuEpdoTecnico extends UIMenuAccionable{
+public class UIMenuEpdoTecnico extends UIMenuEmpleado{
     
+	//Empleado usando el programa
     private UIEpdoTecnico tecnico;
     
-    public UIMenuEpdoTecnico(Usuarios usuarios, Productos productos,
-        UIEpdoTecnico usuario){
-        super(usuarios, productos, usuario);
+    public UIMenuEpdoTecnico(UIEpdoTecnico usuario){
+    	super(usuario);
         tecnico = usuario;
                 
-        //Añade las opciones al menu y las imprime por primera vez
-        añadirOpciones();
-        
-        //Activa la interaccion usuario-programa
-        activarInteraccion();
+        //Anade las opciones al menu
+        anadirOpciones();
     }
     
     /**
@@ -34,102 +29,70 @@ public class UIMenuEpdoTecnico extends UIMenuAccionable{
     }
     
     /**
-     * Vuelve a imprimir el menu y activa de nuevo las entradas para elegir
-     * una opcion
+     * Anade una opcion por cada funcion que el tecnico puede realizar
+     * 
+     * (0) Buscar productos (Fija)
+     * (1) Buscar usuarios (Fija)
+     * (2) Anadir reporte a un producto
+     * (3) Ver mis fichas de reparacion
+     * (4) Ver el estado de un producto
+     * (5) Anadir una pieza a la lista de piezas necesarias
+     * (6) Eliminar una pieza de la lista de piezas necesarias
+     * (7) Cerrar sesion (Fija)
+     * (8) Salir del programa (Fija)
      */
-    private void volverMenu(){
-        obtenerMenu().imprimirOpciones();
-        activarInteraccion();
+    private void anadirOpciones(){
+    	ArrayList<String> listaOpciones = new ArrayList<String>();
+        listaOpciones.add(UIMensajes.mT_OpcionAnadirReporte());
+        listaOpciones.add(UIMensajes.mT_OpcionVerFichas());
+        listaOpciones.add(UIMensajes.mT_OpcionVerEstadoProducto());
+        listaOpciones.add(UIMensajes.mT_OpcionAnadirPieza());
+        listaOpciones.add(UIMensajes.mT_OpcionEliminarPieza());
+        listaOpciones.add(UIMensajes.mT_OpcionVerPiezasNecesarias());
+        obtenerMenu().anadirListaOpciones(listaOpciones);
     }
     
     /**
-     * Añade las opciones con las que el usuario del programa interactuara
-     * 
-     * (0) Devolver un producto
-     * (2) Salir del programa
-     * 
+     * Imprime las opciones y obtiene una entrada con el numero
+     * de opcion que el usuario quiere usar.
      */
-    private void añadirOpciones(){
-        //"Añadir reporte a un producto", "Ver mis fichas de reparacion",
-        //"Ver el estado de un producto",
-        //"Añadir una pieza a la lista de piezas necesarias", 
-        //"Eliminar una pieza de la lista de piezas necesarias",
-        //"Ver piezas necesarias", "Cerrar sesion", "Salir del programa"
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirReporte());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerFichas());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerEstadoProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionAñadirPieza());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionEliminarPieza());
-        obtenerMenu().añadirOpcion(UIMensajes.mT_OpcionVerPiezasNecesarias());
-        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
-        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
-        obtenerMenu().imprimirOpciones();
+    public void activar(){
+    	obtenerMenu().imprimirOpciones();
+        obtenerEntradaUsuario();
     }
     
     /**
-     * Implementa el funcionamiento del menu
+     * Obtiene una entrada con el numero de la opcion que el
+     * usuario quiere usar.
      */
-    private void activarInteraccion(){
+    private void obtenerEntradaUsuario(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){ 
-            case 0: //"Buscar productos"
-            obtenerTecnico().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
-            volverMenu();
-            break;
-            
-            case 1: //Buscar usuarios
-            obtenerTecnico().imprimirBusquedaUsuarios(obtenerUsuarios());
-            volverMenu();
-            break;
-            
-            case 2: //Añadir reporte a un producto
-            obtenerTecnico().añadirReporte(obtenerUsuarios());
-            
-            volverMenu();
+            case 2: //Anadir reporte a un producto
+            obtenerTecnico().anadirReporte();
             break;
             
             case 3: //Ver mis fichas de reparacion
-            obtenerTecnico().verListaFichasReparacion(obtenerUsuarios());
-            
-            volverMenu();
+            obtenerTecnico().verListaFichasReparacion();
             break;
             
             case 4: //Ver el estado de un producto
-            obtenerTecnico().verEstadoProducto(obtenerUsuarios());
-            
-            volverMenu();
+            obtenerTecnico().verEstadoProducto();
             break;
             
-            case 5: //Añadir una pieza a la lista de piezas necesarias
-            obtenerTecnico().añadirPiezaNecesaria();
-            
-            volverMenu();
+            case 5: //Anadir una pieza a la lista de piezas necesarias
+            obtenerTecnico().anadirPiezaNecesaria();
             break;
             
             case 6: //Eliminar una pieza de la lista de piezas necesarias
             obtenerTecnico().eliminarPiezaNecesaria();
-            
-            volverMenu();
             break;
             
             case 7: //Ver piezas necesarias
             obtenerTecnico().verPiezasNecesarias();
-            
-            volverMenu();
             break;
-            
-            case 8: //Cerrar Sesion
-            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
-            obtenerUsuario());
-            break;
-            
-            case 9: //Salir del programa
-            System.exit(0);
-            break;
-            
         }
+        activar(); //Activar de nuevo el menu
     }
     
 }

@@ -2,7 +2,7 @@ package productos;
 
 
 /**
- * Clase diseñada para las modificaciones que se vayan haciendo a 
+ * Clase disenada para las modificaciones que se vayan haciendo a 
  * los productos en la tienda.
  *
  * @author Marcos Barrios
@@ -10,11 +10,11 @@ package productos;
  */
 public class Reporte{
     
-    //Nuevo estado del producto al añadir el reporte
+    //Nuevo estado del producto al anadir el reporte
     private EnumEstadoProducto nuevoEstado;
     
     //Fecha del reporte
-    private int diaReporte, mesReporte, añoReporte;
+    private int diaReporte, mesReporte, anoReporte;
     
     //Cuanto ha costado la modificacion
     private float coste;
@@ -31,7 +31,7 @@ public class Reporte{
         descripcion = "";
         diaReporte = 1;
         mesReporte = 1;
-        añoReporte = 2018;
+        anoReporte = 2018;
         coste = 0;
         pagado = false;
         nuevoEstado = EnumEstadoProducto.INTACTO;
@@ -39,14 +39,14 @@ public class Reporte{
     
     //Metodo constructor
     public Reporte(EnumEstadoProducto nuevoEstado, float coste,
-    boolean pagado, int diaReporte, int mesReporte, int añoReporte, 
+    boolean pagado, int diaReporte, int mesReporte, int anoReporte, 
     String descripcion){
         this.nuevoEstado = nuevoEstado;
         this.coste = coste;
         this.pagado = pagado;
         this.diaReporte = diaReporte;
         this.mesReporte = mesReporte;
-        this.añoReporte = añoReporte;
+        this.anoReporte = anoReporte;
         this.descripcion = descripcion;
     }
     
@@ -90,7 +90,7 @@ public class Reporte{
     
     /**
      * Asigna o reasigna el nuevo estado que el producto tendra
-     * tras añadir el Reporte a la coleccion de reportes del
+     * tras anadir el Reporte a la coleccion de reportes del
      * producto.
      * 
      * @param nuevoEstado Nuevo estado del producto
@@ -100,7 +100,7 @@ public class Reporte{
     }
     
     /**
-     * Devuelve el nuevo estado que el producto tendra tras añadir
+     * Devuelve el nuevo estado que el producto tendra tras anadir
      * el Reporte a la coleccion de Reportes del producto.
      * 
      * @return nuevoEstado Nuevo estado del producto
@@ -146,21 +146,21 @@ public class Reporte{
     }
     
     /**
-     * Asigna o reasigna el año en el que se realizo el Reporte
+     * Asigna o reasigna el ano en el que se realizo el Reporte
      * 
-     * @param añoReporte Año del Reporte
+     * @param anoReporte Ano del Reporte
      */
-    public void asignarAñoReporte(int añoReporte){
-        this.añoReporte = añoReporte;
+    public void asignarAnoReporte(int anoReporte){
+        this.anoReporte = anoReporte;
     }
     
     /**
-     * Devuelve el año en el que se hizo el Reporte
+     * Devuelve el ano en el que se hizo el Reporte
      * 
-     * @return añoReporte Año en el que se hizo el Reporte
+     * @return anoReporte Ano en el que se hizo el Reporte
      */
-    public int obtenerAñoReporte(){
-        return añoReporte;
+    public int obtenerAnoReporte(){
+        return anoReporte;
     }
     
     /**

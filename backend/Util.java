@@ -2,15 +2,12 @@ package backend;
 
 import productos.Productos;
 import productos.Producto;
-import productos.EnumEstadoProducto;
 
 import backend.Usuarios;
 import backend.Usuario;
 import backend.Empleado;
 import backend.FichaCliente;
-
 import uitextual.UIMensajes;
-import uitextual.UIEntradas;
 
 import java.util.ArrayList;
 
@@ -21,6 +18,11 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class Util{
+	
+	//Evitamos que se pueda instanciar Util
+	private Util() {
+		throw new IllegalStateException("Clase de utilidad");
+	}
     
     //Precio maximo que un producto puede tener
     public static final float MAXIMOPRECIO = 999999f;
@@ -41,11 +43,11 @@ public class Util{
      * 
      */
     public static ArrayList<Usuario> buscarUsuarios(Usuarios usuarios, String dni,
-    String nombreUsuario, String emailUsuario){
+    		String nombreUsuario, String emailUsuario){
         ArrayList<Usuario> al = new ArrayList<Usuario>();
         
         //Iteramos todos los usuarios
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+        for(int i = 0; i < usuarios.obtenerTamano(); i++){
             Usuario usuario = usuarios.obtenerUsuario(i);
             
             //Comprobamos datos
@@ -69,8 +71,8 @@ public class Util{
      * @return producto Producto cuyas caracteristicas coinciden con las buscadas
      */
     public static ArrayList<Producto> buscarProductosEnCliente(Productos productos, Cliente cliente,
-    int cantidad, float precio, float peso, String descripcion, int dia,
-    int mes, int año, int tiempoGarantia, int numeroCaja){
+    		int cantidad, float precio, float peso, String descripcion, int dia,
+    		int mes, int ano, int tiempoGarantia, int numeroCaja){
         
         /*
          * Necesitamos que los 9 del producto coincidan con la busqueda tal que
@@ -87,7 +89,7 @@ public class Util{
         FichaCliente fc = cliente.obtenerFichaCliente();
         
         //Iteramos todos los productos de la base de datos de la tienda
-        for(int i = 0; i < productos.obtenerTamaño(); i++){
+        for(int i = 0; i < productos.obtenerTamano(); i++){
             //Obtenemos un producto usando su posicion en la coleccion
             Producto producto = fc.obtenerProductoComprado(i, false);
             
@@ -96,13 +98,12 @@ public class Util{
             && coincideValorEntero((int)producto.obtenerPeso(), (int) peso)
             && coincideValorEntero(producto.obtenerDiaCompra(), dia)
             && coincideValorEntero(producto.obtenerMesCompra(), mes)
-            && coincideValorEntero(producto.obtenerAñoCompra(), año)
+            && coincideValorEntero(producto.obtenerAnoCompra(), ano)
             && coincideValorEntero(producto.obtenerTiempoGarantia(), tiempoGarantia)
             && coincideValorEntero(producto.obtenerNumeroCaja(), numeroCaja)
             && coincideValorCadena(producto.obtenerDescripcion(), descripcion)){
                 al.add(producto);
             }
-            
         }
         
         return al;
@@ -119,7 +120,7 @@ public class Util{
      */
     public static ArrayList<Producto> buscarProductos(Productos productos, int cantidad, 
     float precio, float peso, String descripcion, int dia,
-    int mes, int año, int tiempoGarantia, int numeroCaja){
+    int mes, int ano, int tiempoGarantia, int numeroCaja){
         
         /*
          * Necesitamos que los 9 del producto coincidan con la busqueda tal que
@@ -132,7 +133,7 @@ public class Util{
         ArrayList<Producto> al = new ArrayList<Producto>();
         
         //Iteramos todos los productos de la base de datos de la tienda
-        for(int i = 0; i < productos.obtenerTamaño(); i++){
+        for(int i = 0; i < productos.obtenerTamano(); i++){
             //Obtenemos un producto usando su posicion en la coleccion
             Producto producto = productos.obtenerProducto(i, false);
             
@@ -141,7 +142,7 @@ public class Util{
             && coincideValorEntero((int)producto.obtenerPeso(), (int) peso)
             && coincideValorEntero(producto.obtenerDiaCompra(), dia)
             && coincideValorEntero(producto.obtenerMesCompra(), mes)
-            && coincideValorEntero(producto.obtenerAñoCompra(), año)
+            && coincideValorEntero(producto.obtenerAnoCompra(), ano)
             && coincideValorEntero(producto.obtenerTiempoGarantia(), tiempoGarantia)
             && coincideValorEntero(producto.obtenerNumeroCaja(), numeroCaja)
             && coincideValorCadena(producto.obtenerDescripcion(), descripcion)){
@@ -218,7 +219,7 @@ public class Util{
         String nombreCliente = cliente.obtenerNombreUsuario();
         String dniCliente = cliente.obtenerDNI();
         
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+        for(int i = 0; i < usuarios.obtenerTamano(); i++){
             Usuario usuarioTemp = usuarios.obtenerUsuario(i);
             if(usuarioTemp instanceof EpdoTecnico){
                 EpdoTecnico tecnico = (EpdoTecnico) usuarioTemp;
@@ -247,7 +248,7 @@ public class Util{
      */
     public static Producto obtenerProductoIgual(Producto producto, Productos productos){
         
-        for(int i = 0; i < productos.obtenerTamaño(); i++){
+        for(int i = 0; i < productos.obtenerTamano(); i++){
             Producto temp = productos.obtenerProducto(i, false);
             if(temp.obtenerPrecio()==producto.obtenerPrecio() &&
             temp.obtenerPeso()==producto.obtenerPeso() &&
@@ -255,7 +256,7 @@ public class Util{
             temp.obtenerTiempoGarantia()==producto.obtenerTiempoGarantia() &&
             temp.obtenerDiaCompra() == producto.obtenerDiaCompra() &&
             temp.obtenerMesCompra() == producto.obtenerMesCompra() &&
-            temp.obtenerAñoCompra() == producto.obtenerAñoCompra() &&
+            temp.obtenerAnoCompra() == producto.obtenerAnoCompra() &&
             temp.obtenerNumCaracteristicas() == producto.obtenerNumCaracteristicas()){
                 //Si el producto cumple con todas las igualdades entonces se considera
                 //igual a temp
@@ -272,14 +273,14 @@ public class Util{
      * 
      * @return aux Lista con los empleados trabajando en la tienda
      */
-    public static ArrayList<String> listaEmpleados(){
+    public static ArrayList<String> obtenerListaEmpleados(){
         ArrayList<String> aux = new ArrayList<String>();
         
-        aux.add(UIMensajes.mGU_AñE_Cajero().toLowerCase());
-        aux.add(UIMensajes.mGU_AñE_Financiacion().toLowerCase());
-        aux.add(UIMensajes.mGU_AñE_Tecnico().toLowerCase());
-        aux.add(UIMensajes.mGU_AñE_Comercial().toLowerCase());
-        aux.add(UIMensajes.mGU_AñE_PostVenta().toLowerCase());
+        aux.add(UIMensajes.mGU_AnE_Cajero().toLowerCase());
+        aux.add(UIMensajes.mGU_AnE_Financiacion().toLowerCase());
+        aux.add(UIMensajes.mGU_AnE_Tecnico().toLowerCase());
+        aux.add(UIMensajes.mGU_AnE_Comercial().toLowerCase());
+        aux.add(UIMensajes.mGU_AnE_PostVenta().toLowerCase());
         
         return aux;
     }
@@ -313,11 +314,11 @@ public class Util{
     public static ArrayList<String> listaCategoriasProductos(){
         ArrayList<String> aux = new ArrayList<String>();
         
-        aux.add(UIMensajes.mC_AñP_Hogar().toLowerCase());
-        aux.add(UIMensajes.mC_AñP_Sonido().toLowerCase());
-        aux.add(UIMensajes.mC_AñP_Informatica().toLowerCase());
-        aux.add(UIMensajes.mC_AñP_Imagen().toLowerCase());
-        aux.add(UIMensajes.mC_AñP_Telefonia().toLowerCase());
+        aux.add(UIMensajes.mC_AnP_Hogar().toLowerCase());
+        aux.add(UIMensajes.mC_AnP_Sonido().toLowerCase());
+        aux.add(UIMensajes.mC_AnP_Informatica().toLowerCase());
+        aux.add(UIMensajes.mC_AnP_Imagen().toLowerCase());
+        aux.add(UIMensajes.mC_AnP_Telefonia().toLowerCase());
         
         return aux;
     }
@@ -329,17 +330,17 @@ public class Util{
      * Utilizado por el sistema de inicio de sesion de la tienda.
      * 
      * @param usuario Nombre de usuario de la cuenta
-     * @param contraseña Contraseña del usuario que quiere iniciar sesion
+     * @param contrasena Contrasena del usuario que quiere iniciar sesion
      * @return aux true si existe una cuenta con los datos proporcionados
      */
     public static boolean coincideUsuario(Usuarios usuarios, String usuario, 
-        String contraseña){
+        String contrasena){
         
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+        for(int i = 0; i < usuarios.obtenerTamano(); i++){
             if(usuarios.obtenerUsuario(i) instanceof Empleado){
                 Empleado temp = (Empleado) usuarios.obtenerUsuario(i);
                 if(temp.obtenerNombreUsuario().equals(usuario) &&
-                    temp.obtenerContraseña().equals(contraseña)){
+                    temp.obtenerContrasena().equals(contrasena)){
                         return true;
                 }
             }
@@ -348,21 +349,64 @@ public class Util{
     }
     
     /**
-     * Busca en la base de datos un empleado con la con los datos
-     * especificados.
+     * Devuelve una con los clientes registrados en la tienda
+     * @param usuarios Base de datos de usuarios
+     * @return aux Lista con los clientes registrados
+     */
+    public static ArrayList<Cliente> obtenerListaClientes(Usuarios usuarios){
+    	ArrayList<Cliente> aux = new ArrayList<Cliente>();
+    	
+    	/*
+    	 * Iteramos todos los usuarios y a�adimos a aux los de tipo Cliente.
+    	 */
+    	for(int i = 0; i < usuarios.obtenerTamano(); i++) {
+    		Usuario usuario = usuarios.obtenerUsuario(i);
+    		
+    		if(usuario instanceof Cliente) {
+    			aux.add((Cliente) usuario);
+    		}
+    	}
+    	
+    	return aux;
+    }
+    
+    /**
+     * Devuelve una con los clientes registrados en la tienda
+     * @param usuarios Base de datos de usuarios
+     * @return aux Lista con los clientes registrados
+     */
+    public static ArrayList<Empleado> obtenerListaEmpleados(Usuarios usuarios){
+    	ArrayList<Empleado> aux = new ArrayList<Empleado>();
+    	
+    	/*
+    	 * Iteramos todos los usuarios y a�adimos a aux los de tipo Cliente.
+    	 */
+    	for(int i = 0; i < usuarios.obtenerTamano(); i++) {
+    		Usuario usuario = usuarios.obtenerUsuario(i);
+    		
+    		if(usuario instanceof Empleado) {
+    			aux.add((Empleado) usuario);
+    		}
+    	}
+    	
+    	return aux;
+    }
+    
+    /**
+     * Busca en la base de datos un empleado con los datos especificados.
      * 
      * @param usuario Nombre de usuario de la cuenta
-     * @param contraseña Contraseña de la cuenta
+     * @param contrasena Contrasena de la cuenta
      * @return temp Usuario con los datos especificados
      */
-    public static Usuario buscarCuentaEmpleado(Usuarios usuarios, String usuario, 
-    String contraseña){
+    public static Empleado buscarCuentaEmpleado(Usuarios usuarios, String usuario, 
+    String contrasena){
         
-        for(int i = 0; i < usuarios.obtenerTamaño(); i++){
+        for(int i = 0; i < usuarios.obtenerTamano(); i++){
             if(usuarios.obtenerUsuario(i) instanceof Empleado){
                 Empleado temp = (Empleado) usuarios.obtenerUsuario(i);
                 if(temp.obtenerUsuario().equals(usuario) &&
-                    temp.obtenerContraseña().equals(contraseña)){
+                    temp.obtenerContrasena().equals(contrasena)){
                         return temp;
                 }
             }

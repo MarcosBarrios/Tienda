@@ -1,5 +1,6 @@
 package productos;
 
+import uitextual.UIMensajes;
 
 /**
  * Define los productos que pertenecen a la categoria de informatica.
@@ -82,6 +83,13 @@ public class ProductoInformatica extends Producto{
      */
     public float obtenerCapacidadAlmacenamiento(){
         return capacidadAlmacenamiento;
+    }
+    
+    /**
+     * Devuelve una cadena para referenciar este tipo de producto
+     */
+    public String toString() {
+    	return UIMensajes.mC_AnP_Informatica();
     }
 
 }

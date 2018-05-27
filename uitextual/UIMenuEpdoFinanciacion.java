@@ -1,8 +1,6 @@
 package uitextual;
 
-import backend.Usuarios;
-
-import productos.Productos;
+import java.util.ArrayList;
 
 /**
  * Clase encargada de implementar las opciones que los empleados de
@@ -11,21 +9,18 @@ import productos.Productos;
  * @author Marcos Barrios
  * @version 1.0
  */
-public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
+public class UIMenuEpdoFinanciacion extends UIMenuEmpleado{
     
+	//Empleado usando el programa
     private UIEpdoFinanciacion financiador;
 
     //Metodo constructor
-    public UIMenuEpdoFinanciacion(Usuarios usuarios, Productos productos,
-        UIEpdoFinanciacion usuario){
-        super(usuarios, productos, usuario);
+    public UIMenuEpdoFinanciacion(UIEpdoFinanciacion usuario){
+    	super(usuario);
         this.financiador = usuario;
         
-        //Añade las opciones al menu y las imprime por primera vez
-        añadirOpciones();
-        
-        //Activa la interaccion usuario-programa
-        activarInteraccion();
+        //Anade las opciones al menu
+        anadirOpciones();
     }
     
     /**
@@ -36,86 +31,58 @@ public class UIMenuEpdoFinanciacion extends UIMenuAccionable{
     }
     
     /**
-     * Vuelve a imprimir el menu y activa de nuevo las entradas para elegir
-     * una opcion
+     * Anade una opcion por cada funcion que el financiador puede realizar
+     * 
+     * (0) Buscar productos (Fija)
+     * (1) Buscar usuarios (Fija)
+     * (2) Dar de alta a un cliente
+     * (3) Actualizar datos de un cliente
+     * (4) Ver los datos de un cliente
+     * (5) Ver lista de facturas de un cliente
+     * (6) Cerrar sesion (Fija)
+     * (7) Salir del programa (Fija)
      */
-    private void volverMenu(){
-        obtenerMenu().imprimirOpciones();
-        activarInteraccion();
+    private void anadirOpciones(){
+    	ArrayList<String> listaOpciones = new ArrayList<String>();
+        listaOpciones.add(UIMensajes.mF_OpcionDarAlta());
+        listaOpciones.add(UIMensajes.mF_OpcionActualizarDatos());
+        listaOpciones.add(UIMensajes.mF_OpcionVerDatosCliente());
+        listaOpciones.add(UIMensajes.mF_OpcionVerFacturasCliente());
+        obtenerMenu().anadirListaOpciones(listaOpciones);
     }
     
     /**
-     * Añade las opciones con las que el usuario del programa interactuara
-     * 
-     * Estructura:
-     * 
-     * (0) Dar de alta a un cliente
-     * (1) Actualizar datos de un cliente
-     * (2) Ver los datos de un cliente
-     * (3) Salir del programa
-     * 
+     * Imprime las opciones y obtiene una entrada con el numero
+     * de opcion que el usuario quiere usar.
      */
-    private void añadirOpciones(){
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionDarAlta());
-        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionActualizarDatos());
-        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerDatosCliente());
-        obtenerMenu().añadirOpcion(UIMensajes.mF_OpcionVerFacturasCliente());
-        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
-        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
-        obtenerMenu().imprimirOpciones();
+    public void activar(){
+    	obtenerMenu().imprimirOpciones();
+        obtenerEntradaUsuario();
     }
     
     /**
-     * Implementa el funcionamiento del menu
+     * Obtiene una entrada con el numero de la opcion que el
+     * usuario quiere usar.
      */
-    private void activarInteraccion(){
+    private void obtenerEntradaUsuario(){
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
-            case 0: //"Buscar productos"
-            obtenerFinanciador().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
-            volverMenu();
-            break;
-            
-            case 1: //Buscar usuarios
-            obtenerFinanciador().imprimirBusquedaUsuarios(obtenerUsuarios());
-            volverMenu();
-            break;
-            
             case 2: //Dar de alta a un cliente
-            obtenerFinanciador().darAlta(obtenerUsuarios());
-            //Vuelve a imprimir el menu
-            volverMenu();
+            obtenerFinanciador().darAlta();
             break;
             
             case 3: //Actualizar datos de un cliente
-            obtenerFinanciador().actualizarDatosCliente(obtenerUsuarios());
-            //Vuelve a imprimir el menu
-            volverMenu();
+            obtenerFinanciador().actualizarDatosCliente();
             break;
             
             case 4: //Ver los datos de un cliente
-            obtenerFinanciador().imprimirDatosCliente(obtenerUsuarios());
-            
-            //Vuelve a imprimir el menu
-            volverMenu();
+            obtenerFinanciador().imprimirDatosCliente();
             break;
             
             case 5: //Ver lista de facturas de un cliente
-            obtenerFinanciador().verListaFacturas(obtenerUsuarios());
-            volverMenu();
-            break;
-            
-            case 6: //Cerrar sesion
-            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
-            obtenerUsuario());
-            break;
-            
-            case 7: //Salir del programa
-            System.exit(0);
+            obtenerFinanciador().verListaFacturas();
             break;
         }
-
+        activar(); //Activar de nuevo el menu
     }
 }

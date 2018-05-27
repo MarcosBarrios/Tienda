@@ -14,7 +14,7 @@ public abstract class Operacion{
     private String descripcion;
     
     //Fecha de la operacion
-    private int dia, mes, año;
+    private int dia, mes, ano;
     
     //Empleado responsable de la operacion
     private Empleado responsable;
@@ -23,12 +23,12 @@ public abstract class Operacion{
     public Operacion(){}
     
     //Metodo constructor
-    public Operacion(Empleado responsable, String descripcion, int dia, int mes, int año){
+    public Operacion(Empleado responsable, String descripcion, int dia, int mes, int ano){
         this.responsable = responsable;
         this.descripcion = descripcion;
         this.dia = dia;
         this.mes = mes;
-        this.año = año;
+        this.ano = ano;
     }
     
     /**
@@ -104,21 +104,21 @@ public abstract class Operacion{
     }
     
     /**
-     * Asigna o reasigna el año en que se realizo la operacion
+     * Asigna o reasigna el ano en que se realizo la operacion
      * 
-     * @param año Año de la operacion
+     * @param ano Ano de la operacion
      */
-    public void asignarAño(int año){
-        this.año = año;
+    public void asignarAno(int ano){
+        this.ano = ano;
     }
     
     /**
-     * Devuelve el año en que se realizo la operacion
+     * Devuelve el ano en que se realizo la operacion
      * 
-     * @return año Año de la operacion
+     * @return ano Ano de la operacion
      */
-    public int obtenerAño(){
-        return año;
+    public int obtenerAno(){
+        return ano;
     }
     
 }

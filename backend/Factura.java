@@ -15,19 +15,19 @@ public class Factura{
     //Descripcion de que es lo que hay que pagar
     private String descripcion;
     
-    //Dia, mes y año en el que se genero la factura
-    private int dia, mes, año;
+    //Dia, mes y ano en el que se genero la factura
+    private int dia, mes, ano;
     
     //Metodo constructor
     public Factura(){}
     
     //Metodo Constructor
-    public Factura(float coste, String descripcion, int dia, int mes, int año){
+    public Factura(float coste, String descripcion, int dia, int mes, int ano){
         this.coste = coste;
         this.descripcion = descripcion;
         this.dia = dia;
         this.mes = mes;
-        this.año = año;
+        this.ano = ano;
     }
     
     /**
@@ -103,21 +103,21 @@ public class Factura{
     }
     
     /**
-     * Asigna o reasigna el año en que se genero la factura
+     * Asigna o reasigna el ano en que se genero la factura
      * 
-     * @param año Año generada
+     * @param ano Ano generada
      */
-    public void asignarAño(int año){
-        this.año = año;
+    public void asignarAno(int ano){
+        this.ano = ano;
     }
     
     /**
-     * Devuelve el año en que se genero la factura
+     * Devuelve el ano en que se genero la factura
      * 
-     * @return año Año generada
+     * @return ano Ano generada
      */
-    public int obtenerAño(){
-        return año;
+    public int obtenerAno(){
+        return ano;
     }
     
 }

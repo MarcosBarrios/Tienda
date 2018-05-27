@@ -2,6 +2,14 @@ package backend;
 
 import java.util.ArrayList;
 
+import productos.EnumEstadoProducto;
+import productos.Producto;
+import productos.Productos;
+import productos.Reporte;
+import uitextual.UIEmpleado;
+import uitextual.UIEpdoTecnico;
+import uitextual.UIMensajes;
+
 /**
  * Clase que implementa las funciones de los empleados tecnicos.
  * 
@@ -18,18 +26,13 @@ public class EpdoTecnico extends Empleado{
     //Coleccion con las piezas que el tecnico necesita
     private ArrayList<Pieza> piezasNecesarias;
     
-    public EpdoTecnico(String dni, String nombre, String email, String usuario, 
-        String contraseña){
-       super(dni, nombre, email, usuario, contraseña);
+    public EpdoTecnico(Usuarios usuarios, Productos productos,
+			int diaActual, int mesActual, int anoActual, String dni, 
+			String nombre, String email, String usuario, String contrasena){
+       super(usuarios, productos, diaActual, mesActual, anoActual, dni, 
+         		nombre, email, usuario, contrasena);
        listaFichas = new ArrayList<FichaReparacion>();
        piezasNecesarias = new ArrayList<Pieza>();
-    }
-    
-    /**
-     * Añade una pieza a la lista de piezas necesarias
-     */
-    public void añadirPieza(Pieza pieza){
-        piezasNecesarias.add(pieza);
     }
     
     /**
@@ -39,6 +42,10 @@ public class EpdoTecnico extends Empleado{
      */
     public void eliminarPieza(int id){
         piezasNecesarias.remove(id);
+    }
+    
+    public void eliminarPieza(Pieza pieza) {
+    	piezasNecesarias.remove(pieza);
     }
     
     /**
@@ -60,12 +67,12 @@ public class EpdoTecnico extends Empleado{
     }
     
     /**
-     * Añade una ficha de reparacion al la lista de fichas de reparacion
+     * Anade una ficha de reparacion al la lista de fichas de reparacion
      * del tecnico
      * 
-     * @param fichaReparacion Ficha de reparacion a añadir
+     * @param fichaReparacion Ficha de reparacion a anadir
      */
-    public void añadirFichaReparacion(FichaReparacion fichaReparacion){
+    public void anadirFichaReparacion(FichaReparacion fichaReparacion){
         listaFichas.add(fichaReparacion);
     }
     
@@ -84,7 +91,215 @@ public class EpdoTecnico extends Empleado{
      * 
      * @return listaFichas.size();
      */
-    public int obtenerNumeroFichas(){
+    public int obtenerNumeroFichas() {
         return listaFichas.size();
     }
+    
+    /**
+     * Devuelve una lista de piezas que el tecnico necesita
+     * 
+     * @return listaPiezas que el tecnico necesita
+     */
+    public ArrayList<Pieza> obtenerListaPiezasNecesarias(){
+    	ArrayList<Pieza> listaPiezas = new ArrayList<Pieza>();
+    	
+    	for(int i = 0; i < obtenerNumeroPiezas(); i++) {
+    		listaPiezas.add(obtenerPieza(i));
+    	}
+    	
+    	return listaPiezas;
+    }
+    
+    /**
+     * Anade un reporte para cambiar el estado de un producto. Los
+     * reportes son elementales para el sistema de reparacion pues
+     * guardan informacion esencial que los tecnicos necesitan.
+     * 
+     * @param DNI del tecnico
+     * @param numeroProducto del producto
+     * @param descripcionReporte Descripcion del problema
+     * @param costeReporte Precio de reparacion del producto
+     * @param nuevoEstado Nuevo estado del producto al anadir el reporte
+     * 
+     * @return Verdadero si se ha realizado con exito la operacion
+     */
+    public boolean anadirReporte(String DNI, int numeroProducto,
+    		String descripcionReporte, float costeReporte, 
+    		String nuevoEstado) {
+    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
+		if(usuario!=null) {
+			//Si existe un usuario registrado con el DNI especificado
+			if(usuario instanceof Cliente) {
+				//Si el usuario encontrado es un cliente
+				Cliente cliente = (Cliente) usuario;
+				FichaCliente fc = cliente.obtenerFichaCliente();
+				
+				//Obtenemos el producto de la lista de productos comprados del cliente
+				Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
+
+				//Creamos un reporte con los datos especificados y lo anadimos
+				//al producto
+		        producto.anadirReporte(crearReporte(producto, descripcionReporte, 
+						nuevoEstado, costeReporte));
+				
+				//Dejamos constancia de la operacion en el historial del tecnico
+                dejarConstancia(cliente, producto, this, EnumOperaciones.mT_ANADIRREPORTE,
+                		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+				return true;
+			}
+		}
+		return false;
+    }
+    
+    /**
+     * Anade una pieza a la lista de piezas que el tecnico necesita.
+     * 
+     * @param precioPieza de la pieza a anadir
+     * @param nombrePieza de la pieza a anadir
+     * @param descripcionPieza de la pieza a anadir
+     */
+    public void anadirPieza(float precioPieza, String nombrePieza,
+    		String descripcionPieza) {
+    	//Creamos la pieza utilizando los datos especificados
+        Pieza p = new Pieza(precioPieza, nombrePieza, descripcionPieza);
+        
+        //Anade la pieza a la coleccion
+        piezasNecesarias.add(p);
+        
+        //Dejamos constancia de la operacion en el historial
+        dejarConstancia(this, EnumOperaciones.mT_ANADIRPIEZA,
+        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+    }
+    
+    /**
+     * Devuelve la lista de fichas de reparacion del tecnico
+     * 
+     * @param DNI del tecnico
+     * 
+     * @return listaFichas con las fichas de reparacion del tecnico
+     */
+    public ArrayList<FichaReparacion> obtenerListaFichasReparacion(String DNI){
+    	ArrayList<FichaReparacion> listaFichas = new ArrayList<FichaReparacion>();
+    	
+    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
+		if(usuario!=null) {
+			if(usuario instanceof EpdoTecnico) {
+				//Si el usuario encontrado es un tecnico
+				EpdoTecnico tecnico = (EpdoTecnico) usuario;
+				
+				//Iteramos todas las fichas de reparacion del tecnico
+				//y las anadimos a listaFichas
+				for(int i = 0; i < tecnico.obtenerNumeroFichas(); i++){
+                    listaFichas.add(tecnico.obtenerFichaReparacion(i));
+                }
+				
+				//Dejamos constancia de la operacion en el historial
+                dejarConstancia(this, EnumOperaciones.mT_VERLISTAFICHASREPARACION,
+                		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			}
+		}
+		return listaFichas;
+    }
+    
+    /**
+     * Devuelve el ultimo reporte anadido a un producto
+     * 
+     * @param DNI del cliente que ha comprado el producto
+     * @param numeroProducto Numero del producto que contiene el reporte
+     * 
+     * @return Ultimo reporte del producto con numeroProducto
+     */
+    public Reporte obtenerUltimoReporteProducto(String DNI, int numeroProducto) {
+    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
+		if(usuario!=null) {
+			//Si existe un usuario registrado con el DNI especificado
+			if(usuario instanceof Cliente) {
+				//Si el usuario encontrado es un cliente
+				Cliente cliente = (Cliente) usuario;
+				FichaCliente fc = cliente.obtenerFichaCliente();
+				Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
+				
+				//Dejamos constancia de la operacion en el historial
+				//del tecnico y del producto
+		        dejarConstancia(cliente, producto, this, 
+		        		EnumOperaciones.mT_VERESTADOPRODUCTO,
+		        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+				
+				return producto.obtenerReporte(producto.obtenerNumeroReportes()-1);
+			}
+		}
+		return null;
+    }
+    
+    /**
+     * Crea un reporte con los datos especificados.
+     * 
+     * @param producto Producto en el que almacenar el reporte
+     * @param descripcionReporte Descripcion del reporte
+     * @param costeReporte Coste de reparacion
+     * 
+     * @return Reporte con los datos especificados
+     */
+    private Reporte crearReporte(Producto producto, String descripcionReporte,
+    		String nuevoEstado, float costeReporte){
+    	Reporte reporte = new Reporte();
+    	
+    	//Asignamos los datos al reporte
+    	reporte.asignarDiaReporte(obtenerDiaActual());
+        reporte.asignarMesReporte(obtenerMesActual());
+        reporte.asignarAnoReporte(obtenerAnoActual());
+        reporte.asignarDescripcion(descripcionReporte);
+        reporte.asignarCoste(costeReporte);
+    	
+    	//Obtenemos el ultimo reporte del producto
+        Reporte rAnterior = producto.obtenerReporte(producto.obtenerNumeroReportes()-1);
+        
+        //Asigna el nuevo estado al reporte
+        reporte = asignarEstadoReporte(nuevoEstado, reporte);
+        
+        //Mantenemos la variable de coste por financiacion
+        if(rAnterior.obtenerPagado()){
+        	reporte.cambiarPagado(true);
+        }
+        
+        return reporte;
+    }
+    
+    /**
+     * Asigna a un reporte un estado dependiendo del valor
+     * de la cadena nuevoEstado. 
+     * @param nuevoEstado Representacion del nuevo estado del reporte
+     * @param reporte Reporte al que cambiar el estado
+     * 
+     * @return Reporte con el nuevo estado asignado
+     */
+    private Reporte asignarEstadoReporte(String nuevoEstado, Reporte reporte) {
+        if(nuevoEstado.equalsIgnoreCase(EnumEstadoProducto.estadoProductoDevuelto())){
+        	//Si nuevoEstado es devuelto
+        	reporte.asignarEstado(EnumEstadoProducto.DEVUELTO);
+        }else if(nuevoEstado.equalsIgnoreCase(EnumEstadoProducto.estadoProductoRoto())){
+            //Si nuevoEstado es roto
+        	reporte.asignarEstado(EnumEstadoProducto.ROTO);
+        }else{
+            //Si nuevoEstado es intacto
+        	reporte.asignarEstado(EnumEstadoProducto.INTACTO);
+        }
+        return reporte;
+    }
+    
+    /**
+     * Devuelve la clase que implementa las funciones para este empleado
+     * 
+     * @return UIEmpleado clase UI para este empleado
+     */
+	public UIEmpleado obtenerUI() {
+		return new UIEpdoTecnico(this);
+	}
+    
+    /**
+	 * Devuelve una cadena para referenciar este tipo de empleado
+	 */
+	public String toString() {
+		return UIMensajes.mGU_AnE_Tecnico();
+	}
 }

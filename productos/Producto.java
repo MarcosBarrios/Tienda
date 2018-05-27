@@ -1,7 +1,5 @@
 package productos;
 
-import backend.OperacionProducto;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -36,12 +34,12 @@ public abstract class Producto{
     private boolean comprado;
 
     //Fecha de compra del producto
-    private int diaCompra, mesCompra, añoCompra; 
+    private int diaCompra, mesCompra, anoCompra; 
     
-    //Fecha del ultimo reporte añadido
-    private int diaUltimoReporte, mesUltimoReporte, añoUltimoReporte;
+    //Fecha del ultimo reporte anadido
+    private int diaUltimoReporte, mesUltimoReporte, anoUltimoReporte;
 
-    //Tiempo antes de que se acabe la garantia (años)
+    //Tiempo antes de que se acabe la garantia (anos)
     private int tiempoGarantia;
     
     //Numero de la caja en la que se vendio
@@ -50,7 +48,7 @@ public abstract class Producto{
     //Contiene los estados {"INTACTO", "ROTO", "DEVUELTO"}
     private EnumEstadoProducto estadoProducto;
 
-    //Coleccion con caracteristicas extras añadidas en ejecucion
+    //Coleccion con caracteristicas extras anadidas en ejecucion
     private ArrayList<Caracteristica> listaCaracteristicas;
 
     //Coleccion con el historial de reportes
@@ -60,7 +58,7 @@ public abstract class Producto{
     public Producto(){
         precio = 1f; //Precio predeterminado (euros)
         peso = 1f; //Peso predeterminado (kg)
-        numeroProducto = 0; //Numero asignado al añadirlo a la base de datos
+        numeroProducto = 0; //Numero asignado al anadirlo a la base de datos
 
         financiado = false; //Indica si esta financiado
 
@@ -72,19 +70,19 @@ public abstract class Producto{
     }
     
     /**
-     * Añade un reporte al historial de reportes y asigna
+     * Anade un reporte al historial de reportes y asigna
      * el estado del reporte al producto
      * 
-     * @param reporte Nuevo reporte a añadir
+     * @param reporte Nuevo reporte a anadir
      */
-    public void añadirReporte(Reporte reporte){
+    public void anadirReporte(Reporte reporte){
         //Asignamos el nuevo estado del producto
         cambiarEstado(reporte.obtenerNuevoEstado());
         
         //Asignamos la fecha del ultimo reporte
         diaUltimoReporte = reporte.obtenerDiaReporte();
         mesUltimoReporte = reporte.obtenerMesReporte();
-        añoUltimoReporte = reporte.obtenerAñoReporte();
+        anoUltimoReporte = reporte.obtenerAnoReporte();
         
         historialReportes.add(reporte);
     }
@@ -119,7 +117,7 @@ public abstract class Producto{
     }
     
     /**
-     * Asigna o reasigna el dia en el que se añadio el ultimo
+     * Asigna o reasigna el dia en el que se anadio el ultimo
      * reporte al producto
      * 
      * @param diaUltimoReporte Dia del ultimo reporte
@@ -129,7 +127,7 @@ public abstract class Producto{
     }
     
     /**
-     * Devuelve el ultimo dia en el que se añadio el ultimo
+     * Devuelve el ultimo dia en el que se anadio el ultimo
      * reporte al producto.
      * 
      * @return diaUltimoReporte Dia del ultimo reporte
@@ -139,7 +137,7 @@ public abstract class Producto{
     }
     
     /**
-     * Asigna o reasigna el mes en el que se añadio el ultimo
+     * Asigna o reasigna el mes en el que se anadio el ultimo
      * reporte al producto
      * 
      * @param mesUltimoReporte Mes del ultimo reporte
@@ -149,7 +147,7 @@ public abstract class Producto{
     }
     
     /**
-     * Devuelve el ultimo mes en el que se añadio el ultimo
+     * Devuelve el ultimo mes en el que se anadio el ultimo
      * reporte al producto.
      * 
      * @return mesUltimoReporte Mes del ultimo reporte
@@ -159,23 +157,23 @@ public abstract class Producto{
     }
     
     /**
-     * Asigna o reasigna el año en el que se añadio el ultimo
+     * Asigna o reasigna el ano en el que se anadio el ultimo
      * reporte al producto
      * 
-     * @param añoUltimoReporte Año del ultimo reporte
+     * @param anoUltimoReporte Ano del ultimo reporte
      */
-    public void asignarAñoUltimoReporte(int mesUltimoReporte){
-        this.añoUltimoReporte = añoUltimoReporte;
+    public void asignarAnoUltimoReporte(int anoUltimoReporte){
+        this.anoUltimoReporte = anoUltimoReporte;
     }
     
     /**
-     * Devuelve el ultimo año en el que se añadio el ultimo
+     * Devuelve el ultimo ano en el que se anadio el ultimo
      * reporte al producto.
      * 
-     * @return añoUltimoReporte Año del ultimo reporte
+     * @return anoUltimoReporte Ano del ultimo reporte
      */
-    public int obtenerAñoUltimoReporte(){
-        return añoUltimoReporte;
+    public int obtenerAnoUltimoReporte(){
+        return anoUltimoReporte;
     }
     
     /**
@@ -257,12 +255,12 @@ public abstract class Producto{
     }
 
     /**
-     * Devuelve el año en el que se compro el producto
+     * Devuelve el ano en el que se compro el producto
      * 
-     * @return añoCompra Año en el que se compro el producto
+     * @return anoCompra Ano en el que se compro el producto
      */
-    public int obtenerAñoCompra(){
-        return añoCompra;
+    public int obtenerAnoCompra(){
+        return anoCompra;
     }
 
     /**
@@ -284,40 +282,40 @@ public abstract class Producto{
     }
 
     /**
-     * Asigna el año en el que se compro el producto
+     * Asigna el ano en el que se compro el producto
      * 
-     * @param añoCompra Año en el que se compro el producto
+     * @param anoCompra Ano en el que se compro el producto
      */
-    public void asignarAñoCompra(int añoCompra){
-        this.añoCompra = añoCompra;
+    public void asignarAnoCompra(int anoCompra){
+        this.anoCompra = anoCompra;
     }
 
     /**
-     * Devuelve el tiempo en años hasta que se termine la garantia
+     * Devuelve el tiempo en anos hasta que se termine la garantia
      * del producto
      * 
-     * @return tiempoGarantia Tiempo en años hasta que termine la garantia
+     * @return tiempoGarantia Tiempo en anos hasta que termine la garantia
      */
     public int obtenerTiempoGarantia(){
         return tiempoGarantia;
     }
 
     /**
-     * Asigna el tiempo en años hasta que se termine la garantia
+     * Asigna el tiempo en anos hasta que se termine la garantia
      * del producto
      * 
-     * @param tiempoGarantia Tiempo en años hasta que termina la garantia
+     * @param tiempoGarantia Tiempo en anos hasta que termina la garantia
      */
     public void asignarTiempoGarantia(int tiempoGarantia){
         this.tiempoGarantia = tiempoGarantia;
     }
 
     /**
-     * Añade una caracteristica a la coleccion del producto
+     * Anade una caracteristica a la coleccion del producto
      * 
-     * @param caracteristica Caracteristica a añadir
+     * @param caracteristica Caracteristica a anadir
      */
-    public void añadirCaracteristica(Caracteristica caracteristica){
+    public void anadirCaracteristica(Caracteristica caracteristica){
         listaCaracteristicas.add(caracteristica);
     }
 
@@ -355,7 +353,7 @@ public abstract class Producto{
     /**
      * Asigna el numero unico de producto
      * 
-     * Es llamado cuando se añade el producto a la base de datos
+     * Es llamado cuando se anade el producto a la base de datos
      * 
      * @param numeroProducto Numero correspondiente al producto
      */

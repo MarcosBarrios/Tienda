@@ -1,10 +1,6 @@
 package uitextual;
 
-import backend.Usuarios;
-import backend.Util;
-
-import productos.Productos;
-import productos.Producto;
+import java.util.ArrayList;
 
 /**
  * Clase encargada de implementar las opciones que los empleados cajeros
@@ -13,22 +9,18 @@ import productos.Producto;
  * @author Marcos Barrios
  * @version 1.0
  */
-public class UIMenuEpdoCajero extends UIMenuAccionable{
+public class UIMenuEpdoCajero extends UIMenuEmpleado{
     
-    //Cajero usando el programa
+	//Empleado usando el programa
     private UIEpdoCajero cajero;
     
     //Metodo constructor
-    public UIMenuEpdoCajero(Usuarios usuarios, Productos productos,
-        UIEpdoCajero usuario){
-        super(usuarios, productos, usuario);
+    public UIMenuEpdoCajero(UIEpdoCajero usuario){
+    	super(usuario);
         this.cajero = usuario;
         
-        //Añade las opciones al menu y las imprime por primera vez
-        añadirOpciones();
-        
-        //Activa la interaccion usuario-programa
-        activarInteraccion();
+        //Anade las opciones al menu
+        anadirOpciones();
     }
     
     /**
@@ -39,108 +31,70 @@ public class UIMenuEpdoCajero extends UIMenuAccionable{
     }
     
     /**
-     * Vuelve a imprimir el menu y activa de nuevo las entradas para elegir
-     * una opcion
+     * Anade una opcion por cada funcion que el cajero puede realizar
+     * 
+     * (0) Buscar productos (Fija)
+     * (1) Buscar usuarios (Fija)
+     * (2) Vender un producto a un cliente
+     * (3) Anadir un producto
+     * (4) Actualizar un producto
+     * (5) Ver las caracteristicas de un producto
+     * (6) Lista de productos
+     * (7) Cerrar sesion (Fija)
+     * (8) Salir del programa (Fija)
      */
-    private void volverMenu(){
-        obtenerMenu().imprimirOpciones();
-        activarInteraccion();
+    private void anadirOpciones(){
+    	ArrayList<String> listaOpciones = new ArrayList<String>();
+    	listaOpciones.add(UIMensajes.mC_OpcionVenderProducto());
+    	listaOpciones.add(UIMensajes.mC_OpcionAnadirProducto());
+    	listaOpciones.add(UIMensajes.mC_OpcionActualizarProducto());
+    	listaOpciones.add(UIMensajes.mC_OpcionVerDatosProducto());
+    	listaOpciones.add(UIMensajes.mC_OpcionListaProductos());
+    	for(int i = 0; i < listaOpciones.size(); i++) {
+    		obtenerMenu().anadirOpcion(listaOpciones.get(i), i+2);
+    	}
     }
     
     /**
-     * Añade las opciones con las que el usuario del programa interactuara
-     * 
-     * (0) Añadir un producto
-     * (1) Lista de productos
-     * (2) Salir del programa
-     * 
+     * Imprime las opciones y obtiene una entrada con el numero
+     * de opcion que el usuario quiere usar.
      */
-    private void añadirOpciones(){
-        //"Buscar productos"
-        //"Buscar usuarios"
-        //"Vender un producto a un cliente",
-        //"Añadir un producto",
-        //"Actualizar producto", 
-        //"Ver las caracteristicas de un producto" ,
-        //"Lista de productos"
-        //"Cerrar sesion"
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarProductos());
-        obtenerMenu().añadirOpcion(UIMensajes.b_OpcionBuscarUsuarios());
-        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVenderProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionAñadirProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionActualizarProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionVerDatosProducto());
-        obtenerMenu().añadirOpcion(UIMensajes.mC_OpcionListaProductos());
-        obtenerMenu().añadirOpcion(UIMensajes.g_CerrarSesion());
-        obtenerMenu().añadirOpcion(UIMensajes.g_OpcionSalir());
-        obtenerMenu().imprimirOpciones();
+    public void activar(){
+    	obtenerMenu().imprimirOpciones();
+        obtenerEntradaUsuario();
     }
     
     /**
-     * Implementa el funcionamiento del menu
+     * Obtiene una entrada con el numero de la opcion que el
+     * usuario quiere usar.
      */
-    private void activarInteraccion(){
-        int entrada = obtenerMenu().obtenerOpcion();
+    private void obtenerEntradaUsuario() {
+    	int entrada = obtenerMenu().obtenerOpcion();
+    	
+    	//casos 0, 1, (nOpciones-1) y nOpciones
+        entradaOpcionesFija(entrada);
+        
         switch(entrada){ 
-            case 0: //"Buscar productos"
-            obtenerCajero().imprimirBusquedaProductos(obtenerUsuarios(), obtenerProductos());
-            volverMenu();
+            case 2: //Vender un producto a un cliente
+            obtenerCajero().venderProducto();
             break;
             
-            case 1: //Buscar usuarios
-            obtenerCajero().imprimirBusquedaUsuarios(obtenerUsuarios());
-            volverMenu();
-            break;
-            
-            case 2: //"Vender un producto a un cliente
-            obtenerCajero().venderProducto(obtenerUsuarios(), obtenerProductos());
-            
-            //Volver a imprimir el menu
-            volverMenu();
-            break;
-            
-            case 3: //Añadir producto a la base de datos
-            //Llamamos al metodo en la clase UI para EpdoCajeros
-            obtenerCajero().añadirProducto(obtenerProductos());
-            
-            //Vuelve a imprimir el menu
-            volverMenu();
+            case 3: //Anadir producto a la base de datos
+            obtenerCajero().anadirProducto();
             break;
                 
             case 4: //Actualizar los datos de un producto
-            
-            //Invocamos el metodo para modificarlo
-            obtenerCajero().actualizarProducto(obtenerProductos(), obtenerUsuarios());
-            
-            //Volver a imprimir el menu
-            volverMenu();
+            obtenerCajero().actualizarProducto();
             break;
                 
             case 5: //Ver las caracteristicas de un producto
-            obtenerCajero().imprimirDatosProducto(obtenerProductos(), obtenerUsuarios());
-            
-            volverMenu();
+            obtenerCajero().imprimirDatosProducto();
             break;
             
-            case 6: //Lista de productos
-            
-            //Imprimir lista de productos
-            obtenerCajero().imprimirListaProductos(obtenerProductos(), obtenerUsuarios());
-            
-            //Volver a imprimir el menu
-            volverMenu();
-            break;
-            
-            case 7: //Cerrar sesión
-            UIMenuPrincipal menuPrincipal = new UIMenuPrincipal(obtenerUsuarios(), obtenerProductos(),
-            obtenerUsuario());
-            break;
-            
-            case 8: //Salir del programa
-            System.exit(0);
+            case 6: //Imprimir lista de productos
+            obtenerCajero().imprimirListaProductos();
             break;
         }
+        activar(); //Activar de nuevo el menu
     }
-    
 }
-

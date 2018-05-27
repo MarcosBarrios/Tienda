@@ -31,14 +31,14 @@ public class Productos{
     }
     
     /**
-     * Añade un producto a la coleccion.
+     * Anade un producto a la coleccion.
      * 
      * Aumenta en 1 el contador de productos cada ves que se
-     * añade un producto.
+     * anade un producto.
      * 
-     * @param producto Producto a añadir
+     * @param producto Producto a anadir
      */
-    public void añadirProducto(Producto producto){
+    public void anadirProducto(Producto producto){
         contadorProductos++;
         producto.asignarNumeroProducto(contadorProductos);
         obtenerListaProductos().add(producto);
@@ -88,9 +88,9 @@ public class Productos{
      * Devuelve la cantidad de productos que hay en la base de datos
      * de la tienda.
      * 
-     * @return listaProductos.size() Tamaño de la base de datos de productos
+     * @return listaProductos.size() Tamano de la base de datos de productos
      */
-    public int obtenerTamaño(){
+    public int obtenerTamano(){
         return obtenerListaProductos().size();
     }
     

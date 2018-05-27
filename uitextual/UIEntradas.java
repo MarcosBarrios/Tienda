@@ -3,7 +3,6 @@ package uitextual;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Clase encargada de gestionar las entradas de texto.
@@ -14,6 +13,12 @@ import java.util.Iterator;
  * @version 1.0
  */
 public class UIEntradas{
+	private static final Scanner scanner = new Scanner(System.in);
+	
+	//Evitamos que se pueda crear una instancia de la clase
+	private UIEntradas() {
+		throw new IllegalStateException("Clase de utilidades");
+	}
     
     /**
      * Permite al programa obtener un entero como entrada
@@ -25,12 +30,11 @@ public class UIEntradas{
      * @return aux - Valor obtenido como entrada del usuario
      */
     public static int obtenerEntero(int min, int max){
-        Scanner s = new Scanner(System.in);
         int aux = 0;
         
         do{
             try{
-                aux = s.nextInt();
+                aux = scanner.nextInt();
             }catch(InputMismatchException ex){
                 //"Entrada no valida. (Se esperaba numero)"
                 System.out.println(UIMensajes.g_EI_EsperabaNumero());
@@ -54,11 +58,10 @@ public class UIEntradas{
      * @return aux - Valor obtenido como entrada del usuario
      */
     public static float obtenerDecimal(float min, float max){
-        Scanner s = new Scanner(System.in);
         float aux = 0;
         do{
             try{
-                aux = s.nextFloat();
+                aux = scanner.nextFloat();
             }catch(InputMismatchException ex){
                 //"Entrada no valida. (Se esperaba numero)"
                 System.out.println(UIMensajes.g_EI_EsperabaNumero());
@@ -83,45 +86,27 @@ public class UIEntradas{
      * String entrada   Cadena de caracteres obtenida como entrada
      *                  de usuario al invocar obtenerBooleana()
      *                  
-     * @param siOno Aceptar tambien las entradas "si" y "no"
      * 
      * @return true si entrada.equals("true")
      */
-    public static boolean obtenerBooleana(boolean siOno){
-        Scanner s = new Scanner(System.in);
+    public static boolean obtenerBooleana(){
         String entrada;
         boolean valida = false;
         do{
-            entrada = s.next().toLowerCase().trim();
-            if(!siOno){ //Obtener "true" o "false"
-                if(entrada.toLowerCase().equals("true")){
-                    valida = true;
-                    return true;
-                }else if(entrada.toLowerCase().equals("false")){
-                    valida = true;
-                    return false;
-                }else{
-                    //"Entrada no valida. (Se esperaba true o false)"
-                    System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
-                }
-            }else{ //Obtener "si", "no", "true" o "false"
-                if(entrada.toLowerCase().equals(UIMensajes.g_Si().toLowerCase())){
-                    valida = true;
-                    return true;
-                }else if(entrada.toLowerCase().equals(UIMensajes.g_No().toLowerCase())){
-                    valida = true;
-                    return false;
-                }else if(entrada.toLowerCase().equals("true")){
-                    valida = true;
-                    return true;
-                }else if(entrada.toLowerCase().equals("false")){
-                    valida = true;
-                    return false;
-                }else{
-                    //"Entrada no valida. (Se esperaba true o false)"
-                    System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
-                }
+            entrada = scanner.next();
+            
+            //Obtener "si", "no", "true" o "false"
+            if(entrada.equalsIgnoreCase(UIMensajes.g_Si())||
+            		entrada.equalsIgnoreCase("true")){
+                return true;
+            }else if(entrada.equalsIgnoreCase(UIMensajes.g_No()) ||
+            		entrada.equalsIgnoreCase("false")){
+                return false;
+            }else{
+                //"Entrada no valida. (Se esperaba true o false)"
+                System.out.println(UIMensajes.g_EI_ValorBooleanoIncorrecto());
             }
+            
         }while(!valida);
         
         return false;
@@ -162,15 +147,13 @@ public class UIEntradas{
      * @return aux Cadena de caracteres obtenida del usuario
      */
     public static String obtenerCadena(boolean lineaCompleta){
-        Scanner s = new Scanner(System.in);
         String aux;
         
         if(lineaCompleta){
-            aux = s.nextLine();
+            aux = scanner.nextLine();
         }else{
-            aux = s.next().trim();   
-        }
-        
+            aux = scanner.next().trim();   
+        }        
         return aux;
     }
     

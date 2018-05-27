@@ -1,5 +1,6 @@
 package productos;
 
+import uitextual.UIMensajes;
 
 /**
  * Define los productos que pertenezcan a la categoria de sonido.
@@ -76,7 +77,7 @@ public class ProductoSonido extends Producto{
     }
     
     /**
-     * ^Devuelve la variable que indica si detecta bluetooth o no.
+     * Devuelve la variable que indica si detecta bluetooth o no.
      */
     public boolean bluetooth(){
         return bluetooth;
@@ -97,5 +98,12 @@ public class ProductoSonido extends Producto{
      */
     public float obtenerFrecuencia(){
         return frecuencia;
+    }
+    
+    /**
+     * Devuelve una cadena para referenciar este tipo de producto
+     */
+    public String toString() {
+    	return UIMensajes.mC_AnP_Sonido();
     }
 }

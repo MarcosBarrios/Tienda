@@ -1,7 +1,5 @@
 package backend;
 
-import productos.Producto;
-
 /**
  * Define una operacion sobre un producto
  *
@@ -15,8 +13,8 @@ public class OperacionProducto extends Operacion{
     
     //Metodo constructor
     public OperacionProducto(int numeroProducto, Empleado responsable, String descripcion, 
-    int dia, int mes, int año){
-        super(responsable, descripcion, dia, mes, año);
+    int dia, int mes, int ano){
+        super(responsable, descripcion, dia, mes, ano);
         this.numeroProducto = numeroProducto;
     }
     

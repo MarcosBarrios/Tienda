@@ -38,11 +38,11 @@ public class FichaCliente{
     }
     
     /**
-     * Añade una operacion al historial
+     * Anade una operacion al historial
      * 
-     * @param operacion Operacion a añadir
+     * @param operacion Operacion a anadir
      */
-    public void añadirOperacion(Operacion operacion){
+    public void anadirOperacion(Operacion operacion){
         historialOperaciones.add(operacion);
     }
     
@@ -66,11 +66,11 @@ public class FichaCliente{
     }
     
     /**
-     * Añade una solicitud a la lista de solicitudes
+     * Anade una solicitud a la lista de solicitudes
      * 
-     * @param solicitud Solicitud a añadir
+     * @param solicitud Solicitud a anadir
      */
-    public void añadirSolicitud(Solicitud solicitud){
+    public void anadirSolicitud(Solicitud solicitud){
         listaSolicitudes.add(solicitud);
     }
     
@@ -119,11 +119,11 @@ public class FichaCliente{
     }
     
     /**
-     * Añade una factura
+     * Anade una factura
      * 
-     * @param factura Factura a añadir
+     * @param factura Factura a anadir
      */
-    public void añadirFactura(Factura factura){
+    public void anadirFactura(Factura factura){
         historialFacturas.add(factura);
     }
     
@@ -156,11 +156,11 @@ public class FichaCliente{
     }
     
     /**
-     * Añade al historial un producto que el cliente ha comprado.
+     * Anade al historial un producto que el cliente ha comprado.
      * 
      * @param producto Producto comprado por el cliente
      */
-    public void añadirProductoComprado(Producto producto){
+    public void anadirProductoComprado(Producto producto){
         listaProductosComprados.add(producto);
     }
     

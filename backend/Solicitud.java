@@ -10,6 +10,8 @@ package backend;
  * @version 1.0
  */
 public class Solicitud{
+	
+	//Numero de solicitud unico
     public static int numeroSolicitudes = 0;
     
     /**
@@ -43,10 +45,12 @@ public class Solicitud{
     /**
      * Asigna el numero de solicitudes al numero de solicitud.
      * 
-     * Utilizado al añadir una nueva solicitud a un cliente.
+     * Utilizado al anadir una nueva solicitud a un cliente.
+     * 
+     * @param numeroSolicitud Numero de la solicitud
      */
     public void asignarNumeroSolicitud(){
-        this.numeroSolicitud = numeroSolicitud;
+        this.numeroSolicitud = numeroSolicitudes;
     }
     
     /**

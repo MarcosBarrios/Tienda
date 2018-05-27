@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * Contiene los estados en los que se puede encontrar un producto.
  * 
- * Para facilitar el añadido de nuevos estados se emplea un sistema
- * que permite añadir los nuevos estados aqui dejando que el resto del
+ * Para facilitar el anadido de nuevos estados se emplea un sistema
+ * que permite anadir los nuevos estados aqui dejando que el resto del
  * programa se adapte.
  * 
  * La desventaja es que a la hora de traducir se tienen que traducir tambien

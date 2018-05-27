@@ -1,5 +1,6 @@
 package productos;
 
+import uitextual.UIMensajes;
 
 /**
  * Define los productos que pertenezcan a la categoria de telefonia.
@@ -79,6 +80,13 @@ public class ProductoTelefonia extends Producto{
      */
     public int obtenerDuracion(){
         return duracion;
+    }
+    
+    /**
+     * Devuelve una cadena para referenciar este tipo de producto
+     */
+    public String toString() {
+    	return UIMensajes.mC_AnP_Telefonia();
     }
 
 }
