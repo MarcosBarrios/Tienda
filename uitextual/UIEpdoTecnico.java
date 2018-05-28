@@ -1,21 +1,14 @@
 package uitextual;
 
 import backend.EpdoTecnico;
-import backend.Usuarios;
-import backend.Usuario;
 import backend.FichaReparacion;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import backend.Cliente;
-import backend.FichaCliente;
 import backend.Pieza;
-import backend.EnumOperaciones;
 
 import productos.Reporte;
-import productos.Producto;
-import productos.Productos;
 import productos.EnumEstadoProducto;
 
 /**
@@ -44,7 +37,6 @@ public class UIEpdoTecnico extends UIEmpleado{
     /**
      * Anade una pieza a la coleccion de piezas necesarias del tecnico
      * 
-     * @param usuarios Base de datos de usuarios de la tienda
      */
     public void anadirPiezaNecesaria(){
         //"Precio de la pieza", "Nombre de la pieza", "Descripcion de la pieza"
@@ -59,40 +51,11 @@ public class UIEpdoTecnico extends UIEmpleado{
      * Elimina una pieza de la lista de piezas necesarias
      */
     public void eliminarPiezaNecesaria(){
-        //"Nombre de la pieza"
+        //Obtenemos el nombre de la pieza a eliminar. "Nombre de la pieza"
         String nombrePieza = formatearEntradaCadena(UIMensajes.mT_AP_NombrePieza(), true);
         
-        ArrayList<Pieza> listaPiezas = new ArrayList<Pieza>();
-        Iterator<Pieza> itr = listaPiezas.iterator();
-        while(itr.hasNext()) {
-        	Pieza pieza = itr.next();
-        	
-        	if(p.obtenerNombre().toLowerCase().equals(nombrePieza.toLowerCase())){
-                obtenerTecnico().eliminarPieza(pieza);
-                //"Pieza eliminada"
-                System.out.println(UIMensajes.mT_EP_PiezaEliminada());
-            }
-        }
-        
-        for(int i = 0; i < obtenerTecnico().obtenerNumeroPiezas(); i++){
-            Pieza p = obtenerTecnico().obtenerPieza(i);
-            if(p.obtenerNombre().toLowerCase().equals(nombrePieza.toLowerCase())){
-                obtenerTecnico().eliminarPieza(i);
-                //"Pieza eliminada"
-                System.out.println(UIMensajes.mT_EP_PiezaEliminada());
-            }
-            
-            //Si no se encuentra el producto
-            if(!p.obtenerNombre().toLowerCase().equals(nombrePieza.toLowerCase()) &&
-                i==obtenerTecnico().obtenerNumeroPiezas()-1){
-                //"No se encontro la pieza"
-                System.out.println(UIMensajes.mT_EP_PiezaNoEncontrada());
-            }
-        }
-        
-        //Dejamos constancia
-        obtenerUsuario().dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_ELIMINARPIEZA,
-        obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+        //Eliminamos la pieza con el nombre nombrePieza
+        obtenerTecnico().eliminarPieza(nombrePieza);
     }
     
     /**
@@ -100,22 +63,21 @@ public class UIEpdoTecnico extends UIEmpleado{
      * 
      */
     public void verPiezasNecesarias(){
-        
-        for(int i = 0; i < obtenerTecnico().obtenerNumeroPiezas(); i++){
-            Pieza p = obtenerTecnico().obtenerPieza(i);
-            
-            System.out.println();
+    	//Obtenemos la lista de piezas necesarias del tecnico
+        ArrayList<Pieza> listaPiezas = obtenerTecnico().obtenerListaPiezasNecesarias();
+        Iterator<Pieza> itr = listaPiezas.iterator();
+        while(itr.hasNext()) { //Iterar todas las piezas
+        	Pieza pieza = itr.next();
+        	
+        	//Imprimir la informacion de la pieza
+        	System.out.println();
             formatearCadena(UIMensajes.mT_AP_PrecioPieza(), true, true);
-            System.out.print(p.obtenerPrecio() + " | ");
+            System.out.print(pieza.obtenerPrecio() + " | ");
             formatearCadena(UIMensajes.mT_AP_NombrePieza(), true, true);
-            System.out.print(p.obtenerNombre() + " | ");
+            System.out.print(pieza.obtenerNombre() + " | ");
             formatearCadena(UIMensajes.mT_AP_DescripcionPieza(), true, true);
-            System.out.print(p.obtenerDescripcion() + " | ");
+            System.out.print(pieza.obtenerDescripcion() + " | ");
         }
-        
-        //Dejamos constancia
-        obtenerUsuario().dejarConstancia(obtenerTecnico(), obtenerTecnico(), EnumOperaciones.mT_VERPIEZAS,
-        obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
     }
     
     /**
@@ -222,11 +184,8 @@ public class UIEpdoTecnico extends UIEmpleado{
      * 
      */
     public void verListaFichasReparacion(){
-    	//"Introducir el DNI del usuario"
-        String DNI = formatearEntradaCadena(UIMensajes.mGU_VHU_IntroducirDNIUsuario(), true);
-    	
         //Obtenemos la lista de fichas del tecnico
-        ArrayList<FichaReparacion> listaFichas = obtenerTecnico().obtenerListaFichasReparacion(DNI);
+        ArrayList<FichaReparacion> listaFichas = obtenerTecnico().obtenerListaFichasReparacion();
         Iterator<FichaReparacion> itr = listaFichas.iterator();
         while(itr.hasNext()) {
         	FichaReparacion fr = itr.next();

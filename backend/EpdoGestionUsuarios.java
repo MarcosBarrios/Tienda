@@ -207,6 +207,10 @@ public class EpdoGestionUsuarios extends Empleado {
 			if(usuario instanceof Empleado) {
 				Empleado empleado = (Empleado) usuario;
 				
+				//Dejamos constancia de la operacion en el historial
+				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+				
 				//Actualizamos el nombre del empleado
 				empleado.asignarNombreUsuario(nuevoNombre);
 				return true;
@@ -230,6 +234,10 @@ public class EpdoGestionUsuarios extends Empleado {
 			//Si existe un usuario registrado con el DNI especificado
 			if(usuario instanceof Empleado) {
 				Empleado empleado = (Empleado) usuario;
+				
+				//Dejamos constancia de la operacion en el historial
+				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 				
 				//Actualizamos el email del empleado
 				empleado.asignarEmailUsuario(nuevoEmail);
@@ -258,6 +266,10 @@ public class EpdoGestionUsuarios extends Empleado {
 			if(usuario instanceof Empleado) {
 				//Si el usuario encontrado es un empleado
 				Empleado empleado = (Empleado) usuario;
+				
+				//Dejamos constancia de la operacion en el historial
+				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 				
 				//Actualizamos el usuario del empleado
 				empleado.asignarUsuario(nuevoUsuario);
@@ -300,6 +312,10 @@ public class EpdoGestionUsuarios extends Empleado {
 			//Si existe un usuario registrado con el DNI especificado
 			if(usuario instanceof Empleado) {
 				Empleado empleado = (Empleado) usuario;
+				
+				//Dejamos constancia de la operacion en el historial
+				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 				
 				//Actualizamos la contrasena del empleado
 				empleado.asignarContrasena(nuevaContrasena);

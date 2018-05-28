@@ -402,12 +402,12 @@ public class UIMensajes{
         return "Ver las facturas de un cliente";
     }
     
-    public static String mF_DA_IndicarNombreEmail(){
-        return "Indique a continuacion el nombre e email del cliente a registrar";
+    public static String mF_DA_EspecificarDatosCliente(){
+        return "Indicar a continuacion los datos del cliente a registrar";
     }
     
-    public static String mF_DA_ClienteYaRegistrado(){
-        return "Ya existe un cliente registrado con el DNI especificado, registro fallido";
+    public static String mF_DA_UsuarioYaRegistrado(){
+        return "Ya existe un usuario registrado con el DNI especificado, registro fallido";
     }
     
     public static String mF_DA_NombreAceptado(){
@@ -432,6 +432,10 @@ public class UIMensajes{
     
     public static String mF_DA_RegistradoExito(){
         return "Se ha registrado el cliente con exito";
+    }
+    
+    public static String mF_ADC_ClienteActualizado() {
+    	return "Se ha actualizado el cliente con exito";
     }
     
     public static String mF_AD_IndicarDNICliente(){

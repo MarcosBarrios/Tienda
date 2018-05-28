@@ -68,7 +68,7 @@ public class UIMenuEpdoFinanciacion extends UIMenuEmpleado{
         int entrada = obtenerMenu().obtenerOpcion();
         switch(entrada){
             case 2: //Dar de alta a un cliente
-            obtenerFinanciador().darAlta();
+            obtenerFinanciador().darAltaCliente();
             break;
             
             case 3: //Actualizar datos de un cliente

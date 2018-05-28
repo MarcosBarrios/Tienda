@@ -202,7 +202,7 @@ public class UIGestionUsuarios extends UIEmpleado{
         //"y la contrasena del empleado a registrar"
         System.out.println(UIMensajes.mGU_EspecificarDatos());
         
-        //Creamos un formulario para las entradas no complejas
+        //Obtenemos los datos del empleado de un formulario
         String[] entradas = new String[7];
         entradas[0] = UIMensajes.g_DNI();
         entradas[1] = UIMensajes.g_Nombre();
@@ -250,7 +250,7 @@ public class UIGestionUsuarios extends UIEmpleado{
         
         //Creamos e imprimimos un menu para que el usuario elija el dato
         //del empleado que quiere modificar
-        menuModificacionDatoUsuario(dniCliente);
+        menuModificacionDatoEmpleado(dniCliente);
     }
 
 	/**
@@ -260,7 +260,7 @@ public class UIGestionUsuarios extends UIEmpleado{
 	 * @param DNI del empleado a modificar
 	 * 
 	 */
-	private void menuModificacionDatoUsuario(String dni) {
+	private void menuModificacionDatoEmpleado(String DNI) {
 		//Menu con una opcion por cada dato del empleado
 		//que se pueden modificar
 		UIMenu menuOpciones = anadirOpcionesModificacion();
@@ -271,7 +271,7 @@ public class UIGestionUsuarios extends UIEmpleado{
         int entrada = UIEntradas.obtenerEntero(0, menuOpciones.obtenerNumeroOpciones());
         
         //Implementacion de cada opcion del menu
-        implementacionMenuOpciones(entrada, dni);
+        implementacionMenuOpciones(entrada, DNI);
 	}
 	
 	/**
@@ -281,27 +281,27 @@ public class UIGestionUsuarios extends UIEmpleado{
 	 * @param entrada Opcion del menu elegida
 	 * @param dni DNI del empleado a modificar
 	 */
-	private void implementacionMenuOpciones(int entrada, String dni) {
+	private void implementacionMenuOpciones(int entrada, String DNI) {
 		boolean actualizado = false;
 		switch(entrada) {
 			case 0: //Nombre
 				String nuevoNombre = formatearEntradaCadena(UIMensajes.g_Nombre(),  true);
-				actualizado = obtenerGestor().actualizarNombreEmpleado(dni, nuevoNombre);
+				actualizado = obtenerGestor().actualizarNombreEmpleado(DNI, nuevoNombre);
 				break;
 				
 			case 1: //Email
 				String nuevoEmail = formatearEntradaCadena(UIMensajes.g_Email(),  true);
-				actualizado = obtenerGestor().actualizarEmailEmpleado(dni, nuevoEmail);
+				actualizado = obtenerGestor().actualizarEmailEmpleado(DNI, nuevoEmail);
 				break;
 				
 			case 2: //Usuario
 				String nuevoUsuario = formatearEntradaCadena(UIMensajes.g_Usuario(),  true);
-				actualizado = obtenerGestor().actualizarUsuarioEmpleado(dni, nuevoUsuario);
+				actualizado = obtenerGestor().actualizarUsuarioEmpleado(DNI, nuevoUsuario);
 				break;
 				
 			case 3: //Contrasena
 				String nuevaContrasena = formatearEntradaCadena(UIMensajes.g_Contrasena(),  true);
-				actualizado = obtenerGestor().actualizarContrasenaEmpleado(dni, nuevaContrasena);
+				actualizado = obtenerGestor().actualizarContrasenaEmpleado(DNI, nuevaContrasena);
 				break;
 		}
 		if(actualizado) {
@@ -315,8 +315,8 @@ public class UIGestionUsuarios extends UIEmpleado{
 	
 	/**
 	 * Devuelve un menu con opciones para modificar los
-	 * datos de un empleado: nombre, email, telefono,
-	 * domicilio, usuario y contrasena.
+	 * datos de un empleado: nombre, email, usuario
+	 *  y contrasena.
 	 * 
 	 * @return Menu con opciones para modificar los datos de un empleado
 	 */

@@ -307,7 +307,7 @@ public class UIEpdoPostVenta extends UIEmpleado{
     /**
      * Devuelve el menu asociado al empleado
      */
-	public UIMenuAccionable activarMenu() {
+	public UIMenuEmpleado obtenerMenu() {
 		return new UIMenuEpdoPostVenta(this);
 	}
 }

@@ -1,15 +1,10 @@
 package uitextual;
 
 import backend.EpdoFinanciacion;
-import backend.Usuarios;
-import backend.Usuario;
-import backend.Cliente;
-import productos.Productos;
-import backend.EnumOperaciones;
-import backend.FichaCliente;
 import backend.Factura;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Dispone de metodos para dar de alta a clientes en el sistema con sus 
@@ -44,116 +39,141 @@ public class UIEpdoFinanciacion extends UIEmpleado{
      * @param usuarios Base de datos de usuarios
      */
     public void actualizarDatosCliente(){
-        //"Indique a continuacion el nombre o email del cliente a registrar"
-        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
+    	//"Indique a continuacion el DNI del cliente"
+        String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
         
-        boolean encontrado = false;
-        if(usuario != null){
-            if(usuario instanceof Cliente){  //Si el usuario encontrado es un cliente
-                encontrado = true;
-                Cliente cliente = (Cliente) usuario;
-                
-                //Entradas aceptables
-                String nombre = UIMensajes.g_Nombre();
-                String email = UIMensajes.g_Email();
-                String domicilio = UIMensajes.g_Domicilio();
-                String telefono = UIMensajes.g_Telefono();
-                
-                //"¿Que desea modificar?" , "Nombre", "Email", "Domicilio", "Telefono"
-                formatearCadena(UIMensajes.mF_AD_QueModificar(), true, true);
-                System.out.print(" (" +  nombre + "/" + email + "/" + 
-                    domicilio + "/" + telefono + "): ");
-                
-                //Entradas aceptables
-                ArrayList<String> listaModificaciones = new ArrayList<String>();
-                listaModificaciones.add(nombre.toLowerCase());
-                listaModificaciones.add(email.toLowerCase());
-                listaModificaciones.add(domicilio.toLowerCase());
-                listaModificaciones.add(telefono.toLowerCase());
-                   
-                //Obtenemos una cadena que indique lo que se quiere modificar
-                String modElegida = UIEntradas.obtenerCadenaLimitada(listaModificaciones, false);
-                
-                //"Nombre", "Email" , "Domicilio", "Telefono"
-                if(modElegida.equals(nombre.toLowerCase())){
-                    //Modificar el nombre del cliente
-                    formatearCadena(nombre, true, true);
-                    String nuevoNombre = UIEntradas.obtenerCadena(true);
-                    cliente.asignarNombreUsuario(nuevoNombre);
-                }else if(modElegida.equals(email.toLowerCase())){
-                    //Modificar el email del cliente
-                    formatearCadena(email, true, true);
-                    String nuevoEmail = UIEntradas.obtenerCadena(true);
-                    cliente.asignarEmailUsuario(nuevoEmail);
-                }else if(modElegida.equals(domicilio.toLowerCase())){
-                    //Modificar el domicilio del cliente
-                    formatearCadena(domicilio, true, true);
-                    String nuevoDomicilio = UIEntradas.obtenerCadena(true);
-                    cliente.asignarDomicilio(nuevoDomicilio);
-                }else if(modElegida.equals(telefono.toLowerCase())){
-                    //Modificar el domicilio del cliente
-                    formatearCadena(telefono, true, true);
-                    String nuevoTelefono = UIEntradas.obtenerCadena(true);
-                    cliente.asignarTelefono(nuevoTelefono);
-                }
-                
-                //"Se ha registrado el cliente con exito"
-                System.out.println(UIMensajes.mF_DA_RegistradoExito());
-                
-                //Dejamos constancia de la operacion realizada
-                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_ACTUALIZARCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-            }
-        }
-        
-        if(!encontrado){
-            //"Cliente no encontrado"
-            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
-        }
+        //Creamos e imprimimos un menu para que el usuario elija el dato
+        //del cliente que quiere modificar
+        menuModificacionDatoCliente(dniCliente);
+            
     }
+    
+    /**
+	 * Utiliza un menu para que el usuario pueda elegir el dato 
+	 * del cliente que quiere modificar. (nombre, email,...)
+	 * 
+	 * @param DNI del cliente a modificar
+	 * 
+	 */
+    private void menuModificacionDatoCliente(String DNI) {
+    	//Menu con una opcion por cada dato del cliente
+		//que se pueden modificar
+		UIMenu menuOpciones = anadirOpcionesModificacion();
+		
+		menuOpciones.imprimirOpciones(); //Imprime las opciones
+		
+		//Obtenemos el numero de opcion elegida por el usuario
+        int entrada = UIEntradas.obtenerEntero(0, menuOpciones.obtenerNumeroOpciones());
+        
+        //Implementacion de cada opcion del menu
+        implementacionMenuOpciones(entrada, DNI);
+    }
+    
+    /**
+	 * Devuelve un menu con opciones para modificar los
+	 * datos de un empleado: nombre, email, telefono y
+	 * domicilio.
+	 * 
+	 * @return Menu con opciones para modificar los datos de un cliente
+	 */
+	private UIMenu anadirOpcionesModificacion() {
+		UIMenu menuModOpciones = new UIMenu();
+        
+        menuModOpciones.anadirOpcion(UIMensajes.g_Nombre());
+        menuModOpciones.anadirOpcion(UIMensajes.g_Email());
+        menuModOpciones.anadirOpcion(UIMensajes.g_Telefono());
+        menuModOpciones.anadirOpcion(UIMensajes.g_Domicilio());
+        
+        return menuModOpciones;
+	}
+	
+	/**
+	 * Implementa las opciones del menu para modificar los datos
+	 * de un cliente.
+	 * 
+	 * @param entrada Opcion del menu elegida
+	 * @param dni DNI del cliente a modificar
+	 */
+	private void implementacionMenuOpciones(int entrada, String DNI) {
+		boolean actualizado = false;
+		switch(entrada) {
+			case 0: //Nombre
+				String nuevoNombre = formatearEntradaCadena(UIMensajes.g_Nombre(),  true);
+				actualizado = obtenerFinanciador().actualizarNombreCliente(DNI, nuevoNombre);
+				break;
+				
+			case 1: //Email
+				String nuevoEmail = formatearEntradaCadena(UIMensajes.g_Email(),  true);
+				actualizado = obtenerFinanciador().actualizarEmailCliente(DNI, nuevoEmail);
+				break;
+				
+			case 2: //Telefono
+				String nuevoTelefono = formatearEntradaCadena(UIMensajes.g_Telefono(),  true);
+				actualizado = obtenerFinanciador().actualizarTelefonoCliente(DNI, nuevoTelefono);
+				break;
+				
+			case 3: //Domicilio
+				String nuevoDomicilio = formatearEntradaCadena(UIMensajes.g_Domicilio(),  true);
+				actualizado = obtenerFinanciador().actualizarDomicilioCliente(DNI, nuevoDomicilio);
+				break;
+		}
+		if(actualizado) {
+			//"Se ha actualizado el cliente con exito"
+	        System.out.println(UIMensajes.mF_ADC_ClienteActualizado());
+		}else {
+			//"Cliente no encontrado"
+        	System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+		}
+	}
     
     /**
      * Registra un cliente nuevo en la base de datos del programa
      * 
-     * @param usuarios Base de datos del programa
      */
-    public void darAlta(){
-        //"Indique a continuacion el nombre e email del cliente a registrar"
-        formatearCadena(UIMensajes.mF_DA_IndicarNombreEmail(), true, true);
+    public void darAltaCliente(){
+        //"Indicar a continuacion los datos del cliente a registrar"
+        formatearCadena(UIMensajes.mF_DA_EspecificarDatosCliente(), true, true);
+
+        //Obtenemos array con dni, nombre, email, telefono y domicilio
+        String[] entradas = obtenerDatosCliente();
         
-        //"Escribir DNI"
-        String dni = formatearEntradaCadena(UIMensajes.mF_DA_EscribirDNI(), true);
-        Usuario u = obtenerUsuarios().obtenerUsuario(dni);
-        
-        if(u==null){
-            //"Nombre", "Nombre aceptado"
-            String nombre = formatearEntradaCadena(UIMensajes.g_Nombre(), true);
-            System.out.println(UIMensajes.mF_DA_NombreAceptado());
-        
-            //"Email", "Email aceptado"
-            String email = formatearEntradaCadena(UIMensajes.g_Email(), true);
-            System.out.println(UIMensajes.mF_DA_EmailAceptado());
-            
-            //"Domicilio", "Domicilio aceptado"
-            String domicilio = formatearEntradaCadena(UIMensajes.g_Domicilio(), true);
-            System.out.println(UIMensajes.mF_DA_DomicilioAceptado());
-            
-            //"Telefono", "Telefono aceptado"
-            String telefono = formatearEntradaCadena(UIMensajes.g_Telefono(), true);
-            System.out.println(UIMensajes.mF_DA_TelefonoAceptado());
-            
-            //Creamos el cliente con los datos especificados
-            Cliente cliente = new Cliente(dni, nombre, email, domicilio, telefono);
-            
-            obtenerFinanciador().darAltaCliente(cliente);
-            //"Se ha registrado el cliente con exito"
-            System.out.println(UIMensajes.mF_DA_RegistradoExito());
-        }else{
-            //"Ya existe un cliente registrado con el DNI especificado, registro fallido"
-            System.out.println("\t" + UIMensajes.mF_DA_ClienteYaRegistrado());
+        //Damos de alta al cliente con los datos especificados
+        boolean dadoDeAlta = obtenerFinanciador().darAltaCliente(entradas[0], entradas[1],
+        		entradas[2], entradas[3], entradas[4]);
+        if(dadoDeAlta) {
+        	//"Se ha registrado el cliente con exito"
+        	System.out.println(UIMensajes.mF_DA_RegistradoExito());
+        }else {
+        	//"Ya existe un usuario registrado con el DNI especificado, registro fallido"
+        	System.out.println("\t" + UIMensajes.mF_DA_UsuarioYaRegistrado());
         }
+    }
+    
+    /**
+     * Utiliza un formulario para obtener los datos del
+     * cliente que se quiere registrar.
+     * 
+     * @return Array de cadenas con los datos
+     * 
+     * Posiciones del array: 
+     * [0] DNI
+     * [1] Nombre
+     * [2] Email
+     * [3] Telefono
+     * [4] Domicilio
+     */
+    private String[] obtenerDatosCliente() {
+    	
+    	//Creamos el array para cada dato a obtener
+        String[] entradas = new String[5];
+        entradas[0] = UIMensajes.g_DNI();
+        entradas[1] = UIMensajes.g_Nombre();
+        entradas[2] = UIMensajes.g_Email();
+        entradas[3] = UIMensajes.g_Telefono();
+        entradas[4] = UIMensajes.g_Domicilio();
         
+        //Obtenemos las entradas para cada dato
+        return formularioCadenas(entradas);
     }
     
     /**
@@ -162,37 +182,27 @@ public class UIEpdoFinanciacion extends UIEmpleado{
      * @param usuarios Base de datos de usuarios del programa
      */
     public void imprimirDatosCliente(){
-        //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
-        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
-
-        boolean encontrado = false;
-        if(usuario!=null){
-            if(usuario instanceof Cliente){ //Si el usuario encontrado es un cliente
-                encontrado = true;
-                Cliente cliente = (Cliente) usuario;
+    	//"Indique a continuacion el DNI del cliente"
+        String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
+    	
+        //Obtenemos los datos de un cliente
+        String[] datosCliente = obtenerFinanciador().obtenerDatosCliente(dniCliente);
                 
-                //Imprimir los datos del cliente. "Nombre", "Email"
-                formatearCadena(UIMensajes.g_DNI(), true, true);
-                System.out.print(cliente.obtenerDNI());
-                formatearCadena(UIMensajes.g_Nombre(), true, true);
-                System.out.print(cliente.obtenerNombreUsuario());
-                formatearCadena(UIMensajes.g_Email(), true, true);
-                System.out.print(cliente.obtenerEmailUsuario());
-                formatearCadena(UIMensajes.g_Domicilio(), true, true);
-                System.out.print(cliente.obtenerDomicilio());  
-                formatearCadena(UIMensajes.g_Telefono(), true, true);
-                System.out.print(cliente.obtenerTelefono());  
-                
-                //Dejamos constancia de la operacion realizada
-                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-            }
-        }
-        
-        if(!encontrado){
-            //"Cliente no encontrado"
-            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        if(datosCliente!=null) {
+        	//Imprimir los datos obtenidos.
+            formatearCadena(UIMensajes.g_DNI(), true, true);
+            System.out.print(datosCliente[0]);
+            formatearCadena(UIMensajes.g_Nombre(), true, true);
+            System.out.print(datosCliente[1]);
+            formatearCadena(UIMensajes.g_Email(), true, true);
+            System.out.print(datosCliente[2]);
+            formatearCadena(UIMensajes.g_Domicilio(), true, true);
+            System.out.print(datosCliente[3]);  
+            formatearCadena(UIMensajes.g_Telefono(), true, true);
+            System.out.print(datosCliente[4]);
+        }else {
+        	//"Cliente no encontrado"
+        	System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
         }
     }
     
@@ -202,52 +212,45 @@ public class UIEpdoFinanciacion extends UIEmpleado{
      * @param usuarios Base de datos de usuarios 
      */
     public void verListaFacturas(){
-        //Obtenemos el cliente. "Indique a continuacion el nombre o email del cliente"
-        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
+    	//"Indique a continuacion el DNI del cliente"
+        String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
 
-        boolean encontrado = false;
-        if(usuario!=null){
-            if(usuario instanceof Cliente){ //Si el usuario encontrado es un cliente
-                encontrado = true;
-                Cliente cliente = (Cliente) usuario;
-                FichaCliente fc = cliente.obtenerFichaCliente();
-                
-                //Imprimimos la informacion de cada factura que tenga el cliente
-                for(int i = 0; i < fc.obtenerNumeroFacturas(); i++){
-                    Factura factura = fc.obtenerFactura(i);
-                    
-                    System.out.println(); //Primera linea
-                    System.out.print("\t" + UIMensajes.mT_AR_Coste());
-                    System.out.print(factura.obtenerCoste());
-                    System.out.print(" |" + UIMensajes.mC_AnP_Dia());
-                    System.out.print(factura.obtenerDia());
-                    System.out.print(" |" + UIMensajes.mC_AnP_Mes());
-                    System.out.print(factura.obtenerMes());
-                    System.out.print(" |" + UIMensajes.mC_AnP_Ano());
-                    System.out.print(factura.obtenerAno());                    
-                    
-                    System.out.println(); //Segunda linea
-                    System.out.print("\t" + UIMensajes.mC_AnP_DescripcionFactura());
-                    System.out.print(factura.obtenerDescripcion());
-                }
-                
-                //Dejamos constancia de la operacion realizada
-                obtenerUsuario().dejarConstancia(cliente, obtenerFinanciador(), EnumOperaciones.mF_IMPRIMIRCLIENTE,
-                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-            }
+        //Obtenemos la lista de facturas del cliente cuyo DNI es igual a dniCliente
+        ArrayList<Factura> facturasCliente = obtenerFinanciador().obtenerFacturasCliente(dniCliente);
+        Iterator<Factura> itr = facturasCliente.iterator();
+        while(itr.hasNext()) {
+        	Factura factura = itr.next();
+        	
+        	//Imprimimos los datos de la factura
+        	imprimirDatosFactura(factura);
         }
+    }
+    
+    /**
+     * Imprime los datos de una factura
+     * 
+     * @param factura a imprimir
+     */
+    private void imprimirDatosFactura(Factura factura) {
+    	System.out.println(); //Primera linea
+        System.out.print("\t" + UIMensajes.mT_AR_Coste());
+        System.out.print(factura.obtenerCoste());
+        System.out.print(" |" + UIMensajes.mC_AnP_Dia());
+        System.out.print(factura.obtenerDia());
+        System.out.print(" |" + UIMensajes.mC_AnP_Mes());
+        System.out.print(factura.obtenerMes());
+        System.out.print(" |" + UIMensajes.mC_AnP_Ano());
+        System.out.print(factura.obtenerAno());                    
         
-        if(!encontrado){
-            //"Cliente no encontrado"
-            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
-        }
+        System.out.println(); //Segunda linea
+        System.out.print("\t" + UIMensajes.mC_AnP_DescripcionFactura());
+        System.out.print(factura.obtenerDescripcion());
     }
 
     /**
      * Devuelve el menu asociado al empleado
      */
-	public UIMenuAccionable activarMenu() {
+	public UIMenuEmpleado obtenerMenu() {
 		return new UIMenuEpdoFinanciacion(this);
 	}
     

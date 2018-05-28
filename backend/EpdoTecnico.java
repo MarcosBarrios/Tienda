@@ -1,6 +1,7 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import productos.EnumEstadoProducto;
 import productos.Producto;
@@ -44,8 +45,41 @@ public class EpdoTecnico extends Empleado{
         piezasNecesarias.remove(id);
     }
     
-    public void eliminarPieza(Pieza pieza) {
+    /**
+     * Elimina una pieza de la lista de piezas necesarias
+     * 
+     * @param pieza Pieza a eliminar
+     */
+    public void eliminarPieza(String nombrePieza) {
+    	//Obtenemos la pieza cuyo nombre sea nombrePieza
+    	Pieza pieza = obtenerPiezaPorNombre(nombrePieza);
+    	
+    	//Eliminamos de piezasNecesarias las piezas con el mismo nombre 
     	piezasNecesarias.remove(pieza);
+    	
+    	//Dejamos constancia de la operacion en el historial del tecnico
+        dejarConstancia(this, EnumOperaciones.mT_ELIMINARPIEZA,
+        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+    }
+    
+    /**
+     * Itera todas las piezas necesarias del tecnico y devuelve
+     * la que tenga el mismo nombre que el especificado como
+     * parametro.
+     * 
+     * @param nombrePieza Nombre de la pieza buscada
+     * 
+     * @return Pieza cuyo nombre coincide con nombrePieza
+     */
+    private Pieza obtenerPiezaPorNombre(String nombrePieza) {
+    	Iterator<Pieza> itr = piezasNecesarias.iterator();
+    	while(itr.hasNext()) {
+    		Pieza pieza = itr.next();
+    		if(pieza.obtenerNombre().equalsIgnoreCase(nombrePieza)) {
+    			return pieza;
+    		}
+    	}
+    	return null;
     }
     
     /**
@@ -107,8 +141,13 @@ public class EpdoTecnico extends Empleado{
     		listaPiezas.add(obtenerPieza(i));
     	}
     	
+    	//Dejamos constancia de la operacion en el historial del tecnico
+        dejarConstancia(this, EnumOperaciones.mT_VERPIEZAS,
+        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+    	
     	return listaPiezas;
     }
+   
     
     /**
      * Anade un reporte para cambiar el estado de un producto. Los
@@ -174,30 +213,21 @@ public class EpdoTecnico extends Empleado{
     /**
      * Devuelve la lista de fichas de reparacion del tecnico
      * 
-     * @param DNI del tecnico
-     * 
      * @return listaFichas con las fichas de reparacion del tecnico
      */
-    public ArrayList<FichaReparacion> obtenerListaFichasReparacion(String DNI){
+    public ArrayList<FichaReparacion> obtenerListaFichasReparacion(){
     	ArrayList<FichaReparacion> listaFichas = new ArrayList<FichaReparacion>();
     	
-    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			if(usuario instanceof EpdoTecnico) {
-				//Si el usuario encontrado es un tecnico
-				EpdoTecnico tecnico = (EpdoTecnico) usuario;
-				
-				//Iteramos todas las fichas de reparacion del tecnico
-				//y las anadimos a listaFichas
-				for(int i = 0; i < tecnico.obtenerNumeroFichas(); i++){
-                    listaFichas.add(tecnico.obtenerFichaReparacion(i));
-                }
-				
-				//Dejamos constancia de la operacion en el historial
-                dejarConstancia(this, EnumOperaciones.mT_VERLISTAFICHASREPARACION,
-                		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-			}
-		}
+    	//Iteramos todas las fichas de reparacion del tecnico
+		//y las anadimos a listaFichas
+		for(int i = 0; i < obtenerNumeroFichas(); i++){
+            listaFichas.add(obtenerFichaReparacion(i));
+        }
+		
+		//Dejamos constancia de la operacion en el historial
+        dejarConstancia(this, EnumOperaciones.mT_VERLISTAFICHASREPARACION,
+        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+    	
 		return listaFichas;
     }
     

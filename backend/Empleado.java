@@ -258,7 +258,8 @@ public abstract class Empleado extends Usuario{
     }
     
     /**
-     * Devuelve una lista con todos los clientes que han comprado algo en la tienda.
+     * Devuelve una lista con todos los clientes que han comprado algo
+     * en la tienda.
      * 
      * @return Lista con todos los clientes registrados
      */
@@ -266,6 +267,11 @@ public abstract class Empleado extends Usuario{
     	return Util.obtenerListaClientes(obtenerUsuarios());
     }
     
+    /**
+     * Devuelve una lista con todos los empleados registrados en la tienda.
+     * 
+     * @return Lista con todos los clientes registrados
+     */
     public ArrayList<Empleado> obtenerListaEmpleados(){
     	return Util.obtenerListaEmpleados(obtenerUsuarios());
     }

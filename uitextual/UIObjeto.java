@@ -26,6 +26,7 @@ public abstract class UIObjeto {
         int numeroEntradas = nombresEntradas.length;
         String [] salidas = new String[numeroEntradas];
         for(int i = 0; i < numeroEntradas; i++){
+        	//Por cada dato en el array se pide una cadena
             formatearCadena(nombresEntradas[i], true, true);
             String entrada = UIEntradas.obtenerCadena(true);
             salidas[i] = entrada;
