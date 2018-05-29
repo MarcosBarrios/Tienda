@@ -64,89 +64,42 @@ public class UIEpdoCajero extends UIEmpleado{
     /**
      * Vende un producto a un cliente. 
      * 
-     * @param usuarios Base de datos de usuarios
-     * @param productos Base de datos de productos
      */
     public void venderProducto(){
-        //Obtener el cliente al que se va a vender el producto. "Indicar el nombre del cliente"
-        String neCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarNombreEmail(), true);
-        Usuario usuario = obtenerUsuarios().obtenerUsuario(neCliente.toLowerCase());
+    	//"Indique a continuacion el DNI del cliente"
+        String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
         
-        boolean encontrado = true;
-        if(usuario!=null){
-            
-            if(usuario instanceof Cliente){
-                encontrado = true;
-                Cliente cliente = (Cliente) usuario;
-                
-                //Obtener el producto que se va a vender al cliente. "Numero de producto"
-                int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
-                Producto producto = obtenerProductos().obtenerProducto(nProducto, true);
-                
-                if(producto!=null){
-                    //Asignamos el numero de la caja desde la que se vende el producto
-                    producto.asignarNumeroCaja(obtenerCajero().obtenerNumeroCaja());
-                    
-                    //Si hay al menos un producto en el almacen
-                    if(producto.obtenerCantidad()>0){
-                        //Financiar?
-                        boolean financiar = formatearEntradaBoolean(UIMensajes.mC_AnP_Financiar());
-                        producto.cambiarFinanciado(financiar);
+        //Obtenemos el numero del producto al cual se va a anadir el reporte
+        int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
         
-                        //Si se quiere financiar el producto
-                        if(financiar){
-                            //Creamos la factura y asignamos sus datos
-                            Factura factura = new Factura();
-                            factura.asignarCoste(producto.obtenerPrecio());
-                            factura.asignarDia(obtenerDiaActual());
-                            factura.asignarMes(obtenerMesActual());
-                            factura.asignarAno(obtenerAnoActual());
-                            
-                            //"Descripcion de la factura"
-                            String descripcionFactura = formatearEntradaCadena(UIMensajes.mC_AnP_DescripcionFactura(), true);
-                            factura.asignarDescripcion(descripcionFactura);
-                            
-                            //Anadimos la factura al historial de facturas del cliente
-                            FichaCliente fc = cliente.obtenerFichaCliente();
-                            fc.anadirFactura(factura);
-                        }
-                        
-                        //Anadir producto a la lista de productos comprados del cliente
-                        cliente.obtenerFichaCliente().anadirProductoComprado(producto);
-                        producto.asignarCantidad(producto.obtenerCantidad()-1);
-                        
-                        //Dejamos constancia en el historial
-                        obtenerUsuario().dejarConstancia(cliente, producto, obtenerCajero(), 
-                        EnumOperaciones.mC_VENDERPRODUCTO, obtenerDiaActual(), obtenerMesActual(), 
-                        obtenerAnoActual());
-                    }else{ //Si por otro lado no hay reservas del producto
-                        //"No quedan reservas del producto especificado"
-                        System.out.println(UIMensajes.mC_VP_SinStock());
-                    }
-                    
-                }else{
-                    //"No se ha encontrado ningun producto con el numero "
-                    System.out.println(UIMensajes.mC_AcP_ProductoNoEncontrado());
-                }
-            }
-        }else{ //En caso de que no encuentre ningun usuario
-            //"Cliente no encontrado"
-            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        //Preguntar si financiar o no el producto a vender
+        boolean financiar = formatearEntradaBoolean(UIMensajes.mC_AnP_Financiar());
+
+        //Obtenemos la descripcion para la factura
+        String descripcionFactura = formatearEntradaCadena(UIMensajes.mC_AnP_DescripcionFactura(), true);
+        
+        boolean vendido = false;
+        if(financiar) {
+        	vendido = obtenerCajero().financiarProducto(dniCliente, nProducto, descripcionFactura);
+        }else {
+        	vendido = obtenerCajero().venderProducto(dniCliente, nProducto);
         }
         
-        if(!encontrado){
-            //"Cliente no encontrado"
-            System.out.println(UIMensajes.mF_AD_ClienteNoEncontrado());
+        if(vendido) {
+        	//"Se ha vendido el producto con exito"
+        	System.out.println(UIMensajes.mC_VP_VendidoExito());
+        }else {
+        	//"No se ha encontrado el cliente, el producto o" +
+    		//"no hay unidades del producto almacenadas"
+        	System.out.println(UIMensajes.mC_VP_SinStock());
         }
     }
     
     /**
-     * El cajero ingresa en la base de datos de productos un producto que
-     * la tienda acaba de recibir.
+     * El cajero anade a la base de datos un producto nuevo.
      * 
-     * Interrogatorio textual sobre las caracteristicas del producto.
-     *
-     * @param productos Base de datos de productos de la tienda
+     * Para ello se utiliza un formulario para obtener los datos
+     * del producto.
      */
     public void anadirProducto(){
         //"A continuacion se va a proceder a introducir" + 
@@ -177,11 +130,7 @@ public class UIEpdoCajero extends UIEmpleado{
         //Pregunta por caracteristicas del producto segun su categoria
         producto = anadirProductoEspecifico(producto);
         
-        //Asignamos la fecha de compra al producto
-        producto.asignarDiaCompra(obtenerDiaActual());
-        producto.asignarMesCompra(obtenerMesActual());
-        producto.asignarAnoCompra(obtenerAnoActual());
-        
+        obtenerCajero().anadirProducto(producto);
         //Se comprueba si la base de datos contiene un producto igual al que se
         //va a anadir, en cuyo caso simplemente aumenta la cantidad del actual
         //producto en la base de datos en vez de anadir un producto mas a esta.
@@ -955,29 +904,6 @@ public class UIEpdoCajero extends UIEmpleado{
             }
         }
         
-    }
-    
-    /**
-     * Metodo auxiliar de imprimirListaProductos(...)
-     */
-    private void imprimirCaracteristicasProductoComprado(Usuarios usuarios){
-        for(int i = 0; i < usuarios.obtenerTamano(); i++){
-            Usuario tempUsuario = usuarios.obtenerUsuario(i);
-            if(tempUsuario instanceof Cliente){ //Obtenemos un cliente
-                Cliente cliente = (Cliente) tempUsuario;
-                
-                //Obtenemos la lista de productos que el cliente ha comprado
-                ArrayList<Producto> productosComprados = Util.listaProductosComprados(cliente);
-                Iterator<Producto> itr = productosComprados.iterator();
-                while(itr.hasNext()){ //Por cada producto comprado
-                    Producto tempProducto = itr.next();
-                    System.out.println("\t" + UIMensajes.g_Nombre()
-                        + ": " + tempUsuario.obtenerNombreUsuario() + " ");
-                    imprimirCaracteristicasCompacta(tempProducto);
-                }
-                
-            }
-        }
     }
     
     /**

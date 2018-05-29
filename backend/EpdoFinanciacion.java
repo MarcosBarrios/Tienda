@@ -59,26 +59,22 @@ public class EpdoFinanciacion extends Empleado{
 	 * Actualiza el nombre de un cliente cuyo dni coincida con el
 	 * especificado.
 	 * 
-	 * @param dni DNI del cliente a actualizar
+	 * @param DNI DNI del cliente a actualizar
 	 * @param nuevoNombre Nuevo nombre del cliente
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarNombreCliente(String dni, String nuevoNombre) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el nombre del cliente
-				cliente.asignarNombreUsuario(nuevoNombre);
-				return true;
-			}
+	public boolean actualizarNombreCliente(String DNI, String nuevoNombre) {
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			
+			//Actualizamos el nombre del cliente
+			cliente.asignarNombreUsuario(nuevoNombre);
+			
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			return true;
 		}
 		return false;
 	}
@@ -87,26 +83,22 @@ public class EpdoFinanciacion extends Empleado{
 	 * Actualiza el email de un cliente cuyo dni coincida con el
 	 * especificado.
 	 * 
-	 * @param dni DNI del cliente a actualizar
+	 * @param DNI DNI del cliente a actualizar
 	 * @param nuevoEmail Nuevo email del cliente
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarEmailCliente(String dni, String nuevoEmail) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el email del cliente
-				cliente.asignarEmailUsuario(nuevoEmail);
-				return true;
-			}
+	public boolean actualizarEmailCliente(String DNI, String nuevoEmail) {
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			
+			//Actualizamos el email del cliente
+			cliente.asignarEmailUsuario(nuevoEmail);
+			
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			return true;
 		}
 		return false;
 	}
@@ -115,26 +107,46 @@ public class EpdoFinanciacion extends Empleado{
 	 * Actualiza el telefono de un cliente cuyo dni coincida con el
 	 * especificado.
 	 * 
-	 * @param dni DNI del cliente a actualizar
+	 * @param DNI DNI del cliente a actualizar
 	 * @param nuevoTelefono Nuevo telefono del cliente
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarTelefonoCliente(String dni, String nuevoTelefono) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el telefono del cliente
-				cliente.asignarTelefono(nuevoTelefono);
-				return true;
-			}
+	public boolean actualizarTelefonoCliente(String DNI, String nuevoTelefono) {
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			
+			//Actualizamos el telefono del cliente
+			cliente.asignarTelefono(nuevoTelefono);
+			
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(cliente, EnumOperaciones.mF_ACTUALIZARCLIENTE,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Actualiza el domicilio de un cliente cuyo dni coincida con el
+	 * especificado.
+	 * 
+	 * @param DNI DNI del cliente a actualizar
+	 * @param nuevoDomicilio Nuevo domicilio del cliente
+	 * 
+	 * @return Verdadero si la operacion se ha realizado con exito
+	 */
+	public boolean actualizarDomicilioCliente(String DNI, String nuevoDomicilio) {
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			
+			//Actualizamos el domicilio del cliente
+			cliente.asignarDomicilio(nuevoDomicilio);
+			
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(this, EnumOperaciones.mF_ACTUALIZARCLIENTE,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			return true;
 		}
 		return false;
 	}
@@ -147,25 +159,21 @@ public class EpdoFinanciacion extends Empleado{
 	 * @return Array con los datos de un cliente
 	 */
 	public String[] obtenerDatosCliente(String DNI) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(cliente, EnumOperaciones.mF_IMPRIMIRCLIENTE,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Obtenemos los datos del cliente
-				String[] datos = new String[5];
-				datos[0] = cliente.obtenerDNI();
-				datos[1] = cliente.obtenerNombreUsuario();
-				datos[2] = cliente.obtenerEmailUsuario();
-				datos[3] = cliente.obtenerTelefono();
-				datos[4] = cliente.obtenerDomicilio();
-				return datos;
-			}
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			
+			//Obtenemos los datos del cliente
+			String[] datos = new String[5];
+			datos[0] = cliente.obtenerDNI();
+			datos[1] = cliente.obtenerNombreUsuario();
+			datos[2] = cliente.obtenerEmailUsuario();
+			datos[3] = cliente.obtenerTelefono();
+			datos[4] = cliente.obtenerDomicilio();
+			
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(cliente, EnumOperaciones.mF_IMPRIMIRCLIENTE,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			return datos;
 		}
 		return null;
 	}
@@ -174,54 +182,23 @@ public class EpdoFinanciacion extends Empleado{
 		ArrayList<Factura> listaFacturas = new ArrayList<Factura>();
 		
 		//Obtenemos un cliente cuyo dni sea igual a DNI
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				FichaCliente fc = cliente.obtenerFichaCliente();
-				
-				//Dejamos constancia de la operacion en el historial
-                dejarConstancia(cliente, EnumOperaciones.mF_IMPRIMIRCLIENTE,
-                		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Guardamos todas las facturas del cliente en listaFacturas
-				for(int i = 0; i < fc.obtenerNumeroFacturas(); i++){
-					listaFacturas.add(fc.obtenerFactura(i));
-				}
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			
+			//Guardamos todas las facturas del cliente en listaFacturas
+			for(int i = 0; i < fc.obtenerNumeroFacturas(); i++){
+				listaFacturas.add(fc.obtenerFactura(i));
 			}
+			
+			//Dejamos constancia de la operacion en el historial
+            dejarConstancia(cliente, EnumOperaciones.mF_IMPRIMIRCLIENTE,
+            		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 		}
 		
 		return listaFacturas;
 	}
 	
-	/**
-	 * Actualiza el domicilio de un cliente cuyo dni coincida con el
-	 * especificado.
-	 * 
-	 * @param dni DNI del cliente a actualizar
-	 * @param nuevoDomicilio Nuevo domicilio del cliente
-	 * 
-	 * @return Verdadero si la operacion se ha realizado con exito
-	 */
-	public boolean actualizarDomicilioCliente(String dni, String nuevoDomicilio) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				Cliente cliente = (Cliente) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(this, EnumOperaciones.mF_ACTUALIZARCLIENTE,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el domicilio del cliente
-				cliente.asignarDomicilio(nuevoDomicilio);
-				return true;
-			}
-		}
-		return false;
-	}
-    
     /**
      * Devuelve la clase que implementa las funciones para este empleado
      * 
@@ -234,6 +211,7 @@ public class EpdoFinanciacion extends Empleado{
     /**
 	 * Devuelve una cadena para referenciar este tipo de empleado
 	 */
+	@Override
 	public String toString() {
 		return UIMensajes.mGU_AnE_Financiacion();
 	}

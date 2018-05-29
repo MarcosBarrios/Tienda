@@ -215,6 +215,14 @@ public class UIMensajes{
         return "Comprobar el estado de un producto";
     }
     
+    public static String mPV_RP_OperacionExitosa() {
+    	return "Se ha anadido el producto para reparacion";
+    }
+    
+    public static String mPV_RP_OperacionFallida() {
+    	return "Tecnico, cliente o producto no encontrado";
+    }
+    
     public static String mPV_RP_ProductoArreglado(){
         return "El producto se ha arreglado con exito y esta a espera de pago";
     }
@@ -237,6 +245,10 @@ public class UIMensajes{
         return "Nombre, email o DNI del tecnico encargado";
     }
     
+    public static String mPV_RP_ProductoPagado() {
+    	return "Producto reparado y reparacion pagada";
+    }
+    
     public static String mPV_RP_CumpleGarantia(){
         return "El producto mantiene la garantia. Precio 0 asegurado.";
     }
@@ -245,20 +257,29 @@ public class UIMensajes{
         return "El producto no mantiene la garantia. Es necesario realizar un pago";
     }
     
+    public static String mPV_CEP_ReporteNoEncontrado() {
+    	return "No se ha encontrado ningun reporte con los datos especificados";
+    }
+    
+    public static String mPV_CEP_ProductoNoReparado() {
+    	return "El producto todavia no ha sido reparado";
+    }
+    
     public static String mPV_DP_IndicarCliente(){
         return "Escriba a continuacion el DNI del cliente";
     }
     
-    public static String mPV_DP_IntroducirFecha(){
-        return "Indique el dia, mes y ano actual";
-    }
+    public static String mPV_DP_IntroducirFecha() {
+		return "Indique el dia, mes y año actual";
+	}
     
     public static String mPV_DP_DevolucionAceptada(){
         return "Se ha devuelto el producto con exito";
     }
     
-    public static String mPV_DP_DevolucionRechazada(){
-        return "El producto se ha comprado hace mas de 3 meses, devolucion rechazada";
+    public static String mPV_DP_DevolucionFallida() {
+    	return "No se ha encontrado el producto o el cliente o"+
+    			"El producto ha sido comprado hace mas de 3 meses";
     }
     
     public static String mT_AR_Pagado(){
@@ -563,7 +584,12 @@ public class UIMensajes{
     }
     
     public static String mC_VP_SinStock(){
-        return "No quedan reservas del producto especificado";
+        return "No se ha encontrado el cliente, el producto o" +
+        		"no hay unidades del producto almacenadas";
+    }
+    
+    public static String mC_VP_VendidoExito() {
+    	return "Se ha vendido el producto con exito";
     }
     
     public static String mC_AnP_ProcederIntroduccion(){
@@ -715,6 +741,6 @@ public class UIMensajes{
     public static String mC_EspecificarNumeroCaja(){
         return "Especificar el numero de la caja desde la que se va a operar";
     }
-    
+
     //*********************************************************************
 }

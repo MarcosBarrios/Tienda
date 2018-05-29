@@ -33,6 +33,7 @@ public class EpdoComercial extends Empleado{
     /**
 	 * Devuelve una cadena para referenciar este tipo de empleado
 	 */
+	@Override
 	public String toString() {
 		return UIMensajes.mGU_AnE_Comercial();
 	}

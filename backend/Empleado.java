@@ -46,6 +46,40 @@ public abstract class Empleado extends Usuario{
     }
     
     /**
+     * Devuelve un cliente dado un DNI
+     * 
+     * @param dniCliente DNI del cliente con el producto
+     * 
+     * @return Cliente cuyo dni es igual a dniCliente
+     */
+    protected Cliente obtenerCliente(String dniCliente) {
+    	Usuario usuario = obtenerUsuarios().obtenerUsuario(dniCliente);
+    	if(usuario!=null) {
+    		if(usuario instanceof Cliente) {
+    			return (Cliente) usuario;
+    		}
+    	}
+    	return null;
+    }
+    
+    /**
+     * Devuelve un empleado dado un DNI
+     * 
+     * @param dniEmpleado DNI del empleado con el producto
+     * 
+     * @return Empleado cuyo dni es igual a dniCliente
+     */
+    protected Empleado obtenerEmpleado(String dniEmpleado) {
+    	Usuario usuario = obtenerUsuarios().obtenerUsuario(dniEmpleado);
+    	if(usuario!=null) {
+    		if(usuario instanceof Cliente) {
+    			return (Empleado) usuario;
+    		}
+    	}
+    	return null;
+    }
+    
+    /**
      * Devuelve la base de datos de usuarios
      * 
      * @return usuarios Base de datos de usuarios

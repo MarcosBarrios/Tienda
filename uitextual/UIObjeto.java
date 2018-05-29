@@ -89,9 +89,9 @@ public abstract class UIObjeto {
      */
     public void formatearCadena(String nombreEntrada, boolean tabular, boolean puntoComa){
         System.out.println();
-        tabularCadena(true);
+        tabularCadena(tabular);
         System.out.print(nombreEntrada);
-        anadirPuntoComa(true);
+        anadirPuntoComa(puntoComa);
     }
     
     /**

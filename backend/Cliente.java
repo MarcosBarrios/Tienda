@@ -85,6 +85,7 @@ public class Cliente extends Usuario{
     /**
 	 * Devuelve una cadena para referenciar este tipo de cliente
 	 */
+    @Override
 	public String toString() {
 		return UIMensajes.mGU_AnE_Cliente();
 	}

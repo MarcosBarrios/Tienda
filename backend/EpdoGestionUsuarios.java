@@ -59,20 +59,17 @@ public class EpdoGestionUsuarios extends Empleado {
 	}
 	
 	public boolean aceptarSolicitud(String DNI, int numeroSolicitud) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				//Si el usuario encontrado es un cliente
-				Cliente cliente = (Cliente) usuario;
-				FichaCliente fc = cliente.obtenerFichaCliente();
-				
-				//Obtenemos la solicitud utilizando el numero de solicitud
-		        Solicitud s = fc.obtenerSolicitud(numeroSolicitud, true);
-		        
-		        s.cambiarAceptada(true); //Aceptamos la solicitud
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			
+			//Obtenemos la solicitud utilizando el numero de solicitud
+	        Solicitud s = fc.obtenerSolicitud(numeroSolicitud, true);
+	        
+	        if(s!=null) {
+	        	s.cambiarAceptada(true); //Aceptamos la solicitud
 				return true;
-			}
+	        }
 		}
 		return false;
 	}
@@ -88,22 +85,17 @@ public class EpdoGestionUsuarios extends Empleado {
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
 	public boolean anadirSolicitud(String DNI, String descripcionSolicitud) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				//Si el usuario encontrado es un cliente
-				Cliente cliente = (Cliente) usuario;
-				FichaCliente fc = cliente.obtenerFichaCliente();
-				
-			 	//Creamos la solicitud
-				Solicitud s = new Solicitud(false, fc, descripcionSolicitud);
-        		s.asignarNumeroSolicitud(); //Asignamos su numero de solicitud correspondiente
-                
-                //Anadimos la solicitud a la ficha del cliente
-                fc.anadirSolicitud(s);
-				return true;
-			}
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			
+		 	//Creamos la solicitud
+			Solicitud s = new Solicitud(false, fc, descripcionSolicitud);
+    		s.asignarNumeroSolicitud(); //Asignamos su numero de solicitud correspondiente
+            
+            //Anadimos la solicitud a la ficha del cliente
+            fc.anadirSolicitud(s);
+			return true;
 		}
 		return false;
 	}
@@ -138,9 +130,11 @@ public class EpdoGestionUsuarios extends Empleado {
 			Empleado empleado = obtenerTipoEmpleado(tipoEmpleado,
 					DNI, nombre, email, usuario, contrasena);
 			
-			//Anadimos el empleado a la base de datos de usuarios
-			obtenerUsuarios().anadirUsuario(empleado);
-			return true;
+			if(empleado!=null) {
+				//Anadimos el empleado a la base de datos de usuarios
+				obtenerUsuarios().anadirUsuario(empleado);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -195,26 +189,21 @@ public class EpdoGestionUsuarios extends Empleado {
 	 * Actualiza el nombre de un empleado cuyo dni coincida con el
 	 * especificado.
 	 * 
-	 * @param dni DNI del empleado a actualizar
+	 * @param DNI DNI del empleado a actualizar
 	 * @param nuevoNombre Nuevo nombre del empleado
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarNombreEmpleado(String dni, String nuevoNombre) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Empleado) {
-				Empleado empleado = (Empleado) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el nombre del empleado
-				empleado.asignarNombreUsuario(nuevoNombre);
-				return true;
-			}
+	public boolean actualizarNombreEmpleado(String DNI, String nuevoNombre) {
+		Empleado empleado = obtenerEmpleado(DNI);
+		if(empleado!=null) {
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			
+			//Actualizamos el nombre del empleado
+			empleado.asignarNombreUsuario(nuevoNombre);
+			return true;
 		}
 		return false;
 	}
@@ -223,26 +212,21 @@ public class EpdoGestionUsuarios extends Empleado {
 	 * Actualiza el email de un empleado cuyo dni coincida con el
 	 * especificado.
 	 * 
-	 * @param dni DNI del empleado a actualizar
+	 * @param DNI DNI del empleado a actualizar
 	 * @param nuevoEmail Nuevo email del empleado
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarEmailEmpleado(String dni, String nuevoEmail) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Empleado) {
-				Empleado empleado = (Empleado) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el email del empleado
-				empleado.asignarEmailUsuario(nuevoEmail);
-				return true;
-			}
+	public boolean actualizarEmailEmpleado(String DNI, String nuevoEmail) {
+		Empleado empleado = obtenerEmpleado(DNI);
+		if(empleado!=null) {
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			
+			//Actualizamos el email del empleado
+			empleado.asignarEmailUsuario(nuevoEmail);
+			return true;
 		}
 		return false;
 	}
@@ -254,27 +238,44 @@ public class EpdoGestionUsuarios extends Empleado {
 	 * Nota: El usuario es el nombre de la cuenta con la que empleado
 	 * inicia sesion al programa.
 	 * 
-	 * @param dni DNI del empleado a actualizar
+	 * @param DNI DNI del empleado a actualizar
 	 * @param nuevoUsuario Nuevo usuario del empleado
 	 * 
 	 * @return Verdadero si la operacion se ha realizado con exito
 	 */
-	public boolean actualizarUsuarioEmpleado(String dni, String nuevoUsuario) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Empleado) {
-				//Si el usuario encontrado es un empleado
-				Empleado empleado = (Empleado) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos el usuario del empleado
-				empleado.asignarUsuario(nuevoUsuario);
-				return true;
-			}
+	public boolean actualizarUsuarioEmpleado(String DNI, String nuevoUsuario) {
+		Empleado empleado = obtenerEmpleado(DNI);
+		if(empleado!=null) {
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			
+			//Actualizamos el usuario del empleado
+			empleado.asignarUsuario(nuevoUsuario);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Actualiza la contrasena de un empleado cuyo dni coincida con el
+	 * especificado.
+	 * 
+	 * @param DNI DNI del empleado a actualizar
+	 * @param nuevaContrasena Nueva contrasena del empleado
+	 * 
+	 * @return Verdadero si la operacion se ha realizado con exito
+	 */
+	public boolean actualizarContrasenaEmpleado(String DNI, String nuevaContrasena) {
+		Empleado empleado = obtenerEmpleado(DNI);
+		if(empleado!=null) {
+			//Dejamos constancia de la operacion en el historial
+			dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
+					obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			
+			//Actualizamos la contrasena del empleado
+			empleado.asignarContrasena(nuevaContrasena);
+			return true;
 		}
 		return false;
 	}
@@ -295,34 +296,6 @@ public class EpdoGestionUsuarios extends Empleado {
 	 */
 	public ArrayList<Cliente> obtenerListaClientes(){
 		return Util.obtenerListaClientes(obtenerUsuarios());
-	}
-	
-	/**
-	 * Actualiza la contrasena de un empleado cuyo dni coincida con el
-	 * especificado.
-	 * 
-	 * @param dni DNI del empleado a actualizar
-	 * @param nuevaContrasena Nueva contrasena del empleado
-	 * 
-	 * @return Verdadero si la operacion se ha realizado con exito
-	 */
-	public boolean actualizarContrasenaEmpleado(String dni, String nuevaContrasena) {
-		Usuario usuario = obtenerUsuarios().obtenerUsuario(dni);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Empleado) {
-				Empleado empleado = (Empleado) usuario;
-				
-				//Dejamos constancia de la operacion en el historial
-				dejarConstancia(empleado, EnumOperaciones.mGU_ACTUALIZARDATOSEMPLEADO,
-						obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
-				
-				//Actualizamos la contrasena del empleado
-				empleado.asignarContrasena(nuevaContrasena);
-				return true;
-			}
-		}
-		return false;
 	}
 	
 	public UIEmpleado obtenerUI() {

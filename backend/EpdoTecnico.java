@@ -165,25 +165,22 @@ public class EpdoTecnico extends Empleado{
     public boolean anadirReporte(String DNI, int numeroProducto,
     		String descripcionReporte, float costeReporte, 
     		String nuevoEstado) {
-    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				//Si el usuario encontrado es un cliente
-				Cliente cliente = (Cliente) usuario;
-				FichaCliente fc = cliente.obtenerFichaCliente();
-				
-				//Obtenemos el producto de la lista de productos comprados del cliente
-				Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
+		Cliente cliente = obtenerCliente(DNI);
+		if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			
+			//Obtenemos el producto de la lista de productos comprados del cliente
+			Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
 
+			if(producto!=null) {
 				//Creamos un reporte con los datos especificados y lo anadimos
 				//al producto
 		        producto.anadirReporte(crearReporte(producto, descripcionReporte, 
 						nuevoEstado, costeReporte));
 				
 				//Dejamos constancia de la operacion en el historial del tecnico
-                dejarConstancia(cliente, producto, this, EnumOperaciones.mT_ANADIRREPORTE,
-                		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+		        dejarConstancia(cliente, producto, this, EnumOperaciones.mT_ANADIRREPORTE,
+		        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 				return true;
 			}
 		}
@@ -240,15 +237,12 @@ public class EpdoTecnico extends Empleado{
      * @return Ultimo reporte del producto con numeroProducto
      */
     public Reporte obtenerUltimoReporteProducto(String DNI, int numeroProducto) {
-    	Usuario usuario = obtenerUsuarios().obtenerUsuario(DNI);
-		if(usuario!=null) {
-			//Si existe un usuario registrado con el DNI especificado
-			if(usuario instanceof Cliente) {
-				//Si el usuario encontrado es un cliente
-				Cliente cliente = (Cliente) usuario;
-				FichaCliente fc = cliente.obtenerFichaCliente();
-				Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
-				
+    	Cliente cliente = obtenerCliente(DNI);
+    	if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
+			
+			if(producto!=null) {
 				//Dejamos constancia de la operacion en el historial
 				//del tecnico y del producto
 		        dejarConstancia(cliente, producto, this, 
@@ -257,7 +251,7 @@ public class EpdoTecnico extends Empleado{
 				
 				return producto.obtenerReporte(producto.obtenerNumeroReportes()-1);
 			}
-		}
+    	}
 		return null;
     }
     
@@ -329,6 +323,7 @@ public class EpdoTecnico extends Empleado{
     /**
 	 * Devuelve una cadena para referenciar este tipo de empleado
 	 */
+	@Override
 	public String toString() {
 		return UIMensajes.mGU_AnE_Tecnico();
 	}

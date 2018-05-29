@@ -452,4 +452,54 @@ public abstract class Producto{
     public String obtenerDescripcion(){
         return descripcionProducto;
     }
+    
+    /**
+     * Devuelve verdadero si el objeto o es igual
+     * a este producto
+     */
+    @Override
+    public boolean equals(Object o) {
+    	Producto p = (Producto) o;
+    	if(p.obtenerNumeroProducto()==obtenerNumeroProducto() &&
+    			p.obtenerEstadoComprado()==obtenerEstadoComprado()&&
+    			p.obtenerPrecio()==obtenerPrecio() &&
+    			p.obtenerPeso()==obtenerPeso() &&
+    			p.obtenerEstadoFinanciado()==obtenerEstadoFinanciado() &&
+    			p.obtenerDescripcion().equals(obtenerDescripcion()) &&
+    			p.obtenerDiaCompra()==obtenerDiaCompra() &&
+    			p.obtenerMesCompra()==obtenerMesCompra() &&
+    			p.obtenerAnoCompra()==obtenerAnoCompra() && 
+    			p.obtenerEstadoProducto()==obtenerEstadoProducto() &&
+    			coincidenCaracteristicas(p) ) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Devuelve verdadero si las caracteristicas adicionales coinciden
+     * en los dos productos a comparar.
+     * 
+     * @param producto Producto con el que comparar este
+     * 
+     * @return Verdadero si los productos a comparar tienen las mismas
+     * caracteristicas adicionales.
+     */
+    private boolean coincidenCaracteristicas(Producto producto) {
+    	//Comparamos en primer lugar el numero de caracteristicas
+    	if(producto.obtenerNumCaracteristicas()==obtenerNumCaracteristicas()) {
+    		int nCaracteristicas = obtenerNumCaracteristicas();
+    		int nCoincidencias = 0; //contador de coincidencias
+    		for(int i = 0; i < nCaracteristicas; i++) {
+    			if(producto.obtenerCaracteristica(i).equals(obtenerCaracteristica(i))) {
+    				nCoincidencias++;
+    			}
+    		}
+    		
+    		if(nCoincidencias==nCaracteristicas) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }

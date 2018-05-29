@@ -106,9 +106,8 @@ public class UIEpdoTecnico extends UIEmpleado{
         		false);
         
         //Anadimos el reporte al producto y dejamos constancia en el historial
-        boolean anadido = obtenerTecnico().anadirReporte(DNI, nProducto, descripcionProblema, 
-        		costeProblema, nuevoEstado);
-        if(anadido) {
+        if(obtenerTecnico().anadirReporte(DNI, nProducto, descripcionProblema, 
+        		costeProblema, nuevoEstado)) {
         	//"Reporte anadido con exito"
         	System.out.println(UIMensajes.mT_AR_ReporteAnadido());
         }else {
@@ -131,52 +130,17 @@ public class UIEpdoTecnico extends UIEmpleado{
         //Obtenemos el ultimo reporte del producto
         Reporte ultimoReporte = obtenerTecnico().obtenerUltimoReporteProducto(DNI, nProducto);
         
-        //Imprime la informacion del ultimo reporte del producto
-        imprimirInformacionReporte(ultimoReporte);
-
-        if(ultimoReporte==null) {
+        if(ultimoReporte!=null) {
+        	//Imprime la informacion del ultimo reporte del producto
+            System.out.println(ultimoReporte);
+            
+            //Imprime la descripcion pues no esta incluida en el toString de Reporte
+            formatearCadena(UIMensajes.mC_AnP_Descripcion(), true, true);
+            System.out.println(ultimoReporte.obtenerDescripcion());
+        }else {
         	//"No se ha encontrado el reporte"
 		    System.out.println(UIMensajes.mT_VEP_ReporteNoEncontrado());
         }
-    }
-    
-    /**
-     * Imprime la informacion almacenada en un reporte
-     * 
-     * @param reporte con la informacion a imprimir
-     */
-    private void imprimirInformacionReporte(Reporte reporte) {
-    	//Estado
-        formatearCadena(UIMensajes.mC_LP_Estado(), true, true);
-        System.out.print(reporte.obtenerNuevoEstado());
-        
-        //Dia
-        formatearCadena(UIMensajes.mC_AnP_Dia(), true, true);
-        System.out.print(reporte.obtenerDiaReporte());
-        
-        //Mes
-        formatearCadena(UIMensajes.mC_AnP_Mes(), true, true);
-        System.out.print(reporte.obtenerMesReporte());
-        
-        //Ano
-        formatearCadena(UIMensajes.mC_AnP_Ano(), true, true);
-        System.out.print(reporte.obtenerAnoReporte());
-        
-        //Descripcion
-        formatearCadena(UIMensajes.mPV_RP_DescripcionProblema(), true, true);
-        System.out.print(reporte.obtenerDescripcion());
-        
-        //Si se ha pagado el producto
-        formatearCadena(UIMensajes.mT_AR_Pagado(), true, true);
-        if(reporte.obtenerPagado()){
-            System.out.print(UIMensajes.g_Si());
-        }else{
-            System.out.print(UIMensajes.g_No());
-        }
-        
-        //Coste
-        formatearCadena(UIMensajes.mT_AR_Coste(), true, true);
-        System.out.print(reporte.obtenerCoste());
     }
     
     /**

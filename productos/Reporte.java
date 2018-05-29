@@ -1,5 +1,6 @@
 package productos;
 
+import uitextual.UIMensajes;
 
 /**
  * Clase disenada para las modificaciones que se vayan haciendo a 
@@ -180,5 +181,51 @@ public class Reporte{
     public String obtenerDescripcion(){
         return descripcion;
     }
+    
+    /**
+     * Imprime la informacion almacenada en el reporte sin
+     * la descripcion, que tendra que ser imprimida a parte.
+     */
+    @Override
+    public String toString() {
+    	return UIMensajes.mC_LP_Estado() + ": " + 
+    		obtenerCadenaEstado(obtenerNuevoEstado()) +
+    		" | " + UIMensajes.mC_AnP_Dia() + ": " + obtenerDiaReporte() +
+    		" | " + UIMensajes.mC_AnP_Mes() + ": " + obtenerMesReporte() +
+    		" | " + UIMensajes.mC_AnP_Ano() + ": " + obtenerAnoReporte() +
+    		" | " + UIMensajes.mT_AR_Pagado() + ": " + 
+    		obtenerCadenaBooleana(obtenerPagado());
+    }
+    
+    /**
+     * Devuelve una cadena representativa del estado del reporte
+     * 
+     * @param estado Estado del reporte
+     * 
+     * @return Cadena representativa del estado del reporte
+     */
+	private String obtenerCadenaEstado(EnumEstadoProducto estado) {
+		switch(estado) {
+		case ROTO: return EnumEstadoProducto.estadoProductoRoto();
+		case INTACTO: return EnumEstadoProducto.estadoProductoIntacto();
+		case DEVUELTO: return EnumEstadoProducto.estadoProductoDevuelto();
+		}
+    	return EnumEstadoProducto.estadoProductoIntacto();
+    }
+	
+	/**
+	 * Devuelve la cadena "Si" si obtenerPagado es verdadero y
+	 * "No" si obtenerPagado es falso
+	 * 
+	 * @param obtenerPagado Valor booleano que se quiere pasar a cadena
+	 * 
+	 * @return Cadena con valor booleano "Si"/"No"
+	 */
+	private String obtenerCadenaBooleana(boolean obtenerPagado) {
+		if(obtenerPagado) {
+			return UIMensajes.g_Si();
+		}
+		return UIMensajes.g_No();
+	}
     
 }
