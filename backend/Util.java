@@ -240,34 +240,6 @@ public class Util{
     }
     
     /**
-     * Devuelve verdadero si la base de datos de productos
-     * contiene un producto.
-     * 
-     * @param producto Producto a comparar
-     * @param productos Base de datos de productos de la tienda
-     */
-    public static Producto obtenerProductoIgual(Producto producto, Productos productos){
-        
-        for(int i = 0; i < productos.obtenerTamano(); i++){
-            Producto temp = productos.obtenerProducto(i, false);
-            if(temp.obtenerPrecio()==producto.obtenerPrecio() &&
-            temp.obtenerPeso()==producto.obtenerPeso() &&
-            temp.obtenerDescripcion()==producto.obtenerDescripcion() &&
-            temp.obtenerTiempoGarantia()==producto.obtenerTiempoGarantia() &&
-            temp.obtenerDiaCompra() == producto.obtenerDiaCompra() &&
-            temp.obtenerMesCompra() == producto.obtenerMesCompra() &&
-            temp.obtenerAnoCompra() == producto.obtenerAnoCompra() &&
-            temp.obtenerNumCaracteristicas() == producto.obtenerNumCaracteristicas()){
-                //Si el producto cumple con todas las igualdades entonces se considera
-                //igual a temp
-                return temp;
-            }
-        }
-        
-        return null;
-    }
-    
-    /**
      * Devuelve una lista con todos los tipos de empleados trabajando
      * en la tienda.
      * 

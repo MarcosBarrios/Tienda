@@ -97,4 +97,5 @@ public class UIMenuEpdoCajero extends UIMenuEmpleado{
         }
         activar(); //Activar de nuevo el menu
     }
+    
 }

@@ -2,7 +2,6 @@ package productos;
 
 import java.util.ArrayList;
 
-
 /**
  * Contiene los estados en los que se puede encontrar un producto.
  * 
@@ -62,6 +61,27 @@ public enum EnumEstadoProducto{
     
     public static String estadoProductoDevuelto(){
         return "Devuelto";
+    }
+    
+    /**
+     * Devuelve una cadena de caracteres asociada a un estado
+     * 
+     * @param estado Estado del que obtener la cadena
+     */
+    public static String obtenerCadenaOperacion(EnumEstadoProducto estado){
+        String salida = "";
+        
+        switch(estado){
+            case INTACTO:
+            return "Intacto";
+            
+            case ROTO:
+            return  "Roto";
+            
+            case DEVUELTO:
+            return "Devuelto";
+        }
+        return salida;
     }
     
 }

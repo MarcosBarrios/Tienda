@@ -81,8 +81,22 @@ public class ProductoHogar extends Producto{
     /**
      * Devuelve una cadena para referenciar este tipo de producto
      */
-    public String toString() {
+    public String categoria() {
     	return UIMensajes.mC_AnP_Hogar();
+    }
+    
+    /**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+    public String toString() {
+		String salida = cadenaDatos();
+    	return salida.concat("\n\t" + UIMensajes.mC_ICE_Ancho() + ": " + 
+    			obtenerAncho() +
+    			" | " + UIMensajes.mC_ICE_Alto() + ": " + 
+    			obtenerAlto() +
+    			" | " + UIMensajes.mC_ICE_Consumo() + ": " + 
+    			obtenerConsumo());
     }
 
 }

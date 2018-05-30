@@ -78,8 +78,19 @@ public class ProductoImagen extends Producto{
     /**
      * Devuelve una cadena para referenciar este tipo de producto
      */
-    public String toString() {
+    public String categoria() {
     	return UIMensajes.mC_AnP_Imagen();
+    }
+    
+    /**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+    public String toString() {
+		String salida = cadenaDatos();
+    	return salida.concat("\n\t" + UIMensajes.mC_ICE_Pulgadas() + ": " + obtenerPulgadas() +
+    			" | " + UIMensajes.mC_ICE_AnchoResolucion() + ": " + obtenerAnchoResolucion() +
+    			" | " + UIMensajes.mC_ICE_AltoResolucion() + ": " + obtenerAltoResolucion());
     }
     
 }

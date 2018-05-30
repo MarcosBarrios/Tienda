@@ -225,11 +225,22 @@ public class EpdoPostVenta extends Empleado{
 	}
     
     /**
-	 * Devuelve una cadena para referenciar este tipo de empleado
+	 * Devuelve una cadena para referenciar este tipo de usuario
+	 */
+	public String tipoUsuario() {
+		return UIMensajes.mGU_AnE_PostVenta();
+	}
+	
+	/**
+	 * Devuelve una cadena con la informacion del empleado de 
+	 * post venta
 	 */
 	@Override
-	public String toString() {
-		return UIMensajes.mGU_AnE_PostVenta();
+	public String toString(){
+		return  "\t" + UIMensajes.g_TipoUsuario() + ": " + tipoUsuario() +
+				" | " + UIMensajes.g_DNI() + ": " + obtenerDNI() +
+				" | " + UIMensajes.g_Nombre() + ": " + obtenerNombreUsuario() +
+				" | " + UIMensajes.g_Email() + ": " + obtenerEmailUsuario();
 	}
     
 }

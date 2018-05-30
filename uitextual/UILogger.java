@@ -23,6 +23,15 @@ public class UILogger{
 		return menuPrevio;
 	}
 	
+	/**
+	 * Asigna el menu previo 
+	 * 
+	 * @param nuevoMenuPrevio Nuevo menu Previo
+	 */
+	private static void asignarMenuPrevio(UIMenuAccionable nuevoMenuPrevio) {
+		menuPrevio = nuevoMenuPrevio;
+	}
+	
 	//Evitamos que se pueda instanciar UILogger
 	private UILogger() {
 		throw new IllegalStateException("Clase de utilidad");
@@ -45,6 +54,8 @@ public class UILogger{
 		//Pregunta por usuario, contrasena y busca un empleado
 		//con esos datos.
 		Empleado empleado = comprobarEmpleado(logeador);
+		
+		asignarMenuPrevio(menuPrevio);
         
 		//Si encuentra un empleado con los datos
         if(empleado != null){

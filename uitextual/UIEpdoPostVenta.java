@@ -69,7 +69,7 @@ public class UIEpdoPostVenta extends UIEmpleado{
     	//"Indique a continuacion el DNI del cliente"
         String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
         
-        //Obtenemos el numero del producto al cual se va a anadir el reporte
+        //Obtenemos el numero del producto
         int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
         
         //Obtenemos el ultimo reporte del producto en reparacion
@@ -160,7 +160,7 @@ public class UIEpdoPostVenta extends UIEmpleado{
     	//"Indique a continuacion el DNI del cliente"
         String dniCliente = formatearEntradaCadena(UIMensajes.mF_AD_IndicarDNICliente(), true);
         
-        //Obtenemos el numero del producto al cual se va a anadir el reporte
+        //Obtenemos el numero del producto
         int nProducto = (int) formatearEntradaDecimal(UIMensajes.mC_LP_NumeroProducto());
         
         if(obtenerPostVenta().devolverProducto(dniCliente, nProducto)) {

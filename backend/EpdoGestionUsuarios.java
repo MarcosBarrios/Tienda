@@ -301,5 +301,23 @@ public class EpdoGestionUsuarios extends Empleado {
 	public UIEmpleado obtenerUI() {
 		return new UIGestionUsuarios(this);
 	}
+	
+	/**
+	 * Devuelve una cadena para referenciar este tipo de usuario
+	 */
+	public String tipoUsuario() {
+		return UIMensajes.mGU_AnE_GestorUsuarios();
+	}
+	
+	/**
+	 * Devuelve una cadena con la informacion del gestor
+	 */
+	@Override
+	public String toString(){
+		return  "\t" + UIMensajes.g_TipoUsuario() + ": " + tipoUsuario() +
+				" | " + UIMensajes.g_DNI() + ": " + obtenerDNI() +
+				" | " + UIMensajes.g_Nombre() + ": " + obtenerNombreUsuario() +
+				" | " + UIMensajes.g_Email() + ": " + obtenerEmailUsuario();
+	}
 
 }

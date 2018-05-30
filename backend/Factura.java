@@ -1,5 +1,6 @@
 package backend;
 
+import uitextual.UIMensajes;
 
 /**
  * Factura generada cuando el cliente tiene que pagar algo
@@ -118,6 +119,18 @@ public class Factura{
      */
     public int obtenerAno(){
         return ano;
+    }
+    
+    /**
+     * Imprime los datos de la factura
+     */
+    @Override
+    public String toString() {
+        return "\t" + UIMensajes.mT_AR_Coste() + ": " + obtenerCoste() +
+        		" |" + UIMensajes.mC_AnP_Dia() + ": " + obtenerDia() +
+        		" |" + UIMensajes.mC_AnP_Mes() + ": " + obtenerMes() + 
+        		" |" + UIMensajes.mC_AnP_Ano() + ": " + obtenerAno() + "\n" +
+        		"\t" + UIMensajes.mC_AnP_Descripcion() + ": " + obtenerDescripcion();
     }
     
 }

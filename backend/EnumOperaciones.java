@@ -34,9 +34,7 @@ public enum EnumOperaciones{
     mT_VERLISTAFICHASREPARACION,
     mC_VENDERPRODUCTO,
     mC_ANADIRPRODUCTO,
-    mC_ACTUALIZARPRODUCTO,
-    mC_IMPRIMIRDATOSPRODUCTO,
-    mC_IMPRIMIRLISTAPRODUCTOS;
+    mC_ACTUALIZARPRODUCTO;
     
     /**
      * Devuelve una cadena de caracteres asociada a una operacion
@@ -113,13 +111,6 @@ public enum EnumOperaciones{
             
             case mC_ACTUALIZARPRODUCTO:
             return "Actualizar datos de un producto";
-                        
-            case mC_IMPRIMIRDATOSPRODUCTO:
-            return "Imprimir datos de un producto";
-            
-            case mC_IMPRIMIRLISTAPRODUCTOS:
-            return "Imprimir base de datos de productos";
-
         }
         
         return salida;

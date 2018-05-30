@@ -31,12 +31,20 @@ public class EpdoComercial extends Empleado{
 	}
     
     /**
-	 * Devuelve una cadena para referenciar este tipo de empleado
+	 * Devuelve una cadena para referenciar este tipo de usuario
 	 */
-	@Override
-	public String toString() {
+	public String tipoUsuario() {
 		return UIMensajes.mGU_AnE_Comercial();
 	}
 	
-    
+	/**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+	public String toString(){
+		return  "\t" + UIMensajes.g_TipoUsuario() + ": " + tipoUsuario() +
+				" | " + UIMensajes.g_DNI() + ": " + obtenerDNI() +
+				" | " + UIMensajes.g_Nombre() + ": " + obtenerNombreUsuario() +
+				" | " + UIMensajes.g_Email() + ": " + obtenerEmailUsuario();
+	}
 }

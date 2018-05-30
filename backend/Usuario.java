@@ -1,7 +1,7 @@
 package backend;
 
 /**
- * Define la base de los métodos y variables que todos los usuarios 
+ * Define la base de los metodos y variables que todos los usuarios 
  * necesitaran. 
  * 
  * Entre otras cosas dispone de datos personales como nombre, apellidos.
@@ -80,6 +80,11 @@ public abstract class Usuario{
     public String obtenerEmailUsuario(){
         return emailUsuario;
     }
+    
+    /**
+	 * Devuelve una cadena para referenciar este tipo de usuario
+	 */
+    public abstract String tipoUsuario();
     
 }
 

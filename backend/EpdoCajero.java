@@ -1,5 +1,7 @@
 package backend;
 
+import java.util.ArrayList;
+
 import productos.Producto;
 import productos.Productos;
 
@@ -50,34 +52,22 @@ public class EpdoCajero extends Empleado {
 	}
 	
 	/**
-	 * Dado el numero de un producto de la base de datos de productos
-	 * devuelve un producto igual comprado por un cliente.
-	 * 
-	 * @param dniCliente DNI del cliente en donde buscar
-	 * @param numeroProducto Numero del producto del cual se quiere
-	 * obtener un producto comprado igual
-	 * 
-	 * @return Producto comprado igual a un producto de la base de 
-	 * datos de productos
-	 */
-	public Producto obtenerProductoCompradoIgual(String dniCliente, int numeroProducto) {
-		Cliente cliente = obtenerCliente(dniCliente);
-		if(cliente!=null) {
-			FichaCliente fc = cliente.obtenerFichaCliente();
-			Producto producto = fc.obtenerProductoComprado(numeroProducto, true);
-			
-			if(producto!=null) {
-				for(int i = 0; i < i; i++) {
-					Producto temp = fc.obtenerProductoComprado(i, false);
-					if(temp.equals(producto)) {
-						return temp;
-					}
-				}
-			}
-			
-		}
-		return null;
-	}
+     * Devuelve un producto igual al producto especificado pero
+     * de la base de datos
+     * 
+     * @param producto Producto a comparar
+     * @param productos Base de datos de productos de la tienda
+     */
+    public Producto obtenerProductoIgual(Producto producto){
+        for(int i = 0; i < obtenerProductos().obtenerTamano(); i++){
+            Producto temp = obtenerProductos().obtenerProducto(i, false);
+            if(temp.equals(producto)) {
+            	return temp;
+            }
+        }
+        
+        return null;
+    }
 	
 	/**
 	 * Vende un producto a un cliente. Para ello se comprueba
@@ -193,9 +183,140 @@ public class EpdoCajero extends Empleado {
         		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 	}
 	
-	public void anadirProducto(String categoriaProducto) {
-		
+	/**
+	 * Anade un producto al almacen de la tienda y a la base de datos de productos.
+	 * 
+	 * @param producto Producto a anadir a la base de datos
+	 */
+	public void anadirProducto(Producto producto) {
+		//Se comprueba si la base de datos contiene un producto igual al que se
+        //va a anadir, en cuyo caso simplemente aumenta la cantidad del actual
+        //producto en la base de datos en vez de anadir un producto mas a esta.
+        Producto productoIgual = obtenerProductoIgual(producto);
+        if(obtenerProductoIgual(producto)!=null){
+        	productoIgual.asignarCantidad(productoIgual.obtenerCantidad()+1);
+        }else{
+            obtenerProductos().anadirProducto(producto);
+        }
+        
+        //Dejamos constancia de la oepracion realizada en el historial
+        dejarConstancia(this, EnumOperaciones.mC_ANADIRPRODUCTO, 
+        		obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
 	}
+	
+	/**
+	 * Devuelve un producto comprado o de la base de datos dependiendo
+	 * del valor de la variable booleana especificada. 
+	 * 
+	 * Este metodo es utilizado a la hora de actualizar un producto y
+	 * sirve para hacer posible el dejar constancia de la operacion.
+	 * 
+	 * @param dniCliente DNI del cliente en caso de que se busque
+	 * un producto comprado.
+	 * @param numeroProducto Numero del producto a actualizar
+	 * @param buscarEnCliente Indica si buscar un producto comprado
+	 * o del almacen. Si buscarEnCliente=true entonces el valor de 
+	 * dniCliente no es utilizado.
+	 * 
+	 * @return Producto comprado o de la base de datos.
+	 */
+	public Producto obtenerProductoActualizar(String dniCliente, int numeroProducto,
+			boolean buscarEnCliente) {
+		if(buscarEnCliente){ 
+			Cliente cliente = obtenerCliente(dniCliente);
+			Producto producto = obtenerProductoComprado(dniCliente, numeroProducto);
+			if(cliente!=null && producto!=null) {
+				//Se deja constancia de la operacion en el cliente, el producto y el cajero.
+				dejarConstancia(cliente, producto, this, EnumOperaciones.mC_ACTUALIZARPRODUCTO,
+	                    obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+			}
+			
+        	//Producto comprado por un cliente
+            return  obtenerProductoComprado(dniCliente, numeroProducto);
+        }
+
+		//Dejamos constancia de la operacion en el historial del cajero.
+		dejarConstancia(this, EnumOperaciones.mC_ACTUALIZARPRODUCTO,
+                obtenerDiaActual(), obtenerMesActual(), obtenerAnoActual());
+		
+		//Producto de la base de datos / almacen de la tienda
+		return obtenerProductoBaseDatos(numeroProducto);
+	}
+	
+	/**
+	 * Dado el numero de un producto de la base de datos de productos
+	 * devuelve un producto comprado por un cliente.
+	 * 
+	 * @param dniCliente DNI del cliente en donde buscar
+	 * @param numeroProducto Numero del producto 
+	 * 
+	 * @return Producto comprado por un cliente
+	 */
+	public Producto obtenerProductoComprado(String dniCliente, int numeroProducto) {
+		Cliente cliente = obtenerCliente(dniCliente);
+		if(cliente!=null) {
+			FichaCliente fc = cliente.obtenerFichaCliente();
+			return  fc.obtenerProductoComprado(numeroProducto, true);
+		}
+		return null;
+	}
+	
+	/**
+	 * Devuelve un producto de la base de datos de productos
+	 * 
+	 * @param numeroProducto Numero del producto buscado
+	 * 
+	 * @return Producto de la base de datos de productos
+	 */
+	public Producto obtenerProductoBaseDatos(int numeroProducto) {
+		return obtenerProductos().obtenerProducto(numeroProducto, true);
+	}
+	
+	/**
+	 * Devuelve una lista con los clientes de la tienda
+	 * 
+	 * @return Lista con los clientes de la tienda
+	 */
+	public ArrayList<Cliente> listaClientes(){
+		return Util.obtenerListaClientes(obtenerUsuarios());
+	}
+	
+	/**
+	 * Devuelve una lista con los productos almacenados en la base de datos
+	 * 
+	 * @return Lista con los productos almacenados en la base de datos
+	 */
+	public ArrayList<Producto> listaProductosBaseDatos(){
+		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
+		
+		//Anadimos los productos almacenados en la base de datos
+		for(int i = 0; i < obtenerProductos().obtenerTamano(); i++) {
+			listaProductos.add(obtenerProductos().obtenerProducto(i, false));
+		}
+		
+		return listaProductos;
+	}
+	
+	/**
+	 * Devuelve una lista con los productos comprados por un cliente
+	 * 
+	 * @param cliente Cliente con los productos
+	 * 
+	 * @return Lista con los productos comprados por un cliente
+	 */
+	public ArrayList<Producto> listaProductosComprados(Cliente cliente){
+		FichaCliente fc = cliente.obtenerFichaCliente();
+		ArrayList<Producto> listaProductos = new ArrayList<Producto>();
+		
+		//Anadimos los productos comprados por el cliente
+		for(int i = 0; i < obtenerProductos().obtenerTamano(); i++) {
+			listaProductos.add(fc.obtenerProductoComprado(i, false));
+		}
+		
+		return null;
+	}
+	
+	
 	
 	/**
      * Devuelve la clase que implementa las funciones para este empleado
@@ -209,9 +330,19 @@ public class EpdoCajero extends Empleado {
 	/**
 	 * Devuelve una cadena para referenciar este tipo de empleado
 	 */
-	@Override
-	public String toString() {
+	public String tipoUsuario() {
 		return UIMensajes.mGU_AnE_Cajero();
+	}
+	
+	/**
+	 * Devuelve una cadena con la informacion del cliente
+	 */
+	@Override
+	public String toString(){
+		return  "\t" + UIMensajes.g_TipoUsuario() + ": " + tipoUsuario() +
+				" | " + UIMensajes.g_DNI() + ": " + obtenerDNI() +
+				" | " + UIMensajes.g_Nombre() + ": " + obtenerNombreUsuario() +
+				" | " + UIMensajes.g_Email() + ": " + obtenerEmailUsuario();
 	}
 
 }

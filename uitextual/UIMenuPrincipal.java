@@ -24,6 +24,7 @@ public class UIMenuPrincipal extends UIMenuAccionable{
     public UIMenuPrincipal(Logger logeador, int diaActual,
     		int mesActual, int anoActual){
     	super();
+    	this.logeador = logeador;
         //Añade las opciones al menu
         anadirOpciones();
     }

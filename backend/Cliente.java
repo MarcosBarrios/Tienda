@@ -85,9 +85,22 @@ public class Cliente extends Usuario{
     /**
 	 * Devuelve una cadena para referenciar este tipo de cliente
 	 */
-    @Override
-	public String toString() {
+	public String tipoUsuario() {
 		return UIMensajes.mGU_AnE_Cliente();
 	}
+    
+	/**
+	 * Devuelve una cadena con la informacion del cliente
+	 */
+	@Override
+	public String toString(){
+		return "\t" + UIMensajes.g_TipoUsuario() + ": " + tipoUsuario() +
+				" | " + UIMensajes.g_DNI() + ": " + obtenerDNI() +
+				" | " + UIMensajes.g_Nombre() + ": " + obtenerNombreUsuario() +
+				" | " + UIMensajes.g_Email() + ": " + obtenerEmailUsuario() + "\n" +
+				"\t" + UIMensajes.g_Telefono() + ": " + obtenerTelefono() +
+				" | " + UIMensajes.g_Domicilio() + ": " + obtenerDomicilio();
+	}
+    
     
 }

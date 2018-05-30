@@ -14,10 +14,10 @@ public class ProductoInformatica extends Producto{
     private int frecuencia;
     
     //Numero de nucleos del procesador
-    public int numeroNucleos;
+    private int numeroNucleos;
     
     //Capacidad de almacenamiento en GB
-    public float capacidadAlmacenamiento;
+    private float capacidadAlmacenamiento;
     
     //Metodo constructor
     public ProductoInformatica(){
@@ -88,8 +88,22 @@ public class ProductoInformatica extends Producto{
     /**
      * Devuelve una cadena para referenciar este tipo de producto
      */
-    public String toString() {
+    public String categoria() {
     	return UIMensajes.mC_AnP_Informatica();
+    }
+    
+    /**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+    public String toString() {
+		String salida = cadenaDatos();
+    	return salida.concat("\n\t" + UIMensajes.mC_ICE_Frecuencia() + ": " + 
+    			obtenerFrecuencia() +
+    			" | " + UIMensajes.mC_ICE_NumeroNucleos() + ": " + 
+    			obtenerNumeroNucleos() +
+    			" | " + UIMensajes.mC_ICE_CapacidadAlmacenamiento() + ": " + 
+    			obtenerCapacidadAlmacenamiento());
     }
 
 }

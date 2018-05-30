@@ -88,7 +88,7 @@ public abstract class UIEmpleado extends UIUsuario {
 		 * Datos añadidos al mapa: DNI, nombre, email
 		 */
 		
-		datos.put(UIMensajes.g_Usuario(), usuario);
+		datos.put(UIMensajes.g_Usuario(), usuario.tipoUsuario());
     	datos.put(UIMensajes.g_DNI(), usuario.obtenerDNI());
         datos.put(UIMensajes.g_Nombre(), usuario.obtenerNombreUsuario());
         datos.put(UIMensajes.g_Email(), usuario.obtenerEmailUsuario());
@@ -261,7 +261,7 @@ public abstract class UIEmpleado extends UIUsuario {
 		 * descripcion 
 		 */
 		
-    	datos.put(UIMensajes.mC_ITP_CategoriaProducto(), producto);
+    	datos.put(UIMensajes.mC_ITP_CategoriaProducto(), producto.categoria());
         datos.put(UIMensajes.mC_AnP_Cantidad(), producto.obtenerCantidad());
         datos.put(UIMensajes.mC_AnP_Precio(), producto.obtenerPrecio());
         datos.put(UIMensajes.mC_AnP_Peso(), producto.obtenerPeso());

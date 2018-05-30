@@ -11,16 +11,16 @@ import uitextual.UIMensajes;
 public class ProductoSonido extends Producto{
     
     //Indica si tiene un cable o no como forma de conexion
-    public boolean inalambrico;
+    private boolean inalambrico;
     
     //Indica si puede sumergirse bajo el agua
-    public boolean resistenteAgua;
+    private boolean resistenteAgua;
     
     //Indica si detecta el tipo de conexion bluetooth
-    public boolean bluetooth;
+    private boolean bluetooth;
     
     //Frecuencia de respuesta en Hz (Hertzios) (normalmente entre 20-20000 Hz)
-    public float frecuencia;
+    private float frecuencia;
     
     //Metodo constructor
     public ProductoSonido(){
@@ -103,7 +103,23 @@ public class ProductoSonido extends Producto{
     /**
      * Devuelve una cadena para referenciar este tipo de producto
      */
-    public String toString() {
+    public String categoria() {
     	return UIMensajes.mC_AnP_Sonido();
+    }
+    
+    /**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+    public String toString() {
+		String salida = cadenaDatos();
+    	return salida.concat("\n\t" + UIMensajes.mC_ICE_Inalambrico() + ": " + 
+    			obtenerCadenaBooleana(inalambrico()) +
+    			" | " + UIMensajes.mC_ICE_ResistenteAgua() + ": " + 
+    			obtenerCadenaBooleana(resistenteAgua()) +
+    			" | " + UIMensajes.mC_ICE_Bluetooth() + ": " + 
+    			obtenerCadenaBooleana(bluetooth()) +
+    			" | " + UIMensajes.mC_ICE_Frecuencia() + ": " + 
+    			obtenerFrecuencia());
     }
 }

@@ -11,13 +11,13 @@ import uitextual.UIMensajes;
 public class ProductoTelefonia extends Producto{
     
     //Indica si tiene bateria
-    public boolean tieneBateria;
+    private boolean tieneBateria;
     
     //Indica si es inalambrico o no
-    public boolean esInalambrico;
+    private boolean esInalambrico;
     
     //Duracion de la bateria en horas
-    public int duracion;
+    private int duracion;
     
     //Metodo constructor
     public ProductoTelefonia(){
@@ -85,8 +85,22 @@ public class ProductoTelefonia extends Producto{
     /**
      * Devuelve una cadena para referenciar este tipo de producto
      */
-    public String toString() {
+    public String categoria() {
     	return UIMensajes.mC_AnP_Telefonia();
+    }
+    
+    /**
+	 * Devuelve una cadena con la informacion del comercial
+	 */
+	@Override
+    public String toString() {
+		String salida = cadenaDatos();
+    	return salida.concat("\n\t" + UIMensajes.mC_ICE_TieneBateria() + ": " + 
+    			obtenerCadenaBooleana(tieneBateria()) +
+    			" | " + UIMensajes.mC_ICE_Inalambrico() + ": " + 
+    			obtenerCadenaBooleana(esInalambrico()) +
+    			" | " + UIMensajes.mC_ICE_Duracion() + ": " + 
+    			obtenerDuracion());
     }
 
 }

@@ -45,7 +45,6 @@ public class UIEpdoFinanciacion extends UIEmpleado{
         //Creamos e imprimimos un menu para que el usuario elija el dato
         //del cliente que quiere modificar
         menuModificacionDatoCliente(dniCliente);
-            
     }
     
     /**
@@ -221,32 +220,11 @@ public class UIEpdoFinanciacion extends UIEmpleado{
         while(itr.hasNext()) {
         	Factura factura = itr.next();
         	
-        	//Imprimimos los datos de la factura
-        	imprimirDatosFactura(factura);
+        	//Imprimimos la informacion de la factura
+        	System.out.println(factura);
         }
     }
     
-    /**
-     * Imprime los datos de una factura
-     * 
-     * @param factura a imprimir
-     */
-    private void imprimirDatosFactura(Factura factura) {
-    	System.out.println(); //Primera linea
-        System.out.print("\t" + UIMensajes.mT_AR_Coste());
-        System.out.print(factura.obtenerCoste());
-        System.out.print(" |" + UIMensajes.mC_AnP_Dia());
-        System.out.print(factura.obtenerDia());
-        System.out.print(" |" + UIMensajes.mC_AnP_Mes());
-        System.out.print(factura.obtenerMes());
-        System.out.print(" |" + UIMensajes.mC_AnP_Ano());
-        System.out.print(factura.obtenerAno());                    
-        
-        System.out.println(); //Segunda linea
-        System.out.print("\t" + UIMensajes.mC_AnP_DescripcionFactura());
-        System.out.print(factura.obtenerDescripcion());
-    }
-
     /**
      * Devuelve el menu asociado al empleado
      */

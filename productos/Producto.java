@@ -3,6 +3,8 @@ package productos;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import uitextual.UIMensajes;
+
 /**
  * Clase base para todos los productos de la tienda. Define métodos generales
  * que van a ser necesarios en todos los tipos de producto.
@@ -502,4 +504,83 @@ public abstract class Producto{
     	}
     	return false;
     }
+    
+    /**
+     * Devuelve una cadena para referenciar este tipo de producto
+     */
+    public abstract String categoria();
+    
+    /**
+     * Devuelve una cadena con los datos de un producto. Este metodo
+     * es utilizado por los diferentes tipos de producto en el
+     * correspondiente metodo toString().
+     * 
+     * @return Cadena con los datos de un producto
+     */
+    protected String cadenaDatos() {
+    	return "\t" + UIMensajes.mC_AnP_Cantidad() + ": " + obtenerCantidad() +
+    			" | " + UIMensajes.mC_AnP_Precio() + ": " + obtenerPrecio() +
+    			" | " + UIMensajes.mC_AnP_Peso() + ": " + obtenerPeso() +
+    			" | " + UIMensajes.mC_LP_NumeroProducto() + ": " + obtenerNumeroProducto() +
+    			"\n\t" + UIMensajes.mC_AcP_Financiado() + ": " + obtenerCadenaBooleana(obtenerEstadoFinanciado()) +
+    			"\n\t" + UIMensajes.mC_AnP_Descripcion() + ": " + obtenerDescripcion() +
+    			" | " + UIMensajes.mC_AnP_Dia() + ": " + obtenerDiaCompra() + 
+    			" | " + UIMensajes.mC_AnP_Mes() + ": " + obtenerMesCompra() + 
+    			" | " + UIMensajes.mC_AnP_Ano() + ": " + obtenerAnoCompra() + 
+    			"\n\t" + UIMensajes.mC_ILP_NumeroCaja() + ": " + obtenerNumeroCaja() + 
+    			" | " + UIMensajes.mC_AnP_Ano() + ": " + obtenerAnoCompra() + 
+    			" | " + UIMensajes.mC_LP_Estado() + ": " + 
+    			EnumEstadoProducto.obtenerCadenaOperacion(obtenerEstadoProducto()) + 
+				cadenaCaracteristicasAdicionales();
+    }
+    
+    /**
+     * Devuelve una cadena con las caracteristicas adicionales 
+     * del producto.
+     * 
+     * @return Cadena con las caracteristicas adicionales 
+     * del producto
+     * 
+     */
+    private String cadenaCaracteristicasAdicionales(){
+    	String salida = "";
+    	
+        //Controla el numero de caracteristicas por linea
+        int caracteristicasEnLinea = 1; 
+        
+        for(int i = 0; i < obtenerNumCaracteristicas(); i++){
+            Caracteristica temp = obtenerCaracteristica(i);
+            if(caracteristicasEnLinea==1){
+                //Tabulamos la primera caracteristica de la linea
+            	salida = salida.concat("\t");
+            }
+            salida = salida.concat(temp.obtenerTitulo() + ": ");
+            salida = salida.concat(temp.obtenerDescripcion());
+            if(caracteristicasEnLinea==4){ //Si hay 4 caracteristicas en linea
+                //Resetear para tener 3 caracteristicas por linea
+                caracteristicasEnLinea = 1;
+                salida = salida.concat("\n");
+            }else{
+            	salida = salida.concat(" | ");
+                caracteristicasEnLinea++;
+            }
+        }
+        
+        return salida;
+    }
+    
+    /**
+	 * Devuelve la cadena "Si" si obtenerPagado es verdadero y
+	 * "No" si obtenerPagado es falso
+	 * 
+	 * @param obtenerPagado Valor booleano que se quiere pasar a cadena
+	 * 
+	 * @return Cadena con valor booleano "Si"/"No"
+	 */
+	protected String obtenerCadenaBooleana(boolean obtenerPagado) {
+		if(obtenerPagado) {
+			return UIMensajes.g_Si();
+		}
+		return UIMensajes.g_No();
+	}
 }

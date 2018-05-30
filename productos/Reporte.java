@@ -193,8 +193,8 @@ public class Reporte{
     		" | " + UIMensajes.mC_AnP_Dia() + ": " + obtenerDiaReporte() +
     		" | " + UIMensajes.mC_AnP_Mes() + ": " + obtenerMesReporte() +
     		" | " + UIMensajes.mC_AnP_Ano() + ": " + obtenerAnoReporte() +
-    		" | " + UIMensajes.mT_AR_Pagado() + ": " + 
-    		obtenerCadenaBooleana(obtenerPagado());
+    		" | " + UIMensajes.mT_AR_Pagado() + ": " + obtenerCadenaBooleana(obtenerPagado()) +
+    		"\n\t" + UIMensajes.mC_AnP_Descripcion() + ": " + obtenerDescripcion();
     }
     
     /**

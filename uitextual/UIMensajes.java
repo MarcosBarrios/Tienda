@@ -93,6 +93,10 @@ public class UIMensajes{
         return "Contrasena";
     }
     
+    public static String g_TipoUsuario() {
+    	return "Tipo usuario: ";
+    }
+    
     //*********************************************************************
     
     public static String b_OpcionBuscarProductos(){
@@ -361,6 +365,10 @@ public class UIMensajes{
         return "Financiacion";
     }
     
+    public static String mGU_AnE_GestorUsuarios() {
+    	return "Gestor usuarios";
+    }
+    
     public static String mGU_AnE_Tecnico(){
         return "Tecnico";
     }
@@ -503,6 +511,11 @@ public class UIMensajes{
     
     //*********************************************************************
     
+    public static String mC_mAP_CambiosAplicados() {
+    	return "Se han aplicado los cambios al producto";
+    }
+    
+    //*********************************************************************
     public static String mC_OpcionVenderProducto(){
         return "Vender un producto a un cliente";
     }
@@ -597,6 +610,10 @@ public class UIMensajes{
             " las caracteristicas del producto. ";
     }
     
+    public static String mC_AnP_ProductoAnadido() {
+    	return "Producto anadido a la base de datos con exito";
+    }
+
     public static String mC_AnP_Precio(){
         return "Precio (en euros)";
     }
@@ -700,6 +717,11 @@ public class UIMensajes{
     
     public static String mC_AcP_FechaCompra(){
         return "Fecha de compra";
+    }
+    
+    public static String mC_AcP_SiNoBuscarEnCliente() {
+    	return "Si el producto a actualizar no pertenece a un cliente el"
+    			+ "campo DNI no será utilizado por lo que su valor no importa.";
     }
     
     public static String mC_AcP_Titulo(){
